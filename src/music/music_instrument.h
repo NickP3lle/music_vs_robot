@@ -1,8 +1,8 @@
-#include "../character.h"
+#include "../entity.h"
 
 #ifndef MUSIC_INSTRUMENT_H
 #define MUSIC_INSTRUMENT_H
-class music_instrument: public character {
+class music_instrument: public entity {
 	public:
 		unsigned short int level;
 		unsigned int price;

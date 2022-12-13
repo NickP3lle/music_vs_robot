@@ -1,9 +1,9 @@
+#include "../character.h"
 #ifndef TOOL_H
 #define TOOL_H
-class tool {
+class tool: public character {
+	private:
+		unsigned int speed;
 	virtual void effect() =0;
-};
-
-class weapon: public tool {
 };
 #endif
