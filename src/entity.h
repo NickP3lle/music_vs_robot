@@ -1,10 +1,13 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 class entity {
+	private:
+		virtual void destroyed() const =0;
+	protected:
+		unsigned int life, damage;
 	public:
-		int life, damage;
 		entity(int, int);
-		virtual void attack() const =0;
-		virtual void take_damage() =0;
+		virtual unsigned int attack() const =0;
+		virtual bool take_damage(unsigned int&) final; // non è modificabile
 };
 #endif
