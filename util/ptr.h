@@ -13,7 +13,6 @@ class ptr{
         ptr(const T&);
         ptr(const ptr&);
         ptr(const T* const);
-        T unwrap();
         ~ptr();
         ptr& operator=(const ptr&);
         bool isPtr() const;
