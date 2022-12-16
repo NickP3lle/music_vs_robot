@@ -1,4 +1,3 @@
 #include "music_instrument.h"
 
-music_instrument::music_instrument(int life, int damage, int l, int p):
-	character(life, damage), level(l), price(p) {};
+MusicInstruments::MusicInstruments(u32 life, u32 damage) : Entity(life, damage), level(0){};
