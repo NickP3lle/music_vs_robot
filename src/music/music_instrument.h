@@ -9,6 +9,8 @@ class MusicInstruments : public Entity {
 
   public:
     MusicInstruments(u32, u32);
+    void addLevel();
+    u32 getLevel() const;
     virtual u32 levelUp() = 0;
 };
 #endif

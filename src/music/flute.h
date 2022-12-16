@@ -2,9 +2,9 @@
 
 #ifndef FLUTE_H
 #define FLUTE_H
-class flute: public music_instrument {
-	public:
-		flute();
-		void level_up();
+class flute : public MusicInstruments {
+  public:
+    flute();
+    void level_up();
 };
 #endif
