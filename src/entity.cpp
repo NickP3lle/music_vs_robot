@@ -1,16 +1,16 @@
 #include "entity.h"
 
 entity::entity(int l, int d):
-	life(l), damage(d) {};
+	health(l), power(d) {};
 
 bool entity::take_damage(unsigned int& d) {
-	if (life > d) {
-		life -= d;
+	if (health > d) {
+		health -= d;
 		d = 0;
 		return false;
 	}
 	else {
-		d -= life;
+		d -= health;
 		destroyed();
 		return true;
 	}

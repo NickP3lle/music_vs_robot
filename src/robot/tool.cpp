@@ -1,74 +1,57 @@
 #include "tool.h"
+#define DURABILITY 100
 
-bool sword::take_damage(u32&) { 
-	return false; 
+//	every item can be used only durability times
+
+tool::tool(u32 d): durability(d%DURABILITY) {}
+
+tool tool::New(u32 difficulty) const {
+	return tool();
 }
 
-u32 sword::attack() const { 
-	return damage; 
+u32 tool::move() const { return 0; }
+
+bool tool::take_damage(u32& d) {
+	return --d;
 }
 
-u32 sword::move() const { 
-	return 0; 
+u32 tool::attack() const { return 0; }
+
+//	improve robot attack
+
+weapon::weapon(u32 d, u32 p): tool(d), power(p) {}
+
+u32 weapon::attack() const { return power; }
+
+//	saves the robot durability times
+
+tool shield::New(u32 difficulty) const {
+	return shield(random_int(difficulty));
 }
+
+shield::shield(u32 d): tool(d) {}
 
 bool shield::take_damage(u32& d) {
-	if (life > d) {
-		life -= d;
-		d = 0;
-		return false;
-	} else {
-		life = 0;
-		d -= life;
-		return true;
-	}
-};
+	d = 0;
+	return --durability;
+}
+	
+//	make the robot faster
 
-u32 shield::attack() const { 
-	return 0; 
+speed::speed(u32 d, u32 velocity): tool(d), s(velocity) {}
+
+tool speed::New(u32 difficulty) const {
+	return speed(random_int(difficulty), random_int(difficulty));
 }
 
-u32 shield::move() const { 
-	return 0; 
+u32 speed::move() const {
+	return s;
 }
 
-bool ring::take_damage(u32& d) {
-	if (life > d) {
-		life -= d;
-		d = 0;
-		return false;
-	} else {
-		life = 0;
-		d -= life;
-		cash::in(cash);
-		return true;
-	}
-};
+//	drops more money
 
-u32 ring::attack() const { 
-	return 0; 
+tool ring::New(u32 difficulty) const {
+	return ring(random_int(difficulty), random_int(difficulty));
 }
 
-u32 ring::move() const { 
-	return 0; 
-}
-
-bool bike::take_damage(u32& d) {
-	if (life > d) {
-		life -= d;
-		d = 0;
-		return false;
-	} else {
-		life = 0;
-		d -= life;
-		return true;
-	}
-};
-
-u32 bike::attack() const { 
-	return 0; 
-}
-
-u32 bike::move() const { 
-	return speed; 
-}
+ring::ring(u32 v, u32 d): tool(d), value(v) {}
