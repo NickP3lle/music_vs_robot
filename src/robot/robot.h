@@ -12,12 +12,12 @@
 ///		speed e value (dovrebbero essere in comune a tutti i robot)
 ///		weapon (il naturale rappresenta la difficoltà)
 
-class robot: public entity {
+class robot: public Entity {
 	protected:
 		u32 speed, value;
 		ptr<tool> good;
 
-		void destroyed() const override;
+		void destroyed() const;
 		robot(const std::vector<u32>&);
 	public:
 		robot(u32);

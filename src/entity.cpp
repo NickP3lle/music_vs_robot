@@ -1,17 +1,13 @@
 #include "entity.h"
 
-entity::entity(int l, int d):
-	health(l), power(d) {};
+Entity::Entity(u32 health, u32 power):
+	health(health), power(power) {}
 
-bool entity::take_damage(unsigned int& d) {
-	if (health > d) {
-		health -= d;
-		d = 0;
+bool Entity::take_damage(u32& amount) {
+	if (health > amount) {
+		health -= amount;
 		return false;
 	}
-	else {
-		d -= health;
-		destroyed();
-		return true;
-	}
+	amount -= health;
+	return true;
 }

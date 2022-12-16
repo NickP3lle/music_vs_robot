@@ -2,11 +2,12 @@
 
 #ifndef MUSIC_INSTRUMENT_H
 #define MUSIC_INSTRUMENT_H
-class music_instrument: public entity {
+
+class MusicInstruments: public Entity {
+	private:
+		int level;
 	public:
-		unsigned short int level;
-		unsigned int price;
-		music_instrument(int, int, int =1, int =1);
-		virtual void level_up() =0;
+		MusicInstruments(u32, u32);
+		virtual u32 levelUp() =0;
 };
 #endif
