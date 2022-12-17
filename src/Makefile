@@ -13,4 +13,4 @@ robot_test: ${MAIN_TARGET} ${ROBOT}
 	${CC} ${MAIN_TARGET} ${ROBOT} -o $@
 
 clear:
-	rm *.o */*.o main
+	rm *.o */*.o music_test robot_test
