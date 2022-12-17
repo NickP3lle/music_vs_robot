@@ -1,7 +1,8 @@
 #include "violin.h"
 
-violin::violin() : MusicInstruments(50, 100){};
+Violin::Violin() : MusicInstruments(50, 100){};
 
-void violin::levelUpHealth() { updateHealth(25); }
-
-void violin::levelUpPower() { updatePower(50); }
+void Violin::levelUpHealthPower() {
+    updateHealth(25);
+    updatePower(50);
+}

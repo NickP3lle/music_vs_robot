@@ -2,10 +2,11 @@
 
 #ifndef FLUTE_H
 #define FLUTE_H
-class flute : public MusicInstruments {
+class Flute : public MusicInstruments {
+  protected:
+    virtual void levelUpHealthPower();
+
   public:
-    flute();
-    virtual void levelUpHealth();
-    virtual void levelUpPower();
+    Flute();
 };
 #endif

@@ -2,10 +2,11 @@
 
 #ifndef SAXOPHONE_H
 #define SAXOPHONE_H
-class saxophone : public MusicInstruments {
+class Saxophone : public MusicInstruments {
+  protected:
+    virtual void levelUpHealthPower();
+
   public:
-    saxophone();
-    virtual void levelUpHealth();
-    virtual void levelUpPower();
+    Saxophone();
 };
 #endif

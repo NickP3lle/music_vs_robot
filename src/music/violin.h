@@ -2,10 +2,11 @@
 
 #ifndef VIOLIN_H
 #define VIOLIN_H
-class violin : public MusicInstruments {
+class Violin : public MusicInstruments {
+  protected:
+    virtual void levelUpHealthPower();
+
   public:
-    violin();
-    virtual void levelUpHealth();
-    virtual void levelUpPower();
+    Violin();
 };
 #endif

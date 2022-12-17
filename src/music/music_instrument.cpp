@@ -17,8 +17,7 @@ void MusicInstruments::levelUp() {
 
     // Upgrading here
     ptr->sub(50);
-    levelUpHealth();
-    levelUpPower();
+    levelUpHealthPower();
     level += 1;
 
     std::cout << "Succesfully leveled up" << std::endl;

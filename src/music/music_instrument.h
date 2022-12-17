@@ -8,8 +8,7 @@ class MusicInstruments : public Entity {
     u32 level;
 
   protected:
-    virtual void levelUpHealth() = 0;
-    virtual void levelUpPower() = 0;
+    virtual void levelUpHealthPower() = 0;
 
   public:
     MusicInstruments(u32, u32);

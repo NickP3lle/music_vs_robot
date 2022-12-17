@@ -2,11 +2,12 @@
 
 #ifndef TRUMPET_H
 #define TRUMPET_H
-class trumpet : public MusicInstruments {
+class Trumpet : public MusicInstruments {
+  protected:
+    virtual void levelUpHealthPower();
+
   public:
-    trumpet();
-    virtual void levelUpHealth();
-    virtual void levelUpPower();
+    Trumpet();
 };
 
 #endif

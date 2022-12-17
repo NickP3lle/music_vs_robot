@@ -2,10 +2,11 @@
 
 #ifndef DRUM_H
 #define DRUM_H
-class drum : public MusicInstruments {
+class Drum : public MusicInstruments {
+  protected:
+    virtual void levelUpHealthPower();
+
   public:
-    drum();
-    virtual void levelUpHealth();
-    virtual void levelUpPower();
+    Drum();
 };
 #endif
