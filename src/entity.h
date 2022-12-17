@@ -1,9 +1,9 @@
-#define u32 unsigned int
-
-#ifndef ENTITY_H
-#define ENTITY_H
+#pragma once
 #include "cash.h"
 
+#include <vector>
+//#ifndef ENTITY_H
+//#define ENTITY_H
 class Entity {
   private:
     u32 health;
@@ -17,4 +17,5 @@ class Entity {
     void updateHealth(u32 healthGain);
     void updatePower(u32 powerIncrease);
 };
-#endif
+//#endif
+

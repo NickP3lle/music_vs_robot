@@ -1,8 +1,4 @@
-#include "../../util/rand.h"
 #include "../cash.h"
-#include "../entity.h"
-#include <vector>
-#define u32 unsigned int
 
 #ifndef TOOL_H
 #define TOOL_H

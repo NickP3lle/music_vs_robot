@@ -21,7 +21,7 @@ u32 weapon::attack() const { return power; }
 
 shield::shield(u32 d) : Tool(d) {}
 
-bool shield::take_damage(u32 &d) {
+bool shield::takeDamage(u32 &d) {
   d = 0;
   return --durability;
 }

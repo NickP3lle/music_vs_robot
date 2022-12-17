@@ -34,14 +34,11 @@ ptr<Tool> newTool(u32 d) {
 }
 } // namespace
 
-Robot::Robot(const std::vector<u32> &i)
-    : Entity(i[0], i[1]), speed(i[2]), value(i[3]), good(newTool(i[4])) {}
+bool Robot::tmp = false;
 
 Robot::Robot(u32 d)
     : Entity(random_int(d), random_int(d)), speed(random_int(d)),
       value(random_int(d)), good(newTool(d)) {}
-
-void Robot::destroyed() const { Cash::getInstance()->Cash::add(value); }
 
 ptr<Robot> new_generic_Robot(u32 d) {
   switch (random_int(4)) {
@@ -62,10 +59,13 @@ u32 Robot::attack() const {
   return (good.isPtr() ? good.get().attack() : 0) + Entity::attack();
 }
 
-bool Robot::takedamage(u32 &d) {
-  if (good.isPtr() && good.get_mut().take_damage(d))
+bool Robot::takeDamage(u32 &d) {
+  if (good.isPtr() && good.get_mut().takeDamage(d))
     good.free();
-  return Entity::takedamage(d);
+  tmp = Entity::takeDamage(d);
+  if (tmp)
+    Cash::getInstance()->add(value);
+  return tmp;
 }
 
 u32 Robot::move() const {
@@ -80,27 +80,13 @@ u32 FastRobot::move() const { return Robot::move() / 2 * 3; }
 
 DefenseRobot::DefenseRobot(u32 d) : Robot(d) {}
 
-bool DefenseRobot::takedamage(u32 &damage) {
+bool DefenseRobot::takeDamage(u32 &damage) {
   damage /= 2;
-  return Robot::takedamage(damage);
+  return Robot::takeDamage(damage);
 }
 
 RichRobot::RichRobot(u32 d) : Robot(d) {}
 
-BigRobot::BigRobot(u32 d)
-    : Robot({random_int(d), random_int(d), random_int(d), random_int(d * 2),
-             random_int(d * 2)}) {}
+BigRobot::BigRobot(u32 d) : Robot(d * 2) {}
 
-void BigRobot::destroyed() const { Cash::getInstance()->Cash::add(value * 2); }
-
-u32 BigRobot::move() const { return Robot::move() / 2; }
-
-u32 BigRobot::attack() const { return Robot::attack() * 2; }
-
-bool BigRobot::takedamage(u32 &damage) {
-  u32 d = damage;
-  bool tmp = Robot::takedamage(d);
-  if (d)
-    damage -= (damage - d) * 2;
-  return tmp;
-}
+u32 BigRobot::move() const { return Robot::move() / 4; }

@@ -16,6 +16,8 @@ class deque {
 		deque(u32 =3);
 		void push_back(const T&);
 		Some<T> pop_front();
+		u32 len() const;
+		T& operator[](u32) const;
 		
 		deque(const deque&);
 		deque& operator=(const deque&);
@@ -84,5 +86,15 @@ Some<T> deque<T>::pop_front() {
 	if (size==0) return Some<T>(nullptr);
 	actual = (actual+1)%capacity;
 	return Some<T>(this->first[actual==0?capacity-1:actual-1]);
+}
+
+template<class T>
+u32 deque<T>::len() const {
+	return size;
+}
+
+template<class T>
+T& deque<T>::operator[](u32 index) const {
+	return first[(actual+index)%capacity];
 }
 #endif
