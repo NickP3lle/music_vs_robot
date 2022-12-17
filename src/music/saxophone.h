@@ -5,6 +5,6 @@
 class saxophone : public MusicInstruments {
   public:
     saxophone();
-    void level_up();
+    virtual void level_up();
 };
 #endif

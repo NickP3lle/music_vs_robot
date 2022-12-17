@@ -5,6 +5,6 @@
 class drum : public MusicInstruments {
   public:
     drum();
-    void level_up();
+    virtual void level_up();
 };
 #endif
