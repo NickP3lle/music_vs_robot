@@ -11,6 +11,6 @@ bool Entity::takeDamage(u32 &amount) {
     return true;
 }
 
-void Entity::setHealth(u32 gain) { health += gain; }
+void Entity::updateHealth(u32 healthGain) { health += healthGain; }
 
-void Entity::setPower(u32 strength) { power += strength; }
+void Entity::updatePower(u32 powerIncrease) { power += powerIncrease; }

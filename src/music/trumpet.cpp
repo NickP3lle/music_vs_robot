@@ -1,11 +1,13 @@
 #include "trumpet.h"
 
-trumpet::trumpet(): music_instrument(100, 50, 1, 150) {};
+trumpet::trumpet() : MusicInstruments(100, 50){};
 
 void trumpet::level_up() { // bisognerebbe passare la variabile soldi, oppure
-						 // facciamo una variabile globale soldi
-	// soldi -= 1;
-	life += 50;
-	damage += 50;
-	level += 1;
+                           // facciamo una variabile globale soldi
+    // soldi -= 1;
+    if (getLevel() < 3) {
+        updateHealth(50);
+        updatePower(50);
+        addLevel();
+    }
 }

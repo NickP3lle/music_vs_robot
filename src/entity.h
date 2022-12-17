@@ -2,6 +2,7 @@
 
 #ifndef ENTITY_H
 #define ENTITY_H
+#include "cash.h"
 
 class Entity {
   private:
@@ -13,7 +14,7 @@ class Entity {
     virtual bool takeDamage(u32 &amount) = 0;
     //		virtual void heal(u32 amount) =0;
     virtual u32 attack() const = 0;
-    void setHealth(u32 gain);
-    void setPower(u32 strength);
+    void updateHealth(u32 healthGain);
+    void updatePower(u32 powerIncrease);
 };
 #endif
