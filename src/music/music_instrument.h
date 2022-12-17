@@ -5,7 +5,8 @@
 
 class MusicInstruments : public Entity {
   private:
-    int level;
+    u32 level;
+    u32 attackSpeed;
 
   public:
     MusicInstruments(u32, u32);
