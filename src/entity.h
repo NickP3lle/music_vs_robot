@@ -1,8 +1,6 @@
-<<<<<<< HEAD
 #pragma once
 #include "cash.h"
 #include <iostream>
->>>>>>> 7d25560f2e8b4b6d0050ebd0058e5350f41596e6
 
 #include <vector>
 //#ifndef ENTITY_H
