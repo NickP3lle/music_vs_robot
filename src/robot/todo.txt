@@ -1,0 +1,9 @@
+dovrei fare dei test, per vedere se le funzioni fanno quello che voglio
+
+ho davvero bisogno di fare le classe derivate che ho fatto?
+forse no, per esempio rich, in realtà basta che chiami il costruttore
+robot() in modo tale che venga fuori value(random_int(max * 2, min * 2)
+
+non si riesce a creare un tool casuale sfruttando la keyword virtual?
+
+idem per i robot

@@ -5,11 +5,11 @@
 
 /// every robot may have a Tool
 class Tool {
-protected:
+private:
   u32 durability;
-  Tool(u32 = 0);
 
 public:
+  Tool(u32 max, u32 min = 0);
   virtual u32 move() const;
   virtual bool takeDamage(u32 &);
   virtual u32 attack() const;
@@ -38,7 +38,7 @@ public:
 ///	prevent every damage to the robot durability times
 class shield : public Tool {
 public:
-  shield(u32);
+  shield(u32, u32 =0);
   virtual bool takeDamage(u32 &) override;
 };
 
