@@ -5,7 +5,8 @@
 class trumpet : public MusicInstruments {
   public:
     trumpet();
-    virtual void level_up();
+    virtual void levelUpHealth();
+    virtual void levelUpPower();
 };
 
 #endif
