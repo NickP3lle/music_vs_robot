@@ -7,53 +7,53 @@
 #ifndef ROBOT_H
 #define ROBOT_H
 
-/// il costruttore di un robot generico prende 5 naturali:
+/// il costruttore di un Robot generico prende 5 naturali:
 ///		health e power (ereditati dalla classe entity)
-///		speed e value (dovrebbero essere in comune a tutti i robot)
+///		speed e value (dovrebbero essere in comune a tutti i Robot)
 ///		weapon (il naturale rappresenta la difficoltà)
 
-class robot: public Entity {
+class Robot: public Entity {
 	protected:
 		u32 speed, value;
-		ptr<tool> good;
+		ptr<Tool> good;
 
 		void destroyed() const;
-		robot(const std::vector<u32>&);
+		Robot(const std::vector<u32>&);
 	public:
-		robot(u32);
+		Robot(u32);
 		u32 attack() const override;
-		bool take_damage(u32&) override;
+		bool takeDamage(u32 &amount) override;
 		virtual u32 move() const;
 };
 
-class fast_robot: public robot {
+class FastRobot: public Robot {
 	private:
 		bool sprint;
 	public:
-		fast_robot(u32);
+		FastRobot(u32);
 		u32 move() const override;
 };
 
-class defense_robot: public robot {
+class DefenseRobot: public Robot {
 	public:
-		defense_robot(u32);
-		bool take_damage(u32&) override;
+		DefenseRobot(u32);
+		bool takeDamage(u32&) override;
 };
 
-class rich_robot: public robot {
+class RichRobot: public Robot {
 	private:
-		void destroyed() const override;
+		void destroyed() const;
 	public:
-		rich_robot(u32);
+		RichRobot(u32);
 };
 
-class big_robot: public robot {
+class BigRobot: public Robot {
 	private:
-		void destroyed() const override;
+		void destroyed() const;
 	public:
-		big_robot(u32);
+		BigRobot(u32);
 		u32 move() const override;
 		u32 attack() const override;
-		bool take_damage(u32&) override;
+		bool takeDamage(u32&) override;
 };
 #endif
