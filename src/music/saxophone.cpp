@@ -1,7 +1,10 @@
 #include "saxophone.h"
 
-saxophone::saxophone() : MusicInstruments(100, 0){};
+Saxophone::Saxophone() : MusicInstruments(100, 0){};
 
-void saxophone::levelUpHealth() { updateHealth(100); }
+void Saxophone::levelUpHealthPower() {
+    updateHealth(getMaxHealth() + 100);
+    updatePower();
+}
 
-void saxophone::levelUpPower() { updatePower(); }
+u32 Saxophone::getMaxHealth() const { return maxHealth + (getLevel() - 1) * 100; }

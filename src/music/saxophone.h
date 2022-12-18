@@ -2,10 +2,16 @@
 
 #ifndef SAXOPHONE_H
 #define SAXOPHONE_H
-class saxophone : public MusicInstruments {
+class Saxophone : public MusicInstruments {
+  private:
+    static const u32 maxHealth = 100;
+
+  protected:
+    void levelUpHealthPower() override;
+
   public:
-    saxophone();
-    virtual void levelUpHealth();
-    virtual void levelUpPower();
+    Saxophone();
+
+    u32 getMaxHealth() const override;
 };
 #endif

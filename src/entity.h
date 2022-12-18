@@ -9,8 +9,8 @@ class Entity {
     u32 power;
 
   protected:
-    void updateHealth(u32 healthGain = 0);
-    void updatePower(u32 powerIncrease = 0);
+    void updateHealth(u32 newHealth);        // replaices with the new life
+    void updatePower(u32 powerIncrease = 0); // increment the power
 
   public:
     Entity(u32 health, u32 power);

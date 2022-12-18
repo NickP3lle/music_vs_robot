@@ -1,7 +1,10 @@
 #include "drum.h"
 
-drum::drum() : MusicInstruments(200, 300) {}
+Drum::Drum() : MusicInstruments(200, 300) {}
 
-void drum::levelUpHealth() { updateHealth(50); }
+void Drum::levelUpHealthPower() {
+    updateHealth(getMaxHealth() + 50);
+    updatePower(100);
+}
 
-void drum::levelUpPower() { updatePower(100); }
+u32 Drum::getMaxHealth() const { return maxHealth + (getLevel() - 1) * 50; }

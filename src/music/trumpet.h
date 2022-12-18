@@ -2,11 +2,17 @@
 
 #ifndef TRUMPET_H
 #define TRUMPET_H
-class trumpet : public MusicInstruments {
+class Trumpet : public MusicInstruments {
+  private:
+    static const u32 maxHealth = 100;
+
+  protected:
+    void levelUpHealthPower() override;
+
   public:
-    trumpet();
-    virtual void levelUpHealth();
-    virtual void levelUpPower();
+    Trumpet();
+
+    u32 getMaxHealth() const override;
 };
 
 #endif

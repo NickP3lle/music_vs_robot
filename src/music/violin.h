@@ -2,10 +2,16 @@
 
 #ifndef VIOLIN_H
 #define VIOLIN_H
-class violin : public MusicInstruments {
+class Violin : public MusicInstruments {
+  private:
+    static const u32 maxHealth = 50;
+
+  protected:
+    void levelUpHealthPower() override;
+
   public:
-    violin();
-    virtual void levelUpHealth();
-    virtual void levelUpPower();
+    Violin();
+
+    u32 getMaxHealth() const override;
 };
 #endif

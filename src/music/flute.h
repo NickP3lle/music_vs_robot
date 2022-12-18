@@ -2,10 +2,16 @@
 
 #ifndef FLUTE_H
 #define FLUTE_H
-class flute : public MusicInstruments {
+class Flute : public MusicInstruments {
+  private:
+    static const u32 maxHealth = 100;
+
+  protected:
+    void levelUpHealthPower() override;
+
   public:
-    flute();
-    virtual void levelUpHealth();
-    virtual void levelUpPower();
+    Flute();
+
+    u32 getMaxHealth() const override;
 };
 #endif
