@@ -9,10 +9,10 @@ class Cash {
     u32 total;
     Cash();
 
-  public:
-    static Cash *getInstance();
-    void add(u32 amount);
-    bool sub(u32 amount); // returns false if not enough cash
-    u32 getTotal();
+public:
+  static Cash *getInstance();
+  void add(u32 amount);
+  bool sub(u32 amount); // returns false if not enough cash
+  u32 getTotal();
 };
 // #endif

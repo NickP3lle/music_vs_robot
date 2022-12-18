@@ -1,7 +1,5 @@
-#include "../../util/ptr.h"
 #include "../entity.h"
 #include "tool.h"
-#define u32 unsigned int
 
 #ifndef ROBOT_H
 #define ROBOT_H
@@ -20,7 +18,7 @@ protected:
   static bool tmp;
 
 public:
-  Robot(u32);
+  Robot(u32, u32 = 0);
   u32 attack() const override;
   bool takeDamage(u32 &amount) override;
   virtual u32 move() const;
@@ -31,25 +29,27 @@ private:
   bool sprint;
 
 public:
-  FastRobot(u32);
+  FastRobot(u32, u32 =0);
   u32 move() const override;
 };
 
 class DefenseRobot : public Robot {
 public:
-  DefenseRobot(u32);
+  DefenseRobot(u32, u32 =0);
   bool takeDamage(u32 &) override;
 };
 
+// questo può essere un robot
+// per cui il costruttore prende value*2
 class RichRobot : public Robot {
 public:
-  RichRobot(u32);
+  RichRobot(u32, u32 =0);
   bool takeDamage(u32 &) override;
 };
 
 class BigRobot : public Robot {
 public:
-  BigRobot(u32);
+  BigRobot(u32, u32 =0);
   u32 move() const override;
 };
 #endif

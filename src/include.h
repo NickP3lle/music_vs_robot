@@ -1,7 +1,4 @@
 #pragma once
 
-#include "../util/ptr.h"
-#include "../util/rand.h"
-#include "../util/deque.h"
-
+#include "../util/util.h"
 #define u32 unsigned int

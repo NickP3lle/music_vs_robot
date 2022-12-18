@@ -1,4 +1,3 @@
-
 #pragma once
 #include "cash.h"
 #include <iostream>
