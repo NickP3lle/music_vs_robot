@@ -7,7 +7,7 @@ bool TestdequePushPop() {
   for (int i = 0; i < 10; i++)
     tmp.push_back(i);
   for (int i = 0; i < 10; i++)
-    if (tmp.pop_front().unwrap() != i)
+    if (tmp.pop_front().get() != i)
       return false;
   return true;
 }
@@ -18,7 +18,7 @@ bool TestdequeCopy() {
     tmp.push_back(i);
   deque<int> tmp2(tmp);
   for (int i = 0; i < 10; i++)
-    if (tmp2.pop_front().unwrap() != tmp.pop_front().unwrap())
+    if (tmp2.pop_front().get() != tmp.pop_front().get())
       return false;
   return true;
 }

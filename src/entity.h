@@ -1,10 +1,8 @@
-#pragma once
+#include "include.h"
 #include "cash.h"
-#include <iostream>
 
-#include <vector>
-//#ifndef ENTITY_H
-//#define ENTITY_H
+#ifndef ENTITY_H
+#define ENTITY_H
 class Entity {
   private:
     u32 health;
@@ -19,5 +17,4 @@ class Entity {
     virtual bool takeDamage(u32 &amount) = 0;
     virtual u32 attack() const = 0;
 };
-//#endif
-
+#endif

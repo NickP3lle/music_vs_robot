@@ -11,10 +11,10 @@ class ptr{
 
 	public:
         ptr(const T&);
-        ptr(const ptr&);
         ptr(const T* const);
-        ~ptr();
+        ptr(const ptr&);
         ptr& operator=(const ptr&);
+        ~ptr();
         bool isPtr() const;
         bool isNone() const;
 		const T& get() const;
@@ -51,8 +51,8 @@ ptr<T>::~ptr() {
 template<class T>
 ptr<T>& ptr<T>::operator=(const ptr& s) {
     if (this != &s && s.data) {
-        if (!this) *this = new T;
-        *(this->data) = *(s.data);
+        if (!data) data = new T;
+        *data = *(s.data);
     }
     return *this;
 }

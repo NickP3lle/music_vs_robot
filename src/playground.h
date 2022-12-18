@@ -8,8 +8,8 @@
 #define PLAYGROUND_H
 class playground {
 	private:
-		static std::vector<entity>* table[PLAYGROUND_X][PLAYGROUND_Y];
-		static deque<entity&>* table_robot[PLAYGROUND_X][PLAYGROUND_Y];
+		static std::vector<Entity>* table_music[PLAYGROUND_X][PLAYGROUND_Y];
+		static deque<Entity&>* table_robot[PLAYGROUND_X][PLAYGROUND_Y];
 	public:
 		playground() =delete;
 		playground(playground&) =delete;

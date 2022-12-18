@@ -1,5 +1,6 @@
+#include "../include.h"
 #include "../entity.h"
-#include "tool.h"
+//#include "tool.h"
 
 #ifndef ROBOT_H
 #define ROBOT_H
@@ -12,13 +13,13 @@
 class Robot : public Entity {
 private:
   u32 speed, value;
-  ptr<Tool> good;
+  //ptr<Tool> good;
 
 protected:
   static bool tmp;
 
 public:
-  Robot(u32, u32 = 0);
+  Robot(u32 = 0, u32 = 0, bool = false); // bool = true se il Robot è ricco
   u32 attack() const override;
   bool takeDamage(u32 &amount) override;
   virtual u32 move() const;
@@ -29,27 +30,19 @@ private:
   bool sprint;
 
 public:
-  FastRobot(u32, u32 =0);
+  FastRobot(u32, u32 = 0);
   u32 move() const override;
 };
 
 class DefenseRobot : public Robot {
 public:
-  DefenseRobot(u32, u32 =0);
-  bool takeDamage(u32 &) override;
-};
-
-// questo può essere un robot
-// per cui il costruttore prende value*2
-class RichRobot : public Robot {
-public:
-  RichRobot(u32, u32 =0);
+  DefenseRobot(u32, u32 = 0);
   bool takeDamage(u32 &) override;
 };
 
 class BigRobot : public Robot {
 public:
-  BigRobot(u32, u32 =0);
+  BigRobot(u32, u32 = 0);
   u32 move() const override;
 };
 #endif

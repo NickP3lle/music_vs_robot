@@ -1,6 +1,8 @@
-#pragma once
+#ifndef UTIL_H
+#define UTIL_H
 
 #include "deque.h"
 #include "ptr.h"
-#include "error.h"
-#include "rand.h"
+#include "rand.cpp"
+
+#endif

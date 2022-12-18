@@ -1,48 +1,10 @@
 #include "robot.h"
 
-namespace {
-ptr<Tool> new_none() { return ptr<Tool>(nullptr); }
-
-ptr<Tool> new_weapon(u32 max, u32 min = 0) {
-  return ptr<Tool>(Weapon(random_int(max, min), random_int(max, min)));
-}
-
-ptr<Tool> new_shield(u32 max, u32 min = 0) {
-  return ptr<Tool>(Shield(random_int(max, min)));
-}
-
-ptr<Tool> new_speed(u32 max, u32 min = 0) {
-  return ptr<Tool>(Speed(max, min));
-}
-
-/*
-ptr<Tool> new_ring(u32 max, u32 min = 0) {
-  return ptr<Tool>(Ring(max, min));
-}
-*/
-
-ptr<Tool> newTool(u32 max, u32 min = 0) {
-  switch (random_int(5)) {
-  case 0:
-    return new_none();
- // case 1:
- //   return new_ring(max, min);
-  case 2:
-    return new_shield(max, min);
-  case 3:
-    return new_speed(max, min);
-  default:
-    return new_weapon(max, min);
-  }
-}
-} // namespace
-
 bool Robot::tmp = false;
 
 Robot::Robot(u32 max, u32 min, bool rich)
     : Entity(random_int(max, min), random_int(max, min)),
-      speed(random_int(max, min)), value(random_int(max, min) * (rich ? 2 : 1)),
-      good(ptr<Tool>(newTool(max, min))) {}
+      speed(random_int(max, min)), value(random_int(max, min) * (rich ? 2 : 1)) {}
 
 ptr<Robot> new_generic_Robot(u32 max, u32 min = 0) {
   switch (random_int(4)) {
@@ -59,13 +21,7 @@ ptr<Robot> new_generic_Robot(u32 max, u32 min = 0) {
   }
 }
 
-u32 Robot::attack() const {
-  return (good.isPtr() ? good.get().attack() : 0) + Entity::attack();
-}
-
 bool Robot::takeDamage(u32 &d) {
-  if (good.isPtr() && good.get_mut().takeDamage(d))
-    good.free();
   tmp = Entity::takeDamage(d);
   if (tmp)
     Cash::getInstance()->add(value);
@@ -73,7 +29,7 @@ bool Robot::takeDamage(u32 &d) {
 }
 
 u32 Robot::move() const {
-  return (good.isPtr() ? good.get().move() : 0) + speed;
+  return speed;
 }
 
 // derivated classes
@@ -92,3 +48,4 @@ bool DefenseRobot::takeDamage(u32 &damage) {
 BigRobot::BigRobot(u32 max, u32 min) : Robot(max * 2, min * 2, true) {}
 
 u32 BigRobot::move() const { return Robot::move() / 4; }
+

@@ -1,4 +1,5 @@
-#include "../cash.h"
+#include "../../util/util.h"
+#define u32 unsigned int
 
 #ifndef TOOL_H
 #define TOOL_H
@@ -9,47 +10,49 @@ private:
   u32 durability;
 
 public:
-  Tool(u32 max, u32 min = 0);
+  Tool(u32 max = 0, u32 min = 0);
   virtual u32 move() const;
   virtual bool takeDamage(u32 &);
   virtual u32 attack() const;
 };
 
 /// increase the attack of the robot which has it
-class weapon : public Tool {
+class Weapon : public Tool {
 private:
   u32 power;
 
 public:
-  weapon(u32, u32);
-  virtual u32 attack() const;
+  Weapon(u32 = 0, u32 = 0);
+  u32 attack() const override;
 };
 
 /// increase robot's speed by speed
-class speed : public Tool {
+class Speed : public Tool {
 private:
   u32 s;
 
 public:
-  speed(u32, u32);
+  Speed(u32 = 0, u32 = 0);
   u32 move() const override;
 };
 
 ///	prevent every damage to the robot durability times
-class shield : public Tool {
+class Shield : public Tool {
 public:
-  shield(u32, u32 =0);
-  virtual bool takeDamage(u32 &) override;
+  Shield(u32 = 0, u32 = 0);
+  bool takeDamage(u32 &) override;
 };
 
+/*
 /// after durability times, that the robot is attacked, the ring
 /// drops value money
-class ring : public Tool {
+class Ring : public Tool {
 private:
   u32 value;
 
 public:
-  ring(u32, u32);
+  Ring(u32 = 0, u32 = 0);
   virtual bool takeDamage(u32 &) override;
 };
+*/
 #endif

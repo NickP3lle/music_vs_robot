@@ -1,5 +1,5 @@
 #define u32 unsigned int
-#include "some.h"
+#include "ptr.h"
 
 #ifndef DEQUE_H
 #define DEQUE_H
@@ -15,7 +15,7 @@ class deque {
 	public:
 		deque(u32 =3);
 		void push_back(const T&);
-		Some<T> pop_front();
+		ptr<T> pop_front();
 		u32 len() const;
 		T& operator[](u32) const;
 		
@@ -34,7 +34,7 @@ deque<T>* deque<T>::copy(const deque& d) {
 
 template <class T>
 deque<T>::deque(u32 c):
-	size(0), capacity(c), actual(0), first(new T[c]) {};
+	size(0), capacity(c), actual(0), first(new T[c]) {}
 
 template <class T>
 deque<T>::deque(const deque& d):
@@ -82,10 +82,10 @@ void deque<T>::push_back(const T& t) {
 }
 
 template<class T>
-Some<T> deque<T>::pop_front() {
-	if (size==0) return Some<T>(nullptr);
+ptr<T> deque<T>::pop_front() {
+	if (size==0) return ptr<T>(nullptr);
 	actual = (actual+1)%capacity;
-	return Some<T>(this->first[actual==0?capacity-1:actual-1]);
+	return ptr<T>(this->first[actual==0?capacity-1:actual-1]);
 }
 
 template<class T>
