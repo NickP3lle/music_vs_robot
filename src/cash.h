@@ -4,10 +4,10 @@
 // #ifndef CASH_H
 // #define CASH_H
 class Cash {
-private:
-  static Cash *instance;
-  u32 total;
-  Cash();
+  private:
+    static Cash *instance;
+    u32 total;
+    Cash();
 
 public:
   static Cash *getInstance();

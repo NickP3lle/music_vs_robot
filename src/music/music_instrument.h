@@ -8,13 +8,14 @@ class MusicInstruments : public Entity {
     u32 level;
 
   protected:
-    virtual void levelUpHealth() = 0;
-    virtual void levelUpPower() = 0;
+    virtual void levelUpHealthPower() = 0;
 
   public:
-    MusicInstruments(u32, u32);
+    MusicInstruments(u32 life, u32 damage);
+
+    virtual u32 getMaxHealth() const = 0;
 
     void levelUp();
-    // u32 getLevel() const;
+    u32 getLevel() const;
 };
 #endif

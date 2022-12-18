@@ -2,10 +2,16 @@
 
 #ifndef DRUM_H
 #define DRUM_H
-class drum : public MusicInstruments {
+class Drum : public MusicInstruments {
+  private:
+    static const u32 maxHealth = 200;
+
+  protected:
+    void levelUpHealthPower() override;
+
   public:
-    drum();
-    virtual void levelUpHealth();
-    virtual void levelUpPower();
+    Drum();
+
+    u32 getMaxHealth() const override;
 };
 #endif
