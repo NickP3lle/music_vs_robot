@@ -10,10 +10,9 @@ class Saxophone : public MusicInstruments {
 
   protected:
     void levelUpHealthPower() override;
+    u32 getMaxHealth() const override;
 
   public:
     Saxophone();
-
-    u32 getMaxHealth() const override;
 };
 #endif

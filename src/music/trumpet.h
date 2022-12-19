@@ -10,11 +10,10 @@ class Trumpet : public MusicInstruments {
 
   protected:
     void levelUpHealthPower() override;
+    u32 getMaxHealth() const override;
 
   public:
     Trumpet();
-
-    u32 getMaxHealth() const override;
 };
 
 #endif

@@ -10,10 +10,9 @@ class Flute : public MusicInstruments {
 
   protected:
     void levelUpHealthPower() override;
+    u32 getMaxHealth() const override;
 
   public:
     Flute();
-
-    u32 getMaxHealth() const override;
 };
 #endif

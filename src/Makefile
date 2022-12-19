@@ -2,6 +2,7 @@ CC = g++
 MUSIC = music/music_instrument.o music/flute.o music/trumpet.o music/drum.o music/violin.o music/saxophone.o music/levelUpTest.cpp
 ROBOT = robot/robot.o robot/tool.o
 MAIN_TARGET = entity.o cash.o 
+# FLAG = -Wc++11-extensions
 
 %.o: %.c
 	${CC} -c $< -o $@
