@@ -3,8 +3,8 @@
 Saxophone::Saxophone() : MusicInstruments(100, 0){};
 
 void Saxophone::levelUpHealthPower() {
-    updateHealth(getMaxHealth() + 100);
-    updatePower();
+    updateHealth(getMaxHealth() + (healthIncrease * getLevel()));
+    updatePower(powerIncrease);
 }
 
-u32 Saxophone::getMaxHealth() const { return maxHealth + (getLevel() - 1) * 100; }
+u32 Saxophone::getMaxHealth() const { return maxHealth; }

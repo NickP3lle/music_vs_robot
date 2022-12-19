@@ -1,5 +1,5 @@
-#include "include.h"
 #include "cash.h"
+#include "include.h"
 
 #ifndef ENTITY_H
 #define ENTITY_H

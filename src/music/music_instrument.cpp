@@ -10,11 +10,13 @@ void MusicInstruments::levelUp() {
         return;
     }
     if (!(Cash::getInstance()->sub(50))) {
-        std::cerr << "You don't have enough money" << std::endl;
+        // std::cerr << "You don't have enough money" << std::endl;
         return;
     }
 
     // Upgrading here
+    // Necessario aumentare il livello
+    // solamente dopo l'incremento delle statistiche
     levelUpHealthPower();
     level += 1;
 

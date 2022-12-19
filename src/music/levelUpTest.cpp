@@ -11,47 +11,47 @@ int main() {
     Trumpet t;
     Flute f;
 
-    std::cout << v.getMaxHealth() << std::endl;
+    // std::cout << v.getMaxHealth() << std::endl;
     v.levelUp();
-    std::cout << v.getMaxHealth() << std::endl;
+    // std::cout << v.getMaxHealth() << std::endl;
     v.levelUp();
-    std::cout << v.getMaxHealth() << std::endl;
+    // std::cout << v.getMaxHealth() << std::endl;
     v.levelUp();
-    std::cout << v.getMaxHealth() << std::endl;
+    // std::cout << v.getMaxHealth() << std::endl;
     v.levelUp();
-    std::cout << v.getMaxHealth() << std::endl;
+    // std::cout << v.getMaxHealth() << std::endl;
 
-    std::cout << f.getMaxHealth() << std::endl;
+    // std::cout << f.getMaxHealth() << std::endl;
     f.levelUp();
-    std::cout << f.getMaxHealth() << std::endl;
+    // std::cout << f.getMaxHealth() << std::endl;
     f.levelUp();
-    std::cout << f.getMaxHealth() << std::endl;
+    // std::cout << f.getMaxHealth() << std::endl;
     f.levelUp();
-    std::cout << f.getMaxHealth() << std::endl;
+    // std::cout << f.getMaxHealth() << std::endl;
     f.levelUp();
-    std::cout << f.getMaxHealth() << std::endl;
+    // std::cout << f.getMaxHealth() << std::endl;
 
-    std::cout << t.getMaxHealth() << std::endl;
+    // std::cout << t.getMaxHealth() << std::endl;
     t.levelUp();
-    std::cout << t.getMaxHealth() << std::endl;
+    // std::cout << t.getMaxHealth() << std::endl;
     t.levelUp();
-    std::cout << t.getMaxHealth() << std::endl;
+    // std::cout << t.getMaxHealth() << std::endl;
     t.levelUp();
-    std::cout << t.getMaxHealth() << std::endl;
+    // std::cout << t.getMaxHealth() << std::endl;
 
     ptr->add(200);
 
-    std::cout << t.getMaxHealth() << std::endl;
+    // std::cout << t.getMaxHealth() << std::endl;
     t.levelUp();
-    std::cout << t.getMaxHealth() << std::endl;
+    // std::cout << t.getMaxHealth() << std::endl;
     t.levelUp();
-    std::cout << t.getMaxHealth() << std::endl;
+    // std::cout << t.getMaxHealth() << std::endl;
     t.levelUp();
-    std::cout << t.getMaxHealth() << std::endl;
+    // std::cout << t.getMaxHealth() << std::endl;
     t.levelUp();
-    std::cout << t.getMaxHealth() << std::endl;
+    // std::cout << t.getMaxHealth() << std::endl;
     t.levelUp();
-    std::cout << t.getMaxHealth() << std::endl;
+    // std::cout << t.getMaxHealth() << std::endl;
 
     return 0;
 }
