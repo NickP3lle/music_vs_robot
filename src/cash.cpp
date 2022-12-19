@@ -1,3 +1,4 @@
+#pragma once
 #include "cash.h"
 
 Cash *Cash::instance = nullptr;

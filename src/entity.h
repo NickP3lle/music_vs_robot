@@ -1,8 +1,8 @@
-#include "include.h"
-#include "cash.h"
-
 #ifndef ENTITY_H
 #define ENTITY_H
+#include "cash.cpp"
+#include "include.h"
+
 class Entity {
   private:
     u32 health;

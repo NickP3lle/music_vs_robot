@@ -1,58 +1,77 @@
-#include "../../util/util.h"
-#define u32 unsigned int
-
-#ifndef TOOL_H
-#define TOOL_H
-
-/// every robot may have a Tool
-class Tool {
-private:
-  u32 durability;
-
-public:
-  Tool(u32 max = 0, u32 min = 0);
-  virtual u32 move() const;
-  virtual bool takeDamage(u32 &);
-  virtual u32 attack() const;
-};
-
-/// increase the attack of the robot which has it
-class Weapon : public Tool {
-private:
-  u32 power;
-
-public:
-  Weapon(u32 = 0, u32 = 0);
-  u32 attack() const override;
-};
-
-/// increase robot's speed by speed
-class Speed : public Tool {
-private:
-  u32 s;
-
-public:
-  Speed(u32 = 0, u32 = 0);
-  u32 move() const override;
-};
-
-///	prevent every damage to the robot durability times
-class Shield : public Tool {
-public:
-  Shield(u32 = 0, u32 = 0);
-  bool takeDamage(u32 &) override;
-};
+#pragma once
+#include "../include.h"
 
 /*
-/// after durability times, that the robot is attacked, the ring
-/// drops value money
-class Ring : public Tool {
+ * class Tool
+ * - class for all tools
+ * - has 1 variable durability
+ *   - durability is the amount of uses the tool has left
+ *   - durability is 0 when the tool is broken
+ *   - durability is -1 when the tool is infinite
+ * has a virtual function attack() which return a u32
+ * has a virtual function takeDamage(u32&) which returns a bool
+ * has a virtual function move() which returns a u32
+ */
+
+class Tool {
 private:
-  u32 value;
+  short int durability;
 
 public:
-  Ring(u32 = 0, u32 = 0);
-  virtual bool takeDamage(u32 &) override;
+  Tool(int = 0);
+  bool isBroken() const;
+  virtual u32 attack();
+  virtual bool takeDamage(u32 &);
+  virtual u32 move();
+  virtual u32 value();
 };
-*/
-#endif
+
+class Weapon : public Tool {
+private:
+  u32 damage;
+
+public:
+  Weapon(u32, u32);
+  u32 attack() override;
+  bool takeDamage(u32 &) override;
+  // u32 move()  not overriden
+  // u32 value() not overriden
+};
+
+class Armor : public Tool {
+private:
+  u32 defense;
+
+public:
+  Armor(u32, u32);
+  // u32 attack() not overriden
+  bool takeDamage(u32 &);
+  // u32 move() not overriden
+  // u32 value() not overriden
+};
+
+class Boots : public Tool {
+private:
+  u32 speed;
+
+public:
+  Boots(u32, u32);
+  // u32 attack() not overriden
+  bool takeDamage(u32 &) override;
+  u32 move() override;
+  // u32 value() not overriden
+};
+
+class Ring : public Tool {
+private:
+  u32 cash;
+
+public:
+  Ring(u32, u32);
+  // u32 attack() not overriden
+  // bool takeDamage(u32 &) overriden
+  // u32 move() not overriden
+  u32 value() override;
+};
+
+Tool randomTool(u32, u32);

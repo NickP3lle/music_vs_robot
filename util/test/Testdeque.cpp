@@ -1,7 +1,4 @@
-#include "../util.h"
-#include <iostream>
-using namespace std;
-
+#include "../deque.h"
 bool TestdequePushPop() {
   deque<int> tmp(5);
   for (int i = 0; i < 10; i++)
@@ -31,16 +28,4 @@ bool TestdequeIndex() {
 	if (tmp[i] != i)
 	  return false;
   return true;
-}
-
-int main() {
-  cout << "test on TestdequePushPop: " << 
-	  (TestdequePushPop() ? "OK" : "FAIL") << "\n";
-  cout << "test on TestdequePushPop: " << 
-	  (TestdequePushPop() ? "OK" : "FAIL") << "\n";
-  cout << "test on TestdequeCopy: " << 
-	  (TestdequeCopy() ? "OK" : "FAIL") << "\n";
-  cout << "test on TestdequeIndex: " << 
-	  (TestdequeIndex() ? "OK" : "FAIL") << "\n";
-  return 0;
 }

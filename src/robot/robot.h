@@ -1,37 +1,21 @@
+#pragma once
+#include "../entity.cpp"
 #include "../include.h"
-#include "../entity.h"
-//#include "tool.h"
 
-#ifndef ROBOT_H
-#define ROBOT_H
-
-/// il costruttore di un Robot generico prende 5 naturali:
-///		health e power (ereditati dalla classe entity)
-///		speed e value (dovrebbero essere in comune a tutti i Robot)
-///		weapon (il naturale rappresenta la difficoltà)
+// Class: Robot
+// has two u32 variables: speed and value
+// has a polimorphic function: move
 
 class Robot : public Entity {
 private:
-  u32 speed, value;
-  //ptr<Tool> good;
-
-protected:
-  static bool tmp;
-
+  u32 speed;
+  u32 value;
+  // ptr<Tool> tool;
 public:
-  Robot(u32 = 0, u32 = 0, bool = false); // bool = true se il Robot è ricco
   u32 attack() const override;
-  bool takeDamage(u32 &amount) override;
+  bool takeDamage(u32 &) override;
+  Robot(u32 = 0, u32 = 0, bool = false, bool = false);
   virtual u32 move() const;
-};
-
-class FastRobot : public Robot {
-private:
-  bool sprint;
-
-public:
-  FastRobot(u32, u32 = 0);
-  u32 move() const override;
 };
 
 class DefenseRobot : public Robot {
@@ -45,4 +29,5 @@ public:
   BigRobot(u32, u32 = 0);
   u32 move() const override;
 };
-#endif
+
+Robot randomRobot(u32, u32);
