@@ -1,6 +1,6 @@
 #ifndef ENTITY_H
 #define ENTITY_H
-#include "cash.cpp"
+#include "cash.h"
 #include "include.h"
 
 class Entity {

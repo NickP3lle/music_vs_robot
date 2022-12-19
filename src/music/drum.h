@@ -5,13 +5,14 @@
 class Drum : public MusicInstruments {
   private:
     static const u32 maxHealth = 200;
+    static const u32 healthIncrease = 50;
+    static const u32 powerIncrease = 100;
 
   protected:
     void levelUpHealthPower() override;
+    u32 getMaxHealth() const override;
 
   public:
     Drum();
-
-    u32 getMaxHealth() const override;
 };
 #endif
