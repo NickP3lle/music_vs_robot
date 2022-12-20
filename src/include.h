@@ -7,4 +7,6 @@
 
 #define u32 unsigned int
 
+static u32 tmp = 0;
+
 #endif

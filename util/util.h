@@ -3,6 +3,6 @@
 
 #include "deque.h"
 #include "ptr.h"
-#include "rand.h"
+#include "independentfn.h"
 
 #endif
