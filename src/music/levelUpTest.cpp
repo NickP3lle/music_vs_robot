@@ -7,6 +7,7 @@ int main() {
     ptr->add(200);
     // std::cout << ptr->getTotal() << std::endl;
 
+    // Entity e(10, 10);
     Violin v;
     Trumpet t;
     Flute f;

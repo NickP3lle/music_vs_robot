@@ -2,6 +2,8 @@
 
 Entity::Entity(u32 health, u32 power) : health(health), power(power) {}
 
+Entity::~Entity() {}
+
 // pure abstract
 bool Entity::takeDamage(u32 &amount) {
     if (health > amount) {
