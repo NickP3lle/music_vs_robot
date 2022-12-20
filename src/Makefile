@@ -4,11 +4,11 @@ ROBOT = robot/robot.o robot/tool.o
 MAIN_TARGET = entity.o cash.o 
 # FLAG = -Wc++11-extensions
 
-%.o: %.c
+%.o: %.cpp
 	${CC} -c $< -o $@
 
-music_test: ${MUSIC} ${MAIN_TARGET}
-	${CC} ${MUSIC} ${MAIN_TARGET} -o $@
+music_test: ${MAIN_TARGET} ${MUSIC}
+	${CC} ${MAIN_TARGET} ${MUSIC} -o $@
 
 robot_test: ${MAIN_TARGET} ${ROBOT}
 	${CC} ${MAIN_TARGET} ${ROBOT} -o $@
