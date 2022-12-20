@@ -1,3 +1,3 @@
 Repo del progetto di programmazione ad oggetti
 
-gruppo composto da Carlo e Nicolo
+gruppo composto da Carlo Rosso e Nicolò Pellegrinelli
