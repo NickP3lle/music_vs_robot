@@ -1,41 +1,28 @@
-#include "../robotwtool.cpp"
-
-using namespace std;
-
-bool TestRobotInit() {
-  try {
-    Robot robot = Robot(50);
-  } catch (...) {
-    return false;
-  }
-  return true;
-}
+#include "testRobot.h"
 
 bool TestRobotAttack() {
-  Robot robot = Robot(50);
-  u32 damage = robot.attack();
-  return damage >= 0 && damage <= 50;
+  Robot robot = Robot(50, 50);
+  return robot.attack() == 50;
 }
 
 bool TestRobotTakeDamage() {
-  Robot robot = Robot(50);
-  u32 j;
-  for (int i = 0; i < 51; i++) {
-    j = 1;
-    if (robot.takeDamage(j) && Cash::getInstance()->getTotal() < 50)
-      return true;
-  }
+  Robot robot = Robot(50, 50);
+  tmp = 49;
+  if (robot.takeDamage(tmp))
+	  return false;
+  if (robot.takeDamage(++tmp))
+	  return true;
   return false;
 }
 
 bool TestRobotMove() {
-  Robot robot = Robot(50);
-  u32 speed = robot.move();
-  return speed >= 0 && speed <= 50;
+  Robot robot = Robot(50, 50);
+  if (robot.move() == 50) return true;
+  return false;
 }
 
 bool TestDefenseRobotTakeDamage() {
-  DefenseRobot robot = DefenseRobot(50);
+  DefenseRobot robot = DefenseRobot(50, 50);
   tmp = 10000;
   if (robot.takeDamage(tmp) && tmp < 5000)
     return true;
@@ -43,19 +30,17 @@ bool TestDefenseRobotTakeDamage() {
 }
 
 bool TestBigRobotInit() {
-  try {
-    BigRobot robot = BigRobot(50);
-  } catch (...) {
+    BigRobot robot = BigRobot(50, 50);
+  if (robot.move() != robot.Robot::move() / 4)
     return false;
-  }
-  BigRobot robot = BigRobot(50);
-  if (robot.move() * 4 == robot.Robot::move())
-    return true;
-  if (robot.attack() > 50)
-    return true;
-  tmp = 50;
+  if (robot.attack() > 100 && robot.attack() < 50)
+    return false;
+  tmp = 49;
   if (robot.takeDamage(tmp))
     return false;
+  tmp = 51;
+  if (!robot.takeDamage(tmp) && tmp > 50)
+	return false;
   return true;
 }
 
@@ -64,11 +49,9 @@ bool TestRandomRobot() {
   for (u32 tmp = 50; tmp < 150; tmp++) {
     robot = randomRobot(tmp, tmp / 2);
     if (robot.attack() < tmp / 2 || robot.attack() > tmp * 2) {
-      cerr << "tmp: " << tmp << " attack: " << robot.attack() << "\n";
       return false;
     }
     if (robot.move() < tmp / 2 || robot.move() > tmp * 2) {
-      cerr << "TestRandom Robot Move failed\n";
       return false;
     }
 
@@ -76,7 +59,6 @@ bool TestRandomRobot() {
     for (int i = 0; i < tmp / 2; i++) {
       d = 1;
       if (robot.takeDamage(d)) {
-        cerr << "TestRandom Robot TakeDamage failed\n";
         return false;
       }
     }
@@ -86,24 +68,14 @@ bool TestRandomRobot() {
         return true;
     }
   }
-  cerr << "TestRandom Robot TakeDamage failed\n";
   return false;
-}
-
-bool TestRobotWToolInit() {
-  try {
-    RobotWTool robot(50, 50);
-  } catch (...) {
-    return false;
-  }
-  return true;
 }
 
 bool TestRobotWToolAttack() {
   for (u32 _ = 0; _ < 100; _++) {
-    RobotWTool robot(50, 25);
-    u32 damage = robot.attack();
-    if (damage < 25 || damage > 100)
+    RobotWTool robot(50, 50);
+    tmp = robot.attack();
+    if (tmp < 50 || tmp > 100)
       return false;
   }
   return true;

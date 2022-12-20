@@ -1,14 +1,19 @@
-#pragma once
-#include "robot.cpp"
-#include "tool.cpp"
+#ifndef ROBOTWTOOL_H
+#define ROBOTWTOOL_H
 
-class RobotWTool : public Robot, public Tool {
+#include "../include.h"
+#include "robot.h"
+#include "tool.h"
+
+class RobotWTool {
 private:
-  u32 attack() const override; // I don't want this to be useble
-  u32 move() const override;   // I don't want this to be useble
+	ptr<Robot> robot;
+	ptr<Tool> tool;
 public:
   RobotWTool(u32 = 0, u32 = 0);
-  u32 attack() override;
-  bool takeDamage(u32 &) override;
-  u32 move() override;
+  u32 attack();
+  bool takeDamage(u32 &);
+  u32 move();
 };
+
+#endif

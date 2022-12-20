@@ -1,8 +1,6 @@
-#include "error.h"
-#include <iostream>
-
 #ifndef PTR_SAFE
 #define PTR_SAFE
+#include <iostream>
 
 template <class T> class ptr {
 private:

@@ -1,7 +1,6 @@
-#include "include.h"
-
 #ifndef CASH_H
 #define CASH_H
+#include "include.h"
 class Cash {
   private:
     static Cash *instance;

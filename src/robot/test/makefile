@@ -1,20 +1,17 @@
 CC = g++
-CFLAGS = -target arm64-apple-macos11 -mmacosx-version-min=11.0 -Wsuggest-override -Werror=suggest-override -std=c++2a -Wno-unknown-pragmas
-DEP = ../../cash.o ../../entity.o ../tool.o ../robot_v2.o  
-ARG = ./testRobot.cpp
+CFLAGS = -Wsuggest-override -Werror=suggest-override -std=c++2a
+DEP = ../tool.o ../robot.o ../robotwtool.o ../../cash.o ../../entity.o ../../../util/independentfn.o testTool.o testRobot.o
+ARG = ./main.cpp
 
 compile: $(DEP)
 	@$(CC) $(CFLAGS) $(DEP) $(ARG) -o $(basename $(ARG))
 
-help:
-	echo "Help:\n"
-	cat /Users/carlorosso/.config/Makefile
-
 run: compile
-	@$(basename $(arg))
+	@./$(basename $(ARG))
+	@ rm $(basename $(ARG))
 
 %.o: %.cpp print 
-	@$(CC) $< $(CFLAGS) -o $@
+	@$(CC) $(CFLAGS) $<  -o $@
 
 clean:
-	rm *.o ../*.o ../../*.o ../../../util/*.o
+	@rm *.o ../*.o ../../*.o ../../../util/*.o

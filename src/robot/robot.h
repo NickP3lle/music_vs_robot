@@ -1,16 +1,12 @@
-#pragma once
-#include "../entity.cpp"
+#ifndef ROBOT_H
+#define ROBOT_H
+#include "../entity.h"
 #include "../include.h"
-
-// Class: Robot
-// has two u32 variables: speed and value
-// has a polimorphic function: move
 
 class Robot : public Entity {
 private:
   u32 speed;
   u32 value;
-  // ptr<Tool> tool;
 public:
   u32 attack() const override;
   bool takeDamage(u32 &) override;
@@ -31,3 +27,5 @@ public:
 };
 
 Robot randomRobot(u32, u32);
+
+#endif

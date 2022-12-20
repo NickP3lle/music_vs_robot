@@ -1,17 +1,6 @@
-#pragma once
+#ifndef TOOL_H
+#define TOOL_H
 #include "../include.h"
-
-/*
- * class Tool
- * - class for all tools
- * - has 1 variable durability
- *   - durability is the amount of uses the tool has left
- *   - durability is 0 when the tool is broken
- *   - durability is -1 when the tool is infinite
- * has a virtual function attack() which return a u32
- * has a virtual function takeDamage(u32&) which returns a bool
- * has a virtual function move() which returns a u32
- */
 
 class Tool {
 private:
@@ -39,13 +28,10 @@ public:
 };
 
 class Armor : public Tool {
-private:
-  u32 defense;
-
 public:
-  Armor(u32, u32);
+  Armor(u32);
   // u32 attack() not overriden
-  bool takeDamage(u32 &);
+  bool takeDamage(u32 &) override;
   // u32 move() not overriden
   // u32 value() not overriden
 };
@@ -75,3 +61,5 @@ public:
 };
 
 Tool randomTool(u32, u32);
+
+#endif

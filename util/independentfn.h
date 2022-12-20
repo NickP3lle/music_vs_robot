@@ -1,3 +1,5 @@
+#ifndef INDEPENDENTFN_H
+#define INDEPENDENTFN_H
 #include <cstdlib>
 #include <string>
 #include <iostream>
@@ -8,3 +10,5 @@
 u32 randomInt(u32 maxValue, u32 minValue = 0);
 
 void Test(std::string fnmae, bool (*fn)(void));
+
+#endif

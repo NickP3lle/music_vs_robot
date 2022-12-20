@@ -1,4 +1,4 @@
-#include "../cash.cpp"
+#include "main.h"
 
 bool TestCashGetInstance() {
 	if (Cash::getInstance() == NULL) {

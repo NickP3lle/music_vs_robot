@@ -1,8 +1,5 @@
-#include "TestCash.cpp"
-#include "TestEntity.cpp"
-#include "../../util/util.h"
-
-using namespace std;
+#include "main.h"
+#include "../include.h"
 
 int main() {
   // Test Cash

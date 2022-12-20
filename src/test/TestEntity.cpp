@@ -1,12 +1,10 @@
-#include "../entity.cpp"
+#include "main.h"
 
 // simplest possible implementation of Entity
 // to test each method
-
 class TestEntity : public Entity {
 private:
   int hello;
-
 public:
   void updateHealth(u32 h) { Entity::updateHealth(h); }
   void updatePower(u32 a) { Entity::updatePower(a); }
@@ -17,6 +15,7 @@ public:
 
   u32 attack() const override { return Entity::attack(); }
 };
+
 
 bool TestEntityInit() {
   try {
