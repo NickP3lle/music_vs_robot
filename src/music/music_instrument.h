@@ -8,13 +8,14 @@ class MusicInstruments : public Entity {
     u32 level;
 
   protected:
-    virtual u32 getMaxHealth() const = 0;
-    virtual u32 getUpdatePrice() const = 0;
+    bool checkLevelUp(u32);
 
   public:
     MusicInstruments(u32 life, u32 damage);
 
-    virtual bool levelUp();
+    virtual bool levelUp() = 0;
+
+    u32 attack() const override final;
 
     u32 getLevel() const;
 };
