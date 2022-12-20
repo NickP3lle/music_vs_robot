@@ -3,6 +3,6 @@
 
 #include "deque.h"
 #include "ptr.h"
-#include "independentfn.cpp"
+#include "independentfn.h"
 
 #endif

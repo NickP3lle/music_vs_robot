@@ -4,20 +4,15 @@ MusicInstruments::MusicInstruments(u32 life, u32 damage) : Entity(life, damage),
 
 u32 MusicInstruments::getLevel() const { return level; }
 
-void MusicInstruments::levelUp() {
+bool MusicInstruments::levelUp() {
     if (level >= 3) {
         std::cerr << "Level max already reached" << std::endl;
-        return;
+        return false;
     }
-    if (!(Cash::getInstance()->sub(50))) {
+    if (!(Cash::getInstance()->sub(getUpdatePrice()))) {
         // std::cerr << "You don't have enough money" << std::endl;
-        return;
+        return false;
     }
-
-    // Upgrading here
-    // Necessario aumentare il livello
-    // solamente dopo l'incremento delle statistiche
-    levelUpHealthPower();
     level += 1;
 
     std::cout << "Succesfully leveled up" << std::endl;
