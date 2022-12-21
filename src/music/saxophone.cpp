@@ -1,19 +1,14 @@
 #include "saxophone.h"
 
-Saxophone::Saxophone() : MusicInstruments(100, 0){};
+Saxophone::Saxophone() : MusicInstruments(SAXOPHONE_DEFAULT_HEALTH, 0){};
 
 bool Saxophone::levelUp() {
-    if (!(MusicInstruments::levelUp())) {
-        // soldi insufficienti o livello massimo già raggiunto
+    if (!(checkLevelUp(SAXOPHONE_UPDATE_PRICE))) {
         return false;
     }
 
     // level è già stato incrementato
-    updateHealth(getMaxHealth() + (healthIncrease * (getLevel() - 1)));
-    updatePower(powerIncrease);
+    updateHealth(SAXOPHONE_DEFAULT_HEALTH + (SAXOPHONE_HEALTH_INCREASE * (getLevel() - 1)));
+    updatePower(SAXOPHONE_POWER_INCREASE);
     return true;
 }
-
-u32 Saxophone::getMaxHealth() const { return maxHealth; }
-
-u32 Saxophone::getUpdatePrice() const { return updatePrice; }
