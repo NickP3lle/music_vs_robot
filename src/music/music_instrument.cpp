@@ -7,15 +7,17 @@ bool MusicInstruments::checkLevelUp(u32 price) {
         std::cerr << "Level max already reached" << std::endl;
         return false;
     }
-    if (Cash::getInstance()->sub(price)) {
+    if (!(Cash::getInstance()->sub(price))) {
         // std::cerr << "You don't have enough money" << std::endl;
         return false;
     }
 
     level += 1;
 
-    std::cout << "Succesfully leveled up" << std::endl;
+    std::cout << "Successfully leveled up" << std::endl;
     std::cout << "Level: " << level << std::endl;
+
+    return true;
 }
 
 u32 MusicInstruments::attack() const { return getPower(); }
