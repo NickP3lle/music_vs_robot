@@ -1,8 +1,4 @@
-#include "../util.h"
-#include "Testdeque.cpp"
-#include "Testindependetfn.cpp"
-#include <iomanip>
-#include <iostream>
+#include "main.h"
 
 using namespace std;
 
@@ -12,5 +8,15 @@ int main() {
 	Test("dequeIndex", TestdequeIndex);
 
 	Test("RandomInt", TestRandomInt);
+
+	Test("Iterator", TestIterator);
+	Test("IteratorCopy", TestIteratorCopy);
+	Test("IteratorAssign", TestIteratorAssign);
+	Test("IteratorMap", TestIteratorMap);
+	Test("IteratorFilter", TestIteratorFilter);
+	Test("IteratorCollect", TestIteratorCollect);
+
+	Test("dequeIter", TestdequeIter);
+	Test("dequeCollect", TestdequeCollect);
   return 0;
 }

@@ -1,9 +1,10 @@
 #pragma once
 #include "robot.h"
 
+// randomInt(max, min): max == min => max
 Robot::Robot(u32 max, u32 min, bool fast, bool rich)
     : Entity(randomInt(max, min), randomInt(max, min)),
-      speed((fast ? 2 : 1) * randomInt(max, min)),
+      speed((fast ? 2 : 1) * (randomInt(10) + 5)), // 5-15
       value((rich ? 2 : 1) * randomInt(max, min)) {}
 
 u32 Robot::attack() const { return Entity::attack(); }

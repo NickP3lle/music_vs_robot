@@ -10,8 +10,8 @@ MAIN_TARGET = entity.o cash.o
 music_test: ${MAIN_TARGET} ${MUSIC}
 	${CC} ${MAIN_TARGET} ${MUSIC} -o $@
 
-robot_test: ${MAIN_TARGET} ${ROBOT}
-	${CC} ${MAIN_TARGET} ${ROBOT} -o $@
+robot_test: 
+	@(cd robot/test; make run)
 
 clear:
 	rm *.o */*.o music_test robot_test

@@ -8,7 +8,7 @@ private:
 
 public:
   ptr(const T &);
-  ptr(const T *const);
+  ptr(const T *const = nullptr);
   ptr(const ptr &);
   ptr &operator=(const ptr &);
   ~ptr();

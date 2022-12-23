@@ -1,32 +1,40 @@
 #ifndef DEQUE_H
 #define DEQUE_H
 #define u32 unsigned int
+#include "iterator.h"
 #include "ptr.h"
 
+template <class T> class deque;
+
+template <class T>
+std::ostream &operator<<(std::ostream &os, const deque<T> &d);
+
 template <class T> class deque {
+  friend std::ostream &operator<< <T>(std::ostream &, const deque &);
+
 private:
   u32 size, capacity, actual;
   T *first;
   bool isFull() const;
   void resize();
   static deque *copy(const deque &);
+
 public:
   deque(u32 = 3);
   deque &push_back(const T &);
   ptr<T> pop_front();
   u32 len() const;
   T &operator[](u32) const;
-//  template <class R> Iterator<R> map(R (*)(const T &)) const; // constante ?
-	friend std::ostream &operator<<(std::ostream &, const deque &);
+  Iterator<T> iter();
   deque(const deque &);
   deque &operator=(const deque &);
   ~deque();
 };
 
-template <class T> std::ostream &operator<<(std::ostream &os, const deque<T> &d) {
-  for (u32 i = 0; i < d.len(); i++) {
-	os << d[i] << " ";
-  }
+template <class T>
+std::ostream &operator<<(std::ostream &os, const deque<T> &d) {
+  for (u32 i = 0; i < d.size; i++)
+    os << d.first[i] << " ";
   return os;
 }
 
@@ -38,7 +46,7 @@ template <class T> deque<T> *deque<T>::copy(const deque &d) {
 }
 
 template <class T>
-deque<T>::deque(u32 c) : size(0), capacity(c), actual(0), first(new T[c]) {}
+deque<T>::deque(u32 c) : size(0), capacity(c ? c : 1), actual(0), first(new T[c]) {}
 
 template <class T>
 deque<T>::deque(const deque &d)
@@ -82,6 +90,7 @@ template <class T> ptr<T> deque<T>::pop_front() {
   if (size == 0)
     return ptr<T>(nullptr);
   actual = (actual + 1) % capacity;
+  size--;
   return ptr<T>(this->first[actual == 0 ? capacity - 1 : actual - 1]);
 }
 
@@ -91,12 +100,8 @@ template <class T> T &deque<T>::operator[](u32 index) const {
   return first[(actual + index) % capacity];
 }
 
-/*
-template <class T>
-template <class R>
-Iterator<R> deque<T>::map(R (*f)(const T &)) const {
-  deque *tmp = copy(*this);
-  return Iterator<T>::map(tmp->first, tmp->first + size, f);
+template <class T> Iterator<T> deque<T>::iter() {
+	*this = *copy(*this);
+  return Iterator<T>(first, size, false);
 }
-*/
 #endif

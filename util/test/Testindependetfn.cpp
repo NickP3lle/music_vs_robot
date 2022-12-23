@@ -1,4 +1,4 @@
-#include "../independentfn.cpp"
+#include "main.h"
 
 bool TestRandomInt() {
 	for (int _ = 0; _ < 100; _++) {
