@@ -1,19 +1,14 @@
 #include "trumpet.h"
 
-Trumpet::Trumpet() : MusicInstruments(100, 50){};
+Trumpet::Trumpet() : MusicInstruments(TRUMPET_DEFAULT_HEALTH, 50){};
 
 bool Trumpet::levelUp() {
-    if (!(MusicInstruments::levelUp())) {
-        // soldi insufficienti o livello massimo già raggiunto
+    if (!(checkLevelUp(TRUMPET_UPDATE_PRICE))) {
         return false;
     }
 
     // level è già stato incrementato
-    updateHealth(getMaxHealth() + (healthIncrease * (getLevel() - 1)));
-    updatePower(powerIncrease);
+    updateHealth(TRUMPET_DEFAULT_HEALTH + (TRUMPET_HEALTH_INCREASE * (getLevel() - 1)));
+    updatePower(TRUMPET_POWER_INCREASE);
     return true;
 }
-
-u32 Trumpet::getMaxHealth() const { return maxHealth; }
-
-u32 Trumpet::getUpdatePrice() const { return updatePrice; }

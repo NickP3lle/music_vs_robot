@@ -4,55 +4,38 @@
 
 int main() {
     Cash *ptr = Cash::getInstance();
-    ptr->add(200);
+    ptr->add(400);
     // std::cout << ptr->getTotal() << std::endl;
 
-    // Entity e(10, 10);
     Violin v;
     Trumpet t;
     Flute f;
 
-    // std::cout << v.getMaxHealth() << std::endl;
-    v.levelUp();
-    // std::cout << v.getMaxHealth() << std::endl;
-    v.levelUp();
-    // std::cout << v.getMaxHealth() << std::endl;
-    v.levelUp();
-    // std::cout << v.getMaxHealth() << std::endl;
-    v.levelUp();
-    // std::cout << v.getMaxHealth() << std::endl;
+    std::cout << v.levelUp() << std::endl;
 
-    // std::cout << f.getMaxHealth() << std::endl;
-    f.levelUp();
-    // std::cout << f.getMaxHealth() << std::endl;
-    f.levelUp();
-    // std::cout << f.getMaxHealth() << std::endl;
-    f.levelUp();
-    // std::cout << f.getMaxHealth() << std::endl;
-    f.levelUp();
-    // std::cout << f.getMaxHealth() << std::endl;
+    std::cout << v.levelUp() << std::endl;
 
-    // std::cout << t.getMaxHealth() << std::endl;
-    t.levelUp();
-    // std::cout << t.getMaxHealth() << std::endl;
-    t.levelUp();
-    // std::cout << t.getMaxHealth() << std::endl;
-    t.levelUp();
-    // std::cout << t.getMaxHealth() << std::endl;
+    std::cout << v.levelUp() << std::endl;
+
+    std::cout << v.levelUp() << std::endl;
+
+    std::cout << f.levelUp() << std::endl;
+
+    std::cout << f.levelUp() << std::endl;
+
+    std::cout << f.levelUp() << std::endl;
+
+    std::cout << f.levelUp() << std::endl;
+
+    std::cout << t.levelUp() << std::endl;
+
+    std::cout << t.levelUp() << std::endl;
 
     ptr->add(200);
 
-    // std::cout << t.getMaxHealth() << std::endl;
-    t.levelUp();
-    // std::cout << t.getMaxHealth() << std::endl;
-    t.levelUp();
-    // std::cout << t.getMaxHealth() << std::endl;
-    t.levelUp();
-    // std::cout << t.getMaxHealth() << std::endl;
-    t.levelUp();
-    // std::cout << t.getMaxHealth() << std::endl;
-    t.levelUp();
-    // std::cout << t.getMaxHealth() << std::endl;
+    std::cout << t.levelUp() << std::endl;
+
+    std::cout << t.levelUp() << std::endl;
 
     return 0;
 }

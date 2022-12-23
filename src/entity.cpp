@@ -2,8 +2,6 @@
 
 Entity::Entity(u32 health, u32 power) : health(health), power(power) {}
 
-Entity::~Entity() {}
-
 // pure abstract
 bool Entity::takeDamage(u32 &amount) {
     if (health > amount) {
@@ -14,8 +12,7 @@ bool Entity::takeDamage(u32 &amount) {
     return true;
 }
 
-// pure abstract
-u32 Entity::attack() const { return power; }
+u32 Entity::getPower() const { return power; }
 
 void Entity::updateHealth(u32 newHealth) { health = newHealth; }
 

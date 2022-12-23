@@ -9,10 +9,11 @@ class Entity {
   protected:
     void updateHealth(u32 newHealth);        // replaces with the new life
     void updatePower(u32 powerIncrease = 0); // increment the power
-  public:
+    u32 getPower() const;
     Entity(u32 health, u32 power);
-    virtual ~Entity();
+
+  public:
     virtual bool takeDamage(u32 &amount);
-    virtual u32 attack() const;
+    virtual u32 attack() const = 0;
 };
 #endif
