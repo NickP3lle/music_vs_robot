@@ -36,7 +36,6 @@ bool TestIteratorAssign() {
   return true;
 }
 
-// we might have a problem with the iterator
 bool TestIteratorMap() {
   const iter it(new int[3]{1, 2, 3}, 3);
   iter it3(it);
@@ -47,13 +46,10 @@ bool TestIteratorMap() {
   return true;
 }
 
-// we might have a problem with the iterator
 bool TestIteratorFilter() {
   iter it(new int[]{1, 2, 3}, 3);
-  Iterator<int *> it2 = it.filter([](int &a) { return a % 2 == 0; });
-  if (it2.len() != 1)
-    return false;
-  if (*it2[0] != 2)
+  it.filter([](int &a) { return a % 2 == 0; }).map([](int *a) { *a *= 2; });
+  if (it[0] != 1 || it[1] != 4 || it[2] != 3)
     return false;
   return true;
 }

@@ -9,6 +9,12 @@ template <class T> class Iterator;
 template <class T>
 std::ostream &operator<<(std::ostream &, const Iterator<T> &);
 
+  // ci sono due modi per implementare map:
+  // 1) map ritorna un iteratore che itera su un nuovo vettore (comodo
+  // templatizzare il vettore)
+  // 2) map ritorna un iteratore che itera su un vettore esistente
+  // nel secondo caso l'iteratore non è generato nuovamente ogni volta,
+  // ma è molto meno flessibile
 template <class T> class Iterator {
   friend std::ostream &operator<< <T>(std::ostream &, const Iterator &);
 
@@ -22,9 +28,8 @@ public:
   T &operator[](u32) const;
   u32 len() const;
   template <typename S> Iterator map(S &&lambda) const;
-  template <class R, typename S> Iterator<R> map(S &&lambda) const;
   // fa la copia, non si possono passare puntatori per qualche motivo
-  template <typename R> Iterator<T *> filter(R) const;
+  template <typename R> Iterator<T *> filter(R &&lambda) const;
   template <class R>
   R collect() const; // per restituire R deve implementare
                      // push_back
@@ -84,34 +89,20 @@ Iterator<T> Iterator<T>::map(S &&lambda) const {
 }
 
 template <class T>
-template <typename R, typename S>
-Iterator<R> Iterator<T>::map(S &&lambda) const {
-  R *tmp = new R[size];
-  std::transform(ptr, ptr + size, tmp, lambda);
-  return Iterator<R>(tmp, size);
-}
-
-template <class T>
 template <typename R>
-Iterator<T *> Iterator<T>::filter(R lambda) const {
+Iterator<T *> Iterator<T>::filter(R &&lambda) const {
   u32 count = 0;
-  map([&](T &a) {
+  map([&](const T &a) {
     if (lambda(a))
       count++;
   });
   T **new_ptr = new T *[count];
-  map([&](T &a) {
+  map([&, new_ptr](T &a) mutable {
     if (lambda(a))
       *new_ptr++ = &a;
   });
   return Iterator<T *>(new_ptr, count);
 }
-/*
-T *new_ptr = new T[count];
-std::copy_if(ptr, ptr + size, new_ptr, lambda);
-return Iterator(new_ptr, count);
-}
-*/
 
 template <class T> template <class R> R Iterator<T>::collect() const {
   R aux;

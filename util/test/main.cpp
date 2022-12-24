@@ -3,11 +3,14 @@
 using namespace std;
 
 int main() {
+	Test("RandomInt", TestRandomInt);
+
 	Test("dequePushPop", TestdequePushPop);
 	Test("dequeCopy", TestdequeCopy);
 	Test("dequeIndex", TestdequeIndex);
-
-	Test("RandomInt", TestRandomInt);
+	Test("dequeIter", TestdequeIter);
+	Test("dequeCollect", TestdequeCollect);
+	//Test("dequeAssign", TestdequeAssign);
 
 	Test("Iterator", TestIterator);
 	Test("IteratorCopy", TestIteratorCopy);
@@ -16,7 +19,8 @@ int main() {
 	Test("IteratorFilter", TestIteratorFilter);
 	Test("IteratorCollect", TestIteratorCollect);
 
-	Test("dequeIter", TestdequeIter);
-	Test("dequeCollect", TestdequeCollect);
   return 0;
 }
+
+// error on iterator filter: solved [&, new_ptr]
+// error on deque collect
