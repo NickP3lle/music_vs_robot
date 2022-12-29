@@ -7,7 +7,7 @@ Robot::Robot(u32 max, u32 min, bool fast, bool rich)
       speed((fast ? 2 : 1) * (randomInt(10) + 5)), // 5-15
       value((rich ? 2 : 1) * randomInt(max, min)) {}
 
-u32 Robot::attack() const { return Entity::attack(); }
+u32 Robot::attack() const { return getPower(); }
 
 bool Robot::takeDamage(u32 &damage) {
   tmp = Entity::takeDamage(damage);
