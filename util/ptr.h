@@ -39,8 +39,7 @@ template <class T> ptr<T>::~ptr() {
 template <class T> ptr<T> &ptr<T>::operator=(const ptr &s) {
   if (this != &s && s.data) {
     if (!data)
-      data = new T;
-    *data = *(s.data);
+      data = new T(*s.data);
   }
   return *this;
 }

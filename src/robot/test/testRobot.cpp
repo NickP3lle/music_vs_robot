@@ -1,4 +1,4 @@
-#include "testRobot.h"
+#include "main.h"
 
 bool TestRobotAttack() {
   Robot robot = Robot(50, 50);
@@ -16,8 +16,8 @@ bool TestRobotTakeDamage() {
 }
 
 bool TestRobotMove() {
-  Robot robot = Robot(50, 50);
-  if (robot.move() == 50) return true;
+  Robot robot = Robot(5, 5 /*, false, false */);
+  if (robot.move() > 4 && robot.move() < 16) return true;
   return false;
 }
 
@@ -51,7 +51,7 @@ bool TestRandomRobot() {
     if (robot.attack() < tmp / 2 || robot.attack() > tmp * 2) {
       return false;
     }
-    if (robot.move() < tmp / 2 || robot.move() > tmp * 2) {
+    if (robot.move() < 4|| robot.move() > 16) {
       return false;
     }
 

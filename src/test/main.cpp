@@ -13,6 +13,10 @@ int main() {
   Test("EntityUpdateHealth", TestEntityUpdateHealth);
   Test("EntityUpdatePower", TestEntityUpdatePower);
 
-  // TODO Test Playground
+  // Test Playground
+  Test("PlaygroundInsertEnemy", TestPlay::InsertEnemy);
+  Test("PlaygroundInsertPlayer", TestPlay::InsertPlayer);
+  Test("PlaygroundLose", TestPlay::Lose);
+  Test("PlaygroundNearestPlayer", TestPlay::NearestPlayer);
   return 0;
 }

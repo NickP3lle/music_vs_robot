@@ -1,8 +1,9 @@
-#pragma once
 #include "robotwtool.h"
 
 RobotWTool::RobotWTool(u32 max, u32 min)
     : robot(randomRobot(max, min)), tool(randomTool(max, min)) {}
+
+RobotWTool::RobotWTool(): robot(nullptr), tool(nullptr) {}
 
 u32 RobotWTool::attack() {
 	return robot.get().attack() + tool.get_mut().attack();

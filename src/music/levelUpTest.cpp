@@ -1,6 +1,4 @@
-#include "flute.h"
-#include "trumpet.h"
-#include "violin.h"
+#include "music_instrument.h"
 
 int main() {
     Cash *ptr = Cash::getInstance();

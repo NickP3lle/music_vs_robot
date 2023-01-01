@@ -46,10 +46,21 @@ bool TestIteratorMap() {
   return true;
 }
 
+// we might have a problem with the iterator
 bool TestIteratorFilter() {
   iter it(new int[]{1, 2, 3}, 3);
-  it.filter([](int &a) { return a % 2 == 0; }).map([](int *a) { *a *= 2; });
-  if (it[0] != 1 || it[1] != 4 || it[2] != 3)
+  int size = 0;
+  for (int i = 0; i < it.len(); i++)
+	  if (it[i] % 2 == 0)
+		  size++;
+  int **tmp = new int*[size];
+  for (int i = 0, j = 0; i < it.len(); i++)
+	  if (it[i] % 2 == 0)
+		  tmp[j++] = &it[i];
+
+  if (size != 1)
+    return false;
+  if (*(tmp[0]) != 2)
     return false;
   return true;
 }

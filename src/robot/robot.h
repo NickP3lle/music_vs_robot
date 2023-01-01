@@ -1,12 +1,13 @@
 #ifndef ROBOT_H
 #define ROBOT_H
+#include "../../util/util.h"
 #include "../entity.h"
-#include "../include.h"
 
 class Robot : public Entity {
 private:
   u32 speed;
   u32 value;
+
 public:
   u32 attack() const override;
   bool takeDamage(u32 &) override;

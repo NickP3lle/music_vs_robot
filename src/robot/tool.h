@@ -1,6 +1,6 @@
 #ifndef TOOL_H
 #define TOOL_H
-#include "../include.h"
+#include "../../util/util.h"
 
 class Tool {
 private:

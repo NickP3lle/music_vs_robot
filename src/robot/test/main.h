@@ -1,5 +1,5 @@
 #pragma once
-#include "../tool.h"
+#include "../robotwtool.h"
 
 bool TestWeaponAttack();
 bool TestWeaponTakeDamage();
@@ -10,3 +10,12 @@ bool TestRingValue();
 bool TestRingTakeDamage();
 
 bool TestRandomTool();
+
+bool TestRobotAttack();
+bool TestRobotTakeDamage();
+bool TestRobotMove();
+bool TestDefenseRobotTakeDamage();
+bool TestBigRobotInit();
+bool TestRandomRobot();
+
+bool TestRobotWToolAttack();

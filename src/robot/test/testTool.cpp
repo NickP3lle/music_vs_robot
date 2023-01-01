@@ -1,4 +1,4 @@
-#include "testTool.h"
+#include "main.h"
 
 bool TestWeaponAttack() {
   Weapon weapon(40, 40);

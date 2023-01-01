@@ -2,6 +2,7 @@
 #define MAIN_H
 #include "../cash.h"
 #include "../entity.h"
+#include "../playground.h"
 
 bool TestCashGetInstance();
 bool TestCashAdd();
@@ -11,5 +12,21 @@ bool TestEntityInit();
 bool TestEntityTakeDamage();
 bool TestEntityUpdateHealth();
 bool TestEntityUpdatePower();
+
+class TestPlay : public Playground {
+private:
+  static Playground *get() {
+    cleanUp();
+    return getInstance();
+  }
+
+  static Playground *Get() { return getInstance(); }
+
+public:
+  static bool InsertEnemy();
+  static bool InsertPlayer();
+  static bool Lose();
+  static bool NearestPlayer();
+};
 
 #endif

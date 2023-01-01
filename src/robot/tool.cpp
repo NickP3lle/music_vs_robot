@@ -1,4 +1,3 @@
-#pragma once
 #include "tool.h"
 
 // cannot be bigger than 5, though it can be smaller
@@ -23,7 +22,7 @@ Weapon::Weapon(u32 max, u32 min) : Tool(max), damage(randomInt(max, min)) {}
 u32 Weapon::attack() {
   if (isBroken())
     return 0;
-  Weapon::takeDamage(tmp);
+  Weapon::takeDamage(damage);
   return damage;
 }
 

@@ -1,17 +1,17 @@
 CC = g++
-MUSIC = music/music_instrument.o music/flute.o music/trumpet.o music/drum.o music/violin.o music/saxophone.o music/levelUpTest.cpp
-ROBOT = robot/robot.o robot/tool.o
+CFLAGS = -Wsuggest-override -Werror=suggest-override -std=c++2a
+MUSIC = music/music_instrument.o music/levelUpTest.o
 MAIN_TARGET = entity.o cash.o 
-# FLAG = -Wc++11-extensions
 
 %.o: %.cpp
-	${CC} -c $< -o $@
+	@${CC} $(CFLAGS) -c $< -o $@
 
-music_test: ${MAIN_TARGET} ${MUSIC}
-	${CC} ${MAIN_TARGET} ${MUSIC} -o $@
+test_music: ${MAIN_TARGET} ${MUSIC}
+	@${CC} $(CFLAGS) ${MAIN_TARGET} ${MUSIC} -o $@
+	@make clean
 
-robot_test: 
+test_robot: 
 	@(cd robot/test; make run)
 
-clear:
-	rm *.o */*.o music_test robot_test
+clean:
+	@rm *.o music/*.o test_music

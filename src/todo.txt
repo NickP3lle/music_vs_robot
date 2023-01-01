@@ -1,0 +1,22 @@
+Per ora ho fatto playground in generale, ora voglio dividere l'implementazione
+dall'interfaccia, per cui abbiamo una classe playground che è 
+	- templetizzata sull'ereditarietà: class playground: protected ... {};
+	
+	- una classe field che deve implementare delle funzioni di base in modo tale
+	  che playground posssa essere flessibili su diverse implementazioni di field
+	
+playground non ha nessun campo dati;
+field ha i campi dati che reputo opportuni, più le funzioni per accedervi
+tramite playground.
+
+si tratta solamente di un'idea, sarebbe carino implementare iterator come una
+vera e propria interfaccia, che ha bisogno solo di due funzioni: begin e end, e
+non ha campi dati. Una cosa del tipo 
+
+	1 - template <class T> class iterator: public T {};
+
+	oppure 
+
+	2 - template <class T, class R> class iterator: public T<R> {};
+
+cons: avrei bisogno di pensare all'implementazione di filter

@@ -13,7 +13,7 @@ public:
 
   bool takeDamage(u32 &d) override { return Entity::takeDamage(d); }
 
-  u32 attack() const override { return Entity::attack(); }
+  u32 attack() const override { return getPower(); }
 };
 
 

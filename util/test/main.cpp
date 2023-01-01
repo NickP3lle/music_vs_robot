@@ -7,10 +7,10 @@ int main() {
 
 	Test("dequePushPop", TestdequePushPop);
 	Test("dequeCopy", TestdequeCopy);
+	//Test("dequeAssign", TestdequeAssign);
 	Test("dequeIndex", TestdequeIndex);
 	Test("dequeIter", TestdequeIter);
 	Test("dequeCollect", TestdequeCollect);
-	//Test("dequeAssign", TestdequeAssign);
 
 	Test("Iterator", TestIterator);
 	Test("IteratorCopy", TestIteratorCopy);
@@ -23,4 +23,4 @@ int main() {
 }
 
 // error on iterator filter: solved [&, new_ptr]
-// error on deque collect
+// error on deque collect: solved (anyhow)

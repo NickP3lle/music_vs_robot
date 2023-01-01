@@ -1,6 +1,7 @@
 #ifndef CASH_H
 #define CASH_H
-#include "include.h"
+#include <iostream>
+#define u32 unsigned int
 class Cash {
   private:
     static Cash *instance;

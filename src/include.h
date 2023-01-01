@@ -4,6 +4,9 @@
 #include "../util/util.h"
 #include <iostream>
 #include <vector>
+#include <climits>
+#include "robot/robotwtool.h"
+#include "music/music_instrument.h"
 
 #define u32 unsigned int
 

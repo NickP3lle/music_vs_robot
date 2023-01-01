@@ -18,9 +18,11 @@ private:
   bool isFull() const;
   void resize();
   static deque *copy(const deque &);
+  T *begin() const;
+  T *end() const;
 
 public:
-  deque(u32 = 3);
+  deque(u32 = 2);
   deque &push_back(const T &);
   ptr<T> pop_front();
   u32 len() const;
@@ -46,7 +48,8 @@ template <class T> deque<T> *deque<T>::copy(const deque &d) {
 }
 
 template <class T>
-deque<T>::deque(u32 c) : size(0), capacity(c ? c : 1), actual(0), first(new T[c]) {}
+deque<T>::deque(u32 c)
+    : size(0), capacity(c ? c : 1), actual(0), first(new T[c]) {}
 
 template <class T>
 deque<T>::deque(const deque &d)
@@ -101,7 +104,7 @@ template <class T> T &deque<T>::operator[](u32 index) const {
 }
 
 template <class T> Iterator<T> deque<T>::iter() {
-	*this = *copy(*this);
-  return Iterator<T>(first, size, false);
+  *this = *copy(*this);
+  return Iterator<T>(first, len(), false);
 }
 #endif

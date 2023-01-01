@@ -1,5 +1,8 @@
-#pragma once
 #include "robot.h"
+
+namespace {
+u32 tmp;
+}
 
 // randomInt(max, min): max == min => max
 Robot::Robot(u32 max, u32 min, bool fast, bool rich)

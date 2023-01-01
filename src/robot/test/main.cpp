@@ -1,5 +1,4 @@
-#include "testRobot.h"
-#include "testTool.h"
+#include "main.h"
 
 int main() {
   // test Robot
