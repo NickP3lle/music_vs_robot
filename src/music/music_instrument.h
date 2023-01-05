@@ -26,9 +26,9 @@ public:
 #include "music_instrument.h"
 
 class Drum : public MusicInstruments {
-  public:
-    Drum();
-    bool levelUp() override;
+public:
+  Drum();
+  bool levelUp() override;
 };
 
 #define FLUTE_DEFAULT_HEALTH 100
@@ -38,9 +38,9 @@ class Drum : public MusicInstruments {
 
 #include "music_instrument.h"
 class Flute : public MusicInstruments {
-  public:
-    Flute();
-    bool levelUp() override;
+public:
+  Flute();
+  bool levelUp() override;
 };
 
 #define SAXOPHONE_DEFAULT_HEALTH 100
@@ -50,9 +50,9 @@ class Flute : public MusicInstruments {
 
 #include "music_instrument.h"
 class Saxophone : public MusicInstruments {
-  public:
-    Saxophone();
-    bool levelUp() override;
+public:
+  Saxophone();
+  bool levelUp() override;
 };
 
 #define TRUMPET_DEFAULT_HEALTH 10
@@ -62,9 +62,9 @@ class Saxophone : public MusicInstruments {
 
 #include "music_instrument.h"
 class Trumpet : public MusicInstruments {
-  public:
-    Trumpet();
-    bool levelUp() override;
+public:
+  Trumpet();
+  bool levelUp() override;
 };
 
 #define VIOLIN_DEFAULT_HEALTH 50
@@ -74,9 +74,9 @@ class Trumpet : public MusicInstruments {
 
 #include "music_instrument.h"
 class Violin : public MusicInstruments {
-  public:
-    Violin();
-    bool levelUp() override;
+public:
+  Violin();
+  bool levelUp() override;
 };
 
 #endif

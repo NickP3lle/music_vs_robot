@@ -26,7 +26,8 @@ public:
   static bool InsertEnemy();
   static bool InsertPlayer();
   static bool Lose();
-  static bool NearestPlayer();
+  static bool PlayerAttack();
+  static bool MoveRobots();
 };
 
 #endif

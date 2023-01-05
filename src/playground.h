@@ -7,7 +7,7 @@
 #define FRAME_COLUMNS 6
 
 class Playground {
-private:
+public:
   ptr<MusicInstruments> player[ROWS][COLUMNS];
   deque<RobotWTool> enemy[ROWS][FRAME_COLUMNS * COLUMNS];
   u32 damage[ROWS][2]; // è utilizzato per tenere traccia dei danni in entrambe
@@ -21,8 +21,8 @@ private:
   void initEnemy();
   void reset();
   u32 nearestPlayer(u32 row, u32 col) const;
-  template <typename S> void iterRobot(u32 row, u32 col, S &&fun);
-
+  u32 moveRobot(u32 row, u32 col, RobotWTool &robot);
+  template <typename S> void iterRobot(u32 row, u32 col, S fun);
 
 public:
   static void cleanUp();
@@ -37,7 +37,7 @@ public:
   static Playground *getInstance();
 };
 
-template <typename S> void Playground::iterRobot(u32 row, u32 col, S &&fun) {
+template <typename S> void Playground::iterRobot(u32 row, u32 col, S fun) {
   std::for_each(&enemy[row][col * FRAME_COLUMNS],
                 &enemy[row][(col + 1) * FRAME_COLUMNS], fun);
 }

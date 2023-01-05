@@ -25,6 +25,7 @@ public:
   deque(u32 = 2);
   deque &push_back(const T &);
   ptr<T> pop_front();
+  void remove(u32 pos);
   u32 len() const;
   T &operator[](u32) const;
   Iterator<T> iter();
@@ -106,5 +107,11 @@ template <class T> T &deque<T>::operator[](u32 index) const {
 template <class T> Iterator<T> deque<T>::iter() {
   *this = *copy(*this);
   return Iterator<T>(first, len(), false);
+}
+
+template <class T> void deque<T>::remove(u32 pos) {
+  std::swap(first[(actual + pos) % capacity], first[actual]);
+  size--;
+  pop_front();
 }
 #endif
