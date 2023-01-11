@@ -2,9 +2,9 @@
 
 // Return a random number between minValue and maxValue
 u32 randomInt(u32 maxValue, u32 minValue) {
-  if (maxValue < minValue)
-    return 0;
-  return (rand() % (maxValue - minValue + 1)) + minValue;
+  std::default_random_engine generator;
+  std::uniform_int_distribution<int> distribution(minValue, maxValue);
+  return distribution(generator);
 }
 
 // Test a function and print the result

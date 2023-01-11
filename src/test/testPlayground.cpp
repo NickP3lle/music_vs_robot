@@ -19,7 +19,7 @@ bool TestPlay::InsertPlayer() {
 bool TestPlay::Lose() {
   Playground *tmp = get();
   tmp->insertEnemy(2, 59);
-  for (u32 i = 0; i < 50; i++)
+  for (u32 i = 0; i < 60; i++)
     tmp->moveRobots();
   return tmp->lose();
 }

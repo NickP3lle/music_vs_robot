@@ -4,10 +4,10 @@ int main() {
   // test Robot
   Test("RobotAttack", TestRobotAttack);
   Test("RobotMove", TestRobotMove);
-  
+
   Test("DefenseRobotTakeDamage", TestDefenseRobotTakeDamage);
   Test("BigRobot", TestBigRobotInit);
-	
+
   Test("RandomRobot", TestRandomRobot);
 
   Test("WeaponAttack", TestWeaponAttack);

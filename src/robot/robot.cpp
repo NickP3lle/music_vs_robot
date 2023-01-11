@@ -37,7 +37,7 @@ DefenseRobot *DefenseRobot::clone() const { return new DefenseRobot(*this); }
 
 BigRobot::BigRobot(u32 max, u32 min) : Robot(max * 2, max, false, true) {}
 
-u32 BigRobot::move() const { return Robot::move() / 4; }
+u32 BigRobot::move() const { return Robot::move() / 2; }
 
 BigRobot *BigRobot::clone() const { return new BigRobot(*this); }
 

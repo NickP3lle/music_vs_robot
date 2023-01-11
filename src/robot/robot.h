@@ -9,25 +9,24 @@ private:
   u32 value;
 
 public:
-  u32 attack() const override;
   bool takeDamage(u32 &) override;
+  virtual Robot *clone() const override;
   Robot(u32 = 0, u32 = 0, bool = false, bool = false);
   virtual u32 move() const;
-  virtual Robot *clone() const;
 };
 
 class DefenseRobot : public Robot {
 public:
-  DefenseRobot(u32, u32 = 0);
   bool takeDamage(u32 &) override;
   DefenseRobot *clone() const override;
+  DefenseRobot(u32, u32 = 0);
 };
 
 class BigRobot : public Robot {
 public:
-  BigRobot(u32, u32 = 0);
   u32 move() const override;
   BigRobot *clone() const override;
+  BigRobot(u32, u32 = 0);
 };
 
 Robot *randomRobot(u32, u32);

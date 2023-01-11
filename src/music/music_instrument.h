@@ -9,11 +9,12 @@ class MusicInstruments : public Entity {
 private:
   u32 level;
 
+protected:
 public:
-  bool checkLevelUp(u32); // da pensare se toglierla
+  bool checkLevelUp(u32);
   MusicInstruments(u32 life, u32 damage);
+  virtual MusicInstruments *clone() const override = 0;
   virtual bool levelUp() = 0;
-  virtual u32 attack() const override final;
   u32 getLevel() const;
 };
 

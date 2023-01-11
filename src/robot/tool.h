@@ -14,7 +14,7 @@ public:
   virtual u32 move();
   virtual u32 value() const;
   virtual Tool *clone() const;
-  virtual ~Tool();
+  virtual ~Tool() = default;
 };
 
 class Weapon : public Tool {

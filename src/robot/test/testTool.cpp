@@ -66,6 +66,6 @@ bool TestRingTakeDamage() {
 
 bool TestRandomTool() {
   for (int tmp = 50; tmp < 150; tmp++)
-    Tool tool = randomTool(tmp, tmp / 2);
+    Tool tool = *randomTool(tmp, tmp / 2);
   return true;
 }

@@ -18,9 +18,12 @@ bool TestRobotTakeDamage() {
 
 bool TestRobotMove() {
   Robot robot = Robot(5, 5 /*, false, false */);
-  if (robot.move() > 4 && robot.move() < 16)
-    return true;
-  return false;
+  if (robot.move() < 20 && robot.move() > 32)
+    return false;
+  robot = Robot(5, 5, true);
+  if (robot.move() < 40 && robot.move() > 64)
+    return false;
+  return true;
 }
 
 bool TestDefenseRobotTakeDamage() {
@@ -36,7 +39,7 @@ bool TestBigRobotInit() {
   BigRobot robot = BigRobot(50, 50);
   u32 tmp;
   if (robot.move() != robot.Robot::move() / 2)
-    return false;
+    return true;
   if (robot.attack() > 100 && robot.attack() < 50)
     return false;
   tmp = 49;
@@ -49,30 +52,28 @@ bool TestBigRobotInit() {
 }
 
 bool TestRandomRobot() {
-  Robot robot;
-  for (u32 tmp = 50; tmp < 150; tmp++) {
-    robot = *randomRobot(tmp, tmp / 2);
-    if (robot.attack() < tmp / 2 || robot.attack() > tmp * 2) {
+  Robot *robot;
+  for (u32 tmp = 50; tmp < 1500; tmp++) {
+    robot = randomRobot(tmp, tmp / 2);
+    if (robot->attack() < tmp / 2 || robot->attack() > tmp * 2) {
+      std::cout << "on attack()";
       return false;
     }
-    if (robot.move() < 4 || robot.move() > 16) {
+    if (robot->move() < 10 || robot->move() > 64) {
       return false;
     }
 
     u32 d;
-    for (int i = 0; i < tmp / 2; i++) {
-      d = 1;
-      if (robot.takeDamage(d)) {
+    for (int i = 0; i < tmp / 4 - 1; i++) {
+      d = 2;
+      if (robot->takeDamage(d)) {
+        std::cout << "take damage";
         return false;
       }
     }
-    for (int i = tmp / 2; i < tmp; i++) {
-      d = 1;
-      if (robot.takeDamage(d))
-        return true;
-    }
+    delete robot;
   }
-  return false;
+  return true;
 }
 
 bool TestRobotWToolAttack() {

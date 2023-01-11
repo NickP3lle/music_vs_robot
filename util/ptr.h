@@ -29,7 +29,7 @@ template <class T> ptr<T>::ptr(const T &t) : ptr(new T(t)) {}
 template <class T>
 ptr<T>::ptr(const ptr &Ptr) : data(Ptr.data), refCount(Ptr.refCount) {
   if (refCount)
-    ++*refCount;
+    ++(*refCount);
 }
 
 template <class T> ptr<T>::~ptr() {
@@ -60,7 +60,7 @@ template <class T> const T &ptr<T>::get() const { return *data; }
 template <class T> const T &ptr<T>::operator*() const { return *data; }
 
 template <class T> T &ptr<T>::get_mut() {
-  if (refCount && *refCount > 1) {
+  if (*refCount > 1) {
     (*refCount)--;
     refCount = new unsigned int(1);
     data = data->clone();

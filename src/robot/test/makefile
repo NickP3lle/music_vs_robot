@@ -11,7 +11,6 @@ compile: $(DEP)
 
 run: compile
 	@./$(basename $(ARG))
-	@make clean
 
 clean:
 	@rm *.o ../*.o ../../*.o ../../../util/*.o $(basename $(ARG))

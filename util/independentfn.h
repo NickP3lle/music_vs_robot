@@ -1,9 +1,9 @@
 #ifndef INDEPENDENTFN_H
 #define INDEPENDENTFN_H
-#include <cstdlib>
-#include <string>
-#include <iostream>
 #include <iomanip>
+#include <iostream>
+#include <random>
+#include <string>
 #define u32 unsigned int
 
 // Function to generate a random number between 0 and the max value passed in

@@ -5,17 +5,14 @@
 class TestEntity : public Entity {
 private:
   int hello;
+
 public:
   void updateHealth(u32 h) { Entity::updateHealth(h); }
   void updatePower(u32 a) { Entity::updatePower(a); }
-
   TestEntity(u32 h, u32 p) : Entity(h, p), hello(9) {}
-
   bool takeDamage(u32 &d) override { return Entity::takeDamage(d); }
-
-  u32 attack() const override { return getPower(); }
+  TestEntity *clone() const override { return new TestEntity(*this); }
 };
-
 
 bool TestEntityInit() {
   try {
@@ -52,6 +49,15 @@ bool TestEntityUpdatePower() {
   TestEntity e(100, 10);
   e.updatePower(50);
   if (e.attack() != 60)
-	return false;
+    return false;
+  return true;
+}
+
+bool TestEntityClone() {
+  TestEntity e(100, 10);
+  TestEntity *e2 = e.clone();
+  if (e2->attack() != 10)
+    return false;
+  delete e2;
   return true;
 }
