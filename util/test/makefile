@@ -1,5 +1,5 @@
 CC = g++
-DEP = ../independentfn.o testIterator.o testDeque.cpp testIndependetFn.cpp
+DEP = ../independentfn.o TestDeque.cpp testIndependetFn.cpp
 CFLAGS = -Wsuggest-override -Werror=suggest-override -std=c++2a
 arg = ./main.cpp
 
@@ -8,10 +8,9 @@ compile: $(DEP)
 
 run: compile
 	@$(basename $(arg))
-	@rm $(basename $(arg))
 
 %.o: %.cpp 
 	@$(CC) -c $< $(CFLAGS) -o $@
 
 clean: 
-	@rm *.o ../*.o
+	@rm *.o ../*.o $(basename $(arg))

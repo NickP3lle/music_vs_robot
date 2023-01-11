@@ -8,10 +8,9 @@ MAIN_TARGET = entity.o cash.o
 
 test_music: ${MAIN_TARGET} ${MUSIC}
 	@${CC} $(CFLAGS) ${MAIN_TARGET} ${MUSIC} -o $@
-	@make clean
 
 test_robot: 
 	@(cd robot/test; make run)
 
 clean:
-	@rm *.o music/*.o test_music
+	@rm *.o music/*.o

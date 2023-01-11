@@ -7,7 +7,12 @@ u32 tmp;
 // randomInt(max, min): max == min => max
 Robot::Robot(u32 max, u32 min, bool fast, bool rich)
     : Entity(randomInt(max, min), randomInt(max, min)),
-      speed((fast ? 2 : 1) * (randomInt(10) + 5)), // 5-15
+      speed((fast ? 2 : 1) * (randomInt(32, 20))), // i robot si muovono una
+                                                   // volta per ogni colonna =>
+                                                   // questo numero dovrebbe
+                                                   // essere un multiplo del
+                                                   // numero di colonne
+                                                   // tra 20 e 32
       value((rich ? 2 : 1) * randomInt(max, min)) {}
 
 u32 Robot::attack() const { return getPower(); }
@@ -32,18 +37,18 @@ BigRobot::BigRobot(u32 max, u32 min) : Robot(max * 2, max, false, true) {}
 
 u32 BigRobot::move() const { return Robot::move() / 4; }
 
-Robot randomRobot(u32 max, u32 min = 0) {
+Robot *randomRobot(u32 max, u32 min = 0) {
   tmp = randomInt(1000);
   if (tmp < 500)
-    return Robot(max, min);
+    return new Robot(max, min);
   if (tmp < 833)
-    return Robot(max, min, true);
+    return new Robot(max, min, true);
   if (tmp < 900)
-    return Robot(max, min, false, true);
+    return new Robot(max, min, false, true);
   if (tmp < 950)
-    return Robot(max, min, true, true);
+    return new Robot(max, min, true, true);
   if (tmp < 976)
-    return DefenseRobot(max, min);
+    return new DefenseRobot(max, min);
   else
-    return BigRobot(max, min);
+    return new BigRobot(max, min);
 }

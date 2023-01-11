@@ -8,26 +8,32 @@ private:
 
 public:
   ptr(const T &);
-  ptr(const T *const = nullptr);
+  ptr();
+  ptr(T *const);
+  ptr(T *, bool);
   ptr(const ptr &);
   ptr &operator=(const ptr &);
   ~ptr();
   bool isPtr() const;
   bool isNone() const;
   const T &get() const;
+  const T &operator*() const;
   T &get_mut();
-  void free() {
-    delete data;
-    data = nullptr;
-  }
+  void free();
 };
 
-template <class T>
-ptr<T>::ptr(const T *const t) : data(t ? new T(*t) : nullptr) {}
+template <class T> ptr<T>::ptr() : ptr(nullptr, false) {}
+
+template <class T> ptr<T>::ptr(T *const t) : data(t ? new T(*t) : t) {}
+
+template <class T> ptr<T>::ptr(T *t, bool dealloc) : data(t) {
+  if (dealloc)
+    throw "using wrong constructor";
+}
 
 template <class T> ptr<T>::ptr(const T &t) : data(new T(t)) {}
 
-template <class T> ptr<T>::ptr(const ptr &s) : data(new T(*s.data)) {}
+template <class T> ptr<T>::ptr(const ptr &Ptr) : data(new T(*Ptr.data)) {}
 
 template <class T> ptr<T>::~ptr() {
   if (data) {
@@ -38,8 +44,10 @@ template <class T> ptr<T>::~ptr() {
 
 template <class T> ptr<T> &ptr<T>::operator=(const ptr &s) {
   if (this != &s && s.data) {
-    if (!data)
-      data = new T(*s.data);
+    if (data)
+      delete data;
+    data = s.data;
+    const_cast<ptr<T> &>(s).data = nullptr;
   }
   return *this;
 }
@@ -50,5 +58,14 @@ template <class T> bool ptr<T>::isNone() const { return !data; }
 
 template <class T> const T &ptr<T>::get() const { return *data; }
 
+template <class T> const T &ptr<T>::operator*() const { return *data; }
+
 template <class T> T &ptr<T>::get_mut() { return *data; }
+
+template <class T> void ptr<T>::free() {
+  if (data) {
+    delete data;
+    data = nullptr;
+  }
+}
 #endif

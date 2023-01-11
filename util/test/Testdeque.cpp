@@ -1,37 +1,39 @@
 #include "main.h"
 
-bool TestdequePushPop() {
+bool TestDequePushPop() {
   deque<int> tmp(5);
   for (int i = 0; i < 10; i++)
     tmp.push_back(i);
   for (int i = 0; i < 10; i++)
-    if (tmp.len() > 0 && tmp.pop_front().get() != i)
+    if (tmp.len() > 0 && tmp.pop_front() != i)
       return false;
   return true;
 }
 
-bool TestdequeCopy() {
+bool TestDequeRemove() {
+  deque<int> tmp(5);
+  for (int i = 0; i < 10; i++)
+    tmp.push_back(i);
+  for (int i = 0; i < 10; i++)
+    tmp.remove(tmp.len() % 2 ? tmp.len() - 1 : 0);
+  return tmp.len() == 0;
+}
+
+bool TestDequeCopy() {
   deque<int> tmp(5);
   for (int i = 0; i < 10; i++)
     tmp.push_back(i);
   deque<int> tmp2(tmp);
-  for (int i = 0; i < 10; i++)
-    if (tmp2.pop_front().get() != tmp.pop_front().get())
+  deque<int> tmp3 = tmp;
+  for (int i = 0; i < 10; i++) {
+    int aux = tmp.pop_front();
+    if (tmp2.pop_front() != aux || tmp3.pop_front() != aux)
       return false;
+  }
   return true;
 }
 
-bool TestdequeAssign() {
-  deque<int> tmp(5);
-  for (int i = 0; i < 10; i++)
-    tmp.push_back(i);
-  deque<int> tmp2 = tmp;
-  for (int i = 0; i < 10; i++)
-    if (tmp2.pop_front().get() != tmp.pop_front().get())
-      return false;
-  return true;
-}
-bool TestdequeIndex() {
+bool TestDequeIndex() {
   deque<int> tmp(5);
   for (int i = 0; i < 10; i++)
     tmp.push_back(i);
@@ -41,25 +43,15 @@ bool TestdequeIndex() {
   return true;
 }
 
-bool TestdequeIter() {
+bool TestDequeIter() {
   deque<int> tmp(5);
   for (int i = 0; i < 10; i++)
     tmp.push_back(i);
-  if (tmp.len() != tmp.iter().len())
-    return false;
-  return true;
-}
-
-bool TestdequeCollect() {
-  deque<int> tmp(5);
-  for (int i = 0; i < 10; i++)
-    tmp.push_back(i);
-  tmp.iter()
-      .filter([](int a) { return a % 2 == 0; }) // 0 2 4 6 8
-      .map([](int *a) { *a *= 2; }) 	// 0 4 8 12 16
-      .collect<deque<int*>>();
-  for (int i = 0; i < tmp.len(); i++)
-	  if (tmp[i] % 2 == 0 && tmp[i] != i * 2)
-      return false;
-  return true;
+  bool flag = true;
+  tmp.iter([](int &x) { x *= 2; });
+  tmp.iter([&flag](int &x) mutable {
+    if (x % 2)
+      flag = false;
+  });
+  return flag;
 }

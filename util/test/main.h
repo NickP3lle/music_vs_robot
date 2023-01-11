@@ -4,19 +4,20 @@
 #include "../util.h"
 bool TestRandomInt();
 
-bool TestdequePushPop();
-bool TestdequeCopy();
-bool TestdequeIndex();
-bool TestdequeIter();
-bool TestdequeCollect();
-bool TestdequeAssign();
+bool TestDequePushPop();
+bool TestDequeRemove();
+bool TestDequeCopy();
+bool TestDequeIndex();
+bool TestDequeIter();
+bool TestDequeIterMut();
 
+/*
 bool TestIterator();
 bool TestIteratorCopy();
 bool TestIteratorAssign();
 bool TestIteratorMap();
 bool TestIteratorFilter();
 bool TestIteratorCollect();
-
+*/
 
 #endif

@@ -7,22 +7,25 @@ bool TestRobotAttack() {
 
 bool TestRobotTakeDamage() {
   Robot robot = Robot(50, 50);
+  u32 tmp;
   tmp = 49;
   if (robot.takeDamage(tmp))
-	  return false;
+    return false;
   if (robot.takeDamage(++tmp))
-	  return true;
+    return true;
   return false;
 }
 
 bool TestRobotMove() {
   Robot robot = Robot(5, 5 /*, false, false */);
-  if (robot.move() > 4 && robot.move() < 16) return true;
+  if (robot.move() > 4 && robot.move() < 16)
+    return true;
   return false;
 }
 
 bool TestDefenseRobotTakeDamage() {
   DefenseRobot robot = DefenseRobot(50, 50);
+  u32 tmp;
   tmp = 10000;
   if (robot.takeDamage(tmp) && tmp < 5000)
     return true;
@@ -30,8 +33,9 @@ bool TestDefenseRobotTakeDamage() {
 }
 
 bool TestBigRobotInit() {
-    BigRobot robot = BigRobot(50, 50);
-  if (robot.move() != robot.Robot::move() / 4)
+  BigRobot robot = BigRobot(50, 50);
+  u32 tmp;
+  if (robot.move() != robot.Robot::move() / 2)
     return false;
   if (robot.attack() > 100 && robot.attack() < 50)
     return false;
@@ -40,18 +44,18 @@ bool TestBigRobotInit() {
     return false;
   tmp = 51;
   if (!robot.takeDamage(tmp) && tmp > 50)
-	return false;
+    return false;
   return true;
 }
 
 bool TestRandomRobot() {
   Robot robot;
   for (u32 tmp = 50; tmp < 150; tmp++) {
-    robot = randomRobot(tmp, tmp / 2);
+    robot = *randomRobot(tmp, tmp / 2);
     if (robot.attack() < tmp / 2 || robot.attack() > tmp * 2) {
       return false;
     }
-    if (robot.move() < 4|| robot.move() > 16) {
+    if (robot.move() < 4 || robot.move() > 16) {
       return false;
     }
 
@@ -72,6 +76,7 @@ bool TestRandomRobot() {
 }
 
 bool TestRobotWToolAttack() {
+  u32 tmp;
   for (u32 _ = 0; _ < 100; _++) {
     RobotWTool robot(50, 50);
     tmp = robot.attack();

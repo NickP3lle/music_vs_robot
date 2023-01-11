@@ -17,8 +17,6 @@ public:
   u32 damagePos;
   static Playground *instance;
   Playground();
-  void initPlayer();
-  void initEnemy();
   void reset();
   u32 nearestPlayer(u32 row, u32 col) const;
   u32 moveRobot(u32 row, u32 col, RobotWTool &robot);
@@ -27,13 +25,13 @@ public:
 public:
   static void cleanUp();
   void insertEnemy(u32 row, u32 difficulty);
-  bool insertPlayer(u32 row, u32 col, const MusicInstruments *mi);
+  bool insertPlayer(u32 row, u32 col, u32 mi_id);
   bool lose() const;
   void playerAttack(u32 colonna);
   void damagePropagate(u32 colonna);
   void enemyAttack(u32 colonna);
   void moveRobots();
-  std::ostream& print(std::ostream&) const;
+  std::ostream &print(std::ostream &) const;
   static Playground *getInstance();
 };
 

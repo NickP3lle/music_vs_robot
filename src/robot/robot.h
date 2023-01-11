@@ -27,6 +27,6 @@ public:
   u32 move() const override;
 };
 
-Robot randomRobot(u32, u32);
+Robot *randomRobot(u32, u32);
 
 #endif

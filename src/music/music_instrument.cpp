@@ -5,7 +5,7 @@ MusicInstruments::MusicInstruments(u32 life, u32 damage)
 
 bool MusicInstruments::checkLevelUp(u32 price) {
   if (level >= 3) {
-    std::cerr << "Level max already reached" << std::endl;
+    // std::cerr << "Level max already reached\n";
     return false;
   }
   if (!(Cash::getInstance()->sub(price))) {
@@ -15,15 +15,9 @@ bool MusicInstruments::checkLevelUp(u32 price) {
 
   level += 1;
 
-  std::cout << "Successfully leveled up" << std::endl;
-  std::cout << "Level: " << level << std::endl;
+  // std::cerr << "Successfully leveled up\n";
+  // std::cerr << "Level: " << level << std::endl;
 
-  return true;
-}
-
-bool MusicInstruments::levelUp() {
-  if (level > 3)
-    return false;
   return true;
 }
 
@@ -31,68 +25,104 @@ u32 MusicInstruments::attack() const { return getPower(); }
 
 u32 MusicInstruments::getLevel() const { return level; }
 
-Drum::Drum() : MusicInstruments(DRUM_DEFAULT_HEALTH, 300) {}
-
-bool Drum::levelUp() {
-    if (!(checkLevelUp(DRUM_UPDATE_PRICE))) {
-        return false;
-    }
-
-    // level è già stato incrementato
-    updateHealth(DRUM_DEFAULT_HEALTH + (DRUM_HEALTH_INCREASE * (getLevel() - 1)));
-    updatePower(DRUM_POWER_INCREASE);
-    return true;
-}
-
-
 Flute::Flute() : MusicInstruments(FLUTE_DEFAULT_HEALTH, 100){};
 
-bool Flute::levelUp() {
-    if (!(checkLevelUp(FLUTE_UPDATE_PRICE))) {
-        return false;
-    }
+Flute *Flute::clone() const { return new Flute(*this); }
 
-    // level è già stato incrementato
-    updateHealth(FLUTE_DEFAULT_HEALTH + (FLUTE_HEALTH_INCREASE * (getLevel() - 1)));
-    updatePower(FLUTE_POWER_INCREASE);
-    return true;
+bool Flute::levelUp() {
+  if (!(checkLevelUp(FLUTE_UPDATE_PRICE))) {
+    return false;
+  }
+
+  // level è già stato incrementato
+  updateHealth(FLUTE_DEFAULT_HEALTH +
+               (FLUTE_HEALTH_INCREASE * (getLevel() - 1)));
+  updatePower(FLUTE_POWER_INCREASE);
+  return true;
+}
+
+Drum::Drum() : MusicInstruments(DRUM_DEFAULT_HEALTH, 300) {}
+
+Drum *Drum::clone() const { return new Drum(*this); }
+
+bool Drum::levelUp() {
+  if (!(checkLevelUp(DRUM_UPDATE_PRICE))) {
+    return false;
+  }
+
+  // level è già stato incrementato
+  updateHealth(DRUM_DEFAULT_HEALTH + (DRUM_HEALTH_INCREASE * (getLevel() - 1)));
+  updatePower(DRUM_POWER_INCREASE);
+  return true;
 }
 
 Saxophone::Saxophone() : MusicInstruments(SAXOPHONE_DEFAULT_HEALTH, 0){};
 
-bool Saxophone::levelUp() {
-    if (!(checkLevelUp(SAXOPHONE_UPDATE_PRICE))) {
-        return false;
-    }
+bool Saxophone::takeDamage(u32 &damage) {
+  if (!Entity::takeDamage(damage))
+    return false;
+  if (secondLife) {
+    secondLife = false;
+    return false;
+  }
+  return true;
+}
 
-    // level è già stato incrementato
-    updateHealth(SAXOPHONE_DEFAULT_HEALTH + (SAXOPHONE_HEALTH_INCREASE * (getLevel() - 1)));
-    updatePower(SAXOPHONE_POWER_INCREASE);
-    return true;
+Saxophone *Saxophone::clone() const { return new Saxophone(*this); }
+
+bool Saxophone::levelUp() {
+  if (!(checkLevelUp(SAXOPHONE_UPDATE_PRICE))) {
+    return false;
+  }
+
+  // level è già stato incrementato
+  updateHealth(SAXOPHONE_DEFAULT_HEALTH +
+               (SAXOPHONE_HEALTH_INCREASE * (getLevel() - 1)));
+  updatePower(SAXOPHONE_POWER_INCREASE);
+  return true;
 }
 
 Trumpet::Trumpet() : MusicInstruments(TRUMPET_DEFAULT_HEALTH, 50){};
 
-bool Trumpet::levelUp() {
-    if (!(checkLevelUp(TRUMPET_UPDATE_PRICE))) {
-        return false;
-    }
+Trumpet *Trumpet::clone() const { return new Trumpet(*this); }
 
-    // level è già stato incrementato
-    updateHealth(TRUMPET_DEFAULT_HEALTH + (TRUMPET_HEALTH_INCREASE * (getLevel() - 1)));
-    updatePower(TRUMPET_POWER_INCREASE);
-    return true;
+bool Trumpet::levelUp() {
+  if (!(checkLevelUp(TRUMPET_UPDATE_PRICE))) {
+    return false;
+  }
+
+  // level è già stato incrementato
+  updateHealth(TRUMPET_DEFAULT_HEALTH +
+               (TRUMPET_HEALTH_INCREASE * (getLevel() - 1)));
+  updatePower(TRUMPET_POWER_INCREASE);
+  return true;
 }
 
 Violin::Violin() : MusicInstruments(VIOLIN_DEFAULT_HEALTH, 100){};
 
-bool Violin::levelUp() {
-    if (!(checkLevelUp(VIOLIN_UPDATE_PRICE))) {
-        return false;
-    }
+Violin *Violin::clone() const { return new Violin(*this); }
 
-    // level è già stato incrementato
-    updateHealth(VIOLIN_DEFAULT_HEALTH + (VIOLIN_HEALTH_INCREASE * (getLevel() - 1)));
-    updatePower(VIOLIN_POWER_INCREASE);
-    return true;
+bool Violin::levelUp() {
+  if (!(checkLevelUp(VIOLIN_UPDATE_PRICE))) {
+    return false;
+  }
+
+  // level è già stato incrementato
+  updateHealth(VIOLIN_DEFAULT_HEALTH +
+               (VIOLIN_HEALTH_INCREASE * (getLevel() - 1)));
+  updatePower(VIOLIN_POWER_INCREASE);
+  return true;
+}
+
+MusicInstruments *music::New(u32 type) {
+  if (type == 0)
+    return new Flute();
+  else if (type == 1)
+    return new Drum();
+  else if (type == 2)
+    return new Saxophone();
+  else if (type == 3)
+    return new Trumpet();
+  else
+    return new Violin();
 }

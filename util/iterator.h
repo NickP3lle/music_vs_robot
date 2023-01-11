@@ -101,7 +101,7 @@ Iterator<T *> Iterator<T>::filter(S lambda) const {
     if (lambda(a))
       *new_ptr++ = &a;
   });
-  return Iterator<int *>(new_ptr, count);
+  return Iterator<T *>(new_ptr, count);
 }
 
 template <class T> template <class R> R Iterator<T>::collect() const {

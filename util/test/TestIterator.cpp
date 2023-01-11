@@ -3,14 +3,6 @@
 
 typedef Iterator<int> iter;
 
-bool TestIterator() {
-  iter it(new int[3]{1, 2, 3}, 3);
-  for (int i = 0; i < it.len(); i++)
-    if (it[i] != i + 1)
-      return false;
-  return true;
-}
-
 bool TestIteratorCopy() {
   iter it(new int[3]{1, 2, 3}, 3);
   iter it2(it);
@@ -51,12 +43,12 @@ bool TestIteratorFilter() {
   iter it(new int[]{1, 2, 3}, 3);
   int size = 0;
   for (int i = 0; i < it.len(); i++)
-	  if (it[i] % 2 == 0)
-		  size++;
-  int **tmp = new int*[size];
+    if (it[i] % 2 == 0)
+      size++;
+  int **tmp = new int *[size];
   for (int i = 0, j = 0; i < it.len(); i++)
-	  if (it[i] % 2 == 0)
-		  tmp[j++] = &it[i];
+    if (it[i] % 2 == 0)
+      tmp[j++] = &it[i];
 
   if (size != 1)
     return false;

@@ -15,7 +15,7 @@ void Cash::add(u32 amount) { total += amount; }
 
 bool Cash::sub(u32 amount) {
   if (total < amount) {
-    std::cerr << "Not enough cash\n";
+    // std::cerr << "Not enough cash\n";
     return false;
   }
   total -= amount;

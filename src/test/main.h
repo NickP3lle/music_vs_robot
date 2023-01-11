@@ -23,6 +23,13 @@ private:
   static Playground *Get() { return getInstance(); }
 
 public:
+  static bool CleanUp() {
+    for (u32 i = 0; i < 10; i++) {
+      getInstance();
+      cleanUp();
+    }
+    return true;
+  }
   static bool InsertEnemy();
   static bool InsertPlayer();
   static bool Lose();

@@ -1,4 +1,6 @@
 #include "../entity.h"
+#include <iostream>
+using std::ostream;
 
 #ifndef MUSIC_INSTRUMENT_H
 #define MUSIC_INSTRUMENT_H
@@ -13,8 +15,11 @@ protected:
 public:
   MusicInstruments(u32 life, u32 damage);
   MusicInstruments(const MusicInstruments &) = default;
-  virtual bool levelUp();
-  u32 attack() const override final;
+  virtual ~MusicInstruments() = default;
+
+  virtual MusicInstruments *clone() const = 0;
+  virtual bool levelUp() = 0;
+  virtual u32 attack() const override final;
   u32 getLevel() const;
 };
 
@@ -28,6 +33,7 @@ public:
 class Drum : public MusicInstruments {
 public:
   Drum();
+  Drum *clone() const override;
   bool levelUp() override;
 };
 
@@ -40,6 +46,7 @@ public:
 class Flute : public MusicInstruments {
 public:
   Flute();
+  Flute *clone() const override;
   bool levelUp() override;
 };
 
@@ -50,8 +57,13 @@ public:
 
 #include "music_instrument.h"
 class Saxophone : public MusicInstruments {
+private:
+  bool secondLife;
+
 public:
   Saxophone();
+  bool takeDamage(u32 &) override;
+  Saxophone *clone() const override;
   bool levelUp() override;
 };
 
@@ -64,6 +76,7 @@ public:
 class Trumpet : public MusicInstruments {
 public:
   Trumpet();
+  Trumpet *clone() const override;
   bool levelUp() override;
 };
 
@@ -76,7 +89,16 @@ public:
 class Violin : public MusicInstruments {
 public:
   Violin();
+  Violin *clone() const override;
   bool levelUp() override;
 };
 
+// 0 -> flute
+// 1 -> Drum
+// 2 -> Saxophone
+// 3 -> Trumpet
+// >3 -> Violin
+namespace music {
+MusicInstruments *New(u32 type);
+} // namespace music
 #endif

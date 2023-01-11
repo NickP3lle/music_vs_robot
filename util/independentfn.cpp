@@ -11,7 +11,7 @@ u32 randomInt(u32 maxValue, u32 minValue) {
 void Test(std::string fname, bool (*fn)(void)) {
   std::cout << "Testing " << std::left << std::setw(30) << fname << " ... ";
   if (fn())
-    std::cout << "PASSED" << std::endl;
+    std::cout << "\033[1;32mPASSED\033[0;97m\n";
   else
-    std::cout << "FAILED" << std::endl;
+    std::cout << "\033[1;91mFAILED\033[0;97m\n";
 }
