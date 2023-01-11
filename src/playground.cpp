@@ -37,7 +37,7 @@ bool Playground::lose() const {
 // calcola il danno sulla colonna che gli passi per l'intera riga
 void Playground::playerAttack(u32 col) {
   for (u32 i = 0; i < ROWS; i++) {
-    if (player[i][col].isNone())
+    if (!player[i][col])
       continue;
     if (dynamic_cast<const Drum *>(&*player[i][col]))
       damage[i][1] += (*player[i][col]).attack();
@@ -61,7 +61,7 @@ void Playground::playerAttack(u32 col) {
 // NB se i danni non sono nulli allora tutti gli zombie sono morti
 void Playground::enemyAttack(u32 col) {
   for (u32 row = 0; row < ROWS; row++) {
-    if (player[row][col].isNone() || damage[row][0] > 0)
+    if (!player[row][col] || damage[row][0] > 0)
       return;
     u32 danni = 0;
     iterRobot(row, col, [&danni](deque<RobotWTool> &d) {
@@ -109,7 +109,7 @@ void Playground::moveRobots() {
 // potrei cambiare questa funzione per non far sovrapporre i robot
 u32 Playground::nearestPlayer(u32 row, u32 col) const {
   for (int i = 0; i <= col / FRAME_COLUMNS; i++)
-    if (player[row][col / FRAME_COLUMNS - i].isPtr()) {
+    if (player[row][col / FRAME_COLUMNS - i]) {
       return i * FRAME_COLUMNS;
     }
   return col;
@@ -125,9 +125,9 @@ void Playground::insertEnemy(u32 row, u32 difficulty) {
 }
 
 bool Playground::insertPlayer(u32 row, u32 col, u32 mi_id) {
-  if (player[row][col].isPtr())
+  if (player[row][col])
     return false;
-  player[row][col] = ptr<MusicInstruments>(music::New(mi_id), false);
+  player[row][col] = ptr<MusicInstruments>(music::New(mi_id));
   return true;
 }
 

@@ -15,7 +15,9 @@ bool Tool::takeDamage(u32 &damage) {
 
 u32 Tool::move() { return 0; }
 
-u32 Tool::value() { return 0; }
+u32 Tool::value() const { return 0; }
+
+Tool *Tool::clone() const { return new Tool(*this); }
 
 Weapon::Weapon(u32 max, u32 min) : Tool(max), damage(randomInt(max, min)) {}
 
@@ -28,6 +30,8 @@ u32 Weapon::attack() {
 
 bool Weapon::takeDamage(u32 &damage) { return false; }
 
+Weapon *Weapon::clone() const { return new Weapon(*this); }
+
 Armor::Armor(u32 max) : Tool(max) {}
 
 bool Armor::takeDamage(u32 &damage) {
@@ -36,6 +40,8 @@ bool Armor::takeDamage(u32 &damage) {
   damage = 0;
   return Tool::takeDamage(damage);
 }
+
+Armor *Armor::clone() const { return new Armor(*this); }
 
 Boots::Boots(u32 max, u32 min) : Tool(max % 10), speed(randomInt(max, min)) {}
 
@@ -48,21 +54,25 @@ u32 Boots::move() {
   return speed;
 }
 
+Boots *Boots::clone() const { return new Boots(*this); }
+
 Ring::Ring(u32 max, u32 min) : Tool(-1), cash(randomInt(max, min)) {}
 
-u32 Ring::value() { return cash; }
+u32 Ring::value() const { return cash; }
+
+Ring *Ring::clone() const { return new Ring(*this); }
 
 // this function generate a random tool
-Tool randomTool(u32 max, u32 min) {
+Tool *randomTool(u32 max, u32 min) {
   switch (randomInt(3)) {
   case 0:
-    return Weapon(max, min);
+    return new Weapon(max, min);
   case 1:
-    return Armor(max);
+    return new Armor(max);
   case 2:
-    return Boots(max, min);
+    return new Boots(max, min);
   deault:
-    return Ring(max, min);
+    return new Ring(max, min);
   }
-  return Tool(-1); // non oggetto
+  return new Tool(-1); // non oggetto
 }

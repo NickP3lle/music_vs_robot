@@ -3,17 +3,17 @@
 #include "cash.h"
 
 class Entity {
-  private:
-    u32 health;
-    u32 power;
-  protected:
-    void updateHealth(u32 newHealth);        // replaces with the new life
-    void updatePower(u32 powerIncrease = 0); // increment the power
-    u32 getPower() const;
-    Entity(u32 health, u32 power);
+private:
+  u32 health;
+  u32 power;
 
-  public:
-    virtual bool takeDamage(u32 &amount);
-    virtual u32 attack() const = 0;
+public:
+  Entity(u32 health, u32 power);
+  virtual ~Entity();
+  void updateHealth(u32 newHealth);        // replaces with the new life
+  void updatePower(u32 powerIncrease = 0); // increment the power
+  virtual bool takeDamage(u32 &amount);
+  virtual u32 attack() const;
+  virtual Entity *clone() const = 0;
 };
 #endif

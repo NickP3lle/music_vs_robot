@@ -13,4 +13,4 @@ run: compile
 	@$(CC) -c $< $(CFLAGS) -o $@
 
 clean: 
-	@rm *.o ../*.o ../../util/*.o $(basename $(arg))
+	@rm *.o ../*.o ../../util/*.o ../music/*.o ../robot/*.o $(basename $(arg))

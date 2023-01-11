@@ -15,8 +15,6 @@ Robot::Robot(u32 max, u32 min, bool fast, bool rich)
                                                    // tra 20 e 32
       value((rich ? 2 : 1) * randomInt(max, min)) {}
 
-u32 Robot::attack() const { return getPower(); }
-
 bool Robot::takeDamage(u32 &damage) {
   tmp = Entity::takeDamage(damage);
   if (tmp)
@@ -26,6 +24,8 @@ bool Robot::takeDamage(u32 &damage) {
 
 u32 Robot::move() const { return speed; }
 
+Robot *Robot::clone() const { return new Robot(*this); }
+
 DefenseRobot::DefenseRobot(u32 max, u32 min) : Robot(max, min) {}
 
 bool DefenseRobot::takeDamage(u32 &damage) {
@@ -33,9 +33,13 @@ bool DefenseRobot::takeDamage(u32 &damage) {
   return Robot::takeDamage(damage);
 }
 
+DefenseRobot *DefenseRobot::clone() const { return new DefenseRobot(*this); }
+
 BigRobot::BigRobot(u32 max, u32 min) : Robot(max * 2, max, false, true) {}
 
 u32 BigRobot::move() const { return Robot::move() / 4; }
+
+BigRobot *BigRobot::clone() const { return new BigRobot(*this); }
 
 Robot *randomRobot(u32 max, u32 min = 0) {
   tmp = randomInt(1000);

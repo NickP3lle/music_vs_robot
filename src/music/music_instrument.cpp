@@ -21,8 +21,6 @@ bool MusicInstruments::checkLevelUp(u32 price) {
   return true;
 }
 
-u32 MusicInstruments::attack() const { return getPower(); }
-
 u32 MusicInstruments::getLevel() const { return level; }
 
 Flute::Flute() : MusicInstruments(FLUTE_DEFAULT_HEALTH, 100){};

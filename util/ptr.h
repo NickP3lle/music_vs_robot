@@ -1,71 +1,70 @@
 #ifndef PTR_SAFE
 #define PTR_SAFE
 #include <iostream>
+#include <typeinfo>
 
 template <class T> class ptr {
 private:
   T *data;
+  unsigned int *refCount;
 
 public:
+  ptr(T *const = nullptr);
   ptr(const T &);
-  ptr();
-  ptr(T *const);
-  ptr(T *, bool);
   ptr(const ptr &);
   ptr &operator=(const ptr &);
   ~ptr();
-  bool isPtr() const;
-  bool isNone() const;
+  operator bool() const;
   const T &get() const;
   const T &operator*() const;
   T &get_mut();
-  void free();
 };
 
-template <class T> ptr<T>::ptr() : ptr(nullptr, false) {}
+template <class T>
+ptr<T>::ptr(T *ptr_t)
+    : data(ptr_t), refCount(ptr_t ? new unsigned int(1) : nullptr) {}
 
-template <class T> ptr<T>::ptr(T *const t) : data(t ? new T(*t) : t) {}
+template <class T> ptr<T>::ptr(const T &t) : ptr(new T(t)) {}
 
-template <class T> ptr<T>::ptr(T *t, bool dealloc) : data(t) {
-  if (dealloc)
-    throw "using wrong constructor";
+template <class T>
+ptr<T>::ptr(const ptr &Ptr) : data(Ptr.data), refCount(Ptr.refCount) {
+  if (refCount)
+    ++*refCount;
 }
-
-template <class T> ptr<T>::ptr(const T &t) : data(new T(t)) {}
-
-template <class T> ptr<T>::ptr(const ptr &Ptr) : data(new T(*Ptr.data)) {}
 
 template <class T> ptr<T>::~ptr() {
   if (data) {
-    delete data;
-    data = nullptr;
+    (*refCount)--;
+    if (*refCount == 0) {
+      delete data;
+      data = nullptr;
+      delete refCount;
+    }
   }
 }
 
 template <class T> ptr<T> &ptr<T>::operator=(const ptr &s) {
-  if (this != &s && s.data) {
-    if (data)
-      delete data;
+  if (this != &s) {
     data = s.data;
-    const_cast<ptr<T> &>(s).data = nullptr;
+    refCount = s.refCount;
+    if (data && refCount)
+      (*refCount)++;
   }
   return *this;
 }
 
-template <class T> bool ptr<T>::isPtr() const { return data; }
-
-template <class T> bool ptr<T>::isNone() const { return !data; }
+template <class T> ptr<T>::operator bool() const { return data; }
 
 template <class T> const T &ptr<T>::get() const { return *data; }
 
 template <class T> const T &ptr<T>::operator*() const { return *data; }
 
-template <class T> T &ptr<T>::get_mut() { return *data; }
-
-template <class T> void ptr<T>::free() {
-  if (data) {
-    delete data;
-    data = nullptr;
+template <class T> T &ptr<T>::get_mut() {
+  if (refCount && *refCount > 1) {
+    (*refCount)--;
+    refCount = new unsigned int(1);
+    data = data->clone();
   }
+  return *data;
 }
 #endif
