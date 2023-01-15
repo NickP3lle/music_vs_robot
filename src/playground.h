@@ -25,7 +25,8 @@ public:
 public:
   static void cleanUp();
   void insertEnemy(u32 row, u32 difficulty);
-  bool insertPlayer(u32 row, u32 col, u32 mi_id);
+  bool insertPlayer(u32 row, u32 col, music mi_id);
+  bool playerLevelUp(u32 row, u32 col);
   bool lose() const;
   void playerAttack(u32 colonna);
   void damagePropagate(u32 colonna);

@@ -1,5 +1,5 @@
 CC = g++
-DEP = ../cash.o ../entity.o ../robot/robot.o ../robot/tool.cpp ../robot/robotwtool.o ../music/music_instrument.o ../playground.o TestCash.o TestEntity.o TestPlayground.o ../../util/independentfn.o 
+DEP = ../cash.o ../robot/robot.o ../robot/tool.cpp ../robot/robotwtool.o ../music/music_instrument.o ../playground.o TestCash.o TestPlayground.o ../../util/independentfn.o 
 CFLAGS = -Wsuggest-override -Werror=suggest-override -std=c++2a
 arg = ./main.cpp
 

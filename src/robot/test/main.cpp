@@ -8,8 +8,6 @@ int main() {
   Test("DefenseRobotTakeDamage", TestDefenseRobotTakeDamage);
   Test("BigRobot", TestBigRobotInit);
 
-  Test("RandomRobot", TestRandomRobot);
-
   Test("WeaponAttack", TestWeaponAttack);
   Test("WeaponTakeDamage", TestWeaponTakeDamage);
   Test("ArmorTakeDamage", TestArmorTakeDamage);
@@ -17,7 +15,6 @@ int main() {
   Test("BootsTakeDamage", TestBootsTakeDamage);
   Test("RingValue", TestRingValue);
   Test("RingTakeDamage", TestRingTakeDamage);
-  Test("RandomTool", TestRandomTool);
 
   Test("RobotWToolAttack", TestRobotWToolAttack);
   return 0;

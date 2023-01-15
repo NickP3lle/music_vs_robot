@@ -39,20 +39,29 @@ void Playground::playerAttack(u32 col) {
   for (u32 i = 0; i < ROWS; i++) {
     if (!player[i][col])
       continue;
-    if (dynamic_cast<const Drum *>(&*player[i][col]))
-      damage[i][1] += (*player[i][col]).attack();
-    else
-      damage[i][0] += (*player[i][col]).attack();
-    if (dynamic_cast<const Trumpet *>(&*player[i][col])) {
+    music mi(player[i][col].get());
+    switch (mi.type) {
+    case (THREE_R):
       if (i > 0)
-        damage[i - 1][0] += (*player[i][col]).attack();
+        damage[i - 1][0] += player[i][col].get().attack();
       if (i < ROWS - 1)
-        damage[i + 1][0] += (*player[i][col]).attack();
+        damage[i + 1][0] += player[i][col].get().attack();
+    case (NORMIE):
+      damage[i][0] += player[i][col].get().attack();
+      break;
+    case (THREE_C):
+      damage[i][1] += player[i][col].get().attack();
+      break;
+    case (SLOW):
+      damage[i][0] += player[i][col].get().attack();
+      slowDown[i] +=
+          static_cast<const Violin *>(&player[i][col].get())->slowDown();
+    default:
+      break;
     }
-    if (dynamic_cast<const Violin *>(&*player[i][col]))
-      slowDown[i]++;
-    if (col > 3 && dynamic_cast<const Drum *>(&*player[i][col - 4]))
-      std::cout << "Harddo", damage[i][1] += (*player[i][col - 4]).attack();
+    if (col > 3 && THREE_C == music(player[i][col - 4].get())) {
+      damage[i][1] += (*player[i][col - 4]).attack();
+    }
   }
 }
 
@@ -62,10 +71,10 @@ void Playground::playerAttack(u32 col) {
 void Playground::enemyAttack(u32 col) {
   for (u32 row = 0; row < ROWS; row++) {
     if (!player[row][col] || damage[row][0] > 0)
-      return;
+      continue;
     u32 danni = 0;
-    iterRobot(row, col, [&danni](deque<RobotWTool> &d) {
-      d.iter([&danni](RobotWTool &e) { danni += e.attack(); });
+    iterRobot(row, col, [&danni](auto &d) {
+      d.iter([&danni](auto &e) { danni += e.attack(); });
     });
     player[row][col].get_mut().takeDamage(danni);
   }
@@ -76,7 +85,7 @@ void Playground::enemyAttack(u32 col) {
 // ai robot. Se il robot muore fa il pop dalla deque.
 void Playground::damagePropagate(u32 col) {
   for (u32 row = 0; row < ROWS; row++) {
-    iterRobot(row, col, [&damage = damage[row]](deque<RobotWTool> &d) {
+    iterRobot(row, col, [&damage = damage[row]](auto &d) {
       if (damage[1] > 0)
         for (u32 i = 0; i < d.len(); i++) {
           u32 tmp = damage[1];
@@ -94,13 +103,25 @@ void Playground::damagePropagate(u32 col) {
 // se c'è un robot lo sposta
 // c'è un buggino: un robot potrebbe schivare i danni
 void Playground::moveRobots() {
+  u32 move_to = 0;
   for (u32 row = 0; row < ROWS; row++) {
     for (u32 col = 0; col < COLUMNS * FRAME_COLUMNS; col++) {
       if (nearestPlayer(row, col) == 0)
         continue;
-      while (enemy[row][col].len() > 0)
+      while (enemy[row][col].len() > 0) {
+        move_to = moveRobot(row, col, enemy[row][col][0]);
+        // controllo che il robot non si muova nella colonna dove si trovano i
+        // danni, altrimenti li schiverebbe
+        if (col / FRAME_COLUMNS > damagePos &&
+            move_to / FRAME_COLUMNS <= damagePos &&
+            (enemy[row][col][0].takeDamage(damage[row][1]) ||
+             enemy[row][col][0].takeDamage(damage[row][0]))) {
+          enemy[row][col].pop_front();
+          continue;
+        }
         enemy[row][moveRobot(row, col, enemy[row][col][0])].push_back(
             enemy[row][col].pop_front());
+      }
     }
   }
 }
@@ -121,46 +142,37 @@ u32 Playground::moveRobot(u32 row, u32 col, RobotWTool &r) {
 }
 
 void Playground::insertEnemy(u32 row, u32 difficulty) {
-  enemy[row][FRAME_COLUMNS * COLUMNS - 1].push_back(RobotWTool(difficulty));
+  enemy[row][FRAME_COLUMNS * COLUMNS - 1].push_back(
+      RobotWTool(difficulty, difficulty / 2));
 }
 
-bool Playground::insertPlayer(u32 row, u32 col, u32 mi_id) {
-  if (player[row][col])
+bool Playground::insertPlayer(u32 row, u32 col, music mi_id) {
+  MusicInstruments *mi = music::New(mi_id);
+  if (player[row][col] ||
+      !Cash::getInstance()->sub(mi->getCost())) { // se non c'è spazio o non
+    delete mi;
     return false;
-  player[row][col] = ptr<MusicInstruments>(music::New(mi_id));
+  }
+  player[row][col] = ptr<MusicInstruments>(mi);
+  return true;
+}
+
+bool Playground::playerLevelUp(u32 row, u32 col) {
+  if (!player[row][col] &&
+      !Cash::getInstance()->sub((*player[row][col]).value()))
+    return false;
+  player[row][col].get_mut().levelUp();
   return true;
 }
 
 std::ostream &Playground::print(std::ostream &os) const {
-  os << "_________________________________" << std::endl;
   for (u32 row = 0; row < ROWS; row++) {
     for (u32 col = 0; col < COLUMNS; col++) {
-      if (dynamic_cast<const Flute *>(&*player[row][col]))
-        os << "F";
-      else if (dynamic_cast<const Trumpet *>(&*player[row][col]))
-        os << "T";
-      else if (dynamic_cast<const Drum *>(&*player[row][col]))
-        os << "D";
-      else if (dynamic_cast<const Violin *>(&*player[row][col]))
-        os << "V";
-      else if (dynamic_cast<const Saxophone *>(&*player[row][col]))
-        os << "S";
+      if (!player[row][col])
+        os << " ";
       else
-        os << " ";
+        player[row][col].get().print(os);
     }
-    os << "\n";
   }
-  std::cout << "_________________________________" << std::endl;
-  for (u32 row = 0; row < ROWS; row++) {
-    for (u32 col = 0; col < FRAME_COLUMNS * COLUMNS; col++) {
-      if (enemy[row][col].len() > 0)
-        os << "R";
-      else {
-        os << " ";
-      }
-    }
-    os << '\n';
-  }
-  std::cout << "_________________________________" << std::endl;
   return os;
 }

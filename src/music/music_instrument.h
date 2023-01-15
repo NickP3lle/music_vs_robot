@@ -9,13 +9,34 @@ class MusicInstruments : public Entity {
 private:
   u32 level;
 
-protected:
 public:
-  bool checkLevelUp(u32);
+  u32 health;
+  u32 power;
   MusicInstruments(u32 life, u32 damage);
   virtual MusicInstruments *clone() const override = 0;
-  virtual bool levelUp() = 0;
+  bool takeDamage(u32 &damage) override;
+  u32 attack() const override final;
+  virtual u32 getCost() const = 0;
+  virtual u32 value() const = 0;
+  virtual ostream &print(ostream &out) const = 0;
+  virtual void levelUp();
   u32 getLevel() const;
+};
+
+#define FLUTE_DEFAULT_HEALTH 100
+#define FLUTE_UPDATE_PRICE 75
+#define FLUTE_HEALTH_INCREASE 50
+#define FLUTE_POWER_INCREASE 50
+
+#include "music_instrument.h"
+class Flute : public MusicInstruments {
+public:
+  Flute();
+  Flute *clone() const override;
+  void levelUp() override;
+  u32 getCost() const override { return FLUTE_UPDATE_PRICE * 0.75; }
+  u32 value() const override;
+  ostream &print(ostream &os) const override;
 };
 
 #define DRUM_DEFAULT_HEALTH 200
@@ -29,20 +50,10 @@ class Drum : public MusicInstruments {
 public:
   Drum();
   Drum *clone() const override;
-  bool levelUp() override;
-};
-
-#define FLUTE_DEFAULT_HEALTH 100
-#define FLUTE_UPDATE_PRICE 75
-#define FLUTE_HEALTH_INCREASE 50
-#define FLUTE_POWER_INCREASE 50
-
-#include "music_instrument.h"
-class Flute : public MusicInstruments {
-public:
-  Flute();
-  Flute *clone() const override;
-  bool levelUp() override;
+  void levelUp() override;
+  u32 getCost() const override { return DRUM_UPDATE_PRICE * 0.75; }
+  u32 value() const override;
+  ostream &print(ostream &os) const override;
 };
 
 #define SAXOPHONE_DEFAULT_HEALTH 100
@@ -57,9 +68,12 @@ private:
 
 public:
   Saxophone();
-  bool takeDamage(u32 &) override;
   Saxophone *clone() const override;
-  bool levelUp() override;
+  void levelUp() override;
+  u32 getCost() const override { return SAXOPHONE_UPDATE_PRICE * 0.75; }
+  u32 value() const override;
+  bool takeDamage(u32 &) override;
+  ostream &print(ostream &os) const override;
 };
 
 #define TRUMPET_DEFAULT_HEALTH 10
@@ -72,7 +86,10 @@ class Trumpet : public MusicInstruments {
 public:
   Trumpet();
   Trumpet *clone() const override;
-  bool levelUp() override;
+  void levelUp() override;
+  u32 value() const override;
+  u32 getCost() const override { return TRUMPET_UPDATE_PRICE * 0.75; }
+  ostream &print(ostream &os) const override;
 };
 
 #define VIOLIN_DEFAULT_HEALTH 50
@@ -85,7 +102,11 @@ class Violin : public MusicInstruments {
 public:
   Violin();
   Violin *clone() const override;
-  bool levelUp() override;
+  void levelUp() override;
+  u32 value() const override;
+  u32 getCost() const override { return VIOLIN_UPDATE_PRICE * 0.75; }
+  u32 slowDown() const;
+  ostream &print(ostream &os) const override;
 };
 
 // 0 -> flute
@@ -93,7 +114,30 @@ public:
 // 2 -> Saxophone
 // 3 -> Trumpet
 // >3 -> Violin
-namespace music {
-MusicInstruments *New(u32 type);
-} // namespace music
+
+#define NORMIE music_enum::normie
+#define THREE_C music_enum::three_c
+#define DOUBLE_L music_enum::double_l
+#define THREE_R music_enum::three_r
+#define SLOW music_enum::slow
+
+enum music_enum {
+  normie = 0,   // flute
+  three_c = 1,  // three columns -> drum
+  double_l = 2, // double life -> saxophone
+  three_r = 3,  // three rows -> trumpet
+  slow = 4      // slow -> violin
+};
+
+class music {
+public:
+  music_enum type;
+  music(music_enum type);
+  music(u32 type);
+  music(const MusicInstruments *const);
+  music(const MusicInstruments &);
+  operator unsigned int() const;
+  static MusicInstruments *New(music type);
+};
+
 #endif

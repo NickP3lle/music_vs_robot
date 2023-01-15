@@ -65,7 +65,4 @@ public:
   u32 value() const override;
   Ring *clone() const override;
 };
-
-Tool *randomTool(u32, u32);
-
 #endif

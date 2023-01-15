@@ -5,13 +5,16 @@
 
 class Robot : public Entity {
 private:
-  u32 speed;
+  u32 health;
+  u32 power;
   u32 value;
+  u32 speed;
 
 public:
-  bool takeDamage(u32 &) override;
-  virtual Robot *clone() const override;
   Robot(u32 = 0, u32 = 0, bool = false, bool = false);
+  bool takeDamage(u32 &) override;
+  u32 attack() const override final;
+  virtual Robot *clone() const override;
   virtual u32 move() const;
 };
 
@@ -28,7 +31,5 @@ public:
   BigRobot *clone() const override;
   BigRobot(u32, u32 = 0);
 };
-
-Robot *randomRobot(u32, u32);
 
 #endif

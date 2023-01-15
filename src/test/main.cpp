@@ -12,19 +12,14 @@ int main() {
   Test("CashSub", TestCashSub);
   std::cout << "\n";
 
-  // Test Entity
-  Test("EntityInit", TestEntityInit);
-  Test("EntityTakeDamage", TestEntityTakeDamage);
-  Test("EntityUpdateHealth", TestEntityUpdateHealth);
-  Test("EntityUpdatePower", TestEntityUpdatePower);
-  std::cout << "\n";
-
   // Test Playground
-  Test("PlaygroundCleanUp", TestPlay::CleanUp);
-  Test("PlaygroundInsertEnemy", TestPlay::InsertEnemy);
-  Test("PlaygroundInsertPlayer", TestPlay::InsertPlayer);
-  Test("PlaygroundLose", TestPlay::Lose);
-  Test("PlaygroundPlayerAttack", TestPlay::PlayerAttack);
-  // Insert Player da segmentation fault, mi sembra un errore incomprensibile
+  Test("PlaygroundInsertEnemy", TestInsertEnemy);
+  Test("PlaygroundInsertPlayer", TestInsertPlayer);
+  Test("PlaygroundLose", TestLose);
+  Test("PlaygroundPlayerAttack", TestPlayerAttack);
+  // Test("PlaygroundEnemyAttack", TestEnemyAttack);
+  // Test("PlaygroundPlayerLevelUp", TestPlayerLevelUp);
+  // Test("PlaygroundDamagePropagate", TestDamagePropagate);
+  //   Insert Player da segmentation fault, mi sembra un errore incomprensibile
   return 0;
 }

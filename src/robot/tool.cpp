@@ -61,18 +61,3 @@ Ring::Ring(u32 max, u32 min) : Tool(-1), cash(randomInt(max, min)) {}
 u32 Ring::value() const { return cash; }
 
 Ring *Ring::clone() const { return new Ring(*this); }
-
-// this function generate a random tool
-Tool *randomTool(u32 max, u32 min) {
-  switch (randomInt(3)) {
-  case 0:
-    return new Weapon(max, min);
-  case 1:
-    return new Armor(max);
-  case 2:
-    return new Boots(max, min);
-  deault:
-    return new Ring(max, min);
-  }
-  return new Tool(-1); // non oggetto
-}

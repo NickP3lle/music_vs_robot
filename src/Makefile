@@ -1,6 +1,6 @@
 CC = g++
 CFLAGS = -Wsuggest-override -Werror=suggest-override -std=c++2a
-MUSIC = music/music_instrument.o music/levelUpTest.o
+MUSIC = music/music_instrument.o
 MAIN_TARGET = entity.o cash.o 
 
 %.o: %.cpp

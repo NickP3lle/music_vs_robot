@@ -19,3 +19,35 @@ bool RobotWTool::takeDamage(u32 &damage) {
 }
 
 u32 RobotWTool::move() { return robot.get().move() + tool.get_mut().move(); }
+
+// this function generate a random robot
+Robot *RobotWTool::randomRobot(u32 max, u32 min = 0) {
+  u32 tmp = randomInt(110);
+  if (tmp < 33)
+    return new Robot(max, min);
+  if (tmp < 50)
+    return new Robot(max, min, true);
+  if (tmp < 70)
+    return new Robot(max, min, false, true);
+  if (tmp < 90)
+    return new Robot(max, min, true, true);
+  if (tmp < 100)
+    return new DefenseRobot(max, min);
+  else
+    return new BigRobot(max, min);
+}
+
+// this function generate a random tool
+Tool *RobotWTool::randomTool(u32 max, u32 min) {
+  switch (randomInt(3)) {
+  case 0:
+    return new Weapon(max, min);
+  case 1:
+    return new Armor(max);
+  case 2:
+    return new Boots(max, min);
+  deault:
+    return new Ring(max, min);
+  }
+  return new Tool(-1); // non oggetto
+}

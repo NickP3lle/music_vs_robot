@@ -51,10 +51,12 @@ bool TestBigRobotInit() {
   return true;
 }
 
+// per testare questa funzione, il metodo randomRobot dovrebbe essere pubblico
+/*
 bool TestRandomRobot() {
   Robot *robot;
   for (u32 tmp = 50; tmp < 1500; tmp++) {
-    robot = randomRobot(tmp, tmp / 2);
+    robot = RobotWTool::randomRobot(tmp, tmp / 2);
     if (robot->attack() < tmp / 2 || robot->attack() > tmp * 2) {
       std::cout << "on attack()";
       return false;
@@ -75,6 +77,7 @@ bool TestRandomRobot() {
   }
   return true;
 }
+*/
 
 bool TestRobotWToolAttack() {
   u32 tmp;

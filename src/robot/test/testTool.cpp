@@ -64,8 +64,11 @@ bool TestRingTakeDamage() {
   return true;
 }
 
+// per testare questa funzione, il metodo randomTool dovrebbe essere pubblico
+/*
 bool TestRandomTool() {
   for (int tmp = 50; tmp < 150; tmp++)
     Tool tool = *randomTool(tmp, tmp / 2);
   return true;
 }
+*/
