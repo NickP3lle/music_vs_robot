@@ -11,13 +11,7 @@ void Playground::cleanUp() {
   }
 }
 
-void Playground::reset() {
-  for (u32 i = 0; i < ROWS; i++) {
-    damage[i][0] = 0;
-    damage[i][1] = 0;
-    slowDown[i] = 0;
-  }
-}
+void Playground::reset() { MusicInstruments::resetDamages(); }
 
 Playground *Playground::getInstance() {
   if (instance == nullptr) {
@@ -36,32 +30,17 @@ bool Playground::lose() const {
 
 // calcola il danno sulla colonna che gli passi per l'intera riga
 void Playground::playerAttack(u32 col) {
-  for (u32 i = 0; i < ROWS; i++) {
-    if (!player[i][col])
-      continue;
-    music mi(player[i][col].get());
-    switch (mi.type) {
-    case (THREE_R):
-      if (i > 0)
-        damage[i - 1][0] += player[i][col].get().attack();
-      if (i < ROWS - 1)
-        damage[i + 1][0] += player[i][col].get().attack();
-    case (NORMIE):
-      damage[i][0] += player[i][col].get().attack();
-      break;
-    case (THREE_C):
-      damage[i][1] += player[i][col].get().attack();
-      break;
-    case (SLOW):
-      damage[i][0] += player[i][col].get().attack();
-      slowDown[i] +=
-          static_cast<const Violin *>(&player[i][col].get())->slowDown();
-    default:
-      break;
+  u32 row = 0;
+  for (; row < ROWS; row++) {
+    if (player[row][col]) {
+      // if (dynamic_cast<const Drum *>(&player[row][col].get()))
+      if (music(player[row][col].get()) == THREE_C)
+        MusicInstruments::damages[row][1] += player[row][col].get().attack();
+      player[row][col].get().attack(row);
     }
-    if (col > 3 && THREE_C == music(player[i][col - 4].get())) {
-      damage[i][1] += (*player[i][col - 4]).attack();
-    }
+    if (col > 3 && player[row][col - 4] &&
+        music(player[row][col - 4].get()) == THREE_C)
+      MusicInstruments::damages[row][1] -= player[row][col - 4].get().attack();
   }
 }
 
@@ -70,7 +49,7 @@ void Playground::playerAttack(u32 col) {
 // NB se i danni non sono nulli allora tutti gli zombie sono morti
 void Playground::enemyAttack(u32 col) {
   for (u32 row = 0; row < ROWS; row++) {
-    if (!player[row][col] || damage[row][0] > 0)
+    if (!player[row][col] || MusicInstruments::damages[row][0] > 0)
       continue;
     u32 danni = 0;
     iterRobot(row, col, [&danni](auto &d) {
@@ -85,7 +64,7 @@ void Playground::enemyAttack(u32 col) {
 // ai robot. Se il robot muore fa il pop dalla deque.
 void Playground::damagePropagate(u32 col) {
   for (u32 row = 0; row < ROWS; row++) {
-    iterRobot(row, col, [&damage = damage[row]](auto &d) {
+    iterRobot(row, col, [&damage = MusicInstruments::damages[row]](auto &d) {
       if (damage[1] > 0)
         for (u32 i = 0; i < d.len(); i++) {
           u32 tmp = damage[1];
@@ -110,12 +89,13 @@ void Playground::moveRobots() {
         continue;
       while (enemy[row][col].len() > 0) {
         move_to = moveRobot(row, col, enemy[row][col][0]);
-        // controllo che il robot non si muova nella colonna dove si trovano i
-        // danni, altrimenti li schiverebbe
+        // controllo che il robot non si muova nella colonna dove si trovano
+        // i danni, altrimenti li schiverebbe
         if (col / FRAME_COLUMNS > damagePos &&
             move_to / FRAME_COLUMNS <= damagePos &&
-            (enemy[row][col][0].takeDamage(damage[row][1]) ||
-             enemy[row][col][0].takeDamage(damage[row][0]))) {
+            (enemy[row][col][0].takeDamage(MusicInstruments::damages[row][1]) ||
+             enemy[row][col][0].takeDamage(
+                 MusicInstruments::damages[row][0]))) {
           enemy[row][col].pop_front();
           continue;
         }
@@ -138,7 +118,8 @@ u32 Playground::nearestPlayer(u32 row, u32 col) const {
 
 u32 Playground::moveRobot(u32 row, u32 col, RobotWTool &r) {
   return col - std::min(nearestPlayer(row, col),
-                        r.move() / COLUMNS / (slowDown[row]-- ? 2 : 1));
+                        r.move() / COLUMNS /
+                            (MusicInstruments::damages[row][2]-- ? 2 : 1));
 }
 
 void Playground::insertEnemy(u32 row, u32 difficulty) {

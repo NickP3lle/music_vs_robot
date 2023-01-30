@@ -58,19 +58,21 @@ bool TestPlayerAttack() {
 
   u32 i = 0;
   tmp->playerAttack(i++);
-  if (tmp->damage[3][1] != music::New(THREE_C)->attack())
+  if (MusicInstruments::damages[3][1] != music::New(THREE_C)->attack())
     return false;
 
   // check the other instruments
   for (; i < COLUMNS; i++)
     tmp->playerAttack(i);
-  if (tmp->damage[0][0] != Flute().attack() * 3)
+  if (MusicInstruments::damages[0][0] != Flute().MusicInstruments::attack() * 3)
     return false;
-  if (tmp->damage[1][0] != Trumpet().attack() ||
-      tmp->damage[2][0] != Trumpet().attack() ||
-      tmp->damage[3][0] != Trumpet().attack())
+  if (MusicInstruments::damages[1][0] != Trumpet().MusicInstruments::attack() ||
+      MusicInstruments::damages[2][0] != Trumpet().MusicInstruments::attack() ||
+      MusicInstruments::damages[3][0] != Trumpet().MusicInstruments::attack())
     return false;
-  if (tmp->slowDown[4] == 0)
+  if (MusicInstruments::damages[3][1] != 0)
+    return false;
+  if (MusicInstruments::damages[4] == 0)
     return false;
   return true;
 }

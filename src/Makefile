@@ -6,11 +6,20 @@ MAIN_TARGET = entity.o cash.o
 %.o: %.cpp
 	@${CC} $(CFLAGS) -c $< -o $@
 
-test_music: ${MAIN_TARGET} ${MUSIC}
-	@${CC} $(CFLAGS) ${MAIN_TARGET} ${MUSIC} -o $@
+all: 
+#	@make test_music
+#	@echo ""
+	@make test_robot
+	@echo ""
+	@make test_src
 
+test_music:
+	@(cd music/test; make run)
 test_robot: 
 	@(cd robot/test; make run)
+
+test_src:
+	@(cd test; make run)
 
 clean:
 	@rm *.o music/*.o

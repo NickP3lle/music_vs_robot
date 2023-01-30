@@ -2,18 +2,10 @@
 #define PLAYGROUND_H
 #include "include.h"
 
-#define COLUMNS 10
-#define ROWS 5
-#define FRAME_COLUMNS 6
-
 class Playground {
 public:
   ptr<MusicInstruments> player[ROWS][COLUMNS];
   deque<RobotWTool> enemy[ROWS][FRAME_COLUMNS * COLUMNS];
-  u32 damage[ROWS][2]; // è utilizzato per tenere traccia dei danni in entrambe
-                       // le 0: bullets, 1: drums
-  // direzioni player -> enemy e enemy -> player
-  u32 slowDown[ROWS];
   u32 damagePos;
   static Playground *instance;
   Playground();

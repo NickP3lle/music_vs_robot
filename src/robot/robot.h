@@ -1,14 +1,16 @@
 #ifndef ROBOT_H
 #define ROBOT_H
 #include "../../util/util.h"
+#include "../define.h"
 #include "../entity.h"
 
 class Robot : public Entity {
 private:
-  u32 health;
-  u32 power;
-  u32 value;
   u32 speed;
+  u32 value;
+  void getHealth();
+  void getPower();
+  void getValue();
 
 public:
   Robot(u32 = 0, u32 = 0, bool = false, bool = false);
