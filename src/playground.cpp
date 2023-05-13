@@ -52,10 +52,13 @@ void Playground::enemyAttack(u32 col) {
     if (!player[row][col] || MusicInstruments::damages[row][0] > 0)
       continue;
     u32 danni = 0;
-    iterRobot(row, col, [&danni](auto &d) {
-      d.iter([&danni](auto &e) { danni += e.attack(); });
-    });
-    player[row][col].get_mut().takeDamage(danni);
+    std::for_each(&enemy[row][col * FRAME_COLUMNS],
+                  &enemy[row][(col + 1) * FRAME_COLUMNS + 1],
+                  [&danni](deque<RobotWTool> &d) {
+                    d.iter([&danni](RobotWTool &e) { danni += e.attack(); });
+                  });
+    if (player[row][col].get_mut().takeDamage(danni))
+      player[row][col] = nullptr;
   }
 }
 
@@ -71,9 +74,8 @@ void Playground::damagePropagate(u32 col) {
           if (d[i].takeDamage(tmp))
             d.remove(i--);
         }
-      while (d.len() > 0 && d[0].takeDamage(damage[0])) {
+      while (d.len() > 0 && d[0].takeDamage(damage[0]))
         d.pop_front(); // se il robot muore lo elimino
-      }
     });
   }
 }
@@ -81,10 +83,10 @@ void Playground::damagePropagate(u32 col) {
 // controlla se in questa cella c'è un robot
 // se c'è un robot lo sposta
 // c'è un buggino: un robot potrebbe schivare i danni
-void Playground::moveRobots() {
+void Playground::enemyMove() {
   u32 move_to = 0;
   for (u32 row = 0; row < ROWS; row++) {
-    for (u32 col = 0; col < COLUMNS * FRAME_COLUMNS; col++) {
+    for (u32 col = 0; col < COLUMNS * FRAME_COLUMNS + 1; col++) {
       if (nearestPlayer(row, col) == 0)
         continue;
       while (enemy[row][col].len() > 0) {
@@ -122,12 +124,12 @@ u32 Playground::moveRobot(u32 row, u32 col, RobotWTool &r) {
                             (MusicInstruments::damages[row][2]-- ? 2 : 1));
 }
 
-void Playground::insertEnemy(u32 row, u32 difficulty) {
-  enemy[row][FRAME_COLUMNS * COLUMNS - 1].push_back(
+void Playground::enemyInsert(u32 row, u32 difficulty) {
+  enemy[row][FRAME_COLUMNS * COLUMNS].push_back(
       RobotWTool(difficulty, difficulty / 2));
 }
 
-bool Playground::insertPlayer(u32 row, u32 col, music mi_id) {
+bool Playground::playerInsert(u32 row, u32 col, music mi_id) {
   MusicInstruments *mi = music::New(mi_id);
   if (player[row][col] ||
       !Cash::getInstance()->sub(mi->getCost())) { // se non c'è spazio o non

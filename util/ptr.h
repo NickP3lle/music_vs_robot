@@ -45,9 +45,16 @@ template <class T> ptr<T>::~ptr() {
 
 template <class T> ptr<T> &ptr<T>::operator=(const ptr &s) {
   if (this != &s) {
+    if (data) {
+      if (--(*refCount) == 0) {
+        delete data;
+        data = nullptr;
+        delete refCount;
+      }
+    }
     data = s.data;
     refCount = s.refCount;
-    if (data && refCount)
+    if (*this)
       (*refCount)++;
   }
   return *this;

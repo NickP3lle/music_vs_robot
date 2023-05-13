@@ -17,9 +17,6 @@ int main() {
   Test("PlaygroundInsertPlayer", TestInsertPlayer);
   Test("PlaygroundLose", TestLose);
   Test("PlaygroundPlayerAttack", TestPlayerAttack);
-  // Test("PlaygroundEnemyAttack", TestEnemyAttack);
-  // Test("PlaygroundPlayerLevelUp", TestPlayerLevelUp);
-  // Test("PlaygroundDamagePropagate", TestDamagePropagate);
-  //   Insert Player da segmentation fault, mi sembra un errore incomprensibile
+  Test("PlaygroundEnemyAttack", TestEnemyAttack);
   return 0;
 }

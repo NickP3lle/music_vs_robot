@@ -13,5 +13,6 @@ bool TestInsertPlayer();
 bool TestLose();
 bool TestPlayerAttack();
 bool TestMoveRobots();
+bool TestEnemyAttack();
 
 #endif

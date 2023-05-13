@@ -9,7 +9,7 @@ Playground *get() {
 }
 
 bool TestInsertEnemy() {
-  get()->insertEnemy(0, 1);
+  get()->enemyInsert(0, 1);
   return true;
 }
 
@@ -17,21 +17,23 @@ bool TestInsertPlayer() {
   Playground *tmp = get();
   // dobbiamo avere abbastanza soldi per inserire uno strumento
   Cash::getInstance()->add(Flute().getCost());
-  if (!tmp->insertPlayer(0, 0, NORMIE))
+  if (!tmp->playerInsert(0, 0, NORMIE))
     return false;
-  if (tmp->insertPlayer(0, 0, NORMIE))
+  if (tmp->playerInsert(0, 0, NORMIE))
     return false;
   Cash::getInstance()->add(Flute().getCost());
-  if (!tmp->insertPlayer(0, 1, NORMIE))
+  if (!tmp->playerInsert(0, 1, NORMIE))
     return false;
   return true;
 }
 
 bool TestLose() {
   Playground *tmp = get();
-  tmp->insertEnemy(2, 59);
+  tmp->enemyInsert(2, 5);
+  if (tmp->lose())
+    return false;
   for (u32 i = 0; i < 60; i++)
-    tmp->moveRobots();
+    tmp->enemyMove();
   return tmp->lose();
 }
 
@@ -40,21 +42,21 @@ bool TestPlayerAttack() {
 
   // row 1 -- three flutes
   Cash::getInstance()->add(Flute().getCost());
-  tmp->insertPlayer(0, 0, NORMIE);
+  tmp->playerInsert(0, 0, NORMIE);
   Cash::getInstance()->add(Flute().getCost());
-  tmp->insertPlayer(0, 1, NORMIE);
+  tmp->playerInsert(0, 1, NORMIE);
   Cash::getInstance()->add(Flute().getCost());
-  tmp->insertPlayer(0, 2, NORMIE);
+  tmp->playerInsert(0, 2, NORMIE);
   // row 2 -- empty
   // row 3 -- 1 trumpet (should do damage on 3 rows)
   Cash::getInstance()->add(Trumpet().getCost());
-  tmp->insertPlayer(2, 0, THREE_R);
+  tmp->playerInsert(2, 0, THREE_R);
   // row 4 -- 1 drum (should do damage for 3 more columns)
   Cash::getInstance()->add(Drum().getCost());
-  tmp->insertPlayer(3, 0, THREE_C);
+  tmp->playerInsert(3, 0, THREE_C);
   // row 5 -- 1 violin (should slow down the first enemy)
   Cash::getInstance()->add(Violin().getCost());
-  tmp->insertPlayer(4, 0, SLOW);
+  tmp->playerInsert(4, 0, SLOW);
 
   u32 i = 0;
   tmp->playerAttack(i++);
@@ -75,4 +77,16 @@ bool TestPlayerAttack() {
   if (MusicInstruments::damages[4] == 0)
     return false;
   return true;
+}
+
+bool TestEnemyAttack() {
+  Playground *tmp = get();
+  Cash::getInstance()->add(Flute().getCost());
+  tmp->playerInsert(0, 0, NORMIE);
+  tmp->enemyInsert(0, 100);
+  for (u32 i = 0; i < 60; i++)
+    tmp->enemyMove();
+  for (u32 i = 0; i < 100; i++)
+    tmp->enemyAttack(0);
+  return !tmp->player[0][0];
 }

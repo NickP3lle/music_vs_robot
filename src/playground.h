@@ -5,7 +5,7 @@
 class Playground {
 public:
   ptr<MusicInstruments> player[ROWS][COLUMNS];
-  deque<RobotWTool> enemy[ROWS][FRAME_COLUMNS * COLUMNS];
+  deque<RobotWTool> enemy[ROWS][FRAME_COLUMNS * COLUMNS + 1];
   u32 damagePos;
   static Playground *instance;
   Playground();
@@ -16,14 +16,14 @@ public:
 
 public:
   static void cleanUp();
-  void insertEnemy(u32 row, u32 difficulty);
-  bool insertPlayer(u32 row, u32 col, music mi_id);
+  void enemyInsert(u32 row, u32 difficulty);
+  bool playerInsert(u32 row, u32 col, music mi_id);
   bool playerLevelUp(u32 row, u32 col);
   bool lose() const;
   void playerAttack(u32 colonna);
   void damagePropagate(u32 colonna);
   void enemyAttack(u32 colonna);
-  void moveRobots();
+  void enemyMove();
   std::ostream &print(std::ostream &) const;
   static Playground *getInstance();
 };

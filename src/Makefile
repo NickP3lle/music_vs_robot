@@ -22,4 +22,4 @@ test_src:
 	@(cd test; make run)
 
 clean:
-	@rm *.o music/*.o
+	@rm *.o music/*.o robot/*.o test/*.o
