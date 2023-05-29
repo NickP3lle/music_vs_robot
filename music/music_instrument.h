@@ -1,7 +1,7 @@
 #ifndef MUSIC_INSTRUMENT_H
 #define MUSIC_INSTRUMENT_H
-#include "../define.h"
-#include "../entity.h"
+#include "../game/define.h"
+#include "../game/entity.h"
 #include <iostream>
 #include <string>
 
