@@ -2,9 +2,7 @@
 #define ENTITY_H
 #include "cash.h"
 
-/**
- * Classe astratta che rappresenta le entità del gioco
- */
+/// Classe astratta che rappresenta le entità del gioco
 class Entity {
   private:
     u32 health;

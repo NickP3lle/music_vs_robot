@@ -7,9 +7,8 @@
 
 using std::ostream;
 
-/**
- * Classe astratta che rappresenta gli strumenti musicali
- */
+/// Classe astratta che rappresenta gli strumenti musicali
+
 class MusicInstruments : public Entity {
   private:
     u32 level;
@@ -32,11 +31,12 @@ class MusicInstruments : public Entity {
     virtual u32 getCost() const = 0;
 };
 
-/**
- * Classi che rappresentano gli strumenti musicali
- */
+/// Classi che rappresentano gli strumenti musicali
 
-/** Flute */
+/**
+ * Flute
+ * Attack one column
+ */
 class Flute : public MusicInstruments {
   public:
     Flute(u32 health = FLUTE_DEFAULT_HEALTH, u32 power = FLUTE_DEFAULT_POWER, u32 level = 0);
@@ -49,7 +49,10 @@ class Flute : public MusicInstruments {
     ostream &print(ostream &os) const override;
 };
 
-/** Drum */
+/**
+ * Drum
+ * Attack three columns
+ */
 class Drum : public MusicInstruments {
   public:
     Drum(u32 health = DRUM_DEFAULT_HEALTH, u32 power = DRUM_DEFAULT_POWER, u32 level = 0);
@@ -62,7 +65,9 @@ class Drum : public MusicInstruments {
     ostream &print(ostream &os) const override;
 };
 
-/** Saxophone */
+/** Saxophone
+ * Double life
+ */
 class Saxophone : public MusicInstruments {
   private:
     bool secondLife;
@@ -80,7 +85,10 @@ class Saxophone : public MusicInstruments {
     ostream &print(ostream &os) const override;
 };
 
-/** Trumpet */
+/**
+ * Trumpet
+ * Attack three rows
+ */
 class Trumpet : public MusicInstruments {
   public:
     Trumpet(u32 health = TRUMPET_DEFAULT_HEALTH, u32 power = TRUMPET_DEFAULT_POWER, u32 level = 0);
@@ -93,7 +101,10 @@ class Trumpet : public MusicInstruments {
     ostream &print(ostream &os) const override;
 };
 
-/** Violin */
+/**
+ * Violin
+ * Slow down the enemies
+ */
 class Violin : public MusicInstruments {
   public:
     Violin(u32 health = VIOLIN_DEFAULT_HEALTH, u32 power = VIOLIN_DEFAULT_POWER, u32 level = 0);
