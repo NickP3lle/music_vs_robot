@@ -2,17 +2,12 @@
 
 #include "mainWindow.h"
 #include <QApplication>
-#include <QLabel>
-#include <QPushButton>
-#include <QScreen>
 #include <QSpacerItem>
 #include <QVBoxLayout>
 
-StartWidget::StartWidget(QWidget *parent) : QWidget(parent) {
-    QLabel *title = new QLabel("Music vs Robots", this);
-    QPushButton *startButton = new QPushButton("New Game", this);
-    QPushButton *loadButton = new QPushButton("Load Game", this);
-    QPushButton *quitButton = new QPushButton("Quit", this);
+StartWidget::StartWidget(QWidget *parent)
+    : QWidget(parent), title(new QLabel("Music vs Robots", this)), startButton(new QPushButton("New Game", this)),
+      loadButton(new QPushButton("Load Game", this)), quitButton(new QPushButton("Quit", this)) {
 
     QSpacerItem *topSpacer = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding);
     QSpacerItem *bottomSpacer = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -30,6 +25,7 @@ StartWidget::StartWidget(QWidget *parent) : QWidget(parent) {
     quitButton->setStyleSheet("padding: 10px; color: white; font-size: 30px;");
 
     connect(startButton, SIGNAL(clicked()), parent, SLOT(startGame()));
+    connect(loadButton, SIGNAL(clicked()), parent, SLOT(loadGame()));
     connect(quitButton, SIGNAL(clicked()), parent, SLOT(close()));
 
     QVBoxLayout *layout = new QVBoxLayout(this);
