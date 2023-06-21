@@ -4,11 +4,13 @@
 #include "playgroundWidget.h"
 #include "startWidget.h"
 #include <QMainWindow>
+#include <QStackedWidget>
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
   private:
+    QStackedWidget *stackedWidget;
     StartWidget *startWidget;
     PlaygroundWidget *playgroundWidget;
 
@@ -21,6 +23,9 @@ class MainWindow : public QMainWindow {
     void startGame();
     void loadGame();
     void endGame();
+
+  signals:
+    void startTimer();
 };
 
 #endif

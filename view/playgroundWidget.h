@@ -2,13 +2,23 @@
 #define PLAYGROUND_WIDGET_H
 
 #include <QHBoxLayout>
+#include <QLabel>
+#include <QPushButton>
+#include <QTimer>
 #include <QWidget>
 
 class PlaygroundWidget : public QWidget {
     Q_OBJECT
 
   private:
-    QHBoxLayout *navBarLayout;
+    QPushButton *backButton;
+    QLabel *timerLabel;
+    QLabel *coins;
+    QTimer *timer;
+
+  private slots:
+    void updateTimerLabel();
+    void startTimer();
 
   public:
     PlaygroundWidget(QWidget *parent = 0);
