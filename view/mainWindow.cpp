@@ -1,6 +1,7 @@
 #include "mainWindow.h"
 
 #include <QLabel>
+#include <QMessageBox>
 #include <QVBoxLayout>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -29,4 +30,13 @@ void MainWindow::loadGame() {
     // load game
 }
 
-void MainWindow::endGame() { stackedWidget->setCurrentWidget(startWidget); }
+void MainWindow::endGame() {
+    // QMessageBox::StandardButton reply;
+    // reply =
+    //     QMessageBox::question(this, "Music vs Robots", "Do you want to save the game?", QMessageBox::Yes |
+    //     QMessageBox::No);
+    // if (reply == QMessageBox::Yes) {
+    // save game
+    stackedWidget->setCurrentWidget(startWidget);
+    // }
+}

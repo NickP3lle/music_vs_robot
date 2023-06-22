@@ -13,6 +13,7 @@ class MainWindow : public QMainWindow {
     QStackedWidget *stackedWidget;
     StartWidget *startWidget;
     PlaygroundWidget *playgroundWidget;
+    // bool hasUnsavedGame;
 
     void showPlayground();
 

@@ -69,21 +69,15 @@ PlaygroundWidget::PlaygroundWidget(QWidget *parent)
     gridLayout->setVerticalSpacing(1);
     gridLayout->setContentsMargins(0, 0, 0, 0);
 
-    const int rows = 5;
-    const int columns = 11;
-
     // Create empty cells in the grid
-    for (int row = 0; row < rows; ++row) {
-        for (int column = 0; column < columns; ++column) {
-            QWidget *cell = new QWidget();
-
-            if (column == columns - 1) {
-                cell->setStyleSheet("background-color: #3d3d3d; border: 1px solid black;");
-            } else {
-                cell->setStyleSheet("border: 1px solid black;"); // Display grid lines
+    for (int row = 0; row < ROWS; ++row) {
+        for (int col = 0; col < COLUMNS; ++col) {
+            cells[row][col] = new CharacterCell(this);
+            if (col == COLUMNS - 1) {
+                cells[row][col]->setStyleSheet("background-color: #3d3d3d; border: 1px solid black;");
             }
 
-            gridLayout->addWidget(cell, row, column);
+            gridLayout->addWidget(cells[row][col], row, col);
         }
     }
 
