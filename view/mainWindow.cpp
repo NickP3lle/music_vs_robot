@@ -17,12 +17,12 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowTitle("Music vs Robots");
 }
 
-void MainWindow::showPlayground() { stackedWidget->setCurrentWidget(playgroundWidget); }
-
-void MainWindow::startGame() {
-    showPlayground();
+void MainWindow::showPlayground() {
+    stackedWidget->setCurrentWidget(playgroundWidget);
     emit startTimer();
 }
+
+void MainWindow::startGame() { showPlayground(); }
 
 void MainWindow::loadGame() {
     showPlayground();

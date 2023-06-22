@@ -17,7 +17,7 @@ class PlaygroundWidget : public QWidget {
     QTimer *timer;
 
   private slots:
-    void updateTimerLabel();
+    void updateTimerLabel(bool reset = false);
     void startTimer();
 
   public:

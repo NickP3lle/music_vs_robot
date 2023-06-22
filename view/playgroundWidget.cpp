@@ -23,6 +23,7 @@ PlaygroundWidget::PlaygroundWidget(QWidget *parent)
     coins->setAlignment(Qt::AlignCenter);
 
     connect(backButton, SIGNAL(clicked()), parent, SLOT(endGame()));
+    connect(backButton, &QPushButton::clicked, this, [this] { updateTimerLabel(true); });
     connect(parent, SIGNAL(startTimer()), this, SLOT(startTimer()));
     connect(timer, SIGNAL(timeout()), this, SLOT(updateTimerLabel()));
 
@@ -99,8 +100,15 @@ PlaygroundWidget::PlaygroundWidget(QWidget *parent)
     setLayout(vBoxLayout);
 }
 
-void PlaygroundWidget::updateTimerLabel() {
+void PlaygroundWidget::updateTimerLabel(bool reset) {
     static int elapsedTime = 0;
+
+    if (reset) {
+        elapsedTime = 0;
+        timer->stop();
+        timerLabel->setText("00:00");
+        return;
+    }
 
     elapsedTime++;
     int minutes = elapsedTime / 60;
