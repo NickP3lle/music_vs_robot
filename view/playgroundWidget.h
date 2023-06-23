@@ -2,7 +2,10 @@
 #define PLAYGROUND_WIDGET_H
 
 #include "../game/include.h"
-#include "characterCell.h"
+#include "../music/music_instrument.h"
+#include "coinWidget.h"
+#include "instrumentButton.h"
+#include "playgroundCellWidget.h"
 
 #include <QHBoxLayout>
 #include <QLabel>
@@ -16,13 +19,22 @@ class PlaygroundWidget : public QWidget {
   private:
     QPushButton *backButton;
     QLabel *timerLabel;
-    QLabel *coins;
+    CoinWidget *coins;
     QTimer *timer;
-    CharacterCell *cells[ROWS][COLUMNS];
+
+    InstrumentButton *violinButton;
+    InstrumentButton *trumpetButton;
+    InstrumentButton *drumButton;
+    InstrumentButton *saxophoneButton;
+    InstrumentButton *fluteButton;
+    QPushButton *removeButton;
+
+    PlaygroundCellWidget *cells[ROWS][COLUMNS];
 
   private slots:
     void updateTimerLabel(bool reset = false);
     void startTimer();
+    void insertEntity(int row, int col);
 
   public:
     PlaygroundWidget(QWidget *parent = 0);
