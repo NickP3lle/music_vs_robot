@@ -4,12 +4,12 @@ u32 MusicInstruments::damages[5][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0
 
 MusicInstruments::MusicInstruments(u32 life, u32 damage, u32 l) : Entity(life, damage), level(l) {}
 
-bool MusicInstruments::takeDamage(u32 &damage) {
-    if (getHealth() > damage) {
-        getHealth() -= damage;
+bool MusicInstruments::takeDamage(u32 &amount) {
+    if (getHealth() > amount) {
+        getHealth() -= amount;
         return false;
     }
-    damage -= getHealth();
+    amount -= getHealth();
     return true;
 }
 u32 MusicInstruments::attack() const { return (const_cast<MusicInstruments *>(this))->getPower(); }
@@ -55,6 +55,8 @@ ostream &Flute::print(ostream &os) const {
     return MusicInstruments::print(os);
 }
 
+void Flute::accept(EntityVisitorInterface &visitor) const { visitor.visitFlute(*this); }
+
 /**
  * Drum
  */
@@ -77,6 +79,8 @@ ostream &Drum::print(ostream &os) const {
     os << "three_c ";
     return MusicInstruments::print(os);
 }
+
+void Drum::accept(EntityVisitorInterface &visitor) const { visitor.visitDrum(*this); }
 
 /**
  * Saxophone
@@ -112,6 +116,8 @@ ostream &Saxophone::print(ostream &os) const {
     return MusicInstruments::print(os);
 }
 
+void Saxophone::accept(EntityVisitorInterface &visitor) const { visitor.visitSaxophone(*this); }
+
 /**
  * Trumpet
  */
@@ -141,6 +147,8 @@ ostream &Trumpet::print(ostream &os) const {
     return MusicInstruments::print(os);
 }
 
+void Trumpet::accept(EntityVisitorInterface &visitor) const { visitor.visitTrumpet(*this); }
+
 /**
  * Violin
  */
@@ -168,6 +176,8 @@ ostream &Violin::print(ostream &os) const {
     os << "slow ";
     return MusicInstruments::print(os);
 }
+
+void Violin::accept(EntityVisitorInterface &visitor) const { visitor.visitViolin(*this); }
 
 /**
  * music

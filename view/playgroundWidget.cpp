@@ -35,10 +35,12 @@ PlaygroundWidget::PlaygroundWidget(QWidget *parent)
     navBarLayout->setAlignment(timerLabel, Qt::AlignCenter);
     navBarLayout->setAlignment(coins, Qt::AlignRight);
 
-    connect(backButton, SIGNAL(clicked()), parent, SLOT(endGame()));
+    /// When the back button is clicked, the timer is stopped
     connect(backButton, &QPushButton::clicked, this, [this] { updateTimerLabel(true); });
+
     connect(parent, SIGNAL(startTimer()), this, SLOT(startTimer()));
     connect(timer, SIGNAL(timeout()), this, SLOT(updateTimerLabel()));
+    connect(backButton, SIGNAL(clicked()), parent, SLOT(endGame()));
 
     /// Side bar
     violinButton->setFixedSize(100, 50);
@@ -82,7 +84,6 @@ PlaygroundWidget::PlaygroundWidget(QWidget *parent)
 
             gridLayout->addWidget(cells[row][col], row, col);
 
-            // connect(cells[row][col], SIGNAL(clicked()), this, SLOT(insertEntity()));
             connect(cells[row][col], &PlaygroundCellWidget::clicked, this, [this, row, col] { insertEntity(row, col); });
         }
     }
@@ -123,7 +124,13 @@ void PlaygroundWidget::updateTimerLabel(bool reset) {
 void PlaygroundWidget::startTimer() { timer->start(); }
 
 void PlaygroundWidget::insertEntity(int row, int col) {
+    if (col == COLUMNS - 1) {
+        qDebug() << "Cannot insert entity in the last column!";
+        return;
+    }
+
     MusicInstruments *m = InstrumentButton::getSelectedInstrument();
+
     if (m) {
         qDebug() << "insertEntity()";
         cells[row][col]->setStyleSheet("background-color: #000000; border: 1px solid black;");

@@ -1,17 +1,19 @@
 #ifndef PLAYGROUND_CELL_WIDGET_H
 #define PLAYGROUND_CELL_WIDGET_H
 
-#include "../game/entity.h"
-#include "../game/include.h"
+#include "../../game/entity.h"
+#include "../../game/include.h"
 
 #include <QPainter>
+#include <QPixmap>
 #include <QStyleOption>
 #include <QWidget>
 
 class PlaygroundCellWidget : public QWidget {
     Q_OBJECT
 
-    //   private:
+  private:
+    QPixmap *pixmap;
     // ptr<Entity> entity;
 
   protected:

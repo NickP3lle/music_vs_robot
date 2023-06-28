@@ -3,9 +3,9 @@
 
 #include "../game/include.h"
 #include "../music/music_instrument.h"
-#include "coinWidget.h"
-#include "instrumentButton.h"
-#include "playgroundCellWidget.h"
+#include "playgroundComponents/coinWidget.h"
+#include "playgroundComponents/instrumentButton.h"
+#include "playgroundComponents/playgroundCellWidget.h"
 
 #include <QHBoxLayout>
 #include <QLabel>
@@ -32,8 +32,10 @@ class PlaygroundWidget : public QWidget {
     PlaygroundCellWidget *cells[ROWS][COLUMNS];
 
   private slots:
-    void updateTimerLabel(bool reset = false);
     void startTimer();
+    void updateTimerLabel(bool reset = false);
+
+    /// Insert an entity in the playground
     void insertEntity(int row, int col);
 
   public:

@@ -1,8 +1,8 @@
 #ifndef INSTRUMENT_BUTTON_H
 #define INSTRUMENT_BUTTON_H
 
-#include "../game/include.h"
-#include "../music/music_instrument.h"
+#include "../../game/include.h"
+#include "../../music/music_instrument.h"
 
 #include <QFocusEvent>
 #include <QPushButton>

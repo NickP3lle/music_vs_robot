@@ -18,6 +18,9 @@ class Robot : public Entity {
     u32 attack() const override final;
     virtual Robot *clone() const override;
     virtual u32 move() const;
+
+    /// Funzione che permette di visitare l'entità attualmente in prova
+    void accept(EntityVisitorInterface &visitor) const override {}
 };
 
 class DefenseRobot : public Robot {

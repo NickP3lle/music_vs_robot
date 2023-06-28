@@ -2,6 +2,7 @@
 #define MUSIC_INSTRUMENT_H
 #include "../game/define.h"
 #include "../game/entity.h"
+#include "../view/visitors/entityVisitorInterface.h"
 #include <iostream>
 #include <string>
 
@@ -15,11 +16,11 @@ class MusicInstruments : public Entity {
 
   public:
     MusicInstruments(u32 life, u32 damage, u32 level = 0);
-    virtual MusicInstruments *clone() const override = 0;
+    // virtual MusicInstruments *clone() const override = 0;
 
     static u32 damages[ROWS][3];
 
-    bool takeDamage(u32 &damage) override;
+    bool takeDamage(u32 &amount) override;
     virtual void attack(u32 row) const = 0;
     virtual u32 value() const = 0;
     u32 attack() const override final;
@@ -47,6 +48,8 @@ class Flute : public MusicInstruments {
     u32 getCost() const override { return FLUTE_UPDATE_PRICE * 0.75; }
     u32 value() const override;
     ostream &print(ostream &os) const override;
+
+    void accept(EntityVisitorInterface &visitor) const override;
 };
 
 /**
@@ -63,6 +66,8 @@ class Drum : public MusicInstruments {
     u32 getCost() const override { return DRUM_UPDATE_PRICE * 0.75; }
     u32 value() const override;
     ostream &print(ostream &os) const override;
+
+    void accept(EntityVisitorInterface &visitor) const override;
 };
 
 /** Saxophone
@@ -83,6 +88,8 @@ class Saxophone : public MusicInstruments {
     u32 value() const override;
     bool takeDamage(u32 &) override;
     ostream &print(ostream &os) const override;
+
+    void accept(EntityVisitorInterface &visitor) const override;
 };
 
 /**
@@ -99,6 +106,8 @@ class Trumpet : public MusicInstruments {
     u32 value() const override;
     u32 getCost() const override { return TRUMPET_UPDATE_PRICE * 0.75; }
     ostream &print(ostream &os) const override;
+
+    void accept(EntityVisitorInterface &visitor) const override;
 };
 
 /**
@@ -116,6 +125,8 @@ class Violin : public MusicInstruments {
     u32 getCost() const override { return VIOLIN_UPDATE_PRICE * 0.75; }
     u32 slowDown() const;
     ostream &print(ostream &os) const override;
+
+    void accept(EntityVisitorInterface &visitor) const override;
 };
 
 // 0 -> flute
