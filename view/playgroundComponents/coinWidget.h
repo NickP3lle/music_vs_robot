@@ -4,7 +4,7 @@
 #include "../../game/cash.h"
 #include "../../game/include.h"
 #include <QLabel>
-#include <QPixmap>
+// #include <QPixmap>
 #include <QWidget>
 
 class CoinWidget : public QWidget {

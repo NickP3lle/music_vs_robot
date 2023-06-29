@@ -1,5 +1,7 @@
 #include "playgroundWidget.h"
 
+#include "visitors/musicImageVisitor.h"
+
 #include <QGridLayout>
 #include <QVBoxLayout>
 
@@ -134,6 +136,11 @@ void PlaygroundWidget::insertEntity(int row, int col) {
     if (m) {
         qDebug() << "insertEntity()";
         cells[row][col]->setStyleSheet("background-color: #000000; border: 1px solid black;");
+
+        // MusicImageVisitor miv;
+        // m->accept(miv);
+        // cells[row][col]->setImage(miv.getPixmap());
+
         InstrumentButton::removeSelectedInstrument();
     }
 }

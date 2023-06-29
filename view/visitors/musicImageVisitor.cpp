@@ -1,5 +1,7 @@
 #include "musicImageVisitor.h"
 
+#include "../../music/music_instrument.h"
+
 void MusicImageVisitor::visitViolin(const Violin &violin) { pixmap = new QPixmap(":/assets/violin.png"); }
 
 void MusicImageVisitor::visitTrumpet(const Trumpet &trumpet) { pixmap = new QPixmap(":/assets/trumpet.png"); }

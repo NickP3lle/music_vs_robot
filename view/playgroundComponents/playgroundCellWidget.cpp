@@ -7,6 +7,11 @@ void PlaygroundCellWidget::mousePressEvent(QMouseEvent *event) {
 
 PlaygroundCellWidget::PlaygroundCellWidget(QWidget *parent) : QWidget(parent) { setStyleSheet("border: 1px solid black;"); }
 
+void PlaygroundCellWidget::setImage(QPixmap *pmap) {
+    pixmap = pmap;
+    // update();
+}
+
 void PlaygroundCellWidget::paintEvent(QPaintEvent *event) {
     QWidget::paintEvent(event);
     QPainter painter(this);

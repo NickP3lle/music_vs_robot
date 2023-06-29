@@ -3,8 +3,6 @@
 #include "../view/visitors/entityVisitorInterface.h"
 #include "cash.h"
 
-// class EntityVisitorInterface;
-
 /// Classe astratta che rappresenta le entità del gioco
 class Entity {
   private:
@@ -23,6 +21,6 @@ class Entity {
     u32 &getPower();
 
     /// Funzione che permette di visitare l'entità
-    virtual void accept(EntityVisitorInterface &visitor) const = 0;
+    // virtual void accept(EntityVisitorInterface &visitor) const = 0;
 };
 #endif
