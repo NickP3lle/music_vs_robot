@@ -21,6 +21,6 @@ class Entity {
     u32 &getPower();
 
     /// Funzione che permette di visitare l'entità
-    // virtual void accept(EntityVisitorInterface &visitor) const = 0;
+    virtual void accept(EntityVisitorInterface &visitor) const = 0;
 };
 #endif

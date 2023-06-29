@@ -1,0 +1,10 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+<qresource>
+    <file>assets/flute.png</file>
+    <file>assets/drum.png</file>
+    <file>assets/saxophone.png</file>
+    <file>assets/trumpet.png</file>
+    <file>assets/violin.png</file>
+</qresource>
+</RCC>

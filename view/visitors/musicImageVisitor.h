@@ -10,11 +10,11 @@ class MusicImageVisitor : public EntityVisitorInterface {
     QPixmap *pixmap;
 
   public:
-    void visitViolin(const Violin &violin) override;
-    void visitTrumpet(const Trumpet &trumpet) override;
-    void visitDrum(const Drum &drum) override;
-    void visitFlute(const Flute &flute) override;
-    void visitSaxophone(const Saxophone &saxophone) override;
+    void visitViolin() override;
+    void visitTrumpet() override;
+    void visitDrum() override;
+    void visitFlute() override;
+    void visitSaxophone() override;
 
     QPixmap *getPixmap() const;
 };

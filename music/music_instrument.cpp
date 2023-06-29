@@ -55,7 +55,7 @@ ostream &Flute::print(ostream &os) const {
     return MusicInstruments::print(os);
 }
 
-// void Flute::accept(EntityVisitorInterface &visitor) const { visitor.visitFlute(*this); }
+void Flute::accept(EntityVisitorInterface &visitor) const { visitor.visitFlute(); }
 
 /**
  * Drum
@@ -80,7 +80,7 @@ ostream &Drum::print(ostream &os) const {
     return MusicInstruments::print(os);
 }
 
-// void Drum::accept(EntityVisitorInterface &visitor) const { visitor.visitDrum(*this); }
+void Drum::accept(EntityVisitorInterface &visitor) const { visitor.visitDrum(); }
 
 /**
  * Saxophone
@@ -116,7 +116,7 @@ ostream &Saxophone::print(ostream &os) const {
     return MusicInstruments::print(os);
 }
 
-// void Saxophone::accept(EntityVisitorInterface &visitor) const { visitor.visitSaxophone(*this); }
+void Saxophone::accept(EntityVisitorInterface &visitor) const { visitor.visitSaxophone(); }
 
 /**
  * Trumpet
@@ -147,7 +147,7 @@ ostream &Trumpet::print(ostream &os) const {
     return MusicInstruments::print(os);
 }
 
-// void Trumpet::accept(EntityVisitorInterface &visitor) const { visitor.visitTrumpet(*this); }
+void Trumpet::accept(EntityVisitorInterface &visitor) const { visitor.visitTrumpet(); }
 
 /**
  * Violin
@@ -177,7 +177,7 @@ ostream &Violin::print(ostream &os) const {
     return MusicInstruments::print(os);
 }
 
-// void Violin::accept(EntityVisitorInterface &visitor) const { visitor.visitViolin(*this); }
+void Violin::accept(EntityVisitorInterface &visitor) const { visitor.visitViolin(); }
 
 /**
  * music

@@ -1,16 +1,25 @@
 #include "playgroundCellWidget.h"
 
+#include <QHBoxLayout>
+
 void PlaygroundCellWidget::mousePressEvent(QMouseEvent *event) {
     QWidget::mousePressEvent(event);
     emit clicked();
 }
 
-PlaygroundCellWidget::PlaygroundCellWidget(QWidget *parent) : QWidget(parent) { setStyleSheet("border: 1px solid black;"); }
+PlaygroundCellWidget::PlaygroundCellWidget(QWidget *parent) : QWidget(parent), pixmapLabel(new QLabel(this)) {
+    setStyleSheet("border: 1px solid black;");
+    pixmapLabel->setAlignment(Qt::AlignCenter);
+    pixmapLabel->setStyleSheet("border: 0;");
 
-void PlaygroundCellWidget::setImage(QPixmap *pmap) {
-    pixmap = pmap;
-    // update();
+    setLayout(new QHBoxLayout(this));
+    layout()->addWidget(pixmapLabel);
+    layout()->setContentsMargins(0, 0, 0, 0);
+
+    pixmapLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
 }
+
+void PlaygroundCellWidget::setImage(QPixmap *pixmap) { pixmapLabel->setPixmap(*pixmap); }
 
 void PlaygroundCellWidget::paintEvent(QPaintEvent *event) {
     QWidget::paintEvent(event);

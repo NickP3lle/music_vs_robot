@@ -126,20 +126,20 @@ void PlaygroundWidget::updateTimerLabel(bool reset) {
 void PlaygroundWidget::startTimer() { timer->start(); }
 
 void PlaygroundWidget::insertEntity(int row, int col) {
-    if (col == COLUMNS - 1) {
-        qDebug() << "Cannot insert entity in the last column!";
-        return;
-    }
-
     MusicInstruments *m = InstrumentButton::getSelectedInstrument();
 
     if (m) {
-        qDebug() << "insertEntity()";
-        cells[row][col]->setStyleSheet("background-color: #000000; border: 1px solid black;");
+        if (col == COLUMNS - 1) {
+            qDebug() << "Cannot insert entity in the last column!";
+            return;
+        }
 
-        // MusicImageVisitor miv;
-        // m->accept(miv);
-        // cells[row][col]->setImage(miv.getPixmap());
+        qDebug() << "insertEntity()";
+        // cells[row][col]->setStyleSheet("background-color: #000000; border: 1px solid black;");
+
+        MusicImageVisitor miv;
+        m->accept(miv);
+        cells[row][col]->setImage(miv.getPixmap());
 
         InstrumentButton::removeSelectedInstrument();
     }

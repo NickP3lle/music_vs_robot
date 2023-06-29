@@ -49,7 +49,7 @@ class Flute : public MusicInstruments {
     u32 value() const override;
     ostream &print(ostream &os) const override;
 
-    // void accept(EntityVisitorInterface &visitor) const override;
+    void accept(EntityVisitorInterface &visitor) const override;
 };
 
 /**
@@ -67,7 +67,7 @@ class Drum : public MusicInstruments {
     u32 value() const override;
     ostream &print(ostream &os) const override;
 
-    // void accept(EntityVisitorInterface &visitor) const override;
+    void accept(EntityVisitorInterface &visitor) const override;
 };
 
 /** Saxophone
@@ -89,7 +89,7 @@ class Saxophone : public MusicInstruments {
     bool takeDamage(u32 &) override;
     ostream &print(ostream &os) const override;
 
-    // void accept(EntityVisitorInterface &visitor) const override;
+    void accept(EntityVisitorInterface &visitor) const override;
 };
 
 /**
@@ -107,7 +107,7 @@ class Trumpet : public MusicInstruments {
     u32 getCost() const override { return TRUMPET_UPDATE_PRICE * 0.75; }
     ostream &print(ostream &os) const override;
 
-    // void accept(EntityVisitorInterface &visitor) const override;
+    void accept(EntityVisitorInterface &visitor) const override;
 };
 
 /**
@@ -126,7 +126,7 @@ class Violin : public MusicInstruments {
     u32 slowDown() const;
     ostream &print(ostream &os) const override;
 
-    // void accept(EntityVisitorInterface &visitor) const override;
+    void accept(EntityVisitorInterface &visitor) const override;
 };
 
 // 0 -> flute

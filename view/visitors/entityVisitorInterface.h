@@ -9,11 +9,16 @@ class Saxophone;
 
 class EntityVisitorInterface {
   public:
-    virtual void visitViolin(const Violin &violin) = 0;
-    virtual void visitTrumpet(const Trumpet &trumpet) = 0;
-    virtual void visitDrum(const Drum &drum) = 0;
-    virtual void visitFlute(const Flute &flute) = 0;
-    virtual void visitSaxophone(const Saxophone &saxophone) = 0;
+    virtual void visitViolin() = 0;
+    virtual void visitTrumpet() = 0;
+    virtual void visitDrum() = 0;
+    virtual void visitFlute() = 0;
+    virtual void visitSaxophone() = 0;
+    // virtual void visitViolin(const Violin &violin) = 0;
+    // virtual void visitTrumpet(const Trumpet &trumpet) = 0;
+    // virtual void visitDrum(const Drum &drum) = 0;
+    // virtual void visitFlute(const Flute &flute) = 0;
+    // virtual void visitSaxophone(const Saxophone &saxophone) = 0;
 
     // virtual void visitRobot(Robot *robot) = 0;
 
