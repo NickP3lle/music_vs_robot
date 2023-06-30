@@ -2,6 +2,7 @@
 
 #include "visitors/musicImageVisitor.h"
 
+#include <QDebug>
 #include <QGridLayout>
 #include <QVBoxLayout>
 

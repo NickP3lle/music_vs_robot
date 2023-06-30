@@ -1,4 +1,5 @@
 #include "instrumentButton.h"
+#include <QDebug>
 
 MusicInstruments *InstrumentButton::instrumentSelected = nullptr;
 
