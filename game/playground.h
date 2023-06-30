@@ -1,36 +1,42 @@
 #ifndef PLAYGROUND_H
 #define PLAYGROUND_H
+#include "../view/observers/playgroundObserverInterface.h"
 #include "include.h"
 
 class Playground {
-public:
-  ptr<MusicInstruments> player[ROWS][COLUMNS];
-  deque<RobotWTool> enemy[ROWS][FRAME_COLUMNS * COLUMNS + 1];
-  u32 damagePos;
-  static Playground *instance;
-  Playground();
-  void reset();
-  u32 nearestPlayer(u32 row, u32 col) const;
-  u32 moveRobot(u32 row, u32 col, RobotWTool &robot);
-  template <typename S> void iterRobot(u32 row, u32 col, S fun);
+  public:
+    ptr<MusicInstruments> player[ROWS][COLUMNS];
+    deque<RobotWTool> enemy[ROWS][FRAME_COLUMNS * COLUMNS + 1];
+    u32 damagePos;
+    static Playground *instance;
+    Playground();
+    void reset();
+    u32 nearestPlayer(u32 row, u32 col) const;
+    u32 moveRobot(u32 row, u32 col, RobotWTool &robot);
+    template <typename S> void iterRobot(u32 row, u32 col, S fun);
 
-public:
-  static void cleanUp();
-  void enemyInsert(u32 row, u32 difficulty);
-  bool playerInsert(u32 row, u32 col, music mi_id);
-  bool playerLevelUp(u32 row, u32 col);
-  bool lose() const;
-  void playerAttack(u32 colonna);
-  void damagePropagate(u32 colonna);
-  void enemyAttack(u32 colonna);
-  void enemyMove();
-  std::ostream &print(std::ostream &) const;
-  static Playground *getInstance();
+    std::vector<PlaygroundObserverInterface *> observers;
+    void notifyObservers();
+    void notifyObservers(int row, int col);
+
+  public:
+    static void cleanUp();
+    void enemyInsert(u32 row, u32 difficulty);
+    bool playerInsert(u32 row, u32 col, MusicInstruments *mi);
+    bool playerLevelUp(u32 row, u32 col);
+    bool lose() const;
+    void playerAttack(u32 colonna);
+    void damagePropagate(u32 colonna);
+    void enemyAttack(u32 colonna);
+    void enemyMove();
+    std::ostream &print(std::ostream &) const;
+    static Playground *getInstance();
+
+    void registerObserver(PlaygroundObserverInterface *obs);
 };
 
 template <typename S> void Playground::iterRobot(u32 row, u32 col, S fun) {
-  std::for_each(&enemy[row][col * FRAME_COLUMNS],
-                &enemy[row][(col + 1) * FRAME_COLUMNS], fun);
+    std::for_each(&enemy[row][col * FRAME_COLUMNS], &enemy[row][(col + 1) * FRAME_COLUMNS], fun);
 }
 #endif
 

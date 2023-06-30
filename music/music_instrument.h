@@ -16,7 +16,10 @@ class MusicInstruments : public Entity {
 
   public:
     MusicInstruments(u32 life, u32 damage, u32 level = 0);
-    // virtual MusicInstruments *clone() const override = 0;
+
+    // Clone deve avere l'ovveride per vincolare il ritorno di un
+    // MusicInstrument alle classi derivate
+    virtual MusicInstruments *clone() const override = 0;
 
     static u32 damages[ROWS][3];
 

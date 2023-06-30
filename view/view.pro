@@ -18,24 +18,40 @@ QT += widgets
 HEADERS += mainWindow.h \
            playgroundWidget.h \
            startWidget.h \
-           playgroundComponents/coinWidget.h \
+           playgroundComponents/cashWidget.h \
            playgroundComponents/instrumentButton.h \
            playgroundComponents/playgroundCellWidget.h \
            visitors/entityVisitorInterface.h \
            visitors/musicImageVisitor.h \
+           observers/cashObserverInterface.h \
+           observers/playgroundObserverInterface.h \
+           ../game/define.h \
+           ../game/include.h \
            ../game/entity.h \
            ../game/cash.h \
+           ../game/playground.h \
+           ../util/deque.h \
+            ../util/independentfn.h \
+            ../util/util.h \
+           ../robot/robot.h \
+           ../robot/tool.h \
+           ../robot/robotwtool.h \
            ../music/music_instrument.h
 SOURCES += main.cpp \
            mainWindow.cpp \
            playgroundWidget.cpp \
            startWidget.cpp \
-           playgroundComponents/coinWidget.cpp \
+           playgroundComponents/cashWidget.cpp \
            playgroundComponents/instrumentButton.cpp \
            playgroundComponents/playgroundCellWidget.cpp \
            visitors/musicImageVisitor.cpp \
               ../game/entity.cpp \
                 ../game/cash.cpp \
+                ../game/playground.cpp \
+                ../util/independentfn.cpp \
+                ../robot/robot.cpp \
+                ../robot/tool.cpp \
+                ../robot/robotwtool.cpp \
                 ../music/music_instrument.cpp
                 
 RESOURCES = ../resources.qrc

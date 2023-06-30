@@ -20,7 +20,7 @@ class EntityVisitorInterface {
     // virtual void visitFlute(const Flute &flute) = 0;
     // virtual void visitSaxophone(const Saxophone &saxophone) = 0;
 
-    // virtual void visitRobot(Robot *robot) = 0;
+    // virtual void visitRobot(Robot &robot) = 0;
 
     virtual ~EntityVisitorInterface() = default;
 };

@@ -7,7 +7,8 @@ void PlaygroundCellWidget::mousePressEvent(QMouseEvent *event) {
     emit clicked();
 }
 
-PlaygroundCellWidget::PlaygroundCellWidget(QWidget *parent) : QWidget(parent), pixmapLabel(new QLabel(this)) {
+PlaygroundCellWidget::PlaygroundCellWidget(QWidget *parent)
+    : QWidget(parent), occupied(false), pixmapLabel(new QLabel(this)) {
     setStyleSheet("border: 1px solid black;");
     pixmapLabel->setAlignment(Qt::AlignCenter);
     pixmapLabel->setStyleSheet("border: 0;");
@@ -18,6 +19,8 @@ PlaygroundCellWidget::PlaygroundCellWidget(QWidget *parent) : QWidget(parent), p
 
     pixmapLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
 }
+
+bool PlaygroundCellWidget::isOccupied() const { return occupied; }
 
 void PlaygroundCellWidget::setImage(QPixmap *pixmap) { pixmapLabel->setPixmap(*pixmap); }
 

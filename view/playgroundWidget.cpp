@@ -7,12 +7,15 @@
 #include <QVBoxLayout>
 
 PlaygroundWidget::PlaygroundWidget(QWidget *parent)
-    : QWidget(parent), backButton(new QPushButton("Back", this)), timerLabel(new QLabel(this)), coins(new CoinWidget(this)),
-      timer(new QTimer(this)), violinButton(new InstrumentButton(new Violin(), "Violin", this)),
+    : QWidget(parent), playground(Playground::getInstance()), backButton(new QPushButton("Back", this)),
+      timerLabel(new QLabel(this)), cash(new CashWidget(this)), timer(new QTimer(this)),
+      violinButton(new InstrumentButton(new Violin(), "Violin", this)),
       trumpetButton(new InstrumentButton(new Trumpet(), "Trumpet", this)),
       drumButton(new InstrumentButton(new Drum(), "Drum", this)),
       saxophoneButton(new InstrumentButton(new Saxophone(), "Saxophone", this)),
       fluteButton(new InstrumentButton(new Flute(), "Flute", this)), removeButton(new QPushButton("Remove", this)) {
+
+    playground->registerObserver(this);
 
     /// Navigation bar
     timerLabel->setText("00:00");
@@ -20,11 +23,11 @@ PlaygroundWidget::PlaygroundWidget(QWidget *parent)
 
     backButton->setFixedSize(100, 60);
     timerLabel->setFixedSize(100, 50);
-    coins->setFixedSize(100, 50);
+    cash->setFixedSize(100, 50);
 
     // backButton->setStyleSheet("background-color: #ff0000; color: #ffffff; font-size: 20px; font-weight: bold;");
     timerLabel->setStyleSheet("background-color: #000000; color: #ffffff; font-size: 20px; font-weight: bold;");
-    coins->setStyleSheet("background-color: #000000; color: #ffffff; font-size: 20px; font-weight: bold;");
+    cash->setStyleSheet("background-color: #000000; color: #ffffff; font-size: 20px; font-weight: bold;");
 
     timerLabel->setAlignment(Qt::AlignCenter);
 
@@ -32,11 +35,11 @@ PlaygroundWidget::PlaygroundWidget(QWidget *parent)
 
     navBarLayout->addWidget(backButton);
     navBarLayout->addWidget(timerLabel);
-    navBarLayout->addWidget(coins);
+    navBarLayout->addWidget(cash);
 
     navBarLayout->setAlignment(backButton, Qt::AlignLeft);
     navBarLayout->setAlignment(timerLabel, Qt::AlignCenter);
-    navBarLayout->setAlignment(coins, Qt::AlignRight);
+    navBarLayout->setAlignment(cash, Qt::AlignRight);
 
     /// When the back button is clicked, the timer is stopped
     connect(backButton, &QPushButton::clicked, this, [this] { updateTimerLabel(true); });
@@ -129,19 +132,31 @@ void PlaygroundWidget::startTimer() { timer->start(); }
 void PlaygroundWidget::insertEntity(int row, int col) {
     MusicInstruments *m = InstrumentButton::getSelectedInstrument();
 
-    if (m) {
-        if (col == COLUMNS - 1) {
-            qDebug() << "Cannot insert entity in the last column!";
-            return;
-        }
-
-        qDebug() << "insertEntity()";
-        // cells[row][col]->setStyleSheet("background-color: #000000; border: 1px solid black;");
-
-        MusicImageVisitor miv;
-        m->accept(miv);
-        cells[row][col]->setImage(miv.getPixmap());
-
-        InstrumentButton::removeSelectedInstrument();
+    if (!m) {
+        qDebug() << "No instrument selected!";
+        return;
     }
+
+    if (col == COLUMNS - 1) {
+        qDebug() << "Cannot insert entity in the last column!";
+        return;
+    }
+
+    if (playground->playerInsert(row, col, m)) {
+        qDebug() << "Player inserted entity!";
+    } else {
+        qDebug() << "Player cannot insert entity!";
+        return;
+    }
+
+    /// Vistor sets the image of the cell
+    MusicImageVisitor miv;
+    m->accept(miv);
+    cells[row][col]->setImage(miv.getPixmap());
+
+    InstrumentButton::removeSelectedInstrument();
 }
+
+void PlaygroundWidget::updatePlayground() {}
+
+void PlaygroundWidget::updatePlayground(int row, int col) {}

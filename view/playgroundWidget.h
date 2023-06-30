@@ -2,8 +2,10 @@
 #define PLAYGROUND_WIDGET_H
 
 #include "../game/include.h"
+#include "../game/playground.h"
 #include "../music/music_instrument.h"
-#include "playgroundComponents/coinWidget.h"
+#include "observers/playgroundObserverInterface.h"
+#include "playgroundComponents/cashWidget.h"
 #include "playgroundComponents/instrumentButton.h"
 #include "playgroundComponents/playgroundCellWidget.h"
 
@@ -13,13 +15,15 @@
 #include <QTimer>
 #include <QWidget>
 
-class PlaygroundWidget : public QWidget {
+class PlaygroundWidget : public QWidget, public PlaygroundObserverInterface {
     Q_OBJECT
 
   private:
+    Playground *playground;
+
     QPushButton *backButton;
     QLabel *timerLabel;
-    CoinWidget *coins;
+    CashWidget *cash;
     QTimer *timer;
 
     InstrumentButton *violinButton;
@@ -40,6 +44,9 @@ class PlaygroundWidget : public QWidget {
 
   public:
     PlaygroundWidget(QWidget *parent = 0);
+
+    void updatePlayground() override;
+    void updatePlayground(int row, int col) override;
 };
 
 #endif
