@@ -21,6 +21,10 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 void MainWindow::showPlayground() {
+    // if (!playgroundWidget) {
+    //     playgroundWidget = new PlaygroundWidget(this);
+    //     stackedWidget->addWidget(playgroundWidget);
+    // }
     stackedWidget->setCurrentWidget(playgroundWidget);
     emit startTimer();
 }
@@ -40,6 +44,9 @@ void MainWindow::endGame() {
     // if (reply == QMessageBox::Yes) {
     // save game
     stackedWidget->setCurrentWidget(startWidget);
-    // Playground::getInstance()->cleanUp();
+    Playground::cleanUp();
+    Cash::cleanUp();
+    // playgroundWidget->deleteLater();
+    // playgroundWidget = nullptr;
     // }
 }

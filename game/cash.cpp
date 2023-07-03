@@ -2,6 +2,8 @@
 
 Cash *Cash::instance = nullptr;
 
+std::vector<CashObserverInterface *> Cash::observers;
+
 Cash *Cash::getInstance() {
     if (instance == nullptr) {
         instance = new Cash();
@@ -10,6 +12,14 @@ Cash *Cash::getInstance() {
 }
 
 Cash::Cash() { total = 1000; }
+
+void Cash::cleanUp() {
+    if (instance != nullptr) {
+        delete instance;
+        instance = nullptr;
+    }
+    notifyObservers();
+}
 
 void Cash::add(u32 amount) {
     total += amount;

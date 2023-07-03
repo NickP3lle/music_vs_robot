@@ -4,7 +4,7 @@
 #include "include.h"
 
 class Playground {
-  public:
+  private:
     ptr<MusicInstruments> player[ROWS][COLUMNS];
     deque<RobotWTool> enemy[ROWS][FRAME_COLUMNS * COLUMNS + 1];
     u32 damagePos;
@@ -15,9 +15,9 @@ class Playground {
     u32 moveRobot(u32 row, u32 col, RobotWTool &robot);
     template <typename S> void iterRobot(u32 row, u32 col, S fun);
 
-    std::vector<PlaygroundObserverInterface *> observers;
-    void notifyObservers();
-    void notifyObservers(int row, int col);
+    static std::vector<PlaygroundObserverInterface *> observers;
+    static void notifyObservers();
+    static void notifyObservers(int row, int col);
 
   public:
     static void cleanUp();
@@ -32,7 +32,7 @@ class Playground {
     std::ostream &print(std::ostream &) const;
     static Playground *getInstance();
 
-    void registerObserver(PlaygroundObserverInterface *obs);
+    static void registerObserver(PlaygroundObserverInterface *obs);
 };
 
 template <typename S> void Playground::iterRobot(u32 row, u32 col, S fun) {

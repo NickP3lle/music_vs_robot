@@ -9,15 +9,16 @@ class Cash {
     u32 total;
     Cash();
 
-    std::vector<CashObserverInterface *> observers;
-    void notifyObservers();
+    static std::vector<CashObserverInterface *> observers;
+    static void notifyObservers();
 
   public:
     static Cash *getInstance();
+    static void cleanUp();
     void add(u32 amount);
     bool sub(u32 amount); // returns false if not enough cash
     u32 getTotal();
 
-    void registerObserver(CashObserverInterface *obs);
+    static void registerObserver(CashObserverInterface *obs);
 };
 #endif

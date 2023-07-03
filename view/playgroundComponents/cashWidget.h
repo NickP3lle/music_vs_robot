@@ -12,7 +12,6 @@ class CashWidget : public QWidget, public CashObserverInterface {
     Q_OBJECT
 
   private:
-    Cash *cash;
     QLabel *label;
 
   public:

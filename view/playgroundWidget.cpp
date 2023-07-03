@@ -7,15 +7,15 @@
 #include <QVBoxLayout>
 
 PlaygroundWidget::PlaygroundWidget(QWidget *parent)
-    : QWidget(parent), playground(Playground::getInstance()), backButton(new QPushButton("Back", this)),
-      timerLabel(new QLabel(this)), cash(new CashWidget(this)), timer(new QTimer(this)),
-      violinButton(new InstrumentButton(new Violin(), "Violin", this)),
+    : QWidget(parent), backButton(new QPushButton("Back", this)), timerLabel(new QLabel(this)), cash(new CashWidget(this)),
+      timer(new QTimer(this)), violinButton(new InstrumentButton(new Violin(), "Violin", this)),
       trumpetButton(new InstrumentButton(new Trumpet(), "Trumpet", this)),
       drumButton(new InstrumentButton(new Drum(), "Drum", this)),
       saxophoneButton(new InstrumentButton(new Saxophone(), "Saxophone", this)),
       fluteButton(new InstrumentButton(new Flute(), "Flute", this)), removeButton(new QPushButton("Remove", this)) {
 
-    playground->registerObserver(this);
+    // playground->registerObserver(this);
+    Playground::registerObserver(this);
 
     /// Navigation bar
     timerLabel->setText("00:00");
@@ -55,13 +55,6 @@ PlaygroundWidget::PlaygroundWidget(QWidget *parent)
     saxophoneButton->setFixedSize(100, 50);
     fluteButton->setFixedSize(100, 50);
     removeButton->setFixedSize(100, 60);
-
-    // connect(violinButton, &QPushButton::clicked, this, [this] { emit selectInstrument(violinButton->getInstrument()); });
-    // connect(trumpetButton, &QPushButton::clicked, this, [this] { emit selectInstrument(trumpetButton->getInstrument());
-    // }); connect(drumButton, &QPushButton::clicked, this, [this] { emit selectInstrument(drumButton->getInstrument()); });
-    // connect(saxophoneButton, &QPushButton::clicked, this,
-    //         [this] { emit selectInstrument(saxophoneButton->getInstrument()); });
-    // connect(fluteButton, &QPushButton::clicked, this, [this] { emit selectInstrument(fluteButton->getInstrument()); });
 
     QVBoxLayout *sideBarLayout = new QVBoxLayout();
 
@@ -142,7 +135,8 @@ void PlaygroundWidget::insertEntity(int row, int col) {
         return;
     }
 
-    if (playground->playerInsert(row, col, m)) {
+    // if (playground->playerInsert(row, col, m)) {
+    if (Playground::getInstance()->playerInsert(row, col, m)) {
         qDebug() << "Player inserted entity!";
     } else {
         qDebug() << "Player cannot insert entity!";
@@ -157,6 +151,12 @@ void PlaygroundWidget::insertEntity(int row, int col) {
     InstrumentButton::removeSelectedInstrument();
 }
 
-void PlaygroundWidget::updatePlayground() {}
+void PlaygroundWidget::updatePlayground(Entity *entity) {
+    for (u32 row = 0; row < ROWS; row++) {
+        for (u32 col = 0; col < COLUMNS; col++) {
+            updatePlayground(row, col);
+        }
+    }
+}
 
-void PlaygroundWidget::updatePlayground(int row, int col) {}
+void PlaygroundWidget::updatePlayground(int row, int col, Entity *entity) { cells[row][col]->setImage(new QPixmap()); }

@@ -2,6 +2,8 @@
 
 Playground *Playground::instance = nullptr;
 
+std::vector<PlaygroundObserverInterface *> Playground::observers;
+
 Playground::Playground() : damagePos(0) { reset(); }
 
 void Playground::cleanUp() {
@@ -9,11 +11,7 @@ void Playground::cleanUp() {
         delete instance;
         instance = nullptr;
     }
-    // for (u32 i = 0; i < ROWS; i++) {
-    //     for (u32 j = 0; j < COLUMNS; j++) {
-    //         player[i][j] = nullptr;
-    //     }
-    // }
+    notifyObservers();
 }
 
 void Playground::reset() { MusicInstruments::resetDamages(); }
@@ -152,13 +150,13 @@ std::ostream &Playground::print(std::ostream &os) const {
 }
 
 void Playground::notifyObservers() {
-    for (auto obs : observers) {
+    for (auto &obs : observers) {
         obs->updatePlayground();
     }
 }
 
 void Playground::notifyObservers(int row, int col) {
-    for (auto obs : observers) {
+    for (auto &obs : observers) {
         obs->updatePlayground(row, col);
     }
 }

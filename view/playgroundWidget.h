@@ -19,7 +19,7 @@ class PlaygroundWidget : public QWidget, public PlaygroundObserverInterface {
     Q_OBJECT
 
   private:
-    Playground *playground;
+    // Playground *playground;
 
     QPushButton *backButton;
     QLabel *timerLabel;
@@ -45,8 +45,8 @@ class PlaygroundWidget : public QWidget, public PlaygroundObserverInterface {
   public:
     PlaygroundWidget(QWidget *parent = 0);
 
-    void updatePlayground() override;
-    void updatePlayground(int row, int col) override;
+    void updatePlayground(Entity *entity = nullptr) override;
+    void updatePlayground(int row, int col, Entity *entity = nullptr) override;
 };
 
 #endif
