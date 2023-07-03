@@ -9,6 +9,11 @@ void Playground::cleanUp() {
         delete instance;
         instance = nullptr;
     }
+    // for (u32 i = 0; i < ROWS; i++) {
+    //     for (u32 j = 0; j < COLUMNS; j++) {
+    //         player[i][j] = nullptr;
+    //     }
+    // }
 }
 
 void Playground::reset() { MusicInstruments::resetDamages(); }
@@ -104,7 +109,7 @@ void Playground::enemyMove() {
 // controlla da qui alla colonna 0 dov'è il primo MusicInstrument
 // potrei cambiare questa funzione per non far sovrapporre i robot
 u32 Playground::nearestPlayer(u32 row, u32 col) const {
-    for (int i = 0; i <= col / FRAME_COLUMNS; i++)
+    for (u32 i = 0; i <= col / FRAME_COLUMNS; i++)
         if (player[row][col / FRAME_COLUMNS - i]) {
             return i * FRAME_COLUMNS;
         }
