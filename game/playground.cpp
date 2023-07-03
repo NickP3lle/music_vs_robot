@@ -127,6 +127,7 @@ bool Playground::playerInsert(u32 row, u32 col, MusicInstruments *mi) {
         return false;
     }
     player[row][col] = ptr<MusicInstruments>(mi->clone());
+    notifyObservers(row, col, mi);
     return true;
 }
 
@@ -149,21 +150,20 @@ std::ostream &Playground::print(std::ostream &os) const {
     return os;
 }
 
-void Playground::notifyObservers() {
+void Playground::notifyObservers(Entity *entity) {
     for (auto &obs : observers) {
-        obs->updatePlayground();
+        obs->updatePlayground(entity);
     }
 }
 
-void Playground::notifyObservers(int row, int col) {
+void Playground::notifyObservers(int row, int col, Entity *entity) {
     for (auto &obs : observers) {
-        obs->updatePlayground(row, col);
+        obs->updatePlayground(row, col, entity);
     }
 }
 
 void Playground::registerObserver(PlaygroundObserverInterface *obs) { observers.push_back(obs); }
 
 /**
- * Al momento solo nessuna funzione notifica gli observer
- * playerInsert non notifica perchè il visitor gestisce l'immagine
+ * CleanUp e playerInsert notificano gli observer
  */

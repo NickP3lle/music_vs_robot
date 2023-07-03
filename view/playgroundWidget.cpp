@@ -143,11 +143,6 @@ void PlaygroundWidget::insertEntity(int row, int col) {
         return;
     }
 
-    /// Vistor sets the image of the cell
-    MusicImageVisitor miv;
-    m->accept(miv);
-    cells[row][col]->setImage(miv.getPixmap());
-
     InstrumentButton::removeSelectedInstrument();
 }
 
@@ -159,4 +154,13 @@ void PlaygroundWidget::updatePlayground(Entity *entity) {
     }
 }
 
-void PlaygroundWidget::updatePlayground(int row, int col, Entity *entity) { cells[row][col]->setImage(new QPixmap()); }
+void PlaygroundWidget::updatePlayground(int row, int col, Entity *entity) {
+    if (entity) {
+        /// Vistor sets the image of the cell
+        MusicImageVisitor miv;
+        entity->accept(miv);
+        cells[row][col]->setImage(miv.getPixmap());
+    } else {
+        cells[row][col]->setImage(new QPixmap());
+    }
+}
