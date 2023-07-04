@@ -10,8 +10,11 @@ void Playground::cleanUp() {
     if (instance != nullptr) {
         delete instance;
         instance = nullptr;
+
+        for (auto &obs : observers) {
+            obs->clearPlayground();
+        }
     }
-    notifyObservers();
 }
 
 void Playground::reset() { MusicInstruments::resetDamages(); }
@@ -86,11 +89,14 @@ void Playground::enemyMove() {
     u32 move_to = 0;
     for (u32 row = 0; row < ROWS; row++) {
         for (u32 col = 0; col < COLUMNS * FRAME_COLUMNS + 1; col++) {
+            // std::cout << "1" << std::endl;
             if (nearestPlayer(row, col) == 0)
                 continue;
+            // std::cout << "2" << std::endl;
             while (enemy[row][col].len() > 0) {
+                // std::cout << "3" << std::endl;
                 move_to = moveRobot(row, col, enemy[row][col][0]);
-                notifyObservers(row, col);
+                notifyRobotObservers(row, col / FRAME_COLUMNS);
                 // controllo che il robot non si muova nella colonna dove si trovano
                 // i danni, altrimenti li schiverebbe
                 if (col / FRAME_COLUMNS > damagePos && move_to / FRAME_COLUMNS <= damagePos &&
@@ -103,7 +109,7 @@ void Playground::enemyMove() {
                 auto robot = enemy[row][col].pop_front();
                 enemy[row][move_to].push_back(robot);
 
-                notifyObservers(row, move_to, robot.getRobot());
+                notifyRobotObservers(row, move_to / FRAME_COLUMNS, robot.getRobot());
             }
         }
     }
@@ -125,7 +131,10 @@ u32 Playground::moveRobot(u32 row, u32 col, RobotWTool &r) {
 }
 
 void Playground::enemyInsert(u32 row, u32 difficulty) {
-    enemy[row][FRAME_COLUMNS * COLUMNS].push_back(RobotWTool(difficulty, difficulty / 2));
+    auto robot = RobotWTool(difficulty, difficulty / 2);
+    enemy[row][FRAME_COLUMNS * COLUMNS].push_back(robot);
+    // enemy[row][FRAME_COLUMNS * COLUMNS].push_back(robot);
+    notifyRobotObservers(row, COLUMNS - 1, robot.getRobot());
 }
 
 bool Playground::playerInsert(u32 row, u32 col, MusicInstruments *mi) {
@@ -133,7 +142,7 @@ bool Playground::playerInsert(u32 row, u32 col, MusicInstruments *mi) {
         return false;
     }
     player[row][col] = ptr<MusicInstruments>(mi->clone());
-    notifyObservers(row, col, mi);
+    notifyMusicObservers(row, col, mi);
     return true;
 }
 
@@ -156,23 +165,20 @@ std::ostream &Playground::print(std::ostream &os) const {
     return os;
 }
 
-// void Playground::notifyObservers(Entity *entity) {
-//     for (auto &obs : observers) {
-//         obs->updatePlayground(entity);
-//     }
-// }
-
-void Playground::notifyObservers(int row, int col, Entity *entity) {
-    // if (entity) {
-    //     MusicInstruments *mi = dynamic_cast<MusicInstruments *>(entity);
-    // }
+void Playground::notifyMusicObservers(int row, int col, MusicInstruments *mi) {
     for (auto &obs : observers) {
-        obs->updatePlayground(row, col, entity);
+        obs->updatePlaygroundMusic(row, col, mi);
+    }
+}
+
+void Playground::notifyRobotObservers(int row, int col, Robot *r) {
+    for (auto &obs : observers) {
+        obs->updatePlaygroundRobot(row, col, r);
     }
 }
 
 void Playground::registerObserver(PlaygroundObserverInterface *obs) { observers.push_back(obs); }
 
 /**
- * CleanUp e playerInsert notificano gli observer
+ * CleanUp, playerInsert e enemyMove notificano gli observer
  */

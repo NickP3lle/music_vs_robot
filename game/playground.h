@@ -16,8 +16,8 @@ class Playground {
     template <typename S> void iterRobot(u32 row, u32 col, S fun);
 
     static std::vector<PlaygroundObserverInterface *> observers;
-    // static void notifyObservers(Entity *entity = 0);
-    static void notifyObservers(int row = -1, int col = -1, Entity *entity = 0);
+    static void notifyMusicObservers(int row, int col, MusicInstruments *mi = 0);
+    static void notifyRobotObservers(int row, int col, Robot *r = 0);
 
   public:
     static void cleanUp();
