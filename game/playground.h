@@ -3,7 +3,7 @@
 #include "../view/observers/playgroundObserverInterface.h"
 #include "include.h"
 
-class Playground : DataManagerInterface {
+class Playground { //: DataManagerInterface {
 private:
   ptr<MusicInstruments> player[ROWS][COLUMNS];
   deque<RobotWTool> enemy[ROWS][FRAME_COLUMNS * COLUMNS + 1];
@@ -14,12 +14,12 @@ private:
   u32 nearestPlayer(u32 row, u32 col) const;
   u32 moveRobot(u32 row, u32 col, RobotWTool &robot);
   template <typename S> void iterRobot(u32 row, u32 col, S fun);
-  std::string toString() const;
-  static bool fromString(const std::string &s);
+  // std::string toString() const;
+  // static bool fromString(const std::string &s);
 
-    static std::vector<PlaygroundObserverInterface *> observers;
-    static void notifyMusicObservers(int row, int col, MusicInstruments *mi = 0);
-    static void notifyRobotObservers(int row, int col, Robot *r = 0);
+  static std::vector<PlaygroundObserverInterface *> observers;
+  static void notifyMusicObservers(int row, int col, MusicInstruments *mi = 0);
+  static void notifyRobotObservers(int row, int col, Robot *r = 0);
 
 public:
   static void cleanUp();
@@ -36,8 +36,8 @@ public:
 
   static void registerObserver(PlaygroundObserverInterface *obs);
 
-  bool saveData() override;
-  bool loadData() override;
+  // bool saveData() override;
+  // bool loadData() override;
 };
 
 template <typename S> void Playground::iterRobot(u32 row, u32 col, S fun) {

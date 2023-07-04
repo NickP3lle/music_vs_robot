@@ -32,6 +32,7 @@ HEADERS += mainWindow.h \
            ../game/playground.h \
            ../util/deque.h \
             ../util/independentfn.h \
+			../util/dataManager.h\
             ../util/util.h \
            ../robot/robot.h \
            ../robot/tool.h \
