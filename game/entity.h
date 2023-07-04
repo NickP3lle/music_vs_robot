@@ -1,5 +1,6 @@
 #ifndef ENTITY_H
 #define ENTITY_H
+#include "../view/visitors/entityVisitorInterface.h"
 #include "cash.h"
 
 /// Classe astratta che rappresenta le entità del gioco
@@ -18,5 +19,8 @@ class Entity {
 
     u32 &getHealth();
     u32 &getPower();
+
+    /// Funzione che permette di visitare l'entità
+    virtual void accept(EntityVisitorInterface &visitor) const = 0;
 };
 #endif

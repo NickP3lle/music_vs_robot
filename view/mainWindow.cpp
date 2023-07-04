@@ -1,5 +1,7 @@
 #include "mainWindow.h"
 
+#include "../game/playground.h"
+
 #include <QLabel>
 #include <QMessageBox>
 #include <QVBoxLayout>
@@ -13,12 +15,16 @@ MainWindow::MainWindow(QWidget *parent)
     stackedWidget->addWidget(playgroundWidget);
     stackedWidget->setCurrentWidget(startWidget);
 
-    stackedWidget->resize(1024, 576);
+    stackedWidget->resize(1280, 720);
 
     setWindowTitle("Music vs Robots");
 }
 
 void MainWindow::showPlayground() {
+    // if (!playgroundWidget) {
+    //     playgroundWidget = new PlaygroundWidget(this);
+    //     stackedWidget->addWidget(playgroundWidget);
+    // }
     stackedWidget->setCurrentWidget(playgroundWidget);
     emit startTimer();
 }
@@ -38,5 +44,9 @@ void MainWindow::endGame() {
     // if (reply == QMessageBox::Yes) {
     // save game
     stackedWidget->setCurrentWidget(startWidget);
+    Playground::cleanUp();
+    Cash::cleanUp();
+    // playgroundWidget->deleteLater();
+    // playgroundWidget = nullptr;
     // }
 }
