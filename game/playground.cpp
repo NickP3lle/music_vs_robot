@@ -225,14 +225,7 @@ bool Playground::fromString(const std::string &s) {
 // open game.old
 // write toString() into game.old
 // close game.old
-bool Playground::saveData() {
-  std::ofstream ofs("game.old");
-  if (!ofs)
-    return false;
-  ofs << toString();
-  ofs.close();
-  return true;
-}
+bool Playground::saveData() { return true; }
 bool Playground::loadData() { return true; }
 
 /**
