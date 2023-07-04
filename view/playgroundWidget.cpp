@@ -146,20 +146,11 @@ void PlaygroundWidget::insertEntity(int row, int col) {
     InstrumentButton::removeSelectedInstrument();
 }
 
-void PlaygroundWidget::updatePlayground(Entity *entity) {
+void PlaygroundWidget::clearPlayground() {
     for (u32 row = 0; row < ROWS; row++) {
         for (u32 col = 0; col < COLUMNS; col++) {
-            if (entity) {
-                MusicInstruments *mi = dynamic_cast<MusicInstruments *>(entity);
-                if (mi) {
-                    updatePlaygroundMusic(row, col, mi);
-                } else {
-                    updatePlaygroundRobot(row, col, dynamic_cast<Robot *>(entity));
-                }
-            } else {
-                updatePlaygroundMusic(row, col);
-                updatePlaygroundRobot(row, col);
-            }
+            updatePlaygroundMusic(row, col);
+            updatePlaygroundRobot(row, col);
         }
     }
 }
@@ -173,6 +164,8 @@ void PlaygroundWidget::updatePlaygroundMusic(u32 row, u32 col, MusicInstruments 
     } else {
         cells[row][col]->setImage(new QPixmap());
     }
+    Playground::getInstance()->enemyInsert(row, 50);
+    Playground::getInstance()->enemyMove();
 }
 
 void PlaygroundWidget::updatePlaygroundRobot(u32 row, u32 col, Robot *r) {
