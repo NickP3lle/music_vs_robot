@@ -163,11 +163,17 @@ std::ostream &Playground::print(std::ostream &os) const {
 // }
 
 void Playground::notifyObservers(int row, int col, Entity *entity) {
-    // if (entity) {
-    //     MusicInstruments *mi = dynamic_cast<MusicInstruments *>(entity);
-    // }
     for (auto &obs : observers) {
-        obs->updatePlayground(row, col, entity);
+        if (row == -1) {
+            obs->updatePlayground(entity);
+        } else {
+            MusicInstruments *mi = dynamic_cast<MusicInstruments *>(entity);
+            if (mi) {
+                obs->updatePlaygroundMusic(row, col, mi);
+            } else {
+                obs->updatePlaygroundRobot(row, col, dynamic_cast<Robot *>(entity));
+            }
+        }
     }
 }
 

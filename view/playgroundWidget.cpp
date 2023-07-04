@@ -146,40 +146,25 @@ void PlaygroundWidget::insertEntity(int row, int col) {
     InstrumentButton::removeSelectedInstrument();
 }
 
-void PlaygroundWidget::updatePlayground(int row, int col, Entity *entity) {
-    if (row >= 0) {
-        if (entity) {
-            MusicInstruments *mi = dynamic_cast<MusicInstruments *>(entity);
-            if (mi) {
-                updatePlaygroundMusic(row, col, mi);
-            } else {
-                updatePlaygroundRobot(row, col, dynamic_cast<Robot *>(entity));
-            }
-        } else {
-            updatePlaygroundMusic(row, col);
-            updatePlaygroundRobot(row, col);
-        }
-        return;
-    }
-
-    for (u32 i = 0; i < ROWS; i++) {
-        for (u32 j = 0; j < COLUMNS; j++) {
+void PlaygroundWidget::updatePlayground(Entity *entity) {
+    for (u32 row = 0; row < ROWS; row++) {
+        for (u32 col = 0; col < COLUMNS; col++) {
             if (entity) {
                 MusicInstruments *mi = dynamic_cast<MusicInstruments *>(entity);
                 if (mi) {
-                    updatePlaygroundMusic(i, j, mi);
+                    updatePlaygroundMusic(row, col, mi);
                 } else {
-                    updatePlaygroundRobot(i, j, dynamic_cast<Robot *>(entity));
+                    updatePlaygroundRobot(row, col, dynamic_cast<Robot *>(entity));
                 }
             } else {
-                updatePlaygroundMusic(i, j);
-                updatePlaygroundRobot(i, j);
+                updatePlaygroundMusic(row, col);
+                updatePlaygroundRobot(row, col);
             }
         }
     }
 }
 
-void PlaygroundWidget::updatePlaygroundMusic(int row, int col, MusicInstruments *mi) {
+void PlaygroundWidget::updatePlaygroundMusic(u32 row, u32 col, MusicInstruments *mi) {
     if (mi) {
         /// Vistor sets the image of the cell
         imageVisitor iv;
@@ -190,7 +175,7 @@ void PlaygroundWidget::updatePlaygroundMusic(int row, int col, MusicInstruments 
     }
 }
 
-void PlaygroundWidget::updatePlaygroundRobot(int row, int col, Robot *r) {
+void PlaygroundWidget::updatePlaygroundRobot(u32 row, u32 col, Robot *r) {
     if (r) {
         /// Vistor sets the image of the cell
         imageVisitor iv;
