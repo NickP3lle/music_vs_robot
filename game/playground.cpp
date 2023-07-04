@@ -90,6 +90,7 @@ void Playground::enemyMove() {
                 continue;
             while (enemy[row][col].len() > 0) {
                 move_to = moveRobot(row, col, enemy[row][col][0]);
+                notifyObservers(row, col);
                 // controllo che il robot non si muova nella colonna dove si trovano
                 // i danni, altrimenti li schiverebbe
                 if (col / FRAME_COLUMNS > damagePos && move_to / FRAME_COLUMNS <= damagePos &&
@@ -98,7 +99,11 @@ void Playground::enemyMove() {
                     enemy[row][col].pop_front();
                     continue;
                 }
-                enemy[row][moveRobot(row, col, enemy[row][col][0])].push_back(enemy[row][col].pop_front());
+                // enemy[row][moveRobot(row, col, enemy[row][col][0])].push_back(enemy[row][col].pop_front());
+                auto robot = enemy[row][col].pop_front();
+                enemy[row][move_to].push_back(robot);
+
+                notifyObservers(row, move_to, robot.getRobot());
             }
         }
     }
@@ -115,6 +120,7 @@ u32 Playground::nearestPlayer(u32 row, u32 col) const {
 }
 
 u32 Playground::moveRobot(u32 row, u32 col, RobotWTool &r) {
+    /// @bug damages può diventare negativo
     return col - std::min(nearestPlayer(row, col), r.move() / COLUMNS / (MusicInstruments::damages[row][2]-- ? 2 : 1));
 }
 
@@ -150,13 +156,16 @@ std::ostream &Playground::print(std::ostream &os) const {
     return os;
 }
 
-void Playground::notifyObservers(Entity *entity) {
-    for (auto &obs : observers) {
-        obs->updatePlayground(entity);
-    }
-}
+// void Playground::notifyObservers(Entity *entity) {
+//     for (auto &obs : observers) {
+//         obs->updatePlayground(entity);
+//     }
+// }
 
 void Playground::notifyObservers(int row, int col, Entity *entity) {
+    // if (entity) {
+    //     MusicInstruments *mi = dynamic_cast<MusicInstruments *>(entity);
+    // }
     for (auto &obs : observers) {
         obs->updatePlayground(row, col, entity);
     }

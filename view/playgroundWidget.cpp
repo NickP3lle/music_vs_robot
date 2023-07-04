@@ -1,6 +1,6 @@
 #include "playgroundWidget.h"
 
-#include "visitors/musicImageVisitor.h"
+#include "visitors/imageVisitor.h"
 
 #include <QDebug>
 #include <QGridLayout>
@@ -146,20 +146,56 @@ void PlaygroundWidget::insertEntity(int row, int col) {
     InstrumentButton::removeSelectedInstrument();
 }
 
-void PlaygroundWidget::updatePlayground(Entity *entity) {
-    for (u32 row = 0; row < ROWS; row++) {
-        for (u32 col = 0; col < COLUMNS; col++) {
-            updatePlayground(row, col);
+void PlaygroundWidget::updatePlayground(int row, int col, Entity *entity) {
+    if (row >= 0) {
+        if (entity) {
+            MusicInstruments *mi = dynamic_cast<MusicInstruments *>(entity);
+            if (mi) {
+                updatePlaygroundMusic(row, col, mi);
+            } else {
+                updatePlaygroundRobot(row, col, dynamic_cast<Robot *>(entity));
+            }
+        } else {
+            updatePlaygroundMusic(row, col);
+            updatePlaygroundRobot(row, col);
+        }
+        return;
+    }
+
+    for (u32 i = 0; i < ROWS; i++) {
+        for (u32 j = 0; j < COLUMNS; j++) {
+            if (entity) {
+                MusicInstruments *mi = dynamic_cast<MusicInstruments *>(entity);
+                if (mi) {
+                    updatePlaygroundMusic(i, j, mi);
+                } else {
+                    updatePlaygroundRobot(i, j, dynamic_cast<Robot *>(entity));
+                }
+            } else {
+                updatePlaygroundMusic(i, j);
+                updatePlaygroundRobot(i, j);
+            }
         }
     }
 }
 
-void PlaygroundWidget::updatePlayground(int row, int col, Entity *entity) {
-    if (entity) {
+void PlaygroundWidget::updatePlaygroundMusic(int row, int col, MusicInstruments *mi) {
+    if (mi) {
         /// Vistor sets the image of the cell
-        MusicImageVisitor miv;
-        entity->accept(miv);
-        cells[row][col]->setImage(miv.getPixmap());
+        imageVisitor iv;
+        mi->accept(iv);
+        cells[row][col]->setImage(iv.getPixmap());
+    } else {
+        cells[row][col]->setImage(new QPixmap());
+    }
+}
+
+void PlaygroundWidget::updatePlaygroundRobot(int row, int col, Robot *r) {
+    if (r) {
+        /// Vistor sets the image of the cell
+        imageVisitor iv;
+        r->accept(iv);
+        cells[row][col]->setImage(iv.getPixmap());
     } else {
         cells[row][col]->setImage(new QPixmap());
     }

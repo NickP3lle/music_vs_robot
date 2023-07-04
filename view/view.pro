@@ -22,7 +22,7 @@ HEADERS += mainWindow.h \
            playgroundComponents/instrumentButton.h \
            playgroundComponents/playgroundCellWidget.h \
            visitors/entityVisitorInterface.h \
-           visitors/musicImageVisitor.h \
+           visitors/imageVisitor.h \
            observers/cashObserverInterface.h \
            observers/playgroundObserverInterface.h \
            ../game/define.h \
@@ -44,7 +44,7 @@ SOURCES += main.cpp \
            playgroundComponents/cashWidget.cpp \
            playgroundComponents/instrumentButton.cpp \
            playgroundComponents/playgroundCellWidget.cpp \
-           visitors/musicImageVisitor.cpp \
+           visitors/imageVisitor.cpp \
               ../game/entity.cpp \
                 ../game/cash.cpp \
                 ../game/playground.cpp \

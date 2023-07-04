@@ -1,11 +1,11 @@
-#ifndef MUSIC_IMAGE_VISITOR_H
-#define MUSIC_IMAGE_VISITOR_H
+#ifndef IMAGE_VISITOR_H
+#define IMAGE_VISITOR_H
 
 #include "entityVisitorInterface.h"
 
 #include <QPixmap>
 
-class MusicImageVisitor : public EntityVisitorInterface {
+class imageVisitor : public EntityVisitorInterface {
   private:
     QPixmap *pixmap;
 
@@ -15,6 +15,8 @@ class MusicImageVisitor : public EntityVisitorInterface {
     void visitDrum() override;
     void visitFlute() override;
     void visitSaxophone() override;
+
+    void visitRobot() override;
 
     QPixmap *getPixmap() const;
 };

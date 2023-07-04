@@ -3,11 +3,14 @@
 
 class Playground;
 class Entity;
+class MusicInstruments;
+class Robot;
 
 class PlaygroundObserverInterface {
   public:
-    virtual void updatePlayground(Entity *entity = 0) = 0;
-    virtual void updatePlayground(int row, int col, Entity *entity = 0) = 0;
+    virtual void updatePlayground(int row, int col, Entity *entity = nullptr) = 0;
+    virtual void updatePlaygroundMusic(int row, int col, MusicInstruments *mi = nullptr) = 0;
+    virtual void updatePlaygroundRobot(int row, int col, Robot *r = nullptr) = 0;
 
     virtual ~PlaygroundObserverInterface() = default;
 };

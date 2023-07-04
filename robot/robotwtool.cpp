@@ -36,15 +36,19 @@ Robot *RobotWTool::randomRobot(u32 max, u32 min = 0) {
 
 // this function generate a random tool
 Tool *RobotWTool::randomTool(u32 max, u32 min) {
-    switch (randomInt(3)) {
+    switch (randomInt(5)) {
     case 0:
         return new Weapon(max, min);
     case 1:
         return new Armor(max);
     case 2:
         return new Boots(max, min);
-    default:
+    case 3:
         return new Ring(max, min);
+    default:
+        return new Tool(-1); // nessun oggetto
     }
-    return new Tool(-1); // non oggetto
+    return new Tool(-1); // nessun oggetto
 }
+
+Robot *RobotWTool::getRobot() const { return robot.getPtr(); }

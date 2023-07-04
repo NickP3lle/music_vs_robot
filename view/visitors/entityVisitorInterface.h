@@ -1,11 +1,13 @@
 #ifndef ENTITY_VISITOR_INTERFACE_H
 #define ENTITY_VISITOR_INTERFACE_H
 
-class Violin;
-class Trumpet;
-class Drum;
-class Flute;
-class Saxophone;
+// class Violin;
+// class Trumpet;
+// class Drum;
+// class Flute;
+// class Saxophone;
+// class Robot;
+// class Robot;
 
 class EntityVisitorInterface {
   public:
@@ -14,6 +16,8 @@ class EntityVisitorInterface {
     virtual void visitDrum() = 0;
     virtual void visitFlute() = 0;
     virtual void visitSaxophone() = 0;
+
+    virtual void visitRobot() = 0;
     // virtual void visitViolin(const Violin &violin) = 0;
     // virtual void visitTrumpet(const Trumpet &trumpet) = 0;
     // virtual void visitDrum(const Drum &drum) = 0;
