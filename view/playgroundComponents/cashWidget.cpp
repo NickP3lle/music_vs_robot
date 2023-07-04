@@ -1,14 +1,15 @@
 #include "cashWidget.h"
 
-CashWidget::CashWidget(QWidget *parent) : QWidget(parent), label(new QLabel(this)) {
-    Cash::registerObserver(this);
+CashWidget::CashWidget(QWidget *parent)
+    : QWidget(parent), label(new QLabel(this)) {
+  Cash::registerObserver(this);
 
-    label->setFixedSize(100, 50);
-    label->setAlignment(Qt::AlignCenter);
+  label->setFixedSize(100, 50);
+  label->setAlignment(Qt::AlignCenter);
 
-    showCash();
+  showCash();
 }
 
-void CashWidget::showCash() { label->setText(QString::number(Cash::getInstance()->getTotal())); }
+void CashWidget::showCash() { label->setText(QString::number(Cash::get())); }
 
 void CashWidget::updateCash() { showCash(); }

@@ -34,6 +34,7 @@ deque<T>::deque(T *ptr, u32 capacity, u32 size, u32 actual)
 template <class T>
 deque<T>::deque(u32 cap) : deque(new T[cap ? cap : 1], cap ? cap : 1, 0, 0) {}
 
+// @bug: potrebbe non funzionare nel modo corretto
 template <class T> void deque<T>::resize() {
   capacity *= 2;
   T *new_ptr = new T[capacity];

@@ -9,16 +9,16 @@
 #include <QWidget>
 
 class CashWidget : public QWidget, public CashObserverInterface {
-    Q_OBJECT
+  Q_OBJECT
 
-  private:
-    QLabel *label;
+private:
+  QLabel *label;
 
-  public:
-    CashWidget(QWidget *parent = 0);
-    void showCash();
+public:
+  CashWidget(QWidget *parent = 0);
+  void showCash();
 
-    void updateCash() override;
+  void updateCash() override;
 };
 
 #endif
