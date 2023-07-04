@@ -45,9 +45,9 @@ class PlaygroundWidget : public QWidget, public PlaygroundObserverInterface {
   public:
     PlaygroundWidget(QWidget *parent = 0);
 
-    void updatePlayground(int row, int col, Entity *entity = nullptr) override;
-    void updatePlaygroundMusic(int row, int col, MusicInstruments *mi = nullptr) override;
-    void updatePlaygroundRobot(int row, int col, Robot *r = nullptr) override;
+    void clearPlayground() override;
+    void updatePlaygroundMusic(u32 row, u32 col, MusicInstruments *mi = nullptr) override;
+    void updatePlaygroundRobot(u32 row, u32 col, Robot *r = nullptr) override;
 };
 
 #endif

@@ -17,9 +17,9 @@ private:
   std::string toString() const;
   static bool fromString(const std::string &s);
 
-  static std::vector<PlaygroundObserverInterface *> observers;
-  // static void notifyObservers(Entity *entity = 0);
-  static void notifyObservers(int row = -1, int col = -1, Entity *entity = 0);
+    static std::vector<PlaygroundObserverInterface *> observers;
+    static void notifyMusicObservers(int row, int col, MusicInstruments *mi = 0);
+    static void notifyRobotObservers(int row, int col, Robot *r = 0);
 
 public:
   static void cleanUp();
