@@ -242,7 +242,6 @@ MusicInstruments *music::New(music type) {
   switch (type.type) {
   case (NORMIE):
     return new Flute();
-    break;
   case (THREE_C):
     return new Drum;
   case (DOUBLE_L):
