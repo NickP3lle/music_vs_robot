@@ -1,7 +1,7 @@
 #ifndef PLAYGROUND_OBSERVER_INTERFACE_H
 #define PLAYGROUND_OBSERVER_INTERFACE_H
 
-#include "../game/include.h"
+#include "../../game/include.h"
 
 class Playground;
 class Entity;
