@@ -17,5 +17,8 @@ int main() {
   Test("PlaygroundLose", TestLose);
   Test("PlaygroundPlayerAttack", TestPlayerAttack);
   Test("PlaygroundEnemyAttack", TestEnemyAttack);
+  std::cout << "\n";
+
+  Test("Timer", TestTimer);
   return 0;
 }

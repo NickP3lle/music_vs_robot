@@ -3,11 +3,13 @@
 
 #include "../game/include.h"
 #include "../game/playground.h"
+#include "../game/timer.h"
 #include "../music/music_instrument.h"
 #include "observers/playgroundObserverInterface.h"
 #include "playgroundComponents/cashWidget.h"
 #include "playgroundComponents/instrumentButton.h"
 #include "playgroundComponents/playgroundCellWidget.h"
+#include "playgroundComponents/timerWidget.h"
 
 #include <QHBoxLayout>
 #include <QLabel>
@@ -16,38 +18,35 @@
 #include <QWidget>
 
 class PlaygroundWidget : public QWidget, public PlaygroundObserverInterface {
-    Q_OBJECT
+  Q_OBJECT
 
-  private:
-    // Playground *playground;
+private:
+  // Playground *playground;
 
-    QPushButton *backButton;
-    QLabel *timerLabel;
-    CashWidget *cash;
-    QTimer *timer;
+  QPushButton *backButton;
+  CashWidget *cash;
+  TimerWidget *timer;
 
-    InstrumentButton *violinButton;
-    InstrumentButton *trumpetButton;
-    InstrumentButton *drumButton;
-    InstrumentButton *saxophoneButton;
-    InstrumentButton *fluteButton;
-    QPushButton *removeButton;
+  InstrumentButton *violinButton;
+  InstrumentButton *trumpetButton;
+  InstrumentButton *drumButton;
+  InstrumentButton *saxophoneButton;
+  InstrumentButton *fluteButton;
+  QPushButton *removeButton;
 
-    PlaygroundCellWidget *cells[ROWS][COLUMNS];
+  PlaygroundCellWidget *cells[ROWS][COLUMNS];
 
-  private slots:
-    void startTimer();
-    void updateTimerLabel(bool reset = false);
+private slots:
+  /// Insert an entity in the playground
+  void insertEntity(int row, int col);
 
-    /// Insert an entity in the playground
-    void insertEntity(int row, int col);
+public:
+  PlaygroundWidget(QWidget *parent = 0);
 
-  public:
-    PlaygroundWidget(QWidget *parent = 0);
-
-    void clearPlayground() override;
-    void updatePlaygroundMusic(u32 row, u32 col, MusicInstruments *mi = nullptr) override;
-    void updatePlaygroundRobot(u32 row, u32 col, Robot *r = nullptr) override;
+  void clearPlayground() override;
+  void updatePlaygroundMusic(u32 row, u32 col,
+                             MusicInstruments *mi = nullptr) override;
+  void updatePlaygroundRobot(u32 row, u32 col, Robot *r = nullptr) override;
 };
 
 #endif

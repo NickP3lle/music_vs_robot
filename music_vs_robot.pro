@@ -20,6 +20,7 @@ HEADERS += game/cash.h \
            game/entity.h \
            game/include.h \
            game/playground.h \
+           game/timer.h \
            music/music_instrument.h \
            robot/robot.h \
            robot/robotwtool.h \
@@ -34,8 +35,10 @@ HEADERS += game/cash.h \
            view/playgroundWidget.h \
            view/startWidget.h \
            view/observers/cashObserverInterface.h \
+           view/observers/timerObserverInterface.h \
            view/observers/playgroundObserverInterface.h \
            view/playgroundComponents/cashWidget.h \
+           view/playgroundComponents/timerWidget.h \
            view/playgroundComponents/instrumentButton.h \
            view/playgroundComponents/playgroundCellWidget.h \
            view/visitors/entityVisitorInterface.h \
@@ -44,6 +47,7 @@ SOURCES += main.cpp \
            game/cash.cpp \
            game/entity.cpp \
            game/playground.cpp \
+           game/timer.cpp \
            music/music_instrument.cpp \
            robot/robot.cpp \
            robot/robotwtool.cpp \
@@ -53,6 +57,7 @@ SOURCES += main.cpp \
            view/playgroundWidget.cpp \
            view/startWidget.cpp \
            view/playgroundComponents/cashWidget.cpp \
+           view/playgroundComponents/timerWidget.cpp \
            view/playgroundComponents/instrumentButton.cpp \
            view/playgroundComponents/playgroundCellWidget.cpp \
            view/visitors/imageVisitor.cpp
