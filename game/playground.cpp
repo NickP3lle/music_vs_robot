@@ -39,13 +39,12 @@ void Playground::playerAttack(u32 col) {
   u32 row = 0;
   for (; row < ROWS; row++) {
     if (player[row][col]) {
-      // if (dynamic_cast<const Drum *>(&player[row][col].get()))
-      if (music(player[row][col].get()) == THREE_C)
+      if (dynamic_cast<const Drum *>(&player[row][col].get()))
         MusicInstruments::damages[row][1] += player[row][col].get().attack();
       player[row][col].get().attack(row);
     }
     if (col > 3 && player[row][col - 4] &&
-        music(player[row][col - 4].get()) == THREE_C)
+        dynamic_cast<const Drum *>(&player[row][col - 4].get()))
       MusicInstruments::damages[row][1] -= player[row][col - 4].get().attack();
   }
 }
