@@ -38,10 +38,11 @@ void Timer::stop() {
   }
 }
 
-void Timer::reset() {
+void Timer::cleanUp() {
   if (instance) {
     stop();
-    instance->time = 0;
+    delete instance;
+    instance = nullptr;
     notifyObservers();
   }
 }
@@ -51,3 +52,7 @@ u32 Timer::get() { return instance->time; }
 u32 Timer::minutes() { return instance->time / 60; }
 
 u32 Timer::seconds() { return instance->time % 60; }
+
+void Timer::registerObserver(TimerObserverInterface *obs) {
+  Timer::observers.push_back(obs);
+}

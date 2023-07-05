@@ -25,9 +25,7 @@ private:
 
   QPushButton *backButton;
   CashWidget *cash;
-  TimerWidget *timerW;
-  QLabel *timerLabel;
-  QTimer *timer;
+  TimerWidget *timer;
 
   InstrumentButton *violinButton;
   InstrumentButton *trumpetButton;
@@ -39,9 +37,6 @@ private:
   PlaygroundCellWidget *cells[ROWS][COLUMNS];
 
 private slots:
-  void startTimer();
-  void updateTimerLabel(bool reset = false);
-
   /// Insert an entity in the playground
   void insertEntity(int row, int col);
 

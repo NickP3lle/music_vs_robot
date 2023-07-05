@@ -7,30 +7,26 @@
 #include <QStackedWidget>
 
 class MainWindow : public QMainWindow {
-    Q_OBJECT
+  Q_OBJECT
 
-  private:
-    QStackedWidget *stackedWidget;
-    StartWidget *startWidget;
-    PlaygroundWidget *playgroundWidget;
-    // bool hasUnsavedGame;
+private:
+  QStackedWidget *stackedWidget;
+  StartWidget *startWidget;
+  PlaygroundWidget *playgroundWidget;
+  // bool hasUnsavedGame;
 
-    /// Show the playground widget
-    void showPlayground();
+  /// Show the playground widget
+  void showPlayground();
 
-  public:
-    MainWindow(QWidget *parent = 0);
+public:
+  MainWindow(QWidget *parent = 0);
 
-  public slots:
+public slots:
 
-    /// Change the current widget
-    void startGame();
-    void loadGame();
-    void endGame();
-
-  signals:
-    /// Starts the timer when the game starts
-    void startTimer();
+  /// Change the current widget
+  void startGame();
+  void loadGame();
+  void endGame();
 };
 
 #endif

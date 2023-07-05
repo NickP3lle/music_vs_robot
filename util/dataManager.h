@@ -4,7 +4,7 @@
 class DataManagerInterface {
 private:
   virtual std::string toString();
-  static bool fromString(std::string &s) { return true; }
+  static bool fromString() { return true; } // std::string &s) { return true; }
 
 public:
   virtual bool saveData() = 0;

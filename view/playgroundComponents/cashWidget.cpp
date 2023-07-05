@@ -4,12 +4,12 @@ CashWidget::CashWidget(QWidget *parent)
     : QWidget(parent), label(new QLabel(this)) {
   Cash::registerObserver(this);
 
+  Cash::add(1000);
+
   label->setFixedSize(100, 50);
   label->setAlignment(Qt::AlignCenter);
 
-  showCash();
+  updateCash();
 }
 
-void CashWidget::showCash() { label->setText(QString::number(Cash::get())); }
-
-void CashWidget::updateCash() { showCash(); }
+void CashWidget::updateCash() { label->setText(QString::number(Cash::get())); }

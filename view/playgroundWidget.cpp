@@ -8,8 +8,7 @@
 
 PlaygroundWidget::PlaygroundWidget(QWidget *parent)
     : QWidget(parent), backButton(new QPushButton("Back", this)),
-      timerLabel(new QLabel(this)), cash(new CashWidget(this)),
-      timer(new QTimer(this)), timerW(new TimerWidget(this)),
+      cash(new CashWidget(this)), timer(new TimerWidget(this)),
       violinButton(new InstrumentButton(new Violin(), "Violin", this)),
       trumpetButton(new InstrumentButton(new Trumpet(), "Trumpet", this)),
       drumButton(new InstrumentButton(new Drum(), "Drum", this)),
@@ -21,39 +20,32 @@ PlaygroundWidget::PlaygroundWidget(QWidget *parent)
   Playground::registerObserver(this);
 
   /// Navigation bar
-  timerLabel->setText("00:00");
-  timer->setInterval(1000);
+  //  timerLabel->setText("00:00");
+  //  timer->setInterval(1000);
 
   backButton->setFixedSize(100, 60);
   // timerLabel->setFixedSize(100, 50);
-  timerW->setFixedSize(100, 50);
+  timer->setFixedSize(100, 50);
   cash->setFixedSize(100, 50);
 
   // backButton->setStyleSheet("background-color: #ff0000; color: #ffffff;
   // font-size: 20px; font-weight: bold;");
-  timerW->setStyleSheet("background-color: #000000; color: #ffffff; "
-                        "font-size: 20px; font-weight: bold;");
+  timer->setStyleSheet("background-color: #000000; color: #ffffff; "
+                       "font-size: 20px; font-weight: bold;");
   cash->setStyleSheet("background-color: #000000; color: #ffffff; font-size: "
                       "20px; font-weight: bold;");
-
-  timerW->setAlignment(Qt::AlignCenter);
 
   QHBoxLayout *navBarLayout = new QHBoxLayout();
 
   navBarLayout->addWidget(backButton);
-  navBarLayout->addWidget(timerW);
+  navBarLayout->addWidget(timer);
   navBarLayout->addWidget(cash);
 
   navBarLayout->setAlignment(backButton, Qt::AlignLeft);
-  navBarLayout->setAlignment(timerW, Qt::AlignCenter);
+  navBarLayout->setAlignment(timer, Qt::AlignCenter);
   navBarLayout->setAlignment(cash, Qt::AlignRight);
 
   /// When the back button is clicked, the timer is stopped
-  connect(backButton, &QPushButton::clicked, this,
-          [this] { updateTimerLabel(true); });
-
-  connect(parent, SIGNAL(startTimer()), this, SLOT(startTimer()));
-  connect(timer, SIGNAL(timeout()), this, SLOT(updateTimerLabel()));
   connect(backButton, SIGNAL(clicked()), parent, SLOT(endGame()));
 
   /// Side bar
@@ -109,23 +101,6 @@ PlaygroundWidget::PlaygroundWidget(QWidget *parent)
 
   setLayout(vBoxLayout);
 }
-
-void PlaygroundWidget::updateTimerLabel(bool reset) {
-  if (reset) {
-    Timer::reset();
-    timerW->setText("00:00");
-    return;
-  }
-
-  QString elapsedTimeString = QString("%1:%2")
-                                  .arg(Timer::minutes(), 2, 10, QChar('0'))
-                                  .arg(Timer::seconds(), 2, 10, QChar('0'));
-  timerLabel->setText(elapsedTimeString);
-
-  // qDebug() << "updateTimerLabel()";
-}
-
-void PlaygroundWidget::startTimer() { Timer::start(); }
 
 void PlaygroundWidget::insertEntity(int row, int col) {
   MusicInstruments *m = InstrumentButton::getSelectedInstrument();

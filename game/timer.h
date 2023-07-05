@@ -23,8 +23,10 @@ private:
 public:
   static void start();
   static void stop();
-  static void reset();
+  static void cleanUp();
   static u32 get();
   static u32 minutes();
   static u32 seconds();
+
+  static void registerObserver(TimerObserverInterface *obs);
 };

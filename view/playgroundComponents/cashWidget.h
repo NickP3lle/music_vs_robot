@@ -16,8 +16,6 @@ private:
 
 public:
   CashWidget(QWidget *parent = 0);
-  void showCash();
-
   void updateCash() override;
 };
 

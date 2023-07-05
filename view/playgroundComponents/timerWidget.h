@@ -16,10 +16,5 @@ private:
 public:
   TimerWidget(QWidget *parent = 0);
   void updateTimer() override;
-  void setAlignment(Qt::AlignmentFlag alignment) {
-    label->setAlignment(alignment);
-  }
-  void setText(QString text) { label->setText(text); }
 };
-
 #endif
