@@ -34,11 +34,11 @@
 #define VIOLIN_HEALTH_INCREASE 25
 #define VIOLIN_POWER_INCREASE 50
 
-#define NORMIE music_enum::normie
-#define THREE_C music_enum::three_c
-#define DOUBLE_L music_enum::double_l
-#define THREE_R music_enum::three_r
-#define SLOW music_enum::slow
+#define NORMIE Flute()
+#define THREE_C Drum()
+#define DOUBLE_L Saxophone()
+#define THREE_R Trumpet()
+#define SLOW Violin()
 
 #define ROBOT_MAX_SPEED 32
 #define ROBOT_MIN_SPEED 20

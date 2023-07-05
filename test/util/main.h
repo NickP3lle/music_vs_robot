@@ -1,7 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#include "../util.h"
+#include "../../util/util.h"
 bool TestRandomInt();
 
 bool TestDequePushPop();

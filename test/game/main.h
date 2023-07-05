@@ -1,10 +1,11 @@
 #ifndef MAIN_H
 #define MAIN_H
-#include "../cash.h"
-#include "../entity.h"
-#include "../playground.h"
+#include "../../game/cash.h"
+#include "../../game/entity.h"
+#include "../../game/include.h"
+#include "../../game/playground.h"
 
-bool TestCashGetInstance();
+// bool TestCashGetInstance(); // GetInstance() is private
 bool TestCashAdd();
 bool TestCashSub();
 

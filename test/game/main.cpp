@@ -1,5 +1,4 @@
 #include "main.h"
-#include "../include.h"
 
 // #include <sys/resource.h>
 // might be cool to check memory usage
@@ -7,7 +6,7 @@
 
 int main() {
   // Test Cash
-  Test("CashGetInstance", TestCashGetInstance);
+  //  Test("CashGetInstance", TestCashGetInstance); // GetInstance() is private
   Test("CashAdd", TestCashAdd);
   Test("CashSub", TestCashSub);
   std::cout << "\n";

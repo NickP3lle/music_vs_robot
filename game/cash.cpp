@@ -11,7 +11,7 @@ Cash &Cash::getInstance() {
   return *instance;
 }
 
-Cash::Cash() { total = 1000; }
+Cash::Cash() : total(0) {}
 
 void Cash::cleanUp() {
   if (instance != nullptr) {
