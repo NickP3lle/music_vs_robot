@@ -59,6 +59,7 @@ class InstrumentButton : public QPushButton {
     InstrumentButton(MusicInstruments *i, QString title, QWidget *parent = 0);
     static MusicInstruments *getSelectedInstrument();
     static bool removeSelectedInstrument();
+    static bool isInstrumentSelected();
 };
 
 #endif

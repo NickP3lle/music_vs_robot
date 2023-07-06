@@ -147,10 +147,9 @@ u32 Playground::moveRobot(u32 row, u32 col, RobotWTool &r) {
 }
 
 void Playground::enemyInsert(u32 row, u32 difficulty) {
-  auto robot = RobotWTool(difficulty, difficulty / 2);
-  enemy[row][FRAME_COLUMNS * COLUMNS].push_back(robot);
-  // enemy[row][FRAME_COLUMNS * COLUMNS].push_back(robot);
-  notifyRobotObservers(row, COLUMNS - 1, robot.getRobot());
+    auto robot = RobotWTool(difficulty, difficulty / 2);
+    enemy[row][FRAME_COLUMNS * COLUMNS].push_back(robot);
+    notifyRobotObservers(row, COLUMNS - 1, robot.getRobot());
 }
 
 bool Playground::isEmpty(u32 row, u32 col) const { return !player[row][col]; }

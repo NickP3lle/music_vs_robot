@@ -12,15 +12,13 @@ PlaygroundWidget::PlaygroundWidget(QWidget *parent)
       trumpetButton(new InstrumentButton(new Trumpet(), "Trumpet", this)),
       drumButton(new InstrumentButton(new Drum(), "Drum", this)),
       saxophoneButton(new InstrumentButton(new Saxophone(), "Saxophone", this)),
-      fluteButton(new InstrumentButton(new Flute(), "Flute", this)), removeButton(new QPushButton("Remove", this)) {
+      fluteButton(new InstrumentButton(new Flute(), "Flute", this)), levelUpButton(new QPushButton("Level Up", this)),
+      removeButton(new QPushButton("Remove", this)), hasFocus({-1, -1}) {
 
     // playground->registerObserver(this);
     Playground::registerObserver(this);
 
     /// Navigation bar
-    //  timerLabel->setText("00:00");
-    //  timer->setInterval(1000);
-
     backButton->setFixedSize(100, 60);
     timer->setFixedSize(100, 50);
     cash->setFixedSize(100, 50);
@@ -51,6 +49,7 @@ PlaygroundWidget::PlaygroundWidget(QWidget *parent)
     drumButton->setFixedSize(100, 50);
     saxophoneButton->setFixedSize(100, 50);
     fluteButton->setFixedSize(100, 50);
+    levelUpButton->setFixedSize(100, 60);
     removeButton->setFixedSize(100, 60);
 
     QVBoxLayout *sideBarLayout = new QVBoxLayout();
@@ -60,8 +59,10 @@ PlaygroundWidget::PlaygroundWidget(QWidget *parent)
     sideBarLayout->addWidget(drumButton);
     sideBarLayout->addWidget(saxophoneButton);
     sideBarLayout->addWidget(fluteButton);
+    sideBarLayout->addWidget(levelUpButton);
     sideBarLayout->addWidget(removeButton);
 
+    sideBarLayout->setAlignment(levelUpButton, Qt::AlignBottom);
     sideBarLayout->setAlignment(removeButton, Qt::AlignBottom);
 
     /// Grid
@@ -80,7 +81,10 @@ PlaygroundWidget::PlaygroundWidget(QWidget *parent)
 
             gridLayout->addWidget(cells[row][col], row, col);
 
-            connect(cells[row][col], &PlaygroundCellWidget::clicked, this, [this, row, col] { insertEntity(row, col); });
+            connect(cells[row][col], &PlaygroundCellWidget::clicked, this, [this, row, col] {
+                setFocus(row, col);
+                insertEntity(row, col);
+            });
         }
     }
 
@@ -97,7 +101,7 @@ PlaygroundWidget::PlaygroundWidget(QWidget *parent)
     setLayout(vBoxLayout);
 }
 
-void PlaygroundWidget::insertEntity(int row, int col) {
+void PlaygroundWidget::insertEntity(u32 row, u32 col) {
     MusicInstruments *m = InstrumentButton::getSelectedInstrument();
 
     if (!m) {
@@ -157,3 +161,23 @@ void PlaygroundWidget::updatePlaygroundRobot(u32 row, u32 col, Robot *r) {
         cells[row][col]->setImage(new QPixmap());
     }
 }
+
+void PlaygroundWidget::levelUpEntity() {
+    if (getFocus()) {
+    }
+}
+
+void PlaygroundWidget::setFocus(u32 row, u32 col) {
+    hasFocus.row = row;
+    hasFocus.col = col;
+    // showUpdatePrice();
+    qDebug() << "PlaygroundWidget::setFocus()";
+}
+
+void PlaygroundWidget::removeFocus() {
+    hasFocus.row = -1;
+    hasFocus.col = -1;
+    qDebug() << "PlaygroundWidget::removeFocus()";
+}
+
+bool PlaygroundWidget::getFocus() const { return hasFocus.row != -1 && hasFocus.col != -1; }
