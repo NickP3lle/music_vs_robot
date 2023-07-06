@@ -14,7 +14,6 @@ class PlaygroundCellWidget : public QWidget {
     Q_OBJECT
 
   private:
-    bool occupied;
     QLabel *pixmapLabel;
 
   protected:
@@ -22,9 +21,6 @@ class PlaygroundCellWidget : public QWidget {
 
   public:
     PlaygroundCellWidget(QWidget *parent = 0);
-
-    bool isOccupied() const;
-    // void insertEntity(Entity *entity);
     void setImage(QPixmap *pixmap);
 
     // Questa funzione è stata aggiunta per un bug che non permette alle classi figlie di QWidget di avere grafica ereditando

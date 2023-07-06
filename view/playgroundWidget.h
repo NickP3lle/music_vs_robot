@@ -17,36 +17,49 @@
 #include <QTimer>
 #include <QWidget>
 
+struct gridPosition {
+    int row;
+    int col;
+};
+
 class PlaygroundWidget : public QWidget, public PlaygroundObserverInterface {
-  Q_OBJECT
+    Q_OBJECT
 
-private:
-  // Playground *playground;
+  private:
+    QPushButton *backButton;
+    CashWidget *cash;
+    TimerWidget *timer;
 
-  QPushButton *backButton;
-  CashWidget *cash;
-  TimerWidget *timer;
+    InstrumentButton *violinButton;
+    InstrumentButton *trumpetButton;
+    InstrumentButton *drumButton;
+    InstrumentButton *saxophoneButton;
+    InstrumentButton *fluteButton;
+    QPushButton *levelUpButton;
+    QPushButton *removeButton;
 
-  InstrumentButton *violinButton;
-  InstrumentButton *trumpetButton;
-  InstrumentButton *drumButton;
-  InstrumentButton *saxophoneButton;
-  InstrumentButton *fluteButton;
-  QPushButton *removeButton;
+    PlaygroundCellWidget *cells[ROWS][COLUMNS];
 
-  PlaygroundCellWidget *cells[ROWS][COLUMNS];
+    gridPosition hasFocus;
 
-private slots:
-  /// Insert an entity in the playground
-  void insertEntity(int row, int col);
+    // void showUpdatePrice();
 
-public:
-  PlaygroundWidget(QWidget *parent = 0);
+  private slots:
+    /// Insert an entity in the playground
+    void insertEntity(u32 row, u32 col);
+    void levelUpEntity();
+    // void removeEntity(u32 row, u32 col);
 
-  void clearPlayground() override;
-  void updatePlaygroundMusic(u32 row, u32 col,
-                             MusicInstruments *mi = nullptr) override;
-  void updatePlaygroundRobot(u32 row, u32 col, Robot *r = nullptr) override;
+  public:
+    PlaygroundWidget(QWidget *parent = 0);
+
+    void setFocus(u32 row, u32 col);
+    void removeFocus();
+    bool getFocus() const;
+
+    void clearPlayground() override;
+    void updatePlaygroundMusic(u32 row, u32 col, MusicInstruments *mi = nullptr) override;
+    void updatePlaygroundRobot(u32 row, u32 col, Robot *r = nullptr) override;
 };
 
 #endif

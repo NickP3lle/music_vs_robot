@@ -24,3 +24,5 @@ bool InstrumentButton::removeSelectedInstrument() {
     }
     return false;
 }
+
+bool InstrumentButton::isInstrumentSelected() { return instrumentSelected != nullptr; }
