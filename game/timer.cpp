@@ -5,15 +5,7 @@ Timer *Timer::instance = nullptr;
 
 std::vector<TimerObserverInterface *> Timer::observers;
 
-Timer::Timer() : time(0) {} //, stopFlag(true) {}
-
-// void Timer::setUp() {
-//   while (instance->stopFlag) {
-//     instance->time++;
-//     notifyObservers();
-//     std::this_thread::sleep_for(std::chrono::seconds(1));
-//   }
-// }
+Timer::Timer() : time(0) {}
 
 void Timer::notifyObservers() {
   for (auto observer : Timer::observers) {
@@ -21,35 +13,25 @@ void Timer::notifyObservers() {
   }
 }
 
-void Timer::oneSecond() {
+Timer *Timer::getInstance() {
   if (instance) {
-    instance->time++;
-    notifyObservers();
-  }
-}
-
-void Timer::start() {
-  if (instance) {
-    stop();
     delete instance;
   }
   instance = new Timer();
+  return instance;
 }
 
-void Timer::stop() {
-  //  if (instance) {
-  //    instance->stopFlag = false;
-  //    if (instance->thread->joinable())
-  //      instance->thread->detach();
-  //  }
+void Timer::start() { getInstance(); }
+
+void Timer::oneSecond() {
+  getInstance()->time++;
+  notifyObservers();
 }
 
 void Timer::cleanUp() {
   if (instance) {
-    stop();
     delete instance;
     instance = nullptr;
-    notifyObservers();
   }
 }
 

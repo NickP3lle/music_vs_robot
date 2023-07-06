@@ -12,11 +12,8 @@ class Timer {
 private:
   static Timer *instance;
   u32 time;
-  //  std::atomic<u32> time;
-  //  std::atomic<bool> stopFlag;
-  //  std::thread *thread;
   Timer();
-  static void setUp();
+  static Timer *getInstance();
 
   static std::vector<TimerObserverInterface *> observers;
   static void notifyObservers();
@@ -24,7 +21,6 @@ private:
 public:
   static void oneSecond();
   static void start();
-  static void stop();
   static void cleanUp();
   static u32 get();
   static u32 minutes();

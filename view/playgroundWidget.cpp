@@ -83,7 +83,8 @@ PlaygroundWidget::PlaygroundWidget(QWidget *parent)
       cells[row][col] = new PlaygroundCellWidget(this);
       if (col == COLUMNS - 1) {
         cells[row][col]->setStyleSheet(
-            "background-color: #3d3d3d; border: 1px solid black;");
+            "background-color: #3d3d3d; border: 1px solid "
+            "black;");
       }
 
       gridLayout->addWidget(cells[row][col], row, col);
@@ -133,12 +134,12 @@ void PlaygroundWidget::insertEntity() {
 }
 
 void PlaygroundWidget::clearPlayground() {
-    for (u32 row = 0; row < ROWS; row++) {
-        for (u32 col = 0; col < COLUMNS; col++) {
-            updatePlaygroundMusic(row, col);
-            updatePlaygroundRobot(row, col);
-        }
+  for (u32 row = 0; row < ROWS; row++) {
+    for (u32 col = 0; col < COLUMNS; col++) {
+      updatePlaygroundMusic(row, col);
+      updatePlaygroundRobot(row, col);
     }
+  }
 }
 
 void PlaygroundWidget::updatePlaygroundMusic(u32 row, u32 col,
@@ -166,12 +167,15 @@ void PlaygroundWidget::updatePlaygroundRobot(u32 row, u32 col, Robot *r) {
 }
 
 void PlaygroundWidget::updateDamagePosition(u32 col) {
-    for (u32 row = 0; row < ROWS; row++) {
-        cells[row][col]->setStyleSheet("background-color: #ff0000; border: 1px solid black;");
-        if (row > 0) {
-            cells[row - 1][col]->setStyleSheet("background-color: #3d3d3d; border: 1px solid black;");
-        }
+  for (u32 row = 0; row < ROWS; row++) {
+    cells[row][col]->setStyleSheet(
+        "background-color: #ff0000; border: 1px solid black;");
+    if (row > 0) {
+      cells[row - 1][col]->setStyleSheet(
+          "background-color: #3d3d3d; border: 1px solid "
+          "black;");
     }
+  }
 }
 
 void PlaygroundWidget::levelUpEntity() {

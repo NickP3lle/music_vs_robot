@@ -1,9 +1,11 @@
 #include "independentfn.h"
 
-// Return a random number between minValue and maxValue
+// Return a random number between minValue and maxValue (included)
 u32 randomInt(u32 maxValue, u32 minValue) {
-  std::default_random_engine generator;
-  std::uniform_int_distribution<int> distribution(minValue, maxValue);
+  std::random_device rd;
+  std::mt19937 generator(rd());
+
+  std::uniform_int_distribution<> distribution(minValue, maxValue);
   return distribution(generator);
 }
 

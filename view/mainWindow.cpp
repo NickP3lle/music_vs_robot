@@ -20,23 +20,23 @@ MainWindow::MainWindow(QWidget *parent)
   stackedWidget->resize(1280, 720);
 
   setWindowTitle("Music vs Robots");
+
+  timer.setInterval(1000);
+  connect(&timer, &QTimer::timeout, this,
+          [] { Playground::getInstance()->battle(); });
 }
 
-void MainWindow::showPlayground() {
+void MainWindow::startGame() {
   stackedWidget->setCurrentWidget(playgroundWidget);
-  Timer::start();
   Playground::cleanUp();
   Cash::cleanUp();
   Cash::add(1000);
-  std::thread t(Playground::getInstance()->battle);
-  std::cout << "thread started" << std::endl;
-  t.detach();
+  Timer::cleanUp();
+  timer.start();
 }
 
-void MainWindow::startGame() { showPlayground(); }
-
 void MainWindow::loadGame() {
-  showPlayground();
+  startGame();
   // load game
 }
 
@@ -48,6 +48,6 @@ void MainWindow::endGame() {
   // if (reply == QMessageBox::Yes) {
   // save game
   stackedWidget->setCurrentWidget(startWidget);
-  Timer::stop();
+  timer.stop();
   // }
 }

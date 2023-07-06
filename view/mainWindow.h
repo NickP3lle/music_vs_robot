@@ -5,6 +5,7 @@
 #include "startWidget.h"
 #include <QMainWindow>
 #include <QStackedWidget>
+#include <QTimer>
 
 class MainWindow : public QMainWindow {
   Q_OBJECT
@@ -13,10 +14,9 @@ private:
   QStackedWidget *stackedWidget;
   StartWidget *startWidget;
   PlaygroundWidget *playgroundWidget;
-  // bool hasUnsavedGame;
+  QTimer timer;
 
-  /// Show the playground widget
-  void showPlayground();
+  // bool hasUnsavedGame;
 
 public:
   MainWindow(QWidget *parent = 0);
