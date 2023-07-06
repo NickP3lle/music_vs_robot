@@ -2,12 +2,13 @@
 #define PLAYGROUND_H
 #include "../view/observers/playgroundObserverInterface.h"
 #include "include.h"
+#include <chrono>
+#include <thread>
 
 class Playground { //: DataManagerInterface {
 private:
   ptr<MusicInstruments> player[ROWS][COLUMNS];
   deque<RobotWTool> enemy[ROWS][FRAME_COLUMNS * COLUMNS + 1];
-  u32 damagePos;
   static Playground *instance;
   Playground();
   void reset();
@@ -23,6 +24,7 @@ private:
   ~Playground();
 
 public:
+  u32 damagePos;
   static void cleanUp();
   void enemyInsert(u32 row, u32 difficulty);
   bool isEmpty(u32 row, u32 col) const;
@@ -34,6 +36,7 @@ public:
   void damagePropagate(u32 colonna);
   void enemyAttack(u32 colonna);
   void enemyMove();
+  void battle();
   //  std::ostream &print(std::ostream &) const;
   static Playground *getInstance();
 
@@ -52,33 +55,5 @@ template <typename S> void Playground::iterRobot(u32 row, u32 col, S fun) {
 /* come mi immagino il main, il realtà damagePropagate(i) dovrebbe essere
  * incluso in playerAttack(i)
 void Playground::battle() {
-  while (!lose()) {
-    reset(); // reset damage
-        incrementDifficulty();
-    for (u32 i = 0; i < COLUMNS; i++) {
-        attack(i);
-         // ovvero (l'ordine è importante):
-     // playerAttack(i);
-     // damagePropagate(i);
-     // enemyAttack(i);
-      for (u32 j = 0; j < FRAME_COLUMNS; j++) {
-        damagePos++;
-        moveRobots();
-        // here we might wanna add an observer
-        // to notify the view to update
-        //
-        // view.update();
-        //
-        // checke if the player wanna do something
-        //
-        // if (view.playerAction()) {
-                //   // controllo se vuole piazzare una pianta
-                //   // oppure ne vuole togliere una
-                //   // oppure la vuole aggiornare
-                //   // oppure vuole uscire
-        // }
-      }
-    }
-  }
 }
 */

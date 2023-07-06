@@ -21,13 +21,19 @@ void Timer::notifyObservers() {
   }
 }
 
+void Timer::oneSecond() {
+  if (instance) {
+    instance->time++;
+    notifyObservers();
+  }
+}
+
 void Timer::start() {
   if (instance) {
     stop();
     delete instance;
   }
   instance = new Timer();
-  instance->thread = new std::thread(setUp);
 }
 
 void Timer::stop() {

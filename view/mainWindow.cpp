@@ -8,42 +8,44 @@
 #include <QVBoxLayout>
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), stackedWidget(new QStackedWidget(this)), startWidget(new StartWidget(this)),
+    : QMainWindow(parent), stackedWidget(new QStackedWidget(this)),
+      startWidget(new StartWidget(this)),
       playgroundWidget(new PlaygroundWidget(this)) {
 
-    setCentralWidget(stackedWidget); // set stackedWidget as central widget
-    stackedWidget->addWidget(startWidget);
-    stackedWidget->addWidget(playgroundWidget);
-    stackedWidget->setCurrentWidget(startWidget);
+  setCentralWidget(stackedWidget); // set stackedWidget as central widget
+  stackedWidget->addWidget(startWidget);
+  stackedWidget->addWidget(playgroundWidget);
+  stackedWidget->setCurrentWidget(startWidget);
 
-    stackedWidget->resize(1280, 720);
+  stackedWidget->resize(1280, 720);
 
-    setWindowTitle("Music vs Robots");
+  setWindowTitle("Music vs Robots");
 }
 
 void MainWindow::showPlayground() {
-    stackedWidget->setCurrentWidget(playgroundWidget);
-    Timer::start();
-    Playground::cleanUp();
-    Cash::cleanUp();
-    Cash::add(1000);
+  stackedWidget->setCurrentWidget(playgroundWidget);
+  Timer::start();
+  Playground::cleanUp();
+  Cash::cleanUp();
+  Cash::add(1000);
+  Playground::getInstance()->battle();
 }
 
 void MainWindow::startGame() { showPlayground(); }
 
 void MainWindow::loadGame() {
-    showPlayground();
-    // load game
+  showPlayground();
+  // load game
 }
 
 void MainWindow::endGame() {
-    // QMessageBox::StandardButton reply;
-    // reply =
-    //     QMessageBox::question(this, "Music vs Robots", "Do you want to save the
-    //     game?", QMessageBox::Yes | QMessageBox::No);
-    // if (reply == QMessageBox::Yes) {
-    // save game
-    stackedWidget->setCurrentWidget(startWidget);
-    Timer::stop();
-    // }
+  // QMessageBox::StandardButton reply;
+  // reply =
+  //     QMessageBox::question(this, "Music vs Robots", "Do you want to save the
+  //     game?", QMessageBox::Yes | QMessageBox::No);
+  // if (reply == QMessageBox::Yes) {
+  // save game
+  stackedWidget->setCurrentWidget(startWidget);
+  Timer::stop();
+  // }
 }
