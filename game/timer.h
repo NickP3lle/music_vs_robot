@@ -21,6 +21,7 @@ private:
   static void notifyObservers();
 
 public:
+  static void oneSecond();
   static void start();
   static void stop();
   static void cleanUp();
