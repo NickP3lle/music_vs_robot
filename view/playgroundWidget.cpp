@@ -125,6 +125,7 @@ void PlaygroundWidget::clearPlayground() {
     for (u32 row = 0; row < ROWS; row++) {
         for (u32 col = 0; col < COLUMNS; col++) {
             updatePlaygroundMusic(row, col);
+            std::cout << "clearPlayground" << std::endl;
             updatePlaygroundRobot(row, col);
         }
     }
@@ -136,14 +137,17 @@ void PlaygroundWidget::updatePlaygroundMusic(u32 row, u32 col, MusicInstruments 
         imageVisitor iv;
         mi->accept(iv);
         cells[row][col]->setImage(iv.getPixmap());
+        Playground::getInstance()->enemyInsert(row, 50);
+        qDebug() << "1";
+        Playground::getInstance()->enemyMove();
+        qDebug() << "2";
     } else {
         cells[row][col]->setImage(new QPixmap());
     }
-    Playground::getInstance()->enemyInsert(row, 50);
-    Playground::getInstance()->enemyMove();
 }
 
 void PlaygroundWidget::updatePlaygroundRobot(u32 row, u32 col, Robot *r) {
+    qDebug() << "updatePlaygroundRobot";
     if (r) {
         /// Vistor sets the image of the cell
         imageVisitor iv;
