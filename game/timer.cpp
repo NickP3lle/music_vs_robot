@@ -14,10 +14,10 @@ void Timer::notifyObservers() {
 }
 
 Timer *Timer::getInstance() {
-  if (instance) {
+  if (!instance) {
     delete instance;
+    instance = new Timer();
   }
-  instance = new Timer();
   return instance;
 }
 

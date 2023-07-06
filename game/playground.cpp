@@ -83,12 +83,12 @@ void Playground::damagePropagate(u32 col) {
       while (d.len() > 0 && d[0].takeDamage(damage[0]))
         d.pop_front(); // se il robot muore lo elimino
     });
-    notifyRobotObservers(row, col);
-    iterRobot(row, col, [row, col](auto &d) {
-      d.iter([row, col](RobotWTool &e) {
-        notifyRobotObservers(row, col, e.getRobot());
-      });
-    });
+    //    notifyRobotObservers(row, col);
+    //    iterRobot(row, col, [row, col](auto &d) {
+    //      d.iter([row, col](RobotWTool &e) {
+    //        notifyRobotObservers(row, col, e.getRobot());
+    //      });
+    //    });
   }
 }
 
@@ -211,7 +211,7 @@ void Playground::battle() {
   instance->reset(); // reset damage
   for (u32 i = 0; i < COLUMNS; i++) {
     instance->playerAttack(i);
-    // instance->damagePropagate(i);
+    instance->damagePropagate(i);
     instance->enemyAttack(i);
     // instance->enemyMove();
     instance->enemyInsert(randomInt(4, 1), 1);
