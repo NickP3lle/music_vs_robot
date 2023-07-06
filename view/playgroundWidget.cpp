@@ -133,13 +133,12 @@ void PlaygroundWidget::insertEntity() {
 }
 
 void PlaygroundWidget::clearPlayground() {
-  for (u32 row = 0; row < ROWS; row++) {
-    for (u32 col = 0; col < COLUMNS; col++) {
-      updatePlaygroundMusic(row, col);
-      std::cout << "clearPlayground" << std::endl;
-      updatePlaygroundRobot(row, col);
+    for (u32 row = 0; row < ROWS; row++) {
+        for (u32 col = 0; col < COLUMNS; col++) {
+            updatePlaygroundMusic(row, col);
+            updatePlaygroundRobot(row, col);
+        }
     }
-  }
 }
 
 void PlaygroundWidget::updatePlaygroundMusic(u32 row, u32 col,
@@ -164,6 +163,15 @@ void PlaygroundWidget::updatePlaygroundRobot(u32 row, u32 col, Robot *r) {
   } else {
     cells[row][col]->setImage(new QPixmap());
   }
+}
+
+void PlaygroundWidget::updateDamagePosition(u32 col) {
+    for (u32 row = 0; row < ROWS; row++) {
+        cells[row][col]->setStyleSheet("background-color: #ff0000; border: 1px solid black;");
+        if (row > 0) {
+            cells[row - 1][col]->setStyleSheet("background-color: #3d3d3d; border: 1px solid black;");
+        }
+    }
 }
 
 void PlaygroundWidget::levelUpEntity() {
