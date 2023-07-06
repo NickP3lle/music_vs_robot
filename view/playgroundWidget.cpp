@@ -49,6 +49,7 @@ PlaygroundWidget::PlaygroundWidget(QWidget *parent)
     drumButton->setFixedSize(100, 50);
     saxophoneButton->setFixedSize(100, 50);
     fluteButton->setFixedSize(100, 50);
+
     levelUpButton->setFixedSize(100, 60);
     removeButton->setFixedSize(100, 60);
 
@@ -64,6 +65,9 @@ PlaygroundWidget::PlaygroundWidget(QWidget *parent)
 
     sideBarLayout->setAlignment(levelUpButton, Qt::AlignBottom);
     sideBarLayout->setAlignment(removeButton, Qt::AlignBottom);
+
+    connect(levelUpButton, SIGNAL(clicked()), this, SLOT(levelUpEntity()));
+    connect(removeButton, SIGNAL(clicked()), this, SLOT(removeEntity()));
 
     /// Grid
     QGridLayout *gridLayout = new QGridLayout();
@@ -83,7 +87,7 @@ PlaygroundWidget::PlaygroundWidget(QWidget *parent)
 
             connect(cells[row][col], &PlaygroundCellWidget::clicked, this, [this, row, col] {
                 setFocus(row, col);
-                insertEntity(row, col);
+                insertEntity();
             });
         }
     }
@@ -101,7 +105,7 @@ PlaygroundWidget::PlaygroundWidget(QWidget *parent)
     setLayout(vBoxLayout);
 }
 
-void PlaygroundWidget::insertEntity(u32 row, u32 col) {
+void PlaygroundWidget::insertEntity() {
     MusicInstruments *m = InstrumentButton::getSelectedInstrument();
 
     if (!m) {
@@ -109,13 +113,12 @@ void PlaygroundWidget::insertEntity(u32 row, u32 col) {
         return;
     }
 
-    if (col == COLUMNS - 1) {
+    if (hasFocus.col == COLUMNS - 1) {
         qDebug() << "Cannot insert entity in the last column!";
         return;
     }
 
-    // if (playground->playerInsert(row, col, m)) {
-    if (Playground::getInstance()->playerInsert(row, col, m)) {
+    if (Playground::getInstance()->playerInsert(hasFocus.row, hasFocus.col, m)) {
         qDebug() << "Player inserted entity!";
     } else {
         qDebug() << "Player cannot insert entity!";
@@ -141,17 +144,21 @@ void PlaygroundWidget::updatePlaygroundMusic(u32 row, u32 col, MusicInstruments 
         imageVisitor iv;
         mi->accept(iv);
         cells[row][col]->setImage(iv.getPixmap());
+        /**
+         * @note PROVA
+         */
         Playground::getInstance()->enemyInsert(row, 50);
-        qDebug() << "1";
         Playground::getInstance()->enemyMove();
-        qDebug() << "2";
+        /**
+         * @note FINE PROVA
+         */
     } else {
         cells[row][col]->setImage(new QPixmap());
     }
 }
 
 void PlaygroundWidget::updatePlaygroundRobot(u32 row, u32 col, Robot *r) {
-    qDebug() << "updatePlaygroundRobot";
+    // qDebug() << "updatePlaygroundRobot";
     if (r) {
         /// Vistor sets the image of the cell
         imageVisitor iv;
@@ -163,7 +170,23 @@ void PlaygroundWidget::updatePlaygroundRobot(u32 row, u32 col, Robot *r) {
 }
 
 void PlaygroundWidget::levelUpEntity() {
-    if (getFocus()) {
+    Playground *ptr = Playground::getInstance();
+    if (getFocus() && !ptr->isEmpty(hasFocus.row, hasFocus.col)) {
+        if (ptr->playerLevelUp(hasFocus.row, hasFocus.col)) {
+            qDebug() << "Player level up entity!";
+        }
+    } else {
+        qDebug() << "Player cannot level up entity!";
+    }
+}
+
+void PlaygroundWidget::removeEntity() {
+    Playground *ptr = Playground::getInstance();
+    if (getFocus() && !ptr->isEmpty(hasFocus.row, hasFocus.col)) {
+        ptr->playerRemove(hasFocus.row, hasFocus.col);
+        qDebug() << "Player remove entity!";
+    } else {
+        qDebug() << "Player cannot remove entity!";
     }
 }
 

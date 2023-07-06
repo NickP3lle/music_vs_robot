@@ -46,9 +46,9 @@ class PlaygroundWidget : public QWidget, public PlaygroundObserverInterface {
 
   private slots:
     /// Insert an entity in the playground
-    void insertEntity(u32 row, u32 col);
+    void insertEntity();
     void levelUpEntity();
-    // void removeEntity(u32 row, u32 col);
+    void removeEntity();
 
   public:
     PlaygroundWidget(QWidget *parent = 0);
