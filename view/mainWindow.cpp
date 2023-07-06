@@ -28,7 +28,9 @@ void MainWindow::showPlayground() {
   Playground::cleanUp();
   Cash::cleanUp();
   Cash::add(1000);
-  Playground::getInstance()->battle();
+  std::thread t(Playground::getInstance()->battle);
+  std::cout << "thread started" << std::endl;
+  t.detach();
 }
 
 void MainWindow::startGame() { showPlayground(); }

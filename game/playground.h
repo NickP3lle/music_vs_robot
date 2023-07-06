@@ -37,7 +37,7 @@ public:
   void damagePropagate(u32 colonna);
   void enemyAttack(u32 colonna);
   void enemyMove();
-  void battle();
+  static void battle();
   //  std::ostream &print(std::ostream &) const;
   static Playground *getInstance();
 

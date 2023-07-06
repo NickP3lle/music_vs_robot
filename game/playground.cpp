@@ -64,7 +64,7 @@ void Playground::enemyAttack(u32 col) {
                   });
     if (player[row][col].get_mut().takeDamage(danni)) {
       player[row][col] = nullptr;
-      notifyMusicObservers(row, col);
+      // notifyMusicObservers(row, col);
     }
   }
 }
@@ -107,7 +107,6 @@ void Playground::enemyMove() {
       while (enemy[row][col].len() > 0) {
         // std::cout << "3" << std::endl;
         move_to = moveRobot(row, col, enemy[row][col][0]);
-        std::cout << "move_to: " << move_to << "col: " << col << std::endl;
         if (move_to / FRAME_COLUMNS != col / FRAME_COLUMNS)
           notifyRobotObservers(row, col / FRAME_COLUMNS);
 
@@ -166,7 +165,7 @@ void Playground::playerRemove(u32 row, u32 col) {
   if (isEmpty(row, col))
     return;
   player[row][col] = nullptr;
-  notifyMusicObservers(row, col);
+  // notifyMusicObservers(row, col);
 }
 
 bool Playground::playerInsert(u32 row, u32 col, MusicInstruments *mi) {
@@ -206,15 +205,16 @@ void Playground::registerObserver(PlaygroundObserverInterface *obs) {
 Playground::~Playground() {}
 
 void Playground::battle() {
-  while (!lose()) {
-    reset(); // reset damage
+  while (!instance->lose()) {
+    instance->reset(); // reset damage
     for (u32 i = 0; i < COLUMNS; i++) {
-      playerAttack(i);
-      damagePropagate(i);
-      enemyAttack(i);
+      instance->playerAttack(i);
+      instance->damagePropagate(i);
+      instance->enemyAttack(i);
+      instance->enemyMove();
+      instance->enemyInsert(randomInt(4, 1), 1);
       for (u32 j = 0; j < FRAME_COLUMNS; j++) {
-        damagePos++;
-        enemyMove();
+        instance->damagePos++;
         std::this_thread::sleep_for(
             std::chrono::milliseconds(100 / FRAME_COLUMNS));
       }
