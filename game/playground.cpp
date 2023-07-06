@@ -219,5 +219,6 @@ void Playground::battle() {
             std::chrono::milliseconds(100 / FRAME_COLUMNS));
       }
     }
+    Timer::oneSecond();
   }
 }

@@ -2,6 +2,7 @@
 #define PLAYGROUND_H
 #include "../view/observers/playgroundObserverInterface.h"
 #include "include.h"
+#include "timer.h"
 #include <chrono>
 #include <thread>
 

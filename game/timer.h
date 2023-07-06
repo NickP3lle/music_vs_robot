@@ -11,9 +11,10 @@
 class Timer {
 private:
   static Timer *instance;
-  std::atomic<u32> time;
-  std::atomic<bool> stopFlag;
-  std::thread *thread;
+  u32 time;
+  //  std::atomic<u32> time;
+  //  std::atomic<bool> stopFlag;
+  //  std::thread *thread;
   Timer();
   static void setUp();
 
