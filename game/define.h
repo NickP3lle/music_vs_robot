@@ -40,5 +40,5 @@
 #define THREE_R Trumpet()
 #define SLOW Violin()
 
-#define ROBOT_MAX_SPEED 32
-#define ROBOT_MIN_SPEED 20
+#define ROBOT_MAX_SPEED 10
+#define ROBOT_MIN_SPEED 5
