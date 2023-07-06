@@ -20,10 +20,13 @@ private:
   static std::vector<PlaygroundObserverInterface *> observers;
   static void notifyMusicObservers(int row, int col, MusicInstruments *mi = 0);
   static void notifyRobotObservers(int row, int col, Robot *r = 0);
+  ~Playground();
 
 public:
   static void cleanUp();
   void enemyInsert(u32 row, u32 difficulty);
+  bool isEmpty(u32 row, u32 col) const;
+  void playerRemove(u32 row, u32 col);
   bool playerInsert(u32 row, u32 col, MusicInstruments *mi);
   bool playerLevelUp(u32 row, u32 col);
   bool lose() const;
