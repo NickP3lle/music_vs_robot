@@ -13,6 +13,7 @@ class PlaygroundObserverInterface {
     virtual void clearPlayground() = 0;
     virtual void updatePlaygroundMusic(u32 row, u32 col, MusicInstruments *mi = nullptr) = 0;
     virtual void updatePlaygroundRobot(u32 row, u32 col, Robot *r = nullptr) = 0;
+    virtual void updateDamagePosition(u32 col) = 0;
 
     virtual ~PlaygroundObserverInterface() = default;
 };
