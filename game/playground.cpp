@@ -106,31 +106,23 @@ void Playground::enemyMove() {
       while (enemy[row][col].len() > 0) {
         // std::cout << "3" << std::endl;
         move_to = moveRobot(row, col, enemy[row][col][0]);
+        // @bug, per qualche motivo con l'istruzione qui sotto va in segmetation
+        // fault
+        // notifyRobotObservers(row, col);
 
-        // controllo che il robot non si muova nella colonna dove si trovano
-        // i danni, altrimenti li schiverebbe
-        if (col / FRAME_COLUMNS > damagePos &&
-            move_to / FRAME_COLUMNS <= damagePos &&
-            (enemy[row][col][0].takeDamage(MusicInstruments::damages[row][1]) ||
-             enemy[row][col][0].takeDamage(
-                 MusicInstruments::damages[row][0]))) {
-          enemy[row][col].pop_front();
-          continue;
-        }
-        // enemy[row][moveRobot(row, col,
-        // enemy[row][col][0])].push_back(enemy[row][col].pop_front());
         auto robot = enemy[row][col].pop_front();
         enemy[row][move_to].push_back(robot);
+        // notifyRobotObservers(row, col, robot.getRobot());
       }
     }
-    for (u32 col = 0; col < COLUMNS; col++) {
-      notifyRobotObservers(row, col);
-      iterRobot(row, col, [row, col](auto &d) {
-        d.iter([row, col](RobotWTool &e) {
-          notifyRobotObservers(row, col, e.getRobot());
-        });
-      });
-    }
+    // for (u32 col = 0; col < COLUMNS; col++) {
+    //   notifyRobotObservers(row, col);
+    //   iterRobot(row, col, [row, col](auto &d) {
+    //     d.iter([row, col](RobotWTool &e) {
+    //       notifyRobotObservers(row, col, e.getRobot());
+    //     });
+    //   });
+    //}
   }
 }
 
@@ -141,7 +133,7 @@ u32 Playground::nearestPlayer(u32 row, u32 col) const {
     return 0;
   for (u32 i = 0; i <= col / FRAME_COLUMNS; i++)
     if (player[row][col / FRAME_COLUMNS - i]) {
-      return (i - 1) * FRAME_COLUMNS;
+      return i * FRAME_COLUMNS - 1;
     }
   return col;
 }
@@ -213,7 +205,7 @@ void Playground::battle() {
     instance->playerAttack(i);
     instance->damagePropagate(i);
     instance->enemyAttack(i);
-    // instance->enemyMove();
+    instance->enemyMove();
     instance->enemyInsert(randomInt(4, 1), 1);
     for (u32 j = 0; j < FRAME_COLUMNS; j++)
       instance->damagePos++;
