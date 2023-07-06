@@ -94,7 +94,6 @@ void Playground::damagePropagate(u32 col) {
 
 // controlla se in questa cella c'è un robot
 // se c'è un robot lo sposta
-// c'è un buggino: un robot potrebbe schivare i danni
 void Playground::enemyMove() {
   u32 move_to = 0;
   for (u32 row = 0; row < ROWS; row++) {
@@ -131,7 +130,7 @@ void Playground::enemyMove() {
 u32 Playground::nearestPlayer(u32 row, u32 col) const {
   if (player[row][col / FRAME_COLUMNS])
     return 0;
-  for (u32 i = 0; i <= col / FRAME_COLUMNS; i++)
+  for (u32 i = 1; i <= col / FRAME_COLUMNS; i++)
     if (player[row][col / FRAME_COLUMNS - i]) {
       return i * FRAME_COLUMNS - 1;
     }
