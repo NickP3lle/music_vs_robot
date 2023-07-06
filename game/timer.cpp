@@ -5,15 +5,15 @@ Timer *Timer::instance = nullptr;
 
 std::vector<TimerObserverInterface *> Timer::observers;
 
-Timer::Timer() : time(0), stopFlag(true) {}
+Timer::Timer() : time(0) {} //, stopFlag(true) {}
 
-void Timer::setUp() {
-  while (instance->stopFlag) {
-    instance->time++;
-    notifyObservers();
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-  }
-}
+// void Timer::setUp() {
+//   while (instance->stopFlag) {
+//     instance->time++;
+//     notifyObservers();
+//     std::this_thread::sleep_for(std::chrono::seconds(1));
+//   }
+// }
 
 void Timer::notifyObservers() {
   for (auto observer : Timer::observers) {
@@ -37,11 +37,11 @@ void Timer::start() {
 }
 
 void Timer::stop() {
-  if (instance) {
-    instance->stopFlag = false;
-    if (instance->thread->joinable())
-      instance->thread->detach();
-  }
+  //  if (instance) {
+  //    instance->stopFlag = false;
+  //    if (instance->thread->joinable())
+  //      instance->thread->detach();
+  //  }
 }
 
 void Timer::cleanUp() {
