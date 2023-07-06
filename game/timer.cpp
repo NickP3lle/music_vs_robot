@@ -15,7 +15,6 @@ void Timer::notifyObservers() {
 
 Timer *Timer::getInstance() {
   if (!instance) {
-    delete instance;
     instance = new Timer();
   }
   return instance;
