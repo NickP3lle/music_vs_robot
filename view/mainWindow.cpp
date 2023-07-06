@@ -8,46 +8,69 @@
 #include <QVBoxLayout>
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), stackedWidget(new QStackedWidget(this)),
-      startWidget(new StartWidget(this)),
+    : QMainWindow(parent), stackedWidget(new QStackedWidget(this)), startWidget(new StartWidget(this)),
       playgroundWidget(new PlaygroundWidget(this)) {
 
-  setCentralWidget(stackedWidget); // set stackedWidget as central widget
-  stackedWidget->addWidget(startWidget);
-  stackedWidget->addWidget(playgroundWidget);
-  stackedWidget->setCurrentWidget(startWidget);
+    setCentralWidget(stackedWidget); // set stackedWidget as central widget
+    stackedWidget->addWidget(startWidget);
+    stackedWidget->addWidget(playgroundWidget);
+    stackedWidget->setCurrentWidget(startWidget);
 
-  stackedWidget->resize(1280, 720);
+    stackedWidget->resize(1280, 720);
 
-  setWindowTitle("Music vs Robots");
+    setWindowTitle("Music vs Robots");
 
-  timer.setInterval(1000);
-  connect(&timer, &QTimer::timeout, this,
-          [] { Playground::getInstance()->battle(); });
+    timer.setInterval(1000);
+    connect(&timer, &QTimer::timeout, this, [] { Playground::getInstance()->battle(); });
 }
 
 void MainWindow::startGame() {
-  stackedWidget->setCurrentWidget(playgroundWidget);
-  Playground::cleanUp();
-  Cash::cleanUp();
-  Cash::add(1000);
-  Timer::cleanUp();
-  timer.start();
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Select Difficulty");
+    msgBox.setText("Select the level of difficulty:");
+
+    QPushButton *easyButton = msgBox.addButton(tr("Easy"), QMessageBox::ActionRole);
+    QPushButton *normalButton = msgBox.addButton(tr("Normal"), QMessageBox::ActionRole);
+    QPushButton *hardButton = msgBox.addButton(tr("Hard"), QMessageBox::ActionRole);
+    QPushButton *abortButton = msgBox.addButton(QMessageBox::Abort);
+
+    msgBox.exec();
+
+    int difficulty = -1;
+
+    if (msgBox.clickedButton() == easyButton) {
+        difficulty = 0;
+    } else if (msgBox.clickedButton() == normalButton) {
+        difficulty = 1;
+    } else if (msgBox.clickedButton() == hardButton) {
+        difficulty = 2;
+    } else if (msgBox.clickedButton() == abortButton) {
+        return;
+    }
+
+    std::cout << "Difficulty: " << difficulty << std::endl;
+
+    stackedWidget->setCurrentWidget(playgroundWidget);
+    Playground::cleanUp();
+    Cash::cleanUp();
+    Cash::add(1000);
+    Timer::cleanUp();
+    timer.start();
 }
 
 void MainWindow::loadGame() {
-  startGame();
-  // load game
+    startGame();
+    // load game
 }
 
 void MainWindow::endGame() {
-  // QMessageBox::StandardButton reply;
-  // reply =
-  //     QMessageBox::question(this, "Music vs Robots", "Do you want to save the
-  //     game?", QMessageBox::Yes | QMessageBox::No);
-  // if (reply == QMessageBox::Yes) {
-  // save game
-  stackedWidget->setCurrentWidget(startWidget);
-  timer.stop();
-  // }
+    // QMessageBox::StandardButton reply;
+    // reply =
+    //     QMessageBox::question(this, "Music vs Robots", "Do you want to save the
+    //     game?", QMessageBox::Yes | QMessageBox::No);
+    // if (reply == QMessageBox::Yes) {
+    // save game
+    stackedWidget->setCurrentWidget(startWidget);
+    timer.stop();
+    // }
 }

@@ -62,3 +62,5 @@ SOURCES += main.cpp \
            view/playgroundComponents/playgroundCellWidget.cpp \
            view/visitors/imageVisitor.cpp
 RESOURCES += resources.qrc
+
+ICON = assets/icon.icns
