@@ -167,7 +167,8 @@ void PlaygroundWidget::updatePlaygroundRobot(u32 row, u32 col, Robot *r) {
     r->accept(iv);
     cells[row][col]->setImage(iv.getPixmap());
   } else {
-    cells[row][col]->setImage(new QPixmap());
+    std::cout << "updatePlaygroundRobot else" << std::endl;
+    // cells[row][col]->setImage(new QPixmap());
   }
 }
 
