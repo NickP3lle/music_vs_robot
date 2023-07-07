@@ -99,7 +99,12 @@ void Playground::enemyMove() {
   for (u32 row = 0; row < ROWS; row++) {
     for (u32 col = 0; col < COLUMNS * FRAME_COLUMNS + 1; col++) {
       std::cout << "haya" << std::endl;
-      if (nearestPlayer(row, col) / FRAME_COLUMNS >= col / FRAME_COLUMNS)
+      u32 np = nearestPlayer(row, col);
+      if (np == COLUMNS * FRAME_COLUMNS + 1)
+        return;
+      if (np / FRAME_COLUMNS < col / FRAME_COLUMNS)
+        col -= FRAME_COLUMNS;
+      else if (np / FRAME_COLUMNS >= col / FRAME_COLUMNS)
         col += FRAME_COLUMNS;
       continue;
       u32 i = 0;
@@ -142,9 +147,10 @@ void Playground::enemyMove() {
 // potrei cambiare questa funzione per non far sovrapporre i robot
 u32 Playground::nearestPlayer(u32 row, u32 col) const {
   if (col == 0) {
-    // TODO!
-    // for (auto &obs: music_observers)
-    // obs->notifyEndGame();
+    for (auto &obs : observers) {
+      obs->notifyEndGame();
+      return COLUMNS * FRAME_COLUMNS + 1;
+    }
   }
   col--;
   for (u32 i = 0; i <= col / FRAME_COLUMNS; i++)
@@ -226,7 +232,7 @@ void Playground::battle() {
     instance->playerAttack(i);
     // instance->damagePropagate(i);
     instance->enemyAttack(i);
-    // instance->enemyMove();
+    instance->enemyMove();
     instance->enemyInsert(randomInt(4, 0), 1);
     for (u32 j = 0; j < FRAME_COLUMNS; j++)
       instance->damagePos++;
