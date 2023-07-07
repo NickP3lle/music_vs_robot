@@ -60,6 +60,10 @@ class PlaygroundWidget : public QWidget, public PlaygroundObserverInterface {
     void updatePlaygroundMusic(u32 row, u32 col, MusicInstruments *mi = nullptr) override;
     void updatePlaygroundRobot(u32 row, u32 col, Robot *r = nullptr) override;
     void updateDamagePosition(u32 col) override;
+    void notifyEndGame() override;
+
+  signals:
+    void callEndGame();
 };
 
 #endif

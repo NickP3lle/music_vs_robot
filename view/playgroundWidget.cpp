@@ -4,6 +4,7 @@
 
 #include <QDebug>
 #include <QGridLayout>
+#include <QMessageBox>
 #include <QVBoxLayout>
 
 PlaygroundWidget::PlaygroundWidget(QWidget *parent)
@@ -42,6 +43,7 @@ PlaygroundWidget::PlaygroundWidget(QWidget *parent)
 
     /// When the back button is clicked, the timer is stopped
     connect(backButton, SIGNAL(clicked()), parent, SLOT(endGame()));
+    connect(this, SIGNAL(callEndGame()), parent, SLOT(endGame()));
 
     /// Side bar
     violinButton->setFixedSize(100, 50);
@@ -170,6 +172,17 @@ void PlaygroundWidget::updateDamagePosition(u32 col) {
             cells[row - 1][col]->setStyleSheet("background-color: #3d3d3d; border: 1px solid "
                                                "black;");
         }
+    }
+}
+
+void PlaygroundWidget::notifyEndGame() {
+    QMessageBox msgBox;
+    msgBox.setText("Game over!");
+    int buttonClicked = msgBox.exec();
+
+    if (buttonClicked == QMessageBox::Ok) {
+        emit callEndGame();
+        std::cout << "Game over!" << std::endl;
     }
 }
 
