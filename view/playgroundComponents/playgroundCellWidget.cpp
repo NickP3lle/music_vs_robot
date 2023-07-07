@@ -7,7 +7,12 @@ void PlaygroundCellWidget::mousePressEvent(QMouseEvent *event) {
     emit clicked();
 }
 
-PlaygroundCellWidget::PlaygroundCellWidget(QWidget *parent) : QWidget(parent), pixmapLabel(new QLabel(this)) {
+PlaygroundCellWidget::PlaygroundCellWidget(QWidget *parent)
+    : QWidget(parent), leveleLabel(new QLabel(this)), pixmapLabel(new QLabel(this)) {
+
+    leveleLabel->setAlignment(Qt::AlignCenter);
+    // leveleLabel->setText("0");
+    leveleLabel->hide();
     setStyleSheet("border: 1px solid black;");
     pixmapLabel->setAlignment(Qt::AlignCenter);
     pixmapLabel->setStyleSheet("border: 0;");
@@ -20,6 +25,13 @@ PlaygroundCellWidget::PlaygroundCellWidget(QWidget *parent) : QWidget(parent), p
 }
 
 void PlaygroundCellWidget::setImage(QPixmap *pixmap) { pixmapLabel->setPixmap(*pixmap); }
+
+void PlaygroundCellWidget::setLevel(u32 level) {
+    leveleLabel->setText(QString::number(level));
+    leveleLabel->show();
+}
+
+void PlaygroundCellWidget::hideLevel() { leveleLabel->hide(); }
 
 void PlaygroundCellWidget::paintEvent(QPaintEvent *event) {
     QWidget::paintEvent(event);

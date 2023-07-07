@@ -171,6 +171,7 @@ bool Playground::playerLevelUp(u32 row, u32 col) {
     if (!player[row][col] || !Cash::sub((*player[row][col]).value()))
         return false;
     player[row][col].get_mut().levelUp();
+    notifyMusicObservers(row, col, &player[row][col].get_mut());
     return true;
 }
 
