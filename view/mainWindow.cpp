@@ -25,6 +25,13 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 void MainWindow::startGame() {
+    stackedWidget->setCurrentWidget(playgroundWidget);
+    Playground::cleanUp();
+    Timer::cleanUp();
+    timer.start();
+}
+
+void MainWindow::newGame() {
     QMessageBox msgBox;
     msgBox.setWindowTitle("Select Difficulty");
     msgBox.setText("Select the level of difficulty:");
@@ -37,28 +44,27 @@ void MainWindow::startGame() {
     msgBox.exec();
 
     int difficulty = -1;
+    Cash::cleanUp();
 
     if (msgBox.clickedButton() == easyButton) {
+        Cash::add(2000);
         difficulty = 0;
     } else if (msgBox.clickedButton() == normalButton) {
+        Cash::add(1000);
         difficulty = 1;
     } else if (msgBox.clickedButton() == hardButton) {
+        Cash::add(500);
         difficulty = 2;
     } else if (msgBox.clickedButton() == abortButton) {
         return;
     }
 
     std::cout << "Difficulty: " << difficulty << std::endl;
-
-    stackedWidget->setCurrentWidget(playgroundWidget);
-    Playground::cleanUp();
-    Cash::cleanUp();
-    Cash::add(1000);
-    Timer::cleanUp();
-    timer.start();
+    startGame();
 }
 
 void MainWindow::loadGame() {
+    Cash::cleanUp();
     startGame();
     // load game
 }

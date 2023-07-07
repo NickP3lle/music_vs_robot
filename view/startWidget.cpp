@@ -25,7 +25,7 @@ StartWidget::StartWidget(QWidget *parent)
     quitButton->setStyleSheet("padding: 10px; color: white; font-size: 30px;");
 
     /// Connect the buttons to the slots
-    connect(startButton, SIGNAL(clicked()), parent, SLOT(startGame()));
+    connect(startButton, SIGNAL(clicked()), parent, SLOT(newGame()));
     connect(loadButton, SIGNAL(clicked()), parent, SLOT(loadGame()));
     connect(quitButton, SIGNAL(clicked()), parent, SLOT(close()));
 

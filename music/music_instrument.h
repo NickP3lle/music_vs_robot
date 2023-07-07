@@ -48,7 +48,7 @@ class Flute : public MusicInstruments {
 
     virtual void attack(u32 row) const override;
     void levelUp() override;
-    u32 getCost() const override { return FLUTE_UPDATE_PRICE * 0.75; }
+    u32 getCost() const override;
     u32 value() const override;
     ostream &print(ostream &os) const override;
 
@@ -66,7 +66,7 @@ class Drum : public MusicInstruments {
 
     void attack(u32 row) const override;
     void levelUp() override;
-    u32 getCost() const override { return DRUM_UPDATE_PRICE * 0.75; }
+    u32 getCost() const override;
     u32 value() const override;
     ostream &print(ostream &os) const override;
 
@@ -87,7 +87,7 @@ class Saxophone : public MusicInstruments {
 
     void attack(u32 row) const override;
     void levelUp() override;
-    u32 getCost() const override { return SAXOPHONE_UPDATE_PRICE * 0.75; }
+    u32 getCost() const override;
     u32 value() const override;
     bool takeDamage(u32 &) override;
     ostream &print(ostream &os) const override;
@@ -107,7 +107,7 @@ class Trumpet : public MusicInstruments {
     void attack(u32 row) const override;
     void levelUp() override;
     u32 value() const override;
-    u32 getCost() const override { return TRUMPET_UPDATE_PRICE * 0.75; }
+    u32 getCost() const override;
     ostream &print(ostream &os) const override;
 
     void accept(EntityVisitorInterface &visitor) const override;
@@ -125,7 +125,7 @@ class Violin : public MusicInstruments {
     void attack(u32 row) const override;
     void levelUp() override;
     u32 value() const override;
-    u32 getCost() const override { return VIOLIN_UPDATE_PRICE * 0.75; }
+    u32 getCost() const override;
     u32 slowDown() const;
     ostream &print(ostream &os) const override;
 

@@ -8,11 +8,11 @@
 
 PlaygroundWidget::PlaygroundWidget(QWidget *parent)
     : QWidget(parent), backButton(new QPushButton("Back", this)), cash(new CashWidget(this)), timer(new TimerWidget(this)),
-      violinButton(new InstrumentButton(new Violin(), "Violin", this)),
-      trumpetButton(new InstrumentButton(new Trumpet(), "Trumpet", this)),
-      drumButton(new InstrumentButton(new Drum(), "Drum", this)),
-      saxophoneButton(new InstrumentButton(new Saxophone(), "Saxophone", this)),
-      fluteButton(new InstrumentButton(new Flute(), "Flute", this)), levelUpButton(new QPushButton("Level Up", this)),
+      violinButton(new InstrumentButton(new Violin(), "Violin ", this)),
+      trumpetButton(new InstrumentButton(new Trumpet(), "Trumpet ", this)),
+      drumButton(new InstrumentButton(new Drum(), "Drum ", this)),
+      saxophoneButton(new InstrumentButton(new Saxophone(), "Saxophone ", this)),
+      fluteButton(new InstrumentButton(new Flute(), "Flute ", this)), levelUpButton(new QPushButton("Level Up", this)),
       removeButton(new QPushButton("Remove", this)), hasFocus({-1, -1}) {
 
     // playground->registerObserver(this);
@@ -197,7 +197,7 @@ void PlaygroundWidget::removeEntity() {
 void PlaygroundWidget::setFocus(u32 row, u32 col) {
     hasFocus.row = row;
     hasFocus.col = col;
-    // showUpdatePrice();
+    showUpdatePrice();
     qDebug() << "PlaygroundWidget::setFocus()";
 }
 
@@ -208,3 +208,5 @@ void PlaygroundWidget::removeFocus() {
 }
 
 bool PlaygroundWidget::getFocus() const { return hasFocus.row != -1 && hasFocus.col != -1; }
+
+void PlaygroundWidget::showUpdatePrice() {}
