@@ -14,6 +14,7 @@ class PlaygroundCellWidget : public QWidget {
     Q_OBJECT
 
   private:
+    QLabel *leveleLabel;
     QLabel *pixmapLabel;
 
   protected:
@@ -22,6 +23,8 @@ class PlaygroundCellWidget : public QWidget {
   public:
     PlaygroundCellWidget(QWidget *parent = 0);
     void setImage(QPixmap *pixmap);
+    void setLevel(u32 level);
+    void hideLevel();
 
     // Questa funzione è stata aggiunta per un bug che non permette alle classi figlie di QWidget di avere grafica ereditando
     // il metodo setStyleSheet(). Per questo motivo, è stato necessario ridefinire il metodo paintEvent()

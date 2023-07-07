@@ -8,25 +8,24 @@
 #include <QTimer>
 
 class MainWindow : public QMainWindow {
-  Q_OBJECT
+    Q_OBJECT
 
-private:
-  QStackedWidget *stackedWidget;
-  StartWidget *startWidget;
-  PlaygroundWidget *playgroundWidget;
-  QTimer timer;
+  private:
+    QStackedWidget *stackedWidget;
+    StartWidget *startWidget;
+    PlaygroundWidget *playgroundWidget;
+    QTimer timer;
 
-  // bool hasUnsavedGame;
+    void startGame();
 
-public:
-  MainWindow(QWidget *parent = 0);
+  public:
+    MainWindow(QWidget *parent = 0);
 
-public slots:
+  public slots:
 
-  /// Change the current widget
-  void startGame();
-  void loadGame();
-  void endGame();
+    void newGame();
+    void loadGame();
+    void endGame();
 };
 
 #endif

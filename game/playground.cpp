@@ -197,6 +197,7 @@ bool Playground::playerLevelUp(u32 row, u32 col) {
   if (!player[row][col] || !Cash::sub((*player[row][col]).value()))
     return false;
   player[row][col].get_mut().levelUp();
+  notifyMusicObservers(row, col, &player[row][col].get_mut());
   return true;
 }
 
@@ -225,7 +226,7 @@ void Playground::battle() {
     instance->playerAttack(i);
     // instance->damagePropagate(i);
     instance->enemyAttack(i);
-    instance->enemyMove();
+    // instance->enemyMove();
     instance->enemyInsert(randomInt(4, 0), 1);
     for (u32 j = 0; j < FRAME_COLUMNS; j++)
       instance->damagePos++;
