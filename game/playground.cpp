@@ -172,7 +172,13 @@ void Playground::enemyInsert(u32 row, u32 difficulty) {
 
 bool Playground::isEmpty(u32 row, u32 col) const { return !player[row][col]; }
 
-const MusicInstruments &Playground::playerGet(u32 row, u32 col) const { return *player[row][col]; }
+const MusicInstruments *Playground::playerGet(u32 row, u32 col) const {
+    if (isEmpty(row, col)) {
+        return nullptr;
+    } else {
+        return &player[row][col].get();
+    }
+}
 
 void Playground::playerRemove(u32 row, u32 col) {
     if (isEmpty(row, col))
@@ -221,8 +227,8 @@ void Playground::battle() {
         instance->playerAttack(i);
         // instance->damagePropagate(i);
         instance->enemyAttack(i);
-        if (instance->enemyMove())
-            return;
+        // if (instance->enemyMove())
+        //     return;
         instance->enemyInsert(randomInt(4, 0), 1);
         for (u32 j = 0; j < FRAME_COLUMNS; j++)
             instance->damagePos++;
