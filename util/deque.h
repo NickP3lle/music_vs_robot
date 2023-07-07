@@ -20,7 +20,7 @@ public:
 
   deque &push_back(const T &);
   T pop_front();
-  void remove(u32 pos);
+  T remove(u32 pos);
   u32 len() const;
   T &operator[](u32) const;
   template <typename S> deque iter(S lambda, u32 begin = 0) const;
@@ -84,11 +84,14 @@ template <class T> T deque<T>::pop_front() {
 // per l'uso che faccio di deque, in realtà l'ordine non ha molta importanza
 // per cui remove cambia l'ordine degli elementi: porta l'elemento in posizione
 // 0 nel posto dell'elemento in posizione pos, poi fa un pop_front
-template <class T> void deque<T>::remove(u32 pos) {
+template <class T> T deque<T>::remove(u32 pos) {
   if (size == 0)
     throw "Deque is empty";
+  T tmp = (*this)[pos];
   (*this)[pos] = (*this)[0];
-  pop_front();
+  (*this)[0] = tmp;
+  (*this)[pos] = (*this)[0];
+  return pop_front();
 }
 
 template <class T> u32 deque<T>::len() const { return size; }
