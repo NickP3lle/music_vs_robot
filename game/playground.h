@@ -8,7 +8,7 @@
 
 class Playground { //: DataManagerInterface {
 private:
-  ptr<MusicInstruments> player[ROWS][COLUMNS];
+  std::unique_ptr<MusicInstruments> player[ROWS][COLUMNS];
   deque<RobotWTool> enemy[ROWS][FRAME_COLUMNS * COLUMNS + 1];
   static Playground *instance;
   Playground();

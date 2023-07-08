@@ -1,12 +1,13 @@
 #ifndef DEQUE_H
 #define DEQUE_H
 #define u32 unsigned int
-#include "ptr.h"
+#include <atomic>
+#include <iostream>
 
 template <class T> class deque {
 private:
   T *first;
-  u32 capacity, size, actual;
+  std::atomic<u32> capacity, size, actual;
   deque(T *, u32, u32, u32);
   void resize();
   bool isFull() const;
@@ -32,15 +33,13 @@ deque<T>::deque(T *ptr, u32 capacity, u32 size, u32 actual)
     : first(ptr), capacity(capacity), size(size), actual(actual) {}
 
 template <class T>
-deque<T>::deque(u32 cap) : deque(new T[cap ? cap : 1], cap ? cap : 1, 0, 0) {}
+deque<T>::deque(u32 cap)
+    : deque((T *)malloc(sizeof(T) * (cap ? cap : 1)), cap ? cap : 1, 0, 0) {}
 
 // @bug: potrebbe non funzionare nel modo corretto
 template <class T> void deque<T>::resize() {
-  capacity *= 2;
-  T *new_ptr = new T[capacity];
-  iter([new_ptr](T &x) mutable { *new_ptr++ = x; });
-  delete[] first;
-  first = new_ptr;
+  capacity = capacity * 2;
+  first = (T *)realloc(first, sizeof(T) * capacity);
 }
 
 template <class T>
@@ -68,8 +67,7 @@ template <class T> deque<T>::~deque() { delete[] first; }
 template <class T> deque<T> &deque<T>::push_back(const T &t) {
   if (size == capacity)
     resize();
-  (*this)[size] = t;
-  size++;
+  (*this)[size++] = t;
   return *this;
 }
 
