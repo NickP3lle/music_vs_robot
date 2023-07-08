@@ -8,7 +8,7 @@
 #include <chrono>
 #include <thread>
 
-class Playground { //: DataManagerInterface {
+class Playground : DataManagerInterface {
 private:
   std::unique_ptr<MusicInstruments> player[ROWS][COLUMNS];
   deque<RobotWTool> enemy[ROWS][FRAME_COLUMNS * COLUMNS + 1];
@@ -46,7 +46,7 @@ public:
 
   static void registerObserver(PlaygroundObserverInterface *obs);
 
-  // bool saveData() override;
+  virtual std::string saveData() override;
   // bool loadData() override;
 };
 

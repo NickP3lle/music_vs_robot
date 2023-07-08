@@ -147,7 +147,7 @@ void PlaygroundWidget::clearPlayground() {
 }
 
 void PlaygroundWidget::updatePlaygroundMusic(u32 row, u32 col,
-                                             MusicInstruments *mi) {
+                                             const MusicInstruments *mi) {
   if (mi) {
     /// Vistor sets the image of the cell
     imageVisitor iv;
@@ -160,7 +160,7 @@ void PlaygroundWidget::updatePlaygroundMusic(u32 row, u32 col,
   }
 }
 
-void PlaygroundWidget::updatePlaygroundRobot(u32 row, u32 col, Robot *r) {
+void PlaygroundWidget::updatePlaygroundRobot(u32 row, u32 col, const Robot *r) {
   if (row == COLUMNS)
     return;
   // qDebug() << "updatePlaygroundRobot";
@@ -243,7 +243,7 @@ void PlaygroundWidget::showUpdatePrice() {
   // std::cout << "PlaygroundWidget::showUpdatePrice()" << std::endl;
   const MusicInstruments *m =
       Playground::getInstance()->playerGet(hasFocus.row, hasFocus.col);
-  if (Playground::getInstance()->playerGet(hasFocus.row, hasFocus.col)) {
+  if (m) {
     levelUpButton->setText("Level Up: " + QString::number(m->value()) + "$");
   } else {
     levelUpButton->setText("Level Up");

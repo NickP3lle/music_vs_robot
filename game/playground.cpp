@@ -64,12 +64,9 @@ void Playground::enemyAttack(u32 col) {
       enemy[row][col].iter([&danni](auto &e) { danni += e.attack(); });
 
     if (player[row][col]->takeDamage(danni)) {
-      player[row][col] = nullptr;     // it is killed
-      notifyMusicObservers(row, col); // notify the observers
+      player[row][col] = nullptr;
+      notifyMusicObservers(row, col);
     }
-
-    // notifyMusicObservers deletes the images of the robots
-    col -= FRAME_COLUMNS;
     Playground::notifyRobotObservers(row, col);
   }
 }
@@ -214,11 +211,8 @@ bool Playground::playerLevelUp(u32 row, u32 col) {
 }
 
 void Playground::notifyMusicObservers(int row, int col) {
-  MusicInstruments *mi = nullptr;
-  if (!getInstance()->isEmpty(row, col))
-    mi = &*instance->player[row][col];
   for (auto &obs : observers) {
-    obs->updatePlaygroundMusic(row, col, mi);
+    obs->updatePlaygroundMusic(row, col, getInstance()->playerGet(row, col));
   }
 }
 
@@ -226,11 +220,11 @@ void Playground::notifyRobotObservers(int row, int col) {
   for (auto &obs : observers) {
     // delete the previous robots
     obs->updatePlaygroundRobot(row, col);
-
-    // insert the music instruments
-    obs->updatePlaygroundMusic(row, col);
   }
+  // insert the music instruments
+  notifyMusicObservers(row, col);
 
+  // bug?
   getInstance()->enemyGet(row, col).iter(
       [obs = instance->observers, row, col](const RobotWTool *r) {
         for (auto &ob : obs)
@@ -264,4 +258,24 @@ void Playground::battle() {
   instance->enemyInsert(randomInt(3, 1), 40);
   Timer::oneSecond();
   std::cout << "time: " << Timer::get() << std::endl;
+}
+
+std::string Playground::saveData() {
+  std::string data;
+  data += "\"Playground\": [\n";
+  for (u32 i = 0; i < ROWS; i++) {
+    for (u32 j = 0; j < COLUMNS; j++) {
+      if (!isEmpty(i, j)) {
+        // std::cout << "saving" << std::endl;
+        data += player[i][j]->saveData();
+      } else {
+        data += "null";
+      }
+      if (j != COLUMNS - 1 || i != ROWS - 1) {
+        data += ",\n";
+      }
+    }
+  }
+  data += "\n]";
+  return data;
 }

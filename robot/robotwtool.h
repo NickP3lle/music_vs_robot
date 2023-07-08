@@ -5,7 +5,7 @@
 #include "tool.h"
 #include <memory>
 
-class RobotWTool {
+class RobotWTool : public DataManagerInterface {
 private:
   Robot *robot;
   Tool *tool;
@@ -23,6 +23,8 @@ public:
   u32 move();
   Robot *getRobot() const;
   bool isAlive() const;
+
+  virtual std::string saveData() override;
 };
 
 #endif

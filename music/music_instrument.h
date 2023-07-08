@@ -38,6 +38,8 @@ public:
 
   u32 getLevel() const;
   virtual u32 getCost() const = 0;
+
+  virtual std::string saveData() override;
 };
 
 /// Classi che rappresentano gli strumenti musicali
@@ -59,6 +61,8 @@ public:
   ostream &print(ostream &os) const override;
 
   void accept(EntityVisitorInterface &visitor) const override;
+
+  virtual std::string saveData() override;
 };
 
 /**
@@ -78,6 +82,8 @@ public:
   ostream &print(ostream &os) const override;
 
   void accept(EntityVisitorInterface &visitor) const override;
+
+  virtual std::string saveData() override;
 };
 
 /** Saxophone
@@ -101,6 +107,8 @@ public:
   ostream &print(ostream &os) const override;
 
   void accept(EntityVisitorInterface &visitor) const override;
+
+  virtual std::string saveData() override;
 };
 
 /**
@@ -120,6 +128,8 @@ public:
   ostream &print(ostream &os) const override;
 
   void accept(EntityVisitorInterface &visitor) const override;
+
+  virtual std::string saveData() override;
 };
 
 /**
@@ -140,6 +150,8 @@ public:
   ostream &print(ostream &os) const override;
 
   void accept(EntityVisitorInterface &visitor) const override;
+
+  virtual std::string saveData() override;
 };
 
 #endif
