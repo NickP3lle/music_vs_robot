@@ -70,10 +70,7 @@ void Playground::enemyAttack(u32 col) {
 
     // notifyMusicObservers deletes the images of the robots
     col -= FRAME_COLUMNS;
-    for (; col < col + FRAME_COLUMNS - 1; col++)
-      enemy[row][col].iter([row, col](auto &e) {
-        Playground::notifyRobotObservers(row, col, e.getRobot());
-      });
+    Playground::notifyRobotObservers(row, col);
   }
 }
 
@@ -94,42 +91,40 @@ void Playground::damagePropagate(u32 col) {
         d.pop_front(); // se il robot muore lo elimino
     });
     notifyRobotObservers(row, col);
-    if (!isEmpty(row, col))
-      notifyMusicObservers(row, col, &*player[row][col]);
-    iterRobot(row, col, [row, col](auto &d) {
-      d.iter([row, col](auto &e) {
-        notifyRobotObservers(row, col, e.getRobot());
-      });
-    });
   }
 }
 
 // controlla se in questa cella c'è un robot
 // se c'è un robot lo sposta
 bool Playground::enemyMove() {
-  u32 move_to = 0;
   for (u32 row = 0; row < ROWS; row++) {
     for (u32 col = 1; col < COLUMNS * FRAME_COLUMNS + 1; col++) {
-      u32 np = nearestPlayer(row, col);
 
-      // check if the robots can actually move
-      if (np / FRAME_COLUMNS >= col / FRAME_COLUMNS) {
-        col += FRAME_COLUMNS - 1;
+      int np = nearestPlayer(row, col);
+      std::cout << "np: " << np
+                << " isEmpty: " << isEmpty(row, col / FRAME_COLUMNS)
+                << std::endl;
+      if (np == 0) {
+        col += FRAME_COLUMNS;
         continue;
       }
 
+      int move_to = 0;
       u32 i = 0;
       while (enemy[row][col].len() > i) {
-		  std::cout << "begin move" << std::endl;
+        std::cout << "begin move" << std::endl;
 
         // this ain't good, we should not check if the robot is alive here
+        // debug
+        std::cout << "len: " << enemy[row][col].len() << " i: " << i
+                  << std::endl;
         if (!enemy[row][col][i].isAlive()) {
-          enemy[row][col].remove(i);
-          notifyRobotObservers(row, col / FRAME_COLUMNS);
-          continue;
+          std::cout << "move remove" << std::endl;
+          enemy[row][col].pop(i);
+          std::cout << "remove" << std::endl;
         }
 
-		std::cout << "move 1" << std::endl;
+        std::cout << "move 1" << std::endl;
 
         move_to = enemy[row][col][i].move() / COLUMNS;
         if (MusicInstruments::damages[row][2] > 0) {
@@ -137,31 +132,13 @@ bool Playground::enemyMove() {
           MusicInstruments::damages[row][2]--;
         }
 
-		std::cout << "move 2" << std::endl;
+        move_to = col - std::min(move_to, np);
 
-        move_to = std::max(col - move_to, np);
-
-        if (move_to == col) {
+        std::cout << "col - move_to: " << col - move_to << std::endl;
+        if (move_to == (int)col) {
           i++;
           continue;
         }
-
-        notifyRobotObservers(row, col / FRAME_COLUMNS);
-
-		std::cout << "move 3" << std::endl;
-
-        // controllo che il robot non si muova nella colonna dove si trovano
-        // i danni, altrimenti li schiverebbe
-        if (col / FRAME_COLUMNS > damagePos &&
-            move_to / FRAME_COLUMNS <= damagePos &&
-            (enemy[row][col][i].takeDamage(MusicInstruments::damages[row][1]) ||
-             enemy[row][col][i].takeDamage(
-                 MusicInstruments::damages[row][0]))) {
-          enemy[row][col].remove(i--);
-          continue;
-        }
-
-		std::cout << "move 4" << std::endl;
 
         if (move_to == 0) {
           for (auto &obs : observers)
@@ -169,41 +146,46 @@ bool Playground::enemyMove() {
           return true;
         }
 
-
-		std::cout << "remove" << std::endl;
-        auto robot = enemy[row][col].remove(i--);
-		std::cout << "push_back" << std::endl;
-        enemy[row][move_to].push_back(robot);
-		std::cout << "end_pushback" << std::endl;
-
-        notifyRobotObservers(row, move_to / FRAME_COLUMNS, robot.getRobot());
+        enemy[row][move_to].push_back(enemy[row][col].remove(i));
       }
     }
+    for (u32 col = 0; col < COLUMNS; col++)
+      notifyRobotObservers(row, col);
   }
   return false;
 }
 
-// controlla da qui alla colonna 0 dov'è il primo MusicInstrument
-// potrei cambiare questa funzione per non far sovrapporre i robot
+// a partire da col, ritorna di quante queue si può spostare il robot
+// notiamo che col > 0, in effetti se col == 0 il giocatore avrebbe già perso
 u32 Playground::nearestPlayer(u32 row, u32 col) const {
   col--;
+
+  if (player[row][col / FRAME_COLUMNS])
+    return 0;
   for (u32 i = 0; i <= col / FRAME_COLUMNS; i++)
     if (player[row][col / FRAME_COLUMNS - i])
-      return (i + 1) * FRAME_COLUMNS;
+      return (i - 1) * FRAME_COLUMNS + col % FRAME_COLUMNS + 1;
 
-  return 0;
+  return col + 1;
 }
 
 void Playground::enemyInsert(u32 row, u32 difficulty) {
   auto robot = RobotWTool(difficulty, difficulty / 2);
   enemy[row][COLUMNS * FRAME_COLUMNS].push_back(robot);
-  notifyRobotObservers(row, COLUMNS - 1, robot.getRobot());
 }
 
 bool Playground::isEmpty(u32 row, u32 col) const { return !player[row][col]; }
 
 const MusicInstruments *Playground::playerGet(u32 row, u32 col) const {
   return &*player[row][col];
+}
+
+deque<const RobotWTool *> Playground::enemyGet(u32 row, u32 col) const {
+  deque<const RobotWTool *> ret;
+  for (u32 i = col * FRAME_COLUMNS; i < (col + 1) * FRAME_COLUMNS; i++)
+    for (u32 j = 0; j < enemy[row][i].len(); j++)
+      ret.push_back(&enemy[row][i][j]);
+  return ret;
 }
 
 void Playground::playerRemove(u32 row, u32 col) {
@@ -219,7 +201,7 @@ bool Playground::playerInsert(u32 row, u32 col, MusicInstruments *mi) {
     return false;
   }
   player[row][col] = std::unique_ptr<MusicInstruments>(mi->clone());
-  notifyMusicObservers(row, col, mi);
+  notifyMusicObservers(row, col);
   return true;
 }
 
@@ -227,20 +209,33 @@ bool Playground::playerLevelUp(u32 row, u32 col) {
   if (!player[row][col] || !Cash::sub((*player[row][col]).value()))
     return false;
   player[row][col]->levelUp();
-  notifyMusicObservers(row, col, &*player[row][col]);
+  notifyMusicObservers(row, col);
   return true;
 }
 
-void Playground::notifyMusicObservers(int row, int col, MusicInstruments *mi) {
+void Playground::notifyMusicObservers(int row, int col) {
+  MusicInstruments *mi = nullptr;
+  if (!getInstance()->isEmpty(row, col))
+    mi = &*instance->player[row][col];
   for (auto &obs : observers) {
     obs->updatePlaygroundMusic(row, col, mi);
   }
 }
 
-void Playground::notifyRobotObservers(int row, int col, Robot *r) {
+void Playground::notifyRobotObservers(int row, int col) {
   for (auto &obs : observers) {
-    obs->updatePlaygroundRobot(row, col, r);
+    // delete the previous robots
+    obs->updatePlaygroundRobot(row, col);
+
+    // insert the music instruments
+    obs->updatePlaygroundMusic(row, col);
   }
+
+  getInstance()->enemyGet(row, col).iter(
+      [obs = instance->observers, row, col](const RobotWTool *r) {
+        for (auto &ob : obs)
+          ob->updatePlaygroundRobot(row, col, r->getRobot());
+      });
 }
 
 void Playground::registerObserver(PlaygroundObserverInterface *obs) {
@@ -253,20 +248,20 @@ Playground::~Playground() {}
 void Playground::battle() {
   getInstance()->reset(); // reset damage
   for (u32 i = 0; i < COLUMNS; i++) {
-    std::cout << "1" << std::endl;
     instance->playerAttack(i);
+    std::cout << "1" << std::endl;
     std::cout << "2" << std::endl;
     instance->damagePropagate(i);
     std::cout << "3" << std::endl;
-    //    instance->enemyAttack(i);
-    if (instance->enemyMove())
-      return;
     std::cout << "4" << std::endl;
-    instance->enemyInsert(randomInt(3, 1), 40);
+    instance->enemyAttack(i);
     std::cout << "5" << std::endl;
     for (u32 j = 0; j < FRAME_COLUMNS; j++)
       instance->damagePos++;
   }
+  if (instance->enemyMove())
+    return;
+  instance->enemyInsert(randomInt(3, 1), 40);
   Timer::oneSecond();
   std::cout << "time: " << Timer::get() << std::endl;
 }

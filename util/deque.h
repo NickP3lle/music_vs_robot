@@ -21,6 +21,7 @@ public:
   deque &push_back(const T &);
   T pop_front();
   T remove(u32 pos);
+  void pop(u32 pos);
   u32 len() const;
   T &operator[](u32) const;
   template <typename S> deque iter(S lambda, u32 begin = 0) const;
@@ -42,7 +43,8 @@ template <class T> void deque<T>::resize() {
 }
 
 template <class T>
-deque<T>::deque(const deque &d) : deque(new T[d.capacity], d.capacity, 0, 0) {
+deque<T>::deque(const deque &d)
+    : deque((T *)malloc(sizeof(T) * d.capacity), d.capacity, 0, 0) {
   for (; size < d.size; size++)
     first[size] = d[size];
 }
@@ -51,7 +53,7 @@ template <class T> deque<T> &deque<T>::operator=(const deque &d) {
   if (this != &d) {
     if (capacity < d.size) {
       delete[] first;
-      first = new T[d.capacity];
+      first = (T *)malloc(sizeof(T) * d.capacity);
       capacity = d.capacity;
       actual = 0;
     }
@@ -61,7 +63,7 @@ template <class T> deque<T> &deque<T>::operator=(const deque &d) {
   return *this;
 }
 
-template <class T> deque<T>::~deque() { delete[] first; }
+template <class T> deque<T>::~deque() { free(first); }
 
 template <class T> deque<T> &deque<T>::push_back(const T &t) {
   if (size == capacity)
@@ -73,9 +75,10 @@ template <class T> deque<T> &deque<T>::push_back(const T &t) {
 template <class T> T deque<T>::pop_front() {
   if (size == 0)
     throw "Deque is empty";
+  T tmp = first[actual];
   actual = (actual + 1) % capacity;
   size--;
-  return first[actual == 0 ? capacity - 1 : actual - 1];
+  return tmp;
 }
 
 // per l'uso che faccio di deque, in realtà l'ordine non ha molta importanza
@@ -84,11 +87,29 @@ template <class T> T deque<T>::pop_front() {
 template <class T> T deque<T>::remove(u32 pos) {
   if (size == 0)
     throw "Deque is empty";
-  T tmp = (*this)[pos];
+  else if (pos >= size)
+    throw "Index out of range";
+  else if (pos > 0) {
+    std::cout << "1\n";
+    T tmp = (*this)[pos];
+    std::cout << "2\n";
+    (*this)[pos] = (*this)[0];
+    std::cout << "3\n";
+    actual = (actual + 1) % capacity;
+    std::cout << "4\n";
+    size--;
+    std::cout << "5\n";
+    return tmp;
+  } else {
+    std::cout << "6\n";
+    return pop_front();
+  }
+}
+
+template <class T> void deque<T>::pop(u32 pos) {
   (*this)[pos] = (*this)[0];
-  (*this)[0] = tmp;
-  (*this)[pos] = (*this)[0];
-  return pop_front();
+  actual = (actual + 1) % capacity;
+  size--;
 }
 
 template <class T> u32 deque<T>::len() const { return size; }

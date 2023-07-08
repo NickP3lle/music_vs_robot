@@ -14,7 +14,7 @@ private:
 
 public:
   RobotWTool(u32, u32);
-  RobotWTool();
+  RobotWTool() = delete;
   RobotWTool(const RobotWTool &);
   RobotWTool &operator=(const RobotWTool &);
   ~RobotWTool();

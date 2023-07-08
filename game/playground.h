@@ -3,8 +3,9 @@
 #include "../view/observers/playgroundObserverInterface.h"
 #include "include.h"
 #include "timer.h"
-#include <chrono>
 #include <algorithm>
+#include <atomic>
+#include <chrono>
 #include <thread>
 
 class Playground { //: DataManagerInterface {
@@ -20,8 +21,8 @@ private:
   // static bool fromString(const std::string &s);
 
   static std::vector<PlaygroundObserverInterface *> observers;
-  static void notifyMusicObservers(int row, int col, MusicInstruments *mi = 0);
-  static void notifyRobotObservers(int row, int col, Robot *r = 0);
+  static void notifyMusicObservers(int row, int col);
+  static void notifyRobotObservers(int row, int col);
   ~Playground();
 
 public:
@@ -30,6 +31,7 @@ public:
   void enemyInsert(u32 row, u32 difficulty);
   bool isEmpty(u32 row, u32 col) const;
   const MusicInstruments *playerGet(u32 row, u32 col) const;
+  deque<const RobotWTool *> enemyGet(u32 row, u32 col) const;
   void playerRemove(u32 row, u32 col);
   bool playerInsert(u32 row, u32 col, MusicInstruments *mi);
   bool playerLevelUp(u32 row, u32 col);

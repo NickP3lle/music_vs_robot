@@ -1,31 +1,31 @@
 #include "robotwtool.h"
 
 RobotWTool::RobotWTool(u32 max, u32 min)
-    : robot(randomRobot(max, min)), tool(randomTool(max, min)) {
+    : robot(randomRobot(max, min)), tool(randomTool(max, min)) {}
+
+// RobotWTool::RobotWTool() : robot(nullptr), tool(nullptr) {}
+
+RobotWTool::RobotWTool(const RobotWTool &r) {
+  if (r.robot)
+    robot = r.robot->clone();
+  if (r.tool)
+    tool = r.tool->clone();
 }
 
-RobotWTool::RobotWTool() : robot(nullptr), tool(nullptr) {}
-
-RobotWTool::RobotWTool(const RobotWTool &r) : robot(r.robot->clone()), 
-	tool(r.tool->clone()) {}
-
 RobotWTool &RobotWTool::operator=(const RobotWTool &r) {
-	if (this != &r) {
-		if (robot)
-			delete robot;
-		if (tool)
-			delete tool;
-		robot = r.robot->clone();
-		tool = r.tool->clone();
-	}
-	return *this;
+  if (this != &r) {
+    this->~RobotWTool();
+    robot = r.robot->clone();
+    tool = r.tool->clone();
+  }
+  return *this;
 }
 
 RobotWTool::~RobotWTool() {
-	if (robot)
-		delete robot;
-	if (tool)
-		delete tool;
+  if (robot)
+    delete robot;
+  if (tool)
+    delete tool;
 }
 
 u32 RobotWTool::attack() { return robot->attack() + tool->attack(); }
@@ -77,4 +77,4 @@ Tool *RobotWTool::randomTool(u32 max, u32 min) {
 
 Robot *RobotWTool::getRobot() const { return robot; }
 
-bool RobotWTool::isAlive() const { return !robot; }
+bool RobotWTool::isAlive() const { return robot; }
