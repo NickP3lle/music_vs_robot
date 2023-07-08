@@ -28,7 +28,7 @@ public:
   static void cleanUp();
   void enemyInsert(u32 row, u32 difficulty);
   bool isEmpty(u32 row, u32 col) const;
-  const MusicInstruments &playerGet(u32 row, u32 col) const;
+  const MusicInstruments *playerGet(u32 row, u32 col) const;
   void playerRemove(u32 row, u32 col);
   bool playerInsert(u32 row, u32 col, MusicInstruments *mi);
   bool playerLevelUp(u32 row, u32 col);

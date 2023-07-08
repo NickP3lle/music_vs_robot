@@ -96,6 +96,7 @@ PlaygroundWidget::PlaygroundWidget(QWidget *parent)
               [this, row, col] {
                 setFocus(row, col);
                 insertEntity();
+                showUpdatePrice();
               });
     }
   }
@@ -160,6 +161,8 @@ void PlaygroundWidget::updatePlaygroundMusic(u32 row, u32 col,
 }
 
 void PlaygroundWidget::updatePlaygroundRobot(u32 row, u32 col, Robot *r) {
+  if (row == COLUMNS)
+    return;
   // qDebug() << "updatePlaygroundRobot";
   if (r) {
     /// Vistor sets the image of the cell
@@ -167,8 +170,7 @@ void PlaygroundWidget::updatePlaygroundRobot(u32 row, u32 col, Robot *r) {
     r->accept(iv);
     cells[row][col]->setImage(iv.getPixmap());
   } else {
-    std::cout << "updatePlaygroundRobot else" << std::endl;
-    // cells[row][col]->setImage(new QPixmap());
+    cells[row][col]->setImage(new QPixmap());
   }
 }
 
@@ -201,6 +203,7 @@ void PlaygroundWidget::levelUpEntity() {
     if (ptr->playerLevelUp(hasFocus.row, hasFocus.col)) {
       qDebug() << "Player level up entity!";
     }
+    showUpdatePrice();
   } else {
     qDebug() << "Player cannot level up entity!";
   }
@@ -219,7 +222,7 @@ void PlaygroundWidget::removeEntity() {
 void PlaygroundWidget::setFocus(u32 row, u32 col) {
   hasFocus.row = row;
   hasFocus.col = col;
-  showUpdatePrice();
+  // showUpdatePrice();
   qDebug() << "PlaygroundWidget::setFocus()";
 }
 
@@ -233,4 +236,13 @@ bool PlaygroundWidget::getFocus() const {
   return hasFocus.row != -1 && hasFocus.col != -1;
 }
 
-void PlaygroundWidget::showUpdatePrice() {}
+void PlaygroundWidget::showUpdatePrice() {
+  // std::cout << "PlaygroundWidget::showUpdatePrice()" << std::endl;
+  const MusicInstruments *m =
+      Playground::getInstance()->playerGet(hasFocus.row, hasFocus.col);
+  if (Playground::getInstance()->playerGet(hasFocus.row, hasFocus.col)) {
+    levelUpButton->setText("Level Up: " + QString::number(m->value()) + "$");
+  } else {
+    levelUpButton->setText("Level Up");
+  }
+}
