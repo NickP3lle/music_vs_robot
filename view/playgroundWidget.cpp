@@ -155,18 +155,17 @@ void PlaygroundWidget::updatePlaygroundMusic(u32 row, u32 col, MusicInstruments 
 }
 
 void PlaygroundWidget::updatePlaygroundRobot(u32 row, u32 col, Robot *r) {
-    // qDebug() << "updatePlaygroundRobot";
-    if (col == 10)
-        return;
-    if (r) {
-        /// Vistor sets the image of the cell
-        imageVisitor iv;
-        r->accept(iv);
-        cells[row][col]->setImage(iv.getPixmap());
-    } else {
-        std::cout << row << " " << col << std::endl;
-        cells[row][col]->setImage(new QPixmap());
-    }
+  if (row == COLUMNS)
+    return;
+  // qDebug() << "updatePlaygroundRobot";
+  if (r) {
+    /// Vistor sets the image of the cell
+    imageVisitor iv;
+    r->accept(iv);
+    cells[row][col]->setImage(iv.getPixmap());
+  } else {
+    cells[row][col]->setImage(new QPixmap());
+  }
 }
 
 void PlaygroundWidget::updateDamagePosition(u32 col) {
