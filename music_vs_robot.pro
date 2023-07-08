@@ -53,6 +53,7 @@ SOURCES += main.cpp \
            robot/robotwtool.cpp \
            robot/tool.cpp \
            util/independentfn.cpp \
+           util/dataManager.cpp \
            view/mainWindow.cpp \
            view/playgroundWidget.cpp \
            view/startWidget.cpp \

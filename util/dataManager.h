@@ -11,6 +11,7 @@ private:
 
 public:
   virtual ~DataManagerInterface() = default;
+  static void saveAll();
   virtual std::string saveData() = 0;
   // virtual bool loadData() = 0;
 };

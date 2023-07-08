@@ -26,8 +26,8 @@ bool TestDataManageSaveData() {
         Playground::getInstance()->playerInsert(2, 5, violin);
         // RobotWTool *robotWTool = new RobotWTool(1, 1);
         std::string jsonString = "{\n";
-        jsonString += "\"Cash\": " + std::to_string(Cash::get()) + ",\n";
-        jsonString += "\"Timer\": " + std::to_string(Timer::getInstance()->get()) + ",\n";
+        jsonString += Cash::getInstance().saveData() + ",\n";
+        jsonString += Timer::getInstance()->saveData() + ",\n";
         // jsonString += flute->saveData();
         // jsonString += ",\n" + drum->saveData();
         // jsonString += ",\n" + saxophone->saveData();
