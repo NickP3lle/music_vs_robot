@@ -10,6 +10,8 @@ class DataManagerInterface {
     static bool fromString() { return true; } // std::string &s) { return true; }
 
   public:
+    virtual ~DataManagerInterface() = default;
+    static void saveAll();
     virtual std::string saveData() = 0;
     // virtual bool loadData() = 0;
 };
