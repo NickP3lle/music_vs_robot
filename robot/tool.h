@@ -2,7 +2,7 @@
 #define TOOL_H
 #include "../util/util.h"
 
-class Tool {
+class Tool : public DataManagerInterface {
   private:
     short int durability;
 
@@ -15,6 +15,8 @@ class Tool {
     virtual u32 value() const;
     virtual Tool *clone() const;
     virtual ~Tool() = default;
+
+    virtual std::string saveData() override;
 };
 
 class Weapon : public Tool {

@@ -3,7 +3,7 @@
 #include "robot.h"
 #include "tool.h"
 
-class RobotWTool {
+class RobotWTool : public DataManagerInterface {
   private:
     ptr<Robot> robot;
     ptr<Tool> tool;
@@ -17,6 +17,8 @@ class RobotWTool {
     bool takeDamage(u32 &);
     u32 move();
     Robot *getRobot() const;
+
+    virtual std::string saveData() override;
 };
 
 #endif
