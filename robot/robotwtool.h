@@ -7,14 +7,17 @@
 
 class RobotWTool {
 private:
-  std::shared_ptr<Robot> robot;
-  std::shared_ptr<Tool> tool;
+  Robot *robot;
+  Tool *tool;
   static Robot *randomRobot(u32, u32);
   static Tool *randomTool(u32, u32);
 
 public:
   RobotWTool(u32, u32);
   RobotWTool();
+  RobotWTool(const RobotWTool &);
+  RobotWTool &operator=(const RobotWTool &);
+  ~RobotWTool();
   u32 attack();
   bool takeDamage(u32 &);
   u32 move();

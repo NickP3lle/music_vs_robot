@@ -120,6 +120,7 @@ bool Playground::enemyMove() {
 
       u32 i = 0;
       while (enemy[row][col].len() > i) {
+		  std::cout << "begin move" << std::endl;
 
         // this ain't good, we should not check if the robot is alive here
         if (!enemy[row][col][i].isAlive()) {
@@ -128,11 +129,15 @@ bool Playground::enemyMove() {
           continue;
         }
 
+		std::cout << "move 1" << std::endl;
+
         move_to = enemy[row][col][i].move() / COLUMNS;
         if (MusicInstruments::damages[row][2] > 0) {
           move_to /= 2;
           MusicInstruments::damages[row][2]--;
         }
+
+		std::cout << "move 2" << std::endl;
 
         move_to = std::max(col - move_to, np);
 
@@ -142,6 +147,8 @@ bool Playground::enemyMove() {
         }
 
         notifyRobotObservers(row, col / FRAME_COLUMNS);
+
+		std::cout << "move 3" << std::endl;
 
         // controllo che il robot non si muova nella colonna dove si trovano
         // i danni, altrimenti li schiverebbe
@@ -154,14 +161,20 @@ bool Playground::enemyMove() {
           continue;
         }
 
+		std::cout << "move 4" << std::endl;
+
         if (move_to == 0) {
           for (auto &obs : observers)
             obs->notifyEndGame();
           return true;
         }
 
+
+		std::cout << "remove" << std::endl;
         auto robot = enemy[row][col].remove(i--);
+		std::cout << "push_back" << std::endl;
         enemy[row][move_to].push_back(robot);
+		std::cout << "end_pushback" << std::endl;
 
         notifyRobotObservers(row, move_to / FRAME_COLUMNS, robot.getRobot());
       }

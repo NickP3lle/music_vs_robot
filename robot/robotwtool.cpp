@@ -2,11 +2,31 @@
 
 RobotWTool::RobotWTool(u32 max, u32 min)
     : robot(randomRobot(max, min)), tool(randomTool(max, min)) {
-  if (!robot)
-    std::cout << "robot is nullptr" << std::endl;
 }
 
 RobotWTool::RobotWTool() : robot(nullptr), tool(nullptr) {}
+
+RobotWTool::RobotWTool(const RobotWTool &r) : robot(r.robot->clone()), 
+	tool(r.tool->clone()) {}
+
+RobotWTool &RobotWTool::operator=(const RobotWTool &r) {
+	if (this != &r) {
+		if (robot)
+			delete robot;
+		if (tool)
+			delete tool;
+		robot = r.robot->clone();
+		tool = r.tool->clone();
+	}
+	return *this;
+}
+
+RobotWTool::~RobotWTool() {
+	if (robot)
+		delete robot;
+	if (tool)
+		delete tool;
+}
 
 u32 RobotWTool::attack() { return robot->attack() + tool->attack(); }
 
@@ -55,6 +75,6 @@ Tool *RobotWTool::randomTool(u32 max, u32 min) {
   return new Tool(-1); // nessun oggetto
 }
 
-Robot *RobotWTool::getRobot() const { return &*robot; }
+Robot *RobotWTool::getRobot() const { return robot; }
 
-bool RobotWTool::isAlive() const { return !(robot == nullptr); }
+bool RobotWTool::isAlive() const { return !robot; }

@@ -2,6 +2,7 @@
 #define CASH_H
 #include "../view/observers/cashObserverInterface.h"
 #include <iostream>
+#include <vector>
 #define u32 unsigned int
 
 class Cash {

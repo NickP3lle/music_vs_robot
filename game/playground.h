@@ -4,6 +4,7 @@
 #include "include.h"
 #include "timer.h"
 #include <chrono>
+#include <algorithm>
 #include <thread>
 
 class Playground { //: DataManagerInterface {

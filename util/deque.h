@@ -1,13 +1,12 @@
 #ifndef DEQUE_H
 #define DEQUE_H
 #define u32 unsigned int
-#include <atomic>
 #include <iostream>
 
 template <class T> class deque {
 private:
   T *first;
-  std::atomic<u32> capacity, size, actual;
+  u32 capacity, size, actual;
   deque(T *, u32, u32, u32);
   void resize();
   bool isFull() const;
