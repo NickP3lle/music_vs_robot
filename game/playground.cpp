@@ -223,8 +223,8 @@ void Playground::battle() {
     instance->playerAttack(i);
     // instance->damagePropagate(i);
     instance->enemyAttack(i);
-    // if (instance->enemyMove())
-    //     return;
+    if (instance->enemyMove())
+      return;
     instance->enemyInsert(randomInt(4, 0), 1);
     for (u32 j = 0; j < FRAME_COLUMNS; j++)
       instance->damagePos++;
