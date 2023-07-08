@@ -3,29 +3,24 @@
 RobotWTool::RobotWTool(u32 max, u32 min)
     : robot(randomRobot(max, min)), tool(randomTool(max, min)) {}
 
-// RobotWTool::RobotWTool() : robot(nullptr), tool(nullptr) {}
+RobotWTool::RobotWTool() : robot(nullptr), tool(nullptr) {}
 
 RobotWTool::RobotWTool(const RobotWTool &r) {
   if (r.robot)
-    robot = r.robot->clone();
+    robot = ptr_robot(r.robot->clone());
   if (r.tool)
-    tool = r.tool->clone();
+    tool = ptr_tool(r.tool->clone());
 }
 
 RobotWTool &RobotWTool::operator=(const RobotWTool &r) {
   if (this != &r) {
     this->~RobotWTool();
-    robot = r.robot->clone();
-    tool = r.tool->clone();
+    if (r.robot)
+      robot = ptr_robot(r.robot->clone());
+    if (r.tool)
+      tool = ptr_tool(r.tool->clone());
   }
   return *this;
-}
-
-RobotWTool::~RobotWTool() {
-  if (robot)
-    delete robot;
-  if (tool)
-    delete tool;
 }
 
 u32 RobotWTool::attack() { return robot->attack() + tool->attack(); }
@@ -75,9 +70,9 @@ Tool *RobotWTool::randomTool(u32 max, u32 min) {
   return new Tool(-1); // nessun oggetto
 }
 
-Robot *RobotWTool::getRobot() const { return robot; }
+Robot *RobotWTool::getRobot() const { return &*robot; }
 
-bool RobotWTool::isAlive() const { return robot; }
+bool RobotWTool::isAlive() const { return (bool)&*robot; }
 
 std::string RobotWTool::saveData() {
   // funziona con get_mut() o devo usare getPtr per avere il polimorfismo?

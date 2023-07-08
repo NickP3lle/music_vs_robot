@@ -4,20 +4,21 @@
 #include "robot.h"
 #include "tool.h"
 #include <memory>
+#define ptr_robot std::unique_ptr<Robot>
+#define ptr_tool std::unique_ptr<Tool>
 
 class RobotWTool : public DataManagerInterface {
 private:
-  Robot *robot;
-  Tool *tool;
+  ptr_robot robot;
+  ptr_tool tool;
   static Robot *randomRobot(u32, u32);
   static Tool *randomTool(u32, u32);
 
 public:
   RobotWTool(u32, u32);
-  RobotWTool() = delete;
+  RobotWTool();
   RobotWTool(const RobotWTool &);
   RobotWTool &operator=(const RobotWTool &);
-  ~RobotWTool();
   u32 attack();
   bool takeDamage(u32 &);
   u32 move();

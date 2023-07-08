@@ -118,7 +118,7 @@ bool Playground::enemyMove() {
         if (!enemy[row][col][i].isAlive()) {
           std::cout << "move remove" << std::endl;
           enemy[row][col].pop(i);
-          std::cout << "remove" << std::endl;
+          std::cout << "move remove end" << std::endl;
         }
 
         std::cout << "move 1" << std::endl;
@@ -143,7 +143,9 @@ bool Playground::enemyMove() {
           return true;
         }
 
+        std::cout << "move 2" << std::endl;
         enemy[row][move_to].push_back(enemy[row][col].remove(i));
+        std::cout << "move 3" << std::endl;
       }
     }
     for (u32 col = 0; col < COLUMNS; col++)
@@ -168,7 +170,9 @@ u32 Playground::nearestPlayer(u32 row, u32 col) const {
 
 void Playground::enemyInsert(u32 row, u32 difficulty) {
   auto robot = RobotWTool(difficulty, difficulty / 2);
+  std::cout << "enemy insert 1" << std::endl;
   enemy[row][COLUMNS * FRAME_COLUMNS].push_back(robot);
+  std::cout << "enemy insert 2" << std::endl;
 }
 
 bool Playground::isEmpty(u32 row, u32 col) const { return !player[row][col]; }
@@ -253,8 +257,10 @@ void Playground::battle() {
     for (u32 j = 0; j < FRAME_COLUMNS; j++)
       instance->damagePos++;
   }
+  std::cout << "6" << std::endl;
   if (instance->enemyMove())
     return;
+  std::cout << "7" << std::endl;
   instance->enemyInsert(randomInt(3, 1), 40);
   Timer::oneSecond();
   std::cout << "time: " << Timer::get() << std::endl;
