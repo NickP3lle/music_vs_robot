@@ -3,14 +3,16 @@
 using namespace std;
 
 int main() {
-  Test("RandomInt", TestRandomInt);
+    // Test("RandomInt", TestRandomInt);
 
-  Test("DequePushPop", TestDequePushPop);
-  Test("DequeRemove", TestDequeRemove);
-  Test("DequeCopy", TestDequeCopy);
-  Test("DequeIndex", TestDequeIndex);
-  Test("DequeIter", TestDequeIter);
-  return 0;
+    // Test("DequePushPop", TestDequePushPop);
+    // Test("DequeRemove", TestDequeRemove);
+    // Test("DequeCopy", TestDequeCopy);
+    // Test("DequeIndex", TestDequeIndex);
+    // Test("DequeIter", TestDequeIter);
+
+    Test("DataManager", TestDataManageSaveData);
+    return 0;
 }
 
 // error on iterator filter: solved [&, new_ptr]

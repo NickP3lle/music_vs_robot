@@ -9,9 +9,9 @@ class Robot : public Entity {
   private:
     u32 speed;
     u32 value;
-    void getHealth();
-    void getPower();
-    void getValue();
+    // void getHealth();
+    // void getPower();
+    // void getValue();
 
   public:
     Robot(u32 = 0, u32 = 0, bool = false, bool = false);
@@ -22,6 +22,8 @@ class Robot : public Entity {
 
     /// Funzione che permette di visitare l'entità attualmente in prova
     void accept(EntityVisitorInterface &visitor) const override;
+
+    virtual std::string saveData() override;
 };
 
 class DefenseRobot : public Robot {

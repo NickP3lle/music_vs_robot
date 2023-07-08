@@ -33,6 +33,8 @@ class MusicInstruments : public Entity {
 
     u32 getLevel() const;
     virtual u32 getCost() const = 0;
+
+    virtual std::string saveData() override;
 };
 
 /// Classi che rappresentano gli strumenti musicali
@@ -53,6 +55,8 @@ class Flute : public MusicInstruments {
     ostream &print(ostream &os) const override;
 
     void accept(EntityVisitorInterface &visitor) const override;
+
+    virtual std::string saveData() override;
 };
 
 /**
@@ -71,6 +75,8 @@ class Drum : public MusicInstruments {
     ostream &print(ostream &os) const override;
 
     void accept(EntityVisitorInterface &visitor) const override;
+
+    virtual std::string saveData() override;
 };
 
 /** Saxophone
@@ -93,6 +99,8 @@ class Saxophone : public MusicInstruments {
     ostream &print(ostream &os) const override;
 
     void accept(EntityVisitorInterface &visitor) const override;
+
+    virtual std::string saveData() override;
 };
 
 /**
@@ -111,6 +119,8 @@ class Trumpet : public MusicInstruments {
     ostream &print(ostream &os) const override;
 
     void accept(EntityVisitorInterface &visitor) const override;
+
+    virtual std::string saveData() override;
 };
 
 /**
@@ -130,6 +140,8 @@ class Violin : public MusicInstruments {
     ostream &print(ostream &os) const override;
 
     void accept(EntityVisitorInterface &visitor) const override;
+
+    virtual std::string saveData() override;
 };
 
 #endif

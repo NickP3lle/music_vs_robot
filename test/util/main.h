@@ -11,6 +11,8 @@ bool TestDequeIndex();
 bool TestDequeIter();
 bool TestDequeIterMut();
 
+bool TestDataManageSaveData();
+
 /*
 bool TestIterator();
 bool TestIteratorCopy();
