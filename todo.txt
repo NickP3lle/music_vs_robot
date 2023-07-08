@@ -20,3 +20,5 @@ non ha campi dati. Una cosa del tipo
 	2 - template <class T, class R> class iterator: public T<R> {};
 
 cons: avrei bisogno di pensare all'implementazione di filter
+
+What if I create a main without any user interface, just to see what happens?

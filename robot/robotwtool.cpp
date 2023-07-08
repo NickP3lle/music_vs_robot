@@ -1,24 +1,45 @@
 #include "robotwtool.h"
 
 RobotWTool::RobotWTool(u32 max, u32 min)
-    : robot(randomRobot(max, min)), tool(randomTool(max, min)) {}
+    : robot(randomRobot(max, min)), tool(randomTool(max, min)) {
+}
 
 RobotWTool::RobotWTool() : robot(nullptr), tool(nullptr) {}
 
-u32 RobotWTool::attack() {
-  return robot.get().attack() + tool.get_mut().attack();
+RobotWTool::RobotWTool(const RobotWTool &r) : robot(r.robot->clone()), 
+	tool(r.tool->clone()) {}
+
+RobotWTool &RobotWTool::operator=(const RobotWTool &r) {
+	if (this != &r) {
+		if (robot)
+			delete robot;
+		if (tool)
+			delete tool;
+		robot = r.robot->clone();
+		tool = r.tool->clone();
+	}
+	return *this;
 }
 
+RobotWTool::~RobotWTool() {
+	if (robot)
+		delete robot;
+	if (tool)
+		delete tool;
+}
+
+u32 RobotWTool::attack() { return robot->attack() + tool->attack(); }
+
 bool RobotWTool::takeDamage(u32 &damage) {
-  tool.get_mut().takeDamage(damage);
-  if (robot.get_mut().takeDamage(damage)) {
-    Cash::add(tool.get().value());
+  tool->takeDamage(damage);
+  if (robot->takeDamage(damage)) {
+    Cash::add(tool->value());
     return true;
   }
   return false;
 }
 
-u32 RobotWTool::move() { return robot.get().move() + tool.get_mut().move(); }
+u32 RobotWTool::move() { return robot->move() + tool->move(); }
 
 // this function generate a random robot
 Robot *RobotWTool::randomRobot(u32 max, u32 min = 0) {
@@ -54,4 +75,6 @@ Tool *RobotWTool::randomTool(u32 max, u32 min) {
   return new Tool(-1); // nessun oggetto
 }
 
-Robot *RobotWTool::getRobot() const { return robot.getPtr(); }
+Robot *RobotWTool::getRobot() const { return robot; }
+
+bool RobotWTool::isAlive() const { return !robot; }

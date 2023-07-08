@@ -7,6 +7,6 @@
 #include "dataManager.h"
 #include "deque.h"
 #include "independentfn.h"
-#include "ptr.h"
+// #include "ptr.h"
 
 #endif
