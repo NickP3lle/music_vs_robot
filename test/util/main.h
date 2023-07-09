@@ -2,16 +2,17 @@
 #define MAIN_H
 
 #include "../../util/util.h"
-bool TestRandomInt();
+// bool TestRandomInt();
 
-bool TestDequePushPop();
-bool TestDequeRemove();
-bool TestDequeCopy();
-bool TestDequeIndex();
-bool TestDequeIter();
-bool TestDequeIterMut();
+// bool TestDequePushPop();
+// bool TestDequeRemove();
+// bool TestDequeCopy();
+// bool TestDequeIndex();
+// bool TestDequeIter();
+// bool TestDequeIterMut();
 
 bool TestDataManageSaveData();
+bool TestDataManagerLoadData();
 
 /*
 bool TestIterator();

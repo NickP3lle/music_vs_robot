@@ -5,15 +5,14 @@
 #include <iostream>
 
 class DataManagerInterface {
-private:
-  // virtual std::string toString();
-  static bool fromString() { return true; } // std::string &s) { return true; }
+  public:
+    virtual ~DataManagerInterface() = default;
+    static void saveAll();
+    static bool loadAll();
 
-public:
-  virtual ~DataManagerInterface() = default;
-  static void saveAll();
-  virtual std::string saveData() = 0;
-  // virtual bool loadData() = 0;
+    virtual std::string saveData() = 0;
+
+    virtual DataManagerInterface *loadData(std::string) = 0;
 };
 
 #endif

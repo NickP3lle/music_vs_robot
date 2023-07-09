@@ -12,6 +12,7 @@ int main() {
     // Test("DequeIter", TestDequeIter);
 
     Test("DataManager", TestDataManageSaveData);
+    Test("DataManager", TestDataManagerLoadData);
     return 0;
 }
 

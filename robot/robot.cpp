@@ -60,3 +60,8 @@ std::string Robot::saveData() {
     tmp += "\n}";
     return tmp;
 }
+
+Robot *Robot::loadData(std::string data) {
+    std::cout << data << std::endl;
+    return nullptr;
+}

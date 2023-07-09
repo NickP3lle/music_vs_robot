@@ -11,6 +11,13 @@ Cash &Cash::getInstance() {
     return *instance;
 }
 
+Cash *Cash::getInstancePtr() {
+    if (instance == nullptr) {
+        instance = new Cash();
+    }
+    return instance;
+}
+
 Cash::Cash() : total(0) {}
 
 void Cash::cleanUp() {
@@ -50,4 +57,22 @@ std::string Cash::saveData() {
     std::string tmp;
     tmp += "\"Cash\": " + std::to_string(total);
     return tmp;
+}
+
+Cash *Cash::loadData(std::string data) {
+    size_t start = data.find(": ") + 2;
+    if (start == std::string::npos) {
+        return nullptr;
+    }
+    size_t commaPos = data.find(",");
+    if (commaPos == std::string::npos) {
+        commaPos = 20;
+    }
+    int len = commaPos - start;
+    if (len < 0) {
+        return nullptr;
+    }
+    total = std::stoi(data.substr(start, len));
+    notifyObservers();
+    return this;
 }

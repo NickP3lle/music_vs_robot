@@ -68,4 +68,9 @@ std::string Tool::saveData() {
     return jsonString;
 }
 
-// Se sono da fare bisogna fare le savedata anche pr i vari tool
+Tool *Tool::loadData(std::string data) {
+    std::cout << data << std::endl;
+    return nullptr;
+}
+
+// Se sono da fare bisogna fare le savedata e loaddata anche pr i vari tool

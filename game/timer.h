@@ -30,4 +30,5 @@ class Timer : public DataManagerInterface {
     static void registerObserver(TimerObserverInterface *obs);
 
     virtual std::string saveData() override;
+    virtual Timer *loadData(std::string) override;
 };

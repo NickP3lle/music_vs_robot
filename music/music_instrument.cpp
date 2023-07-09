@@ -38,6 +38,38 @@ std::string MusicInstruments::saveData() {
     return tmp;
 }
 
+MusicInstruments *MusicInstruments::loadData(std::string data) {
+    std::cout << data << std::endl;
+    std::string classType;
+    u32 health, power, level;
+    size_t pos = data.find("\"class\": \"") + 10;
+    classType = data.substr(pos, data.find("\",", pos) - pos);
+    pos = data.find("\"health\": ") + 10;
+    health = std::stoi(data.substr(pos, data.find(",", pos) - pos));
+    pos = data.find("\"power\": ") + 9;
+    power = std::stoi(data.substr(pos, data.find(",", pos) - pos));
+    pos = data.find("\"level\": ") + 9;
+    level = std::stoi(data.substr(pos, data.find(",", pos) - pos));
+
+    std::cout << classType << " " << health << " " << power << " " << level << std::endl;
+
+    if (classType == "Flute") {
+        return new Flute(health, power, level);
+    } else if (classType == "Drum") {
+        return new Drum(health, power, level);
+    } else if (classType == "Trumpet") {
+        return new Trumpet(health, power, level);
+    } else if (classType == "Violin") {
+        return new Violin(health, power, level);
+    } else if (classType == "Saxophone") {
+        pos = data.find("\"secondLife\": ") + 14;
+        bool secondLife = std::stoi(data.substr(pos, data.find(",", pos) - pos));
+        return new Saxophone(health, power, level, secondLife);
+    } else {
+        return nullptr;
+    }
+}
+
 /**
  * Flute
  */
@@ -66,7 +98,7 @@ ostream &Flute::print(ostream &os) const {
 void Flute::accept(EntityVisitorInterface &visitor) const { visitor.visitFlute(); }
 
 std::string Flute::saveData() {
-    std::string tmp = "{\"class\": \"Flute\",\n" + MusicInstruments::saveData() + "\n}";
+    std::string tmp = "{\n\"class\": \"Flute\",\n" + MusicInstruments::saveData() + "\n}";
     return tmp;
 }
 
@@ -98,7 +130,7 @@ ostream &Drum::print(ostream &os) const {
 void Drum::accept(EntityVisitorInterface &visitor) const { visitor.visitDrum(); }
 
 std::string Drum::saveData() {
-    std::string tmp = "{\"class\": \"Drum\",\n" + MusicInstruments::saveData() + "\n}";
+    std::string tmp = "{\n\"class\": \"Drum\",\n" + MusicInstruments::saveData() + "\n}";
     return tmp;
 }
 
@@ -141,7 +173,7 @@ ostream &Saxophone::print(ostream &os) const {
 void Saxophone::accept(EntityVisitorInterface &visitor) const { visitor.visitSaxophone(); }
 
 std::string Saxophone::saveData() {
-    std::string tmp = "{\"class\": \"Saxophone\",\n" + MusicInstruments::saveData();
+    std::string tmp = "{\n\"class\": \"Saxophone\",\n" + MusicInstruments::saveData();
     tmp += ",\n\"secondLife\": " + std::to_string(secondLife) + "\n}";
     return tmp;
 }
@@ -180,7 +212,7 @@ ostream &Trumpet::print(ostream &os) const {
 void Trumpet::accept(EntityVisitorInterface &visitor) const { visitor.visitTrumpet(); }
 
 std::string Trumpet::saveData() {
-    std::string tmp = "{\"class\": \"Trumpet\",\n" + MusicInstruments::saveData() + "\n}";
+    std::string tmp = "{\n\"class\": \"Trumpet\",\n" + MusicInstruments::saveData() + "\n}";
     return tmp;
 }
 
@@ -217,6 +249,6 @@ ostream &Violin::print(ostream &os) const {
 void Violin::accept(EntityVisitorInterface &visitor) const { visitor.visitViolin(); }
 
 std::string Violin::saveData() {
-    std::string tmp = "{\"class\": \"Violin\",\n" + MusicInstruments::saveData() + "\n}";
+    std::string tmp = "{\n\"class\": \"Violin\",\n" + MusicInstruments::saveData() + "\n}";
     return tmp;
 }

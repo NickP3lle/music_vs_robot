@@ -1,0 +1,82 @@
+{
+"Cash": 9683,
+"Timer": 0,
+"Playground": [
+null,
+null,
+{
+"class": "Trumpet",
+"health": 10,
+"power": 50,
+"level": 1
+},
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+{
+"class": "Drum",
+"health": 200,
+"power": 300,
+"level": 1
+},
+null,
+null,
+null,
+null,
+null,
+null,
+{
+"class": "Violin",
+"health": 50,
+"power": 100,
+"level": 1
+},
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+{
+"class": "Flute",
+"health": 100,
+"power": 100,
+"level": 1
+},
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+{
+"class": "Saxophone",
+"health": 100,
+"power": 0,
+"level": 1,
+"secondLife": 1
+}
+]
+}

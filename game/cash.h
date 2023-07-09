@@ -17,6 +17,7 @@ class Cash : public DataManagerInterface {
 
   public:
     static Cash &getInstance();
+    static Cash *getInstancePtr();
     static void cleanUp();
     static void add(u32 amount);
     static bool sub(u32 amount); // returns false if not enough cash
@@ -25,5 +26,6 @@ class Cash : public DataManagerInterface {
     static void registerObserver(CashObserverInterface *obs);
 
     virtual std::string saveData() override;
+    virtual Cash *loadData(std::string) override;
 };
 #endif

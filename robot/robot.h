@@ -24,6 +24,7 @@ class Robot : public Entity {
     void accept(EntityVisitorInterface &visitor) const override;
 
     virtual std::string saveData() override;
+    virtual Robot *loadData(std::string) override;
 };
 
 class DefenseRobot : public Robot {
