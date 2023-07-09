@@ -25,7 +25,7 @@ class Entity : public DataManagerInterface {
     virtual void accept(EntityVisitorInterface &visitor) const = 0;
 
     /// Funzione che permette di salvare i dati dell'entità
-    virtual std::string saveData() override;
+    virtual std::string saveData() const override;
     virtual Entity *loadData(std::string) override = 0;
 };
 #endif

@@ -53,7 +53,7 @@ void Cash::notifyObservers() {
 
 void Cash::registerObserver(CashObserverInterface *obs) { observers.push_back(obs); }
 
-std::string Cash::saveData() {
+std::string Cash::saveData() const {
     std::string tmp;
     tmp += "\"Cash\": " + std::to_string(total);
     return tmp;

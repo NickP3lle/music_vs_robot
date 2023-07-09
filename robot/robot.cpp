@@ -43,7 +43,7 @@ BigRobot *BigRobot::clone() const { return new BigRobot(*this); }
 
 void Robot::accept(EntityVisitorInterface &visitor) const { visitor.visitRobot(); }
 
-std::string Robot::saveData() {
+std::string Robot::saveData() const {
     std::string tmp;
     if (typeid(*this) == typeid(Robot)) {
         tmp += "\"Robot\": {\n";

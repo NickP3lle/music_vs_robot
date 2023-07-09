@@ -10,7 +10,7 @@ class DataManagerInterface {
     static void saveAll();
     static bool loadAll();
 
-    virtual std::string saveData() = 0;
+    virtual std::string saveData() const = 0;
 
     virtual DataManagerInterface *loadData(std::string) = 0;
 };

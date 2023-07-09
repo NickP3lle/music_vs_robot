@@ -23,7 +23,7 @@ class Robot : public Entity {
     /// Funzione che permette di visitare l'entità attualmente in prova
     void accept(EntityVisitorInterface &visitor) const override;
 
-    virtual std::string saveData() override;
+    virtual std::string saveData() const override;
     virtual Robot *loadData(std::string) override;
 };
 

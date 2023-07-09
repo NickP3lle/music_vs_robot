@@ -73,7 +73,7 @@ Robot *RobotWTool::getRobot() const { return &*robot; }
 
 bool RobotWTool::isAlive() const { return (bool)&*robot; }
 
-std::string RobotWTool::saveData() {
+std::string RobotWTool::saveData() const {
     // funziona con get_mut() o devo usare getPtr per avere il polimorfismo?
     std::string tmp = "{\n \"name\": \"RobotWTool\",\n";
     tmp += robot->saveData() + ",\n" + tool->saveData() + "\n}";
