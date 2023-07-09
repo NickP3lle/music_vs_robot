@@ -62,7 +62,7 @@ u32 Ring::value() const { return cash; }
 
 Ring *Ring::clone() const { return new Ring(*this); }
 
-std::string Tool::saveData() {
+std::string Tool::saveData() const {
     std::string jsonString = "\"Tool\": {\n";
     jsonString += "\"durability\": " + std::to_string(durability) + "\n}";
     return jsonString;

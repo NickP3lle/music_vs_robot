@@ -16,7 +16,7 @@ class Tool : public DataManagerInterface {
     virtual Tool *clone() const;
     virtual ~Tool() = default;
 
-    virtual std::string saveData() override;
+    virtual std::string saveData() const override;
     virtual Tool *loadData(std::string) override;
 };
 

@@ -25,7 +25,7 @@ class Cash : public DataManagerInterface {
 
     static void registerObserver(CashObserverInterface *obs);
 
-    virtual std::string saveData() override;
+    virtual std::string saveData() const override;
     virtual Cash *loadData(std::string) override;
 };
 #endif

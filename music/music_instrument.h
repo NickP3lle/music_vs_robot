@@ -30,7 +30,7 @@ class MusicInstruments : public Entity {
 
     bool takeDamage(u32 &amount) override;
     virtual void attack(u32 row) const = 0;
-    virtual u32 value() const = 0;
+    virtual u32 value() const = 0; // restituisce il costo di upgrade dello strumento
     u32 attack() const override final;
     virtual ostream &print(ostream &os) const;
     virtual void levelUp();
@@ -39,7 +39,7 @@ class MusicInstruments : public Entity {
     u32 getLevel() const;
     virtual u32 getCost() const = 0;
 
-    virtual std::string saveData() override;
+    virtual std::string saveData() const override;
     virtual MusicInstruments *loadData(std::string) override;
 };
 
@@ -62,7 +62,7 @@ class Flute : public MusicInstruments {
 
     void accept(EntityVisitorInterface &visitor) const override;
 
-    virtual std::string saveData() override;
+    virtual std::string saveData() const override;
 };
 
 /**
@@ -82,7 +82,7 @@ class Drum : public MusicInstruments {
 
     void accept(EntityVisitorInterface &visitor) const override;
 
-    virtual std::string saveData() override;
+    virtual std::string saveData() const override;
 };
 
 /** Saxophone
@@ -106,7 +106,7 @@ class Saxophone : public MusicInstruments {
 
     void accept(EntityVisitorInterface &visitor) const override;
 
-    virtual std::string saveData() override;
+    virtual std::string saveData() const override;
 };
 
 /**
@@ -126,7 +126,7 @@ class Trumpet : public MusicInstruments {
 
     void accept(EntityVisitorInterface &visitor) const override;
 
-    virtual std::string saveData() override;
+    virtual std::string saveData() const override;
 };
 
 /**
@@ -147,7 +147,7 @@ class Violin : public MusicInstruments {
 
     void accept(EntityVisitorInterface &visitor) const override;
 
-    virtual std::string saveData() override;
+    virtual std::string saveData() const override;
 };
 
 #endif

@@ -256,7 +256,7 @@ void Playground::battle() {
     std::cout << "time: " << Timer::get() << std::endl;
 }
 
-std::string Playground::saveData() {
+std::string Playground::saveData() const {
     std::string data;
     data += "\"Playground\": [\n";
     for (u32 i = 0; i < ROWS; i++) {

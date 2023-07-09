@@ -45,7 +45,7 @@ class Playground : DataManagerInterface {
 
     static void registerObserver(PlaygroundObserverInterface *obs);
 
-    virtual std::string saveData() override;
+    virtual std::string saveData() const override;
     virtual Playground *loadData(std::string) override;
 };
 

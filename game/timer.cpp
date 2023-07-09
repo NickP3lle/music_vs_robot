@@ -42,7 +42,7 @@ u32 Timer::seconds() { return instance->time % 60; }
 
 void Timer::registerObserver(TimerObserverInterface *obs) { Timer::observers.push_back(obs); }
 
-std::string Timer::saveData() {
+std::string Timer::saveData() const {
     std::string tmp;
     tmp += "\"Timer\": " + std::to_string(time);
     return tmp;

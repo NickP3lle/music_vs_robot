@@ -25,7 +25,7 @@ class RobotWTool : public DataManagerInterface {
     Robot *getRobot() const;
     bool isAlive() const;
 
-    virtual std::string saveData() override;
+    virtual std::string saveData() const override;
     virtual RobotWTool *loadData(std::string) override;
 };
 

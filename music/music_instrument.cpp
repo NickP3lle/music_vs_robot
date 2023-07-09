@@ -32,7 +32,7 @@ void MusicInstruments::resetDamages() {
     }
 }
 
-std::string MusicInstruments::saveData() {
+std::string MusicInstruments::saveData() const {
     std::string tmp = Entity::saveData();
     tmp += ",\n\"level\": " + std::to_string(level);
     return tmp;
@@ -97,7 +97,7 @@ ostream &Flute::print(ostream &os) const {
 
 void Flute::accept(EntityVisitorInterface &visitor) const { visitor.visitFlute(); }
 
-std::string Flute::saveData() {
+std::string Flute::saveData() const {
     std::string tmp = "{\n\"class\": \"Flute\",\n" + MusicInstruments::saveData() + "\n}";
     return tmp;
 }
@@ -129,7 +129,7 @@ ostream &Drum::print(ostream &os) const {
 
 void Drum::accept(EntityVisitorInterface &visitor) const { visitor.visitDrum(); }
 
-std::string Drum::saveData() {
+std::string Drum::saveData() const {
     std::string tmp = "{\n\"class\": \"Drum\",\n" + MusicInstruments::saveData() + "\n}";
     return tmp;
 }
@@ -172,7 +172,7 @@ ostream &Saxophone::print(ostream &os) const {
 
 void Saxophone::accept(EntityVisitorInterface &visitor) const { visitor.visitSaxophone(); }
 
-std::string Saxophone::saveData() {
+std::string Saxophone::saveData() const {
     std::string tmp = "{\n\"class\": \"Saxophone\",\n" + MusicInstruments::saveData();
     tmp += ",\n\"secondLife\": " + std::to_string(secondLife) + "\n}";
     return tmp;
@@ -211,7 +211,7 @@ ostream &Trumpet::print(ostream &os) const {
 
 void Trumpet::accept(EntityVisitorInterface &visitor) const { visitor.visitTrumpet(); }
 
-std::string Trumpet::saveData() {
+std::string Trumpet::saveData() const {
     std::string tmp = "{\n\"class\": \"Trumpet\",\n" + MusicInstruments::saveData() + "\n}";
     return tmp;
 }
@@ -248,7 +248,7 @@ ostream &Violin::print(ostream &os) const {
 
 void Violin::accept(EntityVisitorInterface &visitor) const { visitor.visitViolin(); }
 
-std::string Violin::saveData() {
+std::string Violin::saveData() const {
     std::string tmp = "{\n\"class\": \"Violin\",\n" + MusicInstruments::saveData() + "\n}";
     return tmp;
 }
