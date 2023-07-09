@@ -17,7 +17,10 @@ void Playground::cleanUp() {
     }
 }
 
-void Playground::reset() { MusicInstruments::resetDamages(); }
+void Playground::reset() {
+    MusicInstruments::resetDamages();
+    damagePos = 0;
+}
 
 Playground *Playground::getInstance() {
     if (instance == nullptr) {
@@ -97,7 +100,7 @@ bool Playground::enemyMove() {
         for (u32 col = 1; col < COLUMNS * FRAME_COLUMNS + 1; col++) {
 
             int np = nearestPlayer(row, col);
-            std::cout << "np: " << np << " isEmpty: " << isEmpty(row, col / FRAME_COLUMNS) << std::endl;
+            // std::cout << "np: " << np << " isEmpty: " << isEmpty(row, col / FRAME_COLUMNS) << std::endl;
             if (np == 0) {
                 col += FRAME_COLUMNS;
                 continue;
@@ -106,18 +109,18 @@ bool Playground::enemyMove() {
             int move_to = 0;
             u32 i = 0;
             while (enemy[row][col].len() > i) {
-                std::cout << "begin move" << std::endl;
+                // std::cout << "begin move" << std::endl;
 
                 // this ain't good, we should not check if the robot is alive here
                 // debug
-                std::cout << "len: " << enemy[row][col].len() << " i: " << i << std::endl;
+                // std::cout << "len: " << enemy[row][col].len() << " i: " << i << std::endl;
                 if (!enemy[row][col][i].isAlive()) {
-                    std::cout << "move remove" << std::endl;
-                    enemy[row][col].pop(i);
-                    std::cout << "move remove end" << std::endl;
+                    // std::cout << "move remove" << std::endl;
+                    enemy[row][col].remove(i);
+                    // std::cout << "move remove end" << std::endl;
                 }
 
-                std::cout << "move 1" << std::endl;
+                // std::cout << "move 1" << std::endl;
 
                 move_to = enemy[row][col][i].move() / COLUMNS;
                 if (MusicInstruments::damages[row][2] > 0) {
@@ -127,7 +130,7 @@ bool Playground::enemyMove() {
 
                 move_to = col - std::min(move_to, np);
 
-                std::cout << "col - move_to: " << col - move_to << std::endl;
+                // std::cout << "col - move_to: " << col - move_to << std::endl;
                 if (move_to == (int)col) {
                     i++;
                     continue;
@@ -139,9 +142,9 @@ bool Playground::enemyMove() {
                     return true;
                 }
 
-                std::cout << "move 2" << std::endl;
+                // std::cout << "move 2" << std::endl;
                 enemy[row][move_to].push_back(enemy[row][col].remove(i));
-                std::cout << "move 3" << std::endl;
+                // std::cout << "move 3" << std::endl;
             }
         }
         for (u32 col = 0; col < COLUMNS; col++)
@@ -166,9 +169,9 @@ u32 Playground::nearestPlayer(u32 row, u32 col) const {
 
 void Playground::enemyInsert(u32 row, u32 difficulty) {
     auto robot = RobotWTool(difficulty, difficulty / 2);
-    std::cout << "enemy insert 1" << std::endl;
+    // std::cout << "enemy insert 1" << std::endl;
     enemy[row][COLUMNS * FRAME_COLUMNS].push_back(robot);
-    std::cout << "enemy insert 2" << std::endl;
+    // std::cout << "enemy insert 2" << std::endl;
 }
 
 bool Playground::isEmpty(u32 row, u32 col) const { return !player[row][col]; }
@@ -237,23 +240,23 @@ void Playground::battle() {
     getInstance()->reset(); // reset damage
     for (u32 i = 0; i < COLUMNS; i++) {
         instance->playerAttack(i);
-        std::cout << "1" << std::endl;
-        std::cout << "2" << std::endl;
+        // std::cout << "1" << std::endl;
+        // std::cout << "2" << std::endl;
         instance->damagePropagate(i);
-        std::cout << "3" << std::endl;
-        std::cout << "4" << std::endl;
+        // std::cout << "3" << std::endl;
+        // std::cout << "4" << std::endl;
         instance->enemyAttack(i);
-        std::cout << "5" << std::endl;
+        // std::cout << "5" << std::endl;
         for (u32 j = 0; j < FRAME_COLUMNS; j++)
             instance->damagePos++;
     }
-    std::cout << "6" << std::endl;
+    // std::cout << "6" << std::endl;
     if (instance->enemyMove())
         return;
-    std::cout << "7" << std::endl;
-    instance->enemyInsert(randomInt(3, 1), 40);
+    // std::cout << "7" << std::endl;
+    instance->enemyInsert(randomInt(4, 0), 40);
     Timer::oneSecond();
-    std::cout << "time: " << Timer::get() << std::endl;
+    // std::cout << "time: " << Timer::get() << std::endl;
 }
 
 std::string Playground::saveData() const {
@@ -279,7 +282,7 @@ std::string Playground::saveData() const {
 Playground *Playground::loadData(std::string data) {
     // NB: è brutto ma loadData non è statica perchè è virtuale e non posso chiamarla senza uno strumento musicale
     std::string tmp;
-    std::cout << data << std::endl;
+    // std::cout << data << std::endl;
     Flute *fluteTmp = new Flute();
     for (u32 i = 0; i < ROWS; i++) {
         for (u32 j = 0; j < COLUMNS; j++) {
@@ -287,12 +290,9 @@ Playground *Playground::loadData(std::string data) {
             size_t bracePos = data.find("{");
             if (nullPos < bracePos) {
                 data.erase(nullPos, 5);
-                // std::cout << data << std::endl;
             } else {
                 tmp = data.substr(bracePos, data.find("}") - bracePos + 1);
-                // std::cout << "tmp:" << tmp << std::endl;
                 data.erase(bracePos, data.find("}") - bracePos + 1);
-                // std::cout << data << std::endl;
                 MusicInstruments *ptr = fluteTmp->MusicInstruments::loadData(tmp);
                 if (ptr) {
                     playerLoad(i, j, ptr);

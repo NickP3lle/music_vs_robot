@@ -1,13 +1,9 @@
 #include "robot.h"
 
-namespace {
-u32 tmp;
-}
-
 // randomInt(max, min): max == min => max
 Robot::Robot(u32 max, u32 min, bool fast, bool rich)
-    : Entity(randomInt(max, min), randomInt(max, min)), value((rich ? 2 : 1) * randomInt(max, min)),
-      speed((fast ? 2 : 1) * (randomInt(ROBOT_MAX_SPEED, ROBOT_MIN_SPEED))) {}
+    : Entity(randomInt(max, min), randomInt(max, min)),
+      speed((fast ? 2 : 1) * (randomInt(ROBOT_MAX_SPEED, ROBOT_MIN_SPEED))), value((rich ? 2 : 1) * randomInt(max, min)) {}
 
 bool Robot::takeDamage(u32 &damage) {
     if (Entity::getHealth() > damage) {
@@ -35,7 +31,7 @@ bool DefenseRobot::takeDamage(u32 &damage) {
 
 DefenseRobot *DefenseRobot::clone() const { return new DefenseRobot(*this); }
 
-BigRobot::BigRobot(u32 max, u32 min) : Robot(max * 2, max, false, true) {}
+BigRobot::BigRobot(u32 max, u32 min) : Robot(max * 2, min * 2, false, true) {}
 
 u32 BigRobot::move() const { return Robot::move() / 2; }
 

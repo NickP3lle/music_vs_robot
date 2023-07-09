@@ -39,7 +39,7 @@ std::string MusicInstruments::saveData() const {
 }
 
 MusicInstruments *MusicInstruments::loadData(std::string data) {
-    std::cout << data << std::endl;
+    // std::cout << data << std::endl;
     std::string classType;
     u32 health, power, level;
     size_t pos = data.find("\"class\": \"") + 10;
@@ -51,7 +51,7 @@ MusicInstruments *MusicInstruments::loadData(std::string data) {
     pos = data.find("\"level\": ") + 9;
     level = std::stoi(data.substr(pos, data.find(",", pos) - pos));
 
-    std::cout << classType << " " << health << " " << power << " " << level << std::endl;
+    // std::cout << classType << " " << health << " " << power << " " << level << std::endl;
 
     if (classType == "Flute") {
         return new Flute(health, power, level);
@@ -110,7 +110,7 @@ Drum::Drum(u32 h, u32 p, u32 l) : MusicInstruments(h, p, l) {}
 
 Drum *Drum::clone() const { return new Drum(*this); }
 
-void Drum::attack(u32 row) const {}
+void Drum::attack(u32 row) const { damages[row][1] += MusicInstruments::attack() / (MusicInstruments::attack() + 1); }
 
 void Drum::levelUp() {
     MusicInstruments::levelUp();
@@ -142,7 +142,7 @@ Saxophone::Saxophone(u32 h, u32 p, u32 l, bool f) : MusicInstruments(h, p, l), s
 
 Saxophone *Saxophone::clone() const { return new Saxophone(*this); }
 
-void Saxophone::attack(u32 row) const {}
+void Saxophone::attack(u32 row) const { damages[row][1] += MusicInstruments::attack() / (MusicInstruments::attack() + 1); }
 
 void Saxophone::levelUp() {
     MusicInstruments::levelUp();

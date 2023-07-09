@@ -8,8 +8,9 @@ bool Tool::isBroken() const { return durability == 0; }
 u32 Tool::attack() { return 0; }
 
 bool Tool::takeDamage(u32 &damage) {
-    if (durability > 1)
+    if (durability > 1) {
         durability--;
+    }
     return durability > 0;
 }
 
