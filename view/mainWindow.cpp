@@ -67,7 +67,13 @@ void MainWindow::newGame() {
 void MainWindow::loadGame() {
     Cash::cleanUp();
     startGame();
-    // load game
+    if (!DataManagerInterface::loadAll()) {
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("Error");
+        msgBox.setText("Failed to load game.");
+        msgBox.exec();
+        endGame();
+    }
 }
 
 void MainWindow::endGame() {

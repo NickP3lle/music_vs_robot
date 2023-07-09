@@ -8,24 +8,25 @@
 #define ptr_tool std::unique_ptr<Tool>
 
 class RobotWTool : public DataManagerInterface {
-private:
-  ptr_robot robot;
-  ptr_tool tool;
-  static Robot *randomRobot(u32, u32);
-  static Tool *randomTool(u32, u32);
+  private:
+    ptr_robot robot;
+    ptr_tool tool;
+    static Robot *randomRobot(u32, u32);
+    static Tool *randomTool(u32, u32);
 
-public:
-  RobotWTool(u32, u32);
-  RobotWTool();
-  RobotWTool(const RobotWTool &);
-  RobotWTool &operator=(const RobotWTool &);
-  u32 attack();
-  bool takeDamage(u32 &);
-  u32 move();
-  Robot *getRobot() const;
-  bool isAlive() const;
+  public:
+    RobotWTool(u32, u32);
+    RobotWTool();
+    RobotWTool(const RobotWTool &);
+    RobotWTool &operator=(const RobotWTool &);
+    u32 attack();
+    bool takeDamage(u32 &);
+    u32 move();
+    Robot *getRobot() const;
+    bool isAlive() const;
 
-  virtual std::string saveData() override;
+    virtual std::string saveData() override;
+    virtual RobotWTool *loadData(std::string) override;
 };
 
 #endif

@@ -7,6 +7,7 @@
 #include "../../robot/robot.h"
 #include "../../robot/robotwtool.h"
 #include "../../robot/tool.h"
+#include "../../util/dataManager.h"
 #include <fstream>
 #include <iostream>
 
@@ -38,6 +39,62 @@ bool TestDataManageSaveData() {
         jsonString += "\n}";
         outputFile << jsonString;
         outputFile.close();
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool TestDataManagerLoadData() {
+    std::ifstream inputFile("data.json");
+    if (inputFile.is_open()) {
+        std::string tmp;
+        std::string line;
+        bool playgroundFound = false;
+        while (std::getline(inputFile, line)) {
+            if (line == "{" && !playgroundFound) {
+                continue;
+            }
+            if (playgroundFound && line == "]") {
+                // std::cout << tmp << std::endl;
+                if (Playground::getInstance()->loadData(tmp)) {
+                    std::cout << "Playground loaded successfully." << std::endl;
+                } else {
+                    std::cerr << "Failed to load playground." << std::endl;
+                    return false;
+                }
+                break;
+            }
+            tmp += line;
+
+            if (playgroundFound) {
+                continue;
+            }
+
+            size_t pos = line.find(':');
+            if (pos != std::string::npos) {
+                std::string token = line.substr(0, pos);
+                if (token == "\"Cash\"") {
+                    if (Cash::getInstancePtr()->loadData(line)) {
+                        std::cout << "Cash loaded successfully." << std::endl;
+                    } else {
+                        std::cerr << "Failed to load cash." << std::endl;
+                        return false;
+                    }
+                } else if (token == "\"Timer\"") {
+                    if (Timer::getInstance()->loadData(line)) {
+                        std::cout << "Timer loaded successfully." << std::endl;
+                    } else {
+                        std::cerr << "Failed to load timer." << std::endl;
+                        return false;
+                    }
+                } else if (token == "\"Playground\"") {
+                    playgroundFound = true;
+                    tmp = "";
+                }
+            }
+        }
+        inputFile.close();
         return true;
     } else {
         return false;

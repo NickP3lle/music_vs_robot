@@ -17,6 +17,7 @@ class Tool : public DataManagerInterface {
     virtual ~Tool() = default;
 
     virtual std::string saveData() override;
+    virtual Tool *loadData(std::string) override;
 };
 
 class Weapon : public Tool {

@@ -47,3 +47,21 @@ std::string Timer::saveData() {
     tmp += "\"Timer\": " + std::to_string(time);
     return tmp;
 }
+
+Timer *Timer::loadData(std::string data) {
+    size_t start = data.find(": ") + 2;
+    if (start == std::string::npos) {
+        return nullptr;
+    }
+    size_t commaPos = data.find(",");
+    if (commaPos == std::string::npos) {
+        commaPos = 20;
+    }
+    int len = commaPos - start;
+    if (len < 0) {
+        return nullptr;
+    }
+    time = std::stoi(data.substr(start, len));
+    notifyObservers();
+    return this;
+}
