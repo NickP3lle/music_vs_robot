@@ -176,7 +176,7 @@ std::string SlowDown::toString() const {
 
 DamageSlow *SlowDown::attack() const {
   return new DamageSlow(SLOW_DOWN_POWER + getLevel() * SLOW_DOWN_POWER_INCREASE,
-                        1 + getLevel());
+                        1 + getLevel() / 2);
 }
 
 void SlowDown::levelUp() {
