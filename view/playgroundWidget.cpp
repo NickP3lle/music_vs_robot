@@ -164,9 +164,6 @@ void PlaygroundWidget::updatePlaygroundRobot(u32 row, u32 col, const Robot *r) {
   if (row == COLUMNS)
     return;
   // qDebug() << "updatePlaygroundRobot";
-  if (col == 10)
-    return;
-
   if (r) {
     /// Vistor sets the image of the cell
     imageVisitor iv;

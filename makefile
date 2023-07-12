@@ -62,6 +62,7 @@ SOURCES       = main.cpp \
 		robot/robotwtool.cpp \
 		robot/tool.cpp \
 		util/independentfn.cpp \
+		util/dataManager.cpp \
 		view/mainWindow.cpp \
 		view/playgroundWidget.cpp \
 		view/startWidget.cpp \
@@ -87,6 +88,7 @@ OBJECTS       = main.o \
 		robotwtool.o \
 		tool.o \
 		independentfn.o \
+		dataManager.o \
 		mainWindow.o \
 		playgroundWidget.o \
 		startWidget.o \
@@ -374,7 +376,6 @@ DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		/opt/homebrew/share/qt/mkspecs/features/qt_config.prf \
 		/opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf \
 		/opt/homebrew/share/qt/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		/opt/homebrew/share/qt/mkspecs/features/exclusive_builds.prf \
 		/opt/homebrew/share/qt/mkspecs/features/mac/sdk.prf \
 		/opt/homebrew/share/qt/mkspecs/features/toolchain.prf \
@@ -440,6 +441,7 @@ DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		robot/robotwtool.cpp \
 		robot/tool.cpp \
 		util/independentfn.cpp \
+		util/dataManager.cpp \
 		view/mainWindow.cpp \
 		view/playgroundWidget.cpp \
 		view/startWidget.cpp \
@@ -456,7 +458,7 @@ TARGET        = music_vs_robot.app/Contents/MacOS/music_vs_robot
 EXPORT_QMAKE_MAC_SDK = macosx
 EXPORT_QMAKE_MAC_SDK_VERSION = 13.3
 EXPORT_QMAKE_XCODE_DEVELOPER_PATH = /Library/Developer/CommandLineTools
-EXPORT__QMAKE_STASH_ = /Users/carlorosso/Documents/triennale_informatica/secondo_anno/music_vs_robot/.qmake.stash
+EXPORT__QMAKE_STASH_ = 
 EXPORT_VALID_ARCHS = arm64
 EXPORT_DEFAULT_ARCHS = arm64
 EXPORT_ARCHS = $(filter $(EXPORT_VALID_ARCHS), $(if $(ARCHS), $(ARCHS), $(if $(EXPORT_DEFAULT_ARCHS), $(EXPORT_DEFAULT_ARCHS), $(EXPORT_VALID_ARCHS))))
@@ -743,7 +745,6 @@ Makefile: music_vs_robot.pro /opt/homebrew/share/qt/mkspecs/macx-clang/qmake.con
 		/opt/homebrew/share/qt/mkspecs/features/qt_config.prf \
 		/opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf \
 		/opt/homebrew/share/qt/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		/opt/homebrew/share/qt/mkspecs/features/exclusive_builds.prf \
 		/opt/homebrew/share/qt/mkspecs/features/mac/sdk.prf \
 		/opt/homebrew/share/qt/mkspecs/features/toolchain.prf \
@@ -1049,7 +1050,6 @@ Makefile: music_vs_robot.pro /opt/homebrew/share/qt/mkspecs/macx-clang/qmake.con
 /opt/homebrew/share/qt/mkspecs/features/qt_config.prf:
 /opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf:
 /opt/homebrew/share/qt/mkspecs/features/spec_post.prf:
-.qmake.stash:
 /opt/homebrew/share/qt/mkspecs/features/exclusive_builds.prf:
 /opt/homebrew/share/qt/mkspecs/features/mac/sdk.prf:
 /opt/homebrew/share/qt/mkspecs/features/toolchain.prf:
@@ -1115,7 +1115,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/homebrew/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents game/cash.h game/define.h game/entity.h game/include.h game/playground.h game/timer.h music/music_instrument.h robot/robot.h robot/robotwtool.h robot/tool.h util/dataManager.h util/deque.h util/independentfn.h util/iterator.h util/ptr.h util/util.h view/mainWindow.h view/playgroundWidget.h view/startWidget.h view/observers/cashObserverInterface.h view/observers/timerObserverInterface.h view/observers/playgroundObserverInterface.h view/playgroundComponents/cashWidget.h view/playgroundComponents/timerWidget.h view/playgroundComponents/instrumentButton.h view/playgroundComponents/playgroundCellWidget.h view/visitors/entityVisitorInterface.h view/visitors/imageVisitor.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp game/cash.cpp game/entity.cpp game/playground.cpp game/timer.cpp music/music_instrument.cpp robot/robot.cpp robot/robotwtool.cpp robot/tool.cpp util/independentfn.cpp view/mainWindow.cpp view/playgroundWidget.cpp view/startWidget.cpp view/playgroundComponents/cashWidget.cpp view/playgroundComponents/timerWidget.cpp view/playgroundComponents/instrumentButton.cpp view/playgroundComponents/playgroundCellWidget.cpp view/visitors/imageVisitor.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp game/cash.cpp game/entity.cpp game/playground.cpp game/timer.cpp music/music_instrument.cpp robot/robot.cpp robot/robotwtool.cpp robot/tool.cpp util/independentfn.cpp util/dataManager.cpp view/mainWindow.cpp view/playgroundWidget.cpp view/startWidget.cpp view/playgroundComponents/cashWidget.cpp view/playgroundComponents/timerWidget.cpp view/playgroundComponents/instrumentButton.cpp view/playgroundComponents/playgroundCellWidget.cpp view/visitors/imageVisitor.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -1125,7 +1125,6 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r music_vs_robot.app
-	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -1170,13 +1169,13 @@ moc_mainWindow.cpp: view/mainWindow.h \
 		music/music_instrument.h \
 		game/define.h \
 		game/entity.h \
+		util/dataManager.h \
 		view/visitors/entityVisitorInterface.h \
 		game/cash.h \
 		view/observers/cashObserverInterface.h \
 		robot/robotwtool.h \
 		robot/robot.h \
 		util/util.h \
-		util/dataManager.h \
 		util/deque.h \
 		util/independentfn.h \
 		robot/tool.h \
@@ -1222,13 +1221,13 @@ moc_playgroundWidget.cpp: view/playgroundWidget.h \
 		music/music_instrument.h \
 		game/define.h \
 		game/entity.h \
+		util/dataManager.h \
 		view/visitors/entityVisitorInterface.h \
 		game/cash.h \
 		view/observers/cashObserverInterface.h \
 		robot/robotwtool.h \
 		robot/robot.h \
 		util/util.h \
-		util/dataManager.h \
 		util/deque.h \
 		util/independentfn.h \
 		robot/tool.h \
@@ -1275,6 +1274,7 @@ moc_startWidget.cpp: view/startWidget.h \
 
 moc_cashWidget.cpp: view/playgroundComponents/cashWidget.h \
 		game/cash.h \
+		util/dataManager.h \
 		view/observers/cashObserverInterface.h \
 		game/include.h \
 		music/music_instrument.h \
@@ -1284,7 +1284,6 @@ moc_cashWidget.cpp: view/playgroundComponents/cashWidget.h \
 		robot/robotwtool.h \
 		robot/robot.h \
 		util/util.h \
-		util/dataManager.h \
 		util/deque.h \
 		util/independentfn.h \
 		robot/tool.h \
@@ -1301,13 +1300,13 @@ moc_timerWidget.cpp: view/playgroundComponents/timerWidget.h \
 		music/music_instrument.h \
 		game/define.h \
 		game/entity.h \
+		util/dataManager.h \
 		view/visitors/entityVisitorInterface.h \
 		game/cash.h \
 		view/observers/cashObserverInterface.h \
 		robot/robotwtool.h \
 		robot/robot.h \
 		util/util.h \
-		util/dataManager.h \
 		util/deque.h \
 		util/independentfn.h \
 		robot/tool.h \
@@ -1326,13 +1325,13 @@ moc_instrumentButton.cpp: view/playgroundComponents/instrumentButton.h \
 		music/music_instrument.h \
 		game/define.h \
 		game/entity.h \
+		util/dataManager.h \
 		view/visitors/entityVisitorInterface.h \
 		game/cash.h \
 		view/observers/cashObserverInterface.h \
 		robot/robotwtool.h \
 		robot/robot.h \
 		util/util.h \
-		util/dataManager.h \
 		util/deque.h \
 		util/independentfn.h \
 		robot/tool.h \
@@ -1348,6 +1347,7 @@ moc_instrumentButton.cpp: view/playgroundComponents/instrumentButton.h \
 
 moc_playgroundCellWidget.cpp: view/playgroundComponents/playgroundCellWidget.h \
 		game/entity.h \
+		util/dataManager.h \
 		view/visitors/entityVisitorInterface.h \
 		game/cash.h \
 		view/observers/cashObserverInterface.h \
@@ -1357,7 +1357,6 @@ moc_playgroundCellWidget.cpp: view/playgroundComponents/playgroundCellWidget.h \
 		robot/robotwtool.h \
 		robot/robot.h \
 		util/util.h \
-		util/dataManager.h \
 		util/deque.h \
 		util/independentfn.h \
 		robot/tool.h \
@@ -1399,13 +1398,13 @@ main.o: main.cpp view/mainWindow.h \
 		music/music_instrument.h \
 		game/define.h \
 		game/entity.h \
+		util/dataManager.h \
 		view/visitors/entityVisitorInterface.h \
 		game/cash.h \
 		view/observers/cashObserverInterface.h \
 		robot/robotwtool.h \
 		robot/robot.h \
 		util/util.h \
-		util/dataManager.h \
 		util/deque.h \
 		util/independentfn.h \
 		robot/tool.h \
@@ -1447,10 +1446,12 @@ main.o: main.cpp view/mainWindow.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 cash.o: game/cash.cpp game/cash.h \
+		util/dataManager.h \
 		view/observers/cashObserverInterface.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o cash.o game/cash.cpp
 
 entity.o: game/entity.cpp game/entity.h \
+		util/dataManager.h \
 		view/visitors/entityVisitorInterface.h \
 		game/cash.h \
 		view/observers/cashObserverInterface.h
@@ -1462,13 +1463,13 @@ playground.o: game/playground.cpp game/playground.h \
 		music/music_instrument.h \
 		game/define.h \
 		game/entity.h \
+		util/dataManager.h \
 		view/visitors/entityVisitorInterface.h \
 		game/cash.h \
 		view/observers/cashObserverInterface.h \
 		robot/robotwtool.h \
 		robot/robot.h \
 		util/util.h \
-		util/dataManager.h \
 		util/deque.h \
 		util/independentfn.h \
 		robot/tool.h \
@@ -1477,12 +1478,14 @@ playground.o: game/playground.cpp game/playground.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o playground.o game/playground.cpp
 
 timer.o: game/timer.cpp game/timer.h \
+		util/dataManager.h \
 		view/observers/timerObserverInterface.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o timer.o game/timer.cpp
 
 music_instrument.o: music/music_instrument.cpp music/music_instrument.h \
 		game/define.h \
 		game/entity.h \
+		util/dataManager.h \
 		view/visitors/entityVisitorInterface.h \
 		game/cash.h \
 		view/observers/cashObserverInterface.h
@@ -1491,11 +1494,11 @@ music_instrument.o: music/music_instrument.cpp music/music_instrument.h \
 robot.o: robot/robot.cpp robot/robot.h \
 		game/define.h \
 		game/entity.h \
+		util/dataManager.h \
 		view/visitors/entityVisitorInterface.h \
 		game/cash.h \
 		view/observers/cashObserverInterface.h \
 		util/util.h \
-		util/dataManager.h \
 		util/deque.h \
 		util/independentfn.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o robot.o robot/robot.cpp
@@ -1504,11 +1507,11 @@ robotwtool.o: robot/robotwtool.cpp robot/robotwtool.h \
 		robot/robot.h \
 		game/define.h \
 		game/entity.h \
+		util/dataManager.h \
 		view/visitors/entityVisitorInterface.h \
 		game/cash.h \
 		view/observers/cashObserverInterface.h \
 		util/util.h \
-		util/dataManager.h \
 		util/deque.h \
 		util/independentfn.h \
 		robot/tool.h
@@ -1524,19 +1527,39 @@ tool.o: robot/tool.cpp robot/tool.h \
 independentfn.o: util/independentfn.cpp util/independentfn.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o independentfn.o util/independentfn.cpp
 
+dataManager.o: util/dataManager.cpp util/dataManager.h \
+		game/cash.h \
+		view/observers/cashObserverInterface.h \
+		game/playground.h \
+		view/observers/playgroundObserverInterface.h \
+		game/include.h \
+		music/music_instrument.h \
+		game/define.h \
+		game/entity.h \
+		view/visitors/entityVisitorInterface.h \
+		robot/robotwtool.h \
+		robot/robot.h \
+		util/util.h \
+		util/deque.h \
+		util/independentfn.h \
+		robot/tool.h \
+		game/timer.h \
+		view/observers/timerObserverInterface.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dataManager.o util/dataManager.cpp
+
 mainWindow.o: view/mainWindow.cpp view/mainWindow.h \
 		view/playgroundWidget.h \
 		game/include.h \
 		music/music_instrument.h \
 		game/define.h \
 		game/entity.h \
+		util/dataManager.h \
 		view/visitors/entityVisitorInterface.h \
 		game/cash.h \
 		view/observers/cashObserverInterface.h \
 		robot/robotwtool.h \
 		robot/robot.h \
 		util/util.h \
-		util/dataManager.h \
 		util/deque.h \
 		util/independentfn.h \
 		robot/tool.h \
@@ -1583,13 +1606,13 @@ playgroundWidget.o: view/playgroundWidget.cpp view/playgroundWidget.h \
 		music/music_instrument.h \
 		game/define.h \
 		game/entity.h \
+		util/dataManager.h \
 		view/visitors/entityVisitorInterface.h \
 		game/cash.h \
 		view/observers/cashObserverInterface.h \
 		robot/robotwtool.h \
 		robot/robot.h \
 		util/util.h \
-		util/dataManager.h \
 		util/deque.h \
 		util/independentfn.h \
 		robot/tool.h \
@@ -1642,13 +1665,13 @@ startWidget.o: view/startWidget.cpp view/startWidget.h \
 		music/music_instrument.h \
 		game/define.h \
 		game/entity.h \
+		util/dataManager.h \
 		view/visitors/entityVisitorInterface.h \
 		game/cash.h \
 		view/observers/cashObserverInterface.h \
 		robot/robotwtool.h \
 		robot/robot.h \
 		util/util.h \
-		util/dataManager.h \
 		util/deque.h \
 		util/independentfn.h \
 		robot/tool.h \
@@ -1687,6 +1710,7 @@ startWidget.o: view/startWidget.cpp view/startWidget.h \
 
 cashWidget.o: view/playgroundComponents/cashWidget.cpp view/playgroundComponents/cashWidget.h \
 		game/cash.h \
+		util/dataManager.h \
 		view/observers/cashObserverInterface.h \
 		game/include.h \
 		music/music_instrument.h \
@@ -1696,7 +1720,6 @@ cashWidget.o: view/playgroundComponents/cashWidget.cpp view/playgroundComponents
 		robot/robotwtool.h \
 		robot/robot.h \
 		util/util.h \
-		util/dataManager.h \
 		util/deque.h \
 		util/independentfn.h \
 		robot/tool.h \
@@ -1711,13 +1734,13 @@ timerWidget.o: view/playgroundComponents/timerWidget.cpp view/playgroundComponen
 		music/music_instrument.h \
 		game/define.h \
 		game/entity.h \
+		util/dataManager.h \
 		view/visitors/entityVisitorInterface.h \
 		game/cash.h \
 		view/observers/cashObserverInterface.h \
 		robot/robotwtool.h \
 		robot/robot.h \
 		util/util.h \
-		util/dataManager.h \
 		util/deque.h \
 		util/independentfn.h \
 		robot/tool.h \
@@ -1734,13 +1757,13 @@ instrumentButton.o: view/playgroundComponents/instrumentButton.cpp view/playgrou
 		music/music_instrument.h \
 		game/define.h \
 		game/entity.h \
+		util/dataManager.h \
 		view/visitors/entityVisitorInterface.h \
 		game/cash.h \
 		view/observers/cashObserverInterface.h \
 		robot/robotwtool.h \
 		robot/robot.h \
 		util/util.h \
-		util/dataManager.h \
 		util/deque.h \
 		util/independentfn.h \
 		robot/tool.h \
@@ -1756,6 +1779,7 @@ instrumentButton.o: view/playgroundComponents/instrumentButton.cpp view/playgrou
 
 playgroundCellWidget.o: view/playgroundComponents/playgroundCellWidget.cpp view/playgroundComponents/playgroundCellWidget.h \
 		game/entity.h \
+		util/dataManager.h \
 		view/visitors/entityVisitorInterface.h \
 		game/cash.h \
 		view/observers/cashObserverInterface.h \
@@ -1765,7 +1789,6 @@ playgroundCellWidget.o: view/playgroundComponents/playgroundCellWidget.cpp view/
 		robot/robotwtool.h \
 		robot/robot.h \
 		util/util.h \
-		util/dataManager.h \
 		util/deque.h \
 		util/independentfn.h \
 		robot/tool.h \
@@ -1790,11 +1813,11 @@ imageVisitor.o: view/visitors/imageVisitor.cpp view/visitors/imageVisitor.h \
 		music/music_instrument.h \
 		game/define.h \
 		game/entity.h \
+		util/dataManager.h \
 		game/cash.h \
 		view/observers/cashObserverInterface.h \
 		robot/robot.h \
 		util/util.h \
-		util/dataManager.h \
 		util/deque.h \
 		util/independentfn.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o imageVisitor.o view/visitors/imageVisitor.cpp
