@@ -5,6 +5,7 @@
 #include "util/cloneable.h"
 #include "util/data_manager.h"
 #include "util/deque.h"
+#include "util/independentfn.h"
 #include "util/observable.h"
 #include "util/observer.h"
 #include "util/visitor.h"
