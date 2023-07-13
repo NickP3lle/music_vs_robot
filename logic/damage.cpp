@@ -3,7 +3,7 @@
 /// Damage
 Damage::Damage(u32 damage) : d(damage) {}
 
-u32 Damage::getDamage() const { return d; }
+u32 &Damage::getDamage() { return d; }
 
 /// BulletDamage
 DamageBullet::DamageBullet(u32 damage) : Damage(damage) {}

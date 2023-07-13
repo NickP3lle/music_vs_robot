@@ -15,6 +15,17 @@ public:
   virtual void visitThreeRow() const = 0;
   virtual void visitSlowDown() const = 0;
 
+  /// Robot
+  virtual void visitRobot() const = 0;
+  virtual void visitRobotDefense() const = 0;
+  virtual void visitRobotBig() const = 0;
+
+  /// Tool
+  virtual void visitToolWeapon() const = 0;
+  virtual void visitToolArmor() const = 0;
+  virtual void visitToolBoots() const = 0;
+  virtual void visitToolRing() const = 0;
+
   virtual ~VisitorGUI() = default;
 };
 

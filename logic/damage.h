@@ -6,7 +6,7 @@ class Damage : public AcceptGUI, public Cloneable {
 
 public:
   Damage(u32 damage);
-  virtual u32 getDamage() const;
+  virtual u32 &getDamage();
 };
 
 class DamageBullet : public Damage {

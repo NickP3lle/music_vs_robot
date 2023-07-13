@@ -1,0 +1,17 @@
+
+taking off the DamageDrum should work like this:
+
+// DamagePropagate should iterate over all the cells and should move the damages
+as well. This way every function take place once per turn (second).
+if (DamagePosition == 4)
+	damages.filter([](Damage &d) {
+		if (dynamic_cast<DamageWave*>(&d)) {
+			return true;
+			}).iter([ds = this->damages](DamageWave *dw) {
+				ds->remove(dw);
+			});
+
+// and then you consider the damages:
+getRobots().iter([ds = this->damages](Robot *r) {
+	ds->sufferDamage(r);
+});
