@@ -1,6 +1,6 @@
 {
-"Cash": 0,
-"Timer": 0,
+"Cash": 2110,
+"Timer": 12,
 "Playground": [
 null,
 null,
@@ -12,6 +12,12 @@ null,
 null,
 null,
 null,
+{
+"class": "Violin",
+"health": 50,
+"power": 100,
+"level": 1
+},
 null,
 null,
 null,
@@ -31,8 +37,12 @@ null,
 null,
 null,
 null,
-null,
-null,
+{
+"class": "Violin",
+"health": 50,
+"power": 100,
+"level": 1
+},
 null,
 null,
 null,
