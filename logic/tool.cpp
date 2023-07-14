@@ -6,7 +6,7 @@ bool Tool::isBroken() const { return durability == 0; }
 
 u32 Tool::attack() { return 0; }
 
-bool Tool::sufferDamage(Damage *d) {
+bool Tool::sufferDamage(DamageAbstract *d) {
   if (durability < 0)
     return false;
   else if (durability > 0)
@@ -31,7 +31,7 @@ u32 ToolWeapon::attack() {
   return a;
 }
 
-bool ToolWeapon::sufferDamage(Damage *d) { return false; }
+bool ToolWeapon::sufferDamage(DamageAbstract *d) { return false; }
 
 ToolWeapon *ToolWeapon::clone() const { return new ToolWeapon(*this); }
 
@@ -39,7 +39,7 @@ void ToolWeapon::accept(VisitorGUI *v) const { v->visitToolWeapon(); }
 
 ToolArmor::ToolArmor(u32 max) : Tool(max) {}
 
-bool ToolArmor::sufferDamage(Damage *d) {
+bool ToolArmor::sufferDamage(DamageAbstract *d) {
   if (isBroken())
     return false;
   d->getDamage() = 0;
@@ -53,7 +53,7 @@ void ToolArmor::accept(VisitorGUI *v) const { v->visitToolArmor(); }
 ToolBoots::ToolBoots(u32 min, u32 max)
     : Tool(max % 10), s(randomInt(ROBOT_MAX_SPEED, ROBOT_MIN_SPEED) / 2) {}
 
-bool ToolBoots::sufferDamage(Damage *d) { return false; }
+bool ToolBoots::sufferDamage(DamageAbstract *d) { return false; }
 
 u32 ToolBoots::move() {
   if (isBroken())

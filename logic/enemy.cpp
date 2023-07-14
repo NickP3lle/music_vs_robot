@@ -1,19 +1,9 @@
 #include "enemy.h"
 
 Enemy::Enemy(u32 min, u32 max, bool isFast, bool isRich)
-    : Entity(randomInt(max, min)), a(randomInt(max, min)),
+    : h(randomInt(max, min)), a(randomInt(max, min)),
       s(randomInt(max, min) * (1 + isFast)),
       v(randomInt(max, min) * (1 + isRich)) {}
-
-bool Enemy::sufferDamage(Damage *d) {
-  if (d->getDamage() > getHealth()) {
-    getHealth() = 0;
-    return true;
-  } else {
-    getHealth() -= d->getDamage();
-    return false;
-  }
-}
 
 DamageEnemy *Enemy::attack() const { return new DamageEnemy(a); }
 
@@ -25,7 +15,7 @@ Enemy *Enemy::clone() const { return new Enemy(*this); }
 
 EnemyDefense::EnemyDefense(u32 min, u32 max) : Enemy(min, max) {}
 
-bool EnemyDefense::sufferDamage(Damage *d) {
+bool EnemyDefense::sufferDamage(DamageAbstract *d) {
   d->getDamage() /= 2;
   if (d->getDamage() > getHealth()) {
     getHealth() = 0;

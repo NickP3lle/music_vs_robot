@@ -1,15 +1,15 @@
 #pragma once
 #include "include.h"
 
-class Damage : public AcceptGUI, public Cloneable {
+class DamageAbstract : public AcceptGUI, public Cloneable {
   u32 d;
 
 public:
-  Damage(u32 damage);
+  DamageAbstract(u32 damage);
   virtual u32 &getDamage();
 };
 
-class DamageBullet : public Damage {
+class DamageBullet : public DamageAbstract {
 private:
 public:
   DamageBullet(u32 damage);
@@ -17,7 +17,7 @@ public:
   DamageBullet *clone() const override;
 };
 
-class DamageSlow : public Damage {
+class DamageSlow : public DamageAbstract {
 private:
   u32 slow;
 
@@ -28,7 +28,7 @@ public:
   DamageSlow *clone() const override;
 };
 
-class DamageWave : public Damage {
+class DamageWave : public DamageAbstract {
 private:
   u32 persistance;
 
@@ -39,7 +39,7 @@ public:
   DamageWave *clone() const override;
 };
 
-class DamageEnemy : public Damage {
+class DamageEnemy : public DamageAbstract {
 private:
 public:
   DamageEnemy(u32 damage);

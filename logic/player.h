@@ -2,15 +2,16 @@
 #include "entity.h"
 #include "include.h"
 
-class Player : public Entity, public DataManager {
+class PlayerAbstract : public EntityAbstract, public DataManager {
 private:
-  u32 level;
+  u32 h, l;
 
 public:
-  Player(u32 health, u32 level);
+  PlayerAbstract(u32 health, u32 level);
 
-  bool sufferDamage(Damage *damage) override;
+  bool sufferDamage(DamageAbstract *damage) override;
 
+  u32 &getHealth() const override;
   u32 getLevel() const;
   virtual void levelUp();
   virtual u32 getCost() const = 0;
@@ -19,7 +20,7 @@ public:
   std::string toString() const override;
 };
 
-class Sample : public Player {
+class Sample : public PlayerAbstract {
 public:
   Sample(u32 health, u32 level);
 
@@ -34,7 +35,7 @@ public:
   u32 value() const override;
 };
 
-class ThreeColumn : public Player {
+class ThreeColumn : public PlayerAbstract {
 public:
   ThreeColumn(u32 health, u32 level);
 
@@ -49,7 +50,7 @@ public:
   u32 value() const override;
 };
 
-class DoubleLife : public Player {
+class DoubleLife : public PlayerAbstract {
 private:
   bool secondLife;
 
@@ -62,13 +63,13 @@ public:
 
   virtual DamageBullet *attack() const override;
 
-  bool sufferDamage(Damage *damage) override;
+  bool sufferDamage(DamageAbstract *damage) override;
   void levelUp() override;
   u32 getCost() const override;
   u32 value() const override;
 };
 
-class ThreeRow : public Player {
+class ThreeRow : public PlayerAbstract {
 public:
   ThreeRow(u32 health, u32 level);
 
@@ -83,7 +84,7 @@ public:
   u32 value() const override;
 };
 
-class SlowDown : public Player {
+class SlowDown : public PlayerAbstract {
 public:
   SlowDown(u32 health, u32 level);
 

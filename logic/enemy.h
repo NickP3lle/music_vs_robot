@@ -2,14 +2,15 @@
 
 #include "entity.h"
 
-class Enemy : public Entity {
+class Enemy : public EntityAbstract {
 private:
-  u32 a, s, v;
+  u32 h, a, s, v;
 
 public:
   Enemy(u32, u32, bool = false, bool = false);
 
-  bool sufferDamage(Damage *) override;
+  u32 &getHealth() const override final;
+  bool sufferDamage(DamageAbstract *) override;
   DamageEnemy *attack() const override final;
   virtual u32 move() const;
 
@@ -20,7 +21,7 @@ public:
 class EnemyDefense : public Enemy {
 public:
   EnemyDefense(u32, u32);
-  bool sufferDamage(Damage *) override;
+  bool sufferDamage(DamageAbstract *) override;
   void accept(VisitorGUI *) const override;
   EnemyDefense *clone() const override;
 };

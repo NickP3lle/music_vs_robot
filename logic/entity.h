@@ -2,15 +2,10 @@
 #include "damage.h"
 #include "include.h"
 
-class Entity : public AcceptGUI, public Cloneable {
-private:
-  u32 health;
-
+class EntityAbstract : public AcceptGUI, public Cloneable {
 public:
-  Entity(u32 health);
-
-  u32 &getHealth() const;
-  virtual bool sufferDamage(Damage *damage) = 0;
+  virtual u32 &getHealth() const = 0;
+  virtual bool sufferDamage(DamageAbstract *damage);
   // this might be a nullptr: DoubleLife
-  virtual Damage *attack() const = 0;
+  virtual DamageAbstract *attack() const = 0;
 };

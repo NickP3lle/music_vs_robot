@@ -1,29 +1,19 @@
 #include "player.h"
 
-Player::Player(u32 h, u32 l) : Entity(h), level(l) {}
+PlayerAbstract::PlayerAbstract(u32 health, u32 level) : h(health), l(level) {}
 
-bool Player::sufferDamage(Damage *damage) {
-  if (Entity::getHealth() > damage->getDamage()) {
-    Entity::getHealth() -= damage->getDamage();
-    return false;
-  } else {
-    Entity::getHealth() = 0;
-    return true;
-  }
-}
+u32 PlayerAbstract::getLevel() const { return l; }
 
-u32 Player::getLevel() const { return level; }
+void PlayerAbstract::levelUp() { l++; }
 
-void Player::levelUp() { level++; }
-
-std::string Player::toString() const {
+std::string PlayerAbstract::toString() const {
   std::string s;
-  s += "\"health\": " + std::to_string(getHealth()) + ",\n";
-  s += "\"level\": " + std::to_string(level);
+  s += "\"health\": " + std::to_string(h) + ",\n";
+  s += "\"level\": " + std::to_string(l);
   return s;
 }
 
-Sample::Sample(u32 h, u32 l) : Player(h, l) {}
+Sample::Sample(u32 h, u32 l) : PlayerAbstract(h, l) {}
 
 void Sample::accept(VisitorGUI *visitor) const { visitor->visitSample(); }
 
@@ -33,7 +23,7 @@ std::string Sample::toString() const {
   std::string s;
   s += "{\n";
   s += "\"class\": \"Sample\",\n";
-  s += Player::toString() + "\n";
+  s += PlayerAbstract::toString() + "\n";
   s += "}";
   return s;
 }
@@ -43,7 +33,7 @@ DamageBullet *Sample::attack() const {
 }
 
 void Sample::levelUp() {
-  Player::levelUp();
+  PlayerAbstract::levelUp();
   getHealth() += SAMPLE_HEALTH_INCREASE;
 }
 
@@ -51,7 +41,7 @@ u32 Sample::getCost() const { return SAMPLE_PRICE * 0.75; }
 
 u32 Sample::value() const { return getCost() + getLevel() * SAMPLE_PRICE; }
 
-ThreeColumn::ThreeColumn(u32 h, u32 l) : Player(h, l) {}
+ThreeColumn::ThreeColumn(u32 h, u32 l) : PlayerAbstract(h, l) {}
 
 void ThreeColumn::accept(VisitorGUI *visitor) const {
   visitor->visitThreeColumn();
@@ -63,7 +53,7 @@ std::string ThreeColumn::toString() const {
   std::string s;
   s += "{\n";
   s += "\"class\": \"ThreeColumn\",\n";
-  s += Player::toString() + "\n";
+  s += PlayerAbstract::toString() + "\n";
   s += "}";
   return s;
 }
@@ -74,7 +64,7 @@ DamageWave *ThreeColumn::attack() const {
 }
 
 void ThreeColumn::levelUp() {
-  Player::levelUp();
+  PlayerAbstract::levelUp();
   getHealth() += THREE_COLUMN_HEALTH_INCREASE;
 }
 
@@ -84,7 +74,8 @@ u32 ThreeColumn::value() const {
   return getCost() + getLevel() * THREE_COLUMN_PRICE;
 }
 
-DoubleLife::DoubleLife(u32 h, u32 l, bool dl) : Player(h, l), secondLife(dl) {}
+DoubleLife::DoubleLife(u32 h, u32 l, bool dl)
+    : PlayerAbstract(h, l), secondLife(dl) {}
 
 void DoubleLife::accept(VisitorGUI *visitor) const {
   visitor->visitDoubleLife();
@@ -96,7 +87,7 @@ std::string DoubleLife::toString() const {
   std::string s;
   s += "{\n";
   s += "\"class\": \"DoubleLife\",\n";
-  s += Player::toString() + ",\n";
+  s += PlayerAbstract::toString() + ",\n";
   s += "\"secondLife\": " + std::to_string(secondLife) + "\n";
   s += "}";
   return s;
@@ -108,7 +99,7 @@ DamageBullet *DoubleLife::attack() const {
 }
 
 bool DoubleLife::sufferDamage(Damage *damage) {
-  if (!Player::sufferDamage(damage)) {
+  if (!PlayerAbstract::sufferDamage(damage)) {
     return false;
   } else if (secondLife) {
     secondLife = false;
@@ -120,7 +111,7 @@ bool DoubleLife::sufferDamage(Damage *damage) {
 }
 
 void DoubleLife::levelUp() {
-  Player::levelUp();
+  PlayerAbstract::levelUp();
   getHealth() += DOUBLE_LIFE_HEALTH_INCREASE;
 }
 
@@ -130,7 +121,7 @@ u32 DoubleLife::value() const {
   return getCost() + getLevel() * DOUBLE_LIFE_PRICE;
 }
 
-ThreeRow::ThreeRow(u32 h, u32 l) : Player(h, l) {}
+ThreeRow::ThreeRow(u32 h, u32 l) : PlayerAbstract(h, l) {}
 
 void ThreeRow::accept(VisitorGUI *visitor) const { visitor->visitThreeRow(); }
 
@@ -140,7 +131,7 @@ std::string ThreeRow::toString() const {
   std::string s;
   s += "{\n";
   s += "\"class\": \"ThreeRow\",\n";
-  s += Player::toString() + "\n";
+  s += PlayerAbstract::toString() + "\n";
   s += "}";
   return s;
 }
@@ -151,7 +142,7 @@ DamageBullet *ThreeRow::attack() const {
 }
 
 void ThreeRow::levelUp() {
-  Player::levelUp();
+  PlayerAbstract::levelUp();
   getHealth() += THREE_ROW_HEALTH_INCREASE;
 }
 
@@ -159,7 +150,7 @@ u32 ThreeRow::getCost() const { return THREE_ROW_PRICE * 0.75; }
 
 u32 ThreeRow::value() const { return getCost() + getLevel() * THREE_ROW_PRICE; }
 
-SlowDown::SlowDown(u32 h, u32 l) : Player(h, l) {}
+SlowDown::SlowDown(u32 h, u32 l) : PlayerAbstract(h, l) {}
 
 void SlowDown::accept(VisitorGUI *visitor) const { visitor->visitSlowDown(); }
 
@@ -169,7 +160,7 @@ std::string SlowDown::toString() const {
   std::string s;
   s += "{\n";
   s += "\"class\": \"SlowDown\",\n";
-  s += Player::toString() + "\n";
+  s += PlayerAbstract::toString() + "\n";
   s += "}";
   return s;
 }
@@ -180,7 +171,7 @@ DamageSlow *SlowDown::attack() const {
 }
 
 void SlowDown::levelUp() {
-  Player::levelUp();
+  PlayerAbstract::levelUp();
   getHealth() += SLOW_DOWN_HEALTH_INCREASE;
 }
 
