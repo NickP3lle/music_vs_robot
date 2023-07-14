@@ -2,33 +2,33 @@
 
 #include "entity.h"
 
-class Robot : public Entity {
+class Enemy : public Entity {
 private:
   u32 a, s, v;
 
 public:
-  Robot(u32, u32, bool = false, bool = false);
+  Enemy(u32, u32, bool = false, bool = false);
 
   bool sufferDamage(Damage *) override;
-  DamageRobot *attack() const override final;
+  DamageEnemy *attack() const override final;
   virtual u32 move() const;
 
   void accept(VisitorGUI *) const override;
-  Robot *clone() const override;
+  Enemy *clone() const override;
 };
 
-class RobotDefense : public Robot {
+class EnemyDefense : public Enemy {
 public:
-  RobotDefense(u32, u32);
+  EnemyDefense(u32, u32);
   bool sufferDamage(Damage *) override;
   void accept(VisitorGUI *) const override;
-  RobotDefense *clone() const override;
+  EnemyDefense *clone() const override;
 };
 
-class RobotBig : public Robot {
+class EnemyBig : public Enemy {
 public:
-  RobotBig(u32, u32);
+  EnemyBig(u32, u32);
   u32 move() const override;
   void accept(VisitorGUI *) const override;
-  RobotBig *clone() const override;
+  EnemyBig *clone() const override;
 };

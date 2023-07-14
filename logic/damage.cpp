@@ -37,10 +37,10 @@ void DamageWave::accept(VisitorGUI *visitor) const {
 DamageWave *DamageWave::clone() const { return new DamageWave(*this); }
 
 /// RobotDamage
-DamageRobot::DamageRobot(u32 damage) : Damage(damage) {}
+DamageEnemy::DamageEnemy(u32 damage) : Damage(damage) {}
 
-void DamageRobot::accept(VisitorGUI *visitor) const {
-  visitor->visitDamageRobot();
+void DamageEnemy::accept(VisitorGUI *visitor) const {
+  visitor->visitDamageEnemy();
 }
 
 DamageRobot *DamageRobot::clone() const { return new DamageRobot(*this); }

@@ -39,10 +39,10 @@ public:
   DamageWave *clone() const override;
 };
 
-class DamageRobot : public Damage {
+class DamageEnemy : public Damage {
 private:
 public:
-  DamageRobot(u32 damage);
+  DamageEnemy(u32 damage);
   void accept(VisitorGUI *visitor) const override;
-  DamageRobot *clone() const override;
+  DamageEnemy *clone() const override;
 };
