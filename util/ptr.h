@@ -1,80 +1,51 @@
-#ifndef PTR_SAFE
-#define PTR_SAFE
-#include <iostream>
-#include <typeinfo>
+#pragma once
 
-template <class T> class ptr {
+#include <iostream>
+#include <type_traits>
+
+template <typename T> class ptr {
+
 private:
-  T *data;
-  unsigned int *refCount;
+  T *p;
 
 public:
   ptr(T *const = nullptr);
-  ptr(const T &);
   ptr(const ptr &);
   ptr &operator=(const ptr &);
   ~ptr();
+
+  T *operator->() const;
+  T &operator*() const;
   operator bool() const;
-  const T &get() const;
-  T *getPtr() const;
-  const T &operator*() const;
-  T &get_mut();
 };
 
-template <class T>
-ptr<T>::ptr(T *ptr_t)
-    : data(ptr_t), refCount(ptr_t ? new unsigned int(1) : nullptr) {}
+template <typename T> ptr<T>::ptr(T *const p) : p(p) {}
 
-template <class T> ptr<T>::ptr(const T &t) : ptr(new T(t)) {}
+template <typename T>
+ptr<T>::ptr(const ptr &o) : p(o ? o.p->clone() : nullptr) {}
 
-template <class T>
-ptr<T>::ptr(const ptr &Ptr) : data(Ptr.data), refCount(Ptr.refCount) {
-  if (refCount)
-    ++(*refCount);
-}
-
-template <class T> ptr<T>::~ptr() {
-  if (data) {
-    (*refCount)--;
-    if (*refCount == 0) {
-      delete data;
-      data = nullptr;
-      delete refCount;
-    }
-  }
-}
-
-template <class T> ptr<T> &ptr<T>::operator=(const ptr &s) {
-  if (this != &s) {
-    if (data) {
-      if (--(*refCount) == 0) {
-        delete data;
-        data = nullptr;
-        delete refCount;
-      }
-    }
-    data = s.data;
-    refCount = s.refCount;
-    if (*this)
-      (*refCount)++;
+template <typename T> ptr<T> &ptr<T>::operator=(const ptr &o) {
+  if (this != &o) {
+    delete p;
+    p = o ? o.p->clone() : nullptr;
   }
   return *this;
 }
 
-template <class T> ptr<T>::operator bool() const { return data; }
-
-template <class T> const T &ptr<T>::get() const { return *data; }
-
-template <class T> T *ptr<T>::getPtr() const { return data; }
-
-template <class T> const T &ptr<T>::operator*() const { return *data; }
-
-template <class T> T &ptr<T>::get_mut() {
-  if (*refCount > 1) {
-    (*refCount)--;
-    refCount = new unsigned int(1);
-    data = data->clone();
-  }
-  return *data;
+template <typename T> ptr<T>::~ptr() {
+  if (p != nullptr)
+    delete p;
+  p = nullptr;
 }
-#endif
+
+template <typename T> T *ptr<T>::operator->() const {
+  if (!p)
+    std::cout << "Error on ->" << std::endl;
+  else
+    std::cout << "All right on ->" << std::endl;
+  return p;
+}
+
+template <typename T> T &ptr<T>::operator*() const { return *p; }
+
+template <typename T> ptr<T>::operator bool() const { return p != nullptr; }

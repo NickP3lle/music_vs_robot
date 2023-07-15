@@ -5,6 +5,8 @@ Enemy::Enemy(u32 min, u32 max, bool isFast, bool isRich)
       s(randomInt(max, min) * (1 + isFast)),
       v(randomInt(max, min) * (1 + isRich)) {}
 
+u32 &Enemy::getHealth() { return h; }
+
 DamageEnemy *Enemy::attack() const { return new DamageEnemy(a); }
 
 u32 Enemy::move() const { return s; }

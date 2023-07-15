@@ -53,9 +53,9 @@ Tool *EnemyWTool::getTool(u32 min, u32 max) {
   else if (n < 400)
     return new ToolArmor(max);
   else if (n < 600)
-    return new ToolBoots(max, min);
+    return new ToolBoots(max);
   else if (n < 800)
-    return new ToolRing(max, min);
+    return new ToolRing(min);
   else
     return new Tool(-1);
 }

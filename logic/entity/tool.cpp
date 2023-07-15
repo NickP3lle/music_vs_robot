@@ -1,6 +1,6 @@
 #include "tool.h"
 
-Tool::Tool(int d) : durability(d > 0 ? randomInt(d) % 5 + 1 : 0) {}
+Tool::Tool(int d) : durability(d > 0 ? (randomInt(d) % 5) + 1 : -1) {}
 
 bool Tool::isBroken() const { return durability == 0; }
 
@@ -50,7 +50,7 @@ ToolArmor *ToolArmor::clone() const { return new ToolArmor(*this); }
 
 void ToolArmor::accept(VisitorGUI *v) const { v->visitToolArmor(); }
 
-ToolBoots::ToolBoots(u32 min, u32 max)
+ToolBoots::ToolBoots(u32 max)
     : Tool(max % 10), s(randomInt(ROBOT_MAX_SPEED, ROBOT_MIN_SPEED) / 2) {}
 
 bool ToolBoots::sufferDamage(DamageAbstract *d) { return false; }
@@ -66,7 +66,7 @@ ToolBoots *ToolBoots::clone() const { return new ToolBoots(*this); }
 
 void ToolBoots::accept(VisitorGUI *v) const { v->visitToolBoots(); }
 
-ToolRing::ToolRing(u32 min, u32 max) : Tool(0), v(randomInt(min)) {}
+ToolRing::ToolRing(u32 min) : Tool(0), v(randomInt(min / 2) + min / 2) {}
 
 u32 ToolRing::value() const { return v; }
 

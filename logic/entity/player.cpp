@@ -2,6 +2,8 @@
 
 PlayerAbstract::PlayerAbstract(u32 health, u32 level) : h(health), l(level) {}
 
+u32 &PlayerAbstract::getHealth() { return h; }
+
 u32 PlayerAbstract::getLevel() const { return l; }
 
 void PlayerAbstract::levelUp() { l++; }
@@ -13,7 +15,8 @@ std::string PlayerAbstract::toString() const {
   return s;
 }
 
-Sample::Sample(u32 h, u32 l) : PlayerAbstract(h, l) {}
+Sample::Sample(u32 l)
+    : PlayerAbstract(SAMPLE_HEALTH + SAMPLE_HEALTH * (l - 1), l) {}
 
 void Sample::accept(VisitorGUI *visitor) const { visitor->visitSample(); }
 
@@ -41,7 +44,9 @@ u32 Sample::getCost() const { return SAMPLE_PRICE * 0.75; }
 
 u32 Sample::value() const { return getCost() + getLevel() * SAMPLE_PRICE; }
 
-ThreeColumn::ThreeColumn(u32 h, u32 l) : PlayerAbstract(h, l) {}
+ThreeColumn::ThreeColumn(u32 l)
+    : PlayerAbstract(
+          THREE_COLUMN_HEALTH + THREE_COLUMN_HEALTH_INCREASE * (l - 1), l) {}
 
 void ThreeColumn::accept(VisitorGUI *visitor) const {
   visitor->visitThreeColumn();
@@ -74,8 +79,10 @@ u32 ThreeColumn::value() const {
   return getCost() + getLevel() * THREE_COLUMN_PRICE;
 }
 
-DoubleLife::DoubleLife(u32 h, u32 l, bool dl)
-    : PlayerAbstract(h, l), secondLife(dl) {}
+DoubleLife::DoubleLife(u32 l, bool dl)
+    : PlayerAbstract(DOUBLE_LIFE_HEALTH + DOUBLE_LIFE_HEALTH_INCREASE * (l - 1),
+                     l),
+      secondLife(dl) {}
 
 void DoubleLife::accept(VisitorGUI *visitor) const {
   visitor->visitDoubleLife();
@@ -98,12 +105,13 @@ DamageBullet *DoubleLife::attack() const {
                           getLevel() * DOUBLE_LIFE_POWER_INCREASE);
 }
 
-bool DoubleLife::sufferDamage(Damage *damage) {
-  if (!PlayerAbstract::sufferDamage(damage)) {
+bool DoubleLife::sufferDamage(DamageAbstract *damage) {
+  if (!EntityAbstract::sufferDamage(damage)) {
     return false;
   } else if (secondLife) {
     secondLife = false;
-    getHealth() = DOUBLE_LIFE_HEALTH + getLevel() * DOUBLE_LIFE_HEALTH_INCREASE;
+    getHealth() =
+        DOUBLE_LIFE_HEALTH + (getLevel() - 1) * DOUBLE_LIFE_HEALTH_INCREASE;
     return false;
   } else {
     return true;
@@ -121,7 +129,9 @@ u32 DoubleLife::value() const {
   return getCost() + getLevel() * DOUBLE_LIFE_PRICE;
 }
 
-ThreeRow::ThreeRow(u32 h, u32 l) : PlayerAbstract(h, l) {}
+ThreeRow::ThreeRow(u32 l)
+    : PlayerAbstract(THREE_ROW_HEALTH + THREE_ROW_POWER_INCREASE * (l - 1), l) {
+}
 
 void ThreeRow::accept(VisitorGUI *visitor) const { visitor->visitThreeRow(); }
 
@@ -150,7 +160,9 @@ u32 ThreeRow::getCost() const { return THREE_ROW_PRICE * 0.75; }
 
 u32 ThreeRow::value() const { return getCost() + getLevel() * THREE_ROW_PRICE; }
 
-SlowDown::SlowDown(u32 h, u32 l) : PlayerAbstract(h, l) {}
+SlowDown::SlowDown(u32 l)
+    : PlayerAbstract(SLOW_DOWN_HEALTH + SLOW_DOWN_POWER_INCREASE * (l - 1), l) {
+}
 
 void SlowDown::accept(VisitorGUI *visitor) const { visitor->visitSlowDown(); }
 

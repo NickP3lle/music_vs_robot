@@ -1,5 +1,5 @@
 #pragma once
-#include "include.h"
+#include "../include.h"
 
 class DamageAbstract : public AcceptGUI, public Cloneable {
   u32 d;

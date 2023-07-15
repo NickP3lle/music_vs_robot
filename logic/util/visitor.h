@@ -15,7 +15,7 @@ public:
   virtual void visitThreeRow() const = 0;
   virtual void visitSlowDown() const = 0;
 
-  /// Enemy
+  /// Robot
   virtual void visitEnemy() const = 0;
   virtual void visitEnemyDefense() const = 0;
   virtual void visitEnemyBig() const = 0;

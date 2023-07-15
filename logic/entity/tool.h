@@ -1,6 +1,5 @@
 #pragma once
 #include "damage.h"
-#include "include.h"
 
 class Tool : public Cloneable, public AcceptGUI {
 private:
@@ -43,7 +42,7 @@ private:
   u32 s;
 
 public:
-  ToolBoots(u32, u32);
+  ToolBoots(u32);
   bool sufferDamage(DamageAbstract *) override;
   u32 move() override;
   ToolBoots *clone() const override;
@@ -55,7 +54,7 @@ private:
   u32 v;
 
 public:
-  ToolRing(u32, u32);
+  ToolRing(u32);
   u32 value() const override;
   ToolRing *clone() const override;
   void accept(VisitorGUI *) const override;

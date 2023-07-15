@@ -35,7 +35,7 @@ template <typename T> ptr<T> &ptr<T>::operator=(const ptr &o) {
 }
 
 template <typename T> ptr<T>::~ptr() {
-  if (p == nullptr)
+  if (p != nullptr)
     delete p;
 }
 

@@ -1,5 +1,4 @@
 #pragma once
-
 #include "entity.h"
 
 class Enemy : public EntityAbstract {
@@ -9,8 +8,7 @@ private:
 public:
   Enemy(u32, u32, bool = false, bool = false);
 
-  u32 &getHealth() const override final;
-  bool sufferDamage(DamageAbstract *) override;
+  u32 &getHealth() override final;
   DamageEnemy *attack() const override final;
   virtual u32 move() const;
 
