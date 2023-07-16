@@ -16,7 +16,7 @@ std::string PlayerAbstract::toString() const {
 }
 
 Sample::Sample(u32 l)
-    : PlayerAbstract(SAMPLE_HEALTH + SAMPLE_HEALTH * (l - 1), l) {}
+    : PlayerAbstract(SAMPLE_HEALTH + SAMPLE_HEALTH_INCREASE * (l - 1), l) {}
 
 void Sample::accept(VisitorGUI *visitor) const { visitor->visitSample(); }
 
@@ -32,7 +32,8 @@ std::string Sample::toString() const {
 }
 
 DamageBullet *Sample::attack() const {
-  return new DamageBullet(SAMPLE_POWER + getLevel() * SAMPLE_POWER_INCREASE);
+  return new DamageBullet(SAMPLE_POWER +
+                          (getLevel() - 1) * SAMPLE_POWER_INCREASE);
 }
 
 void Sample::levelUp() {
@@ -40,9 +41,9 @@ void Sample::levelUp() {
   getHealth() += SAMPLE_HEALTH_INCREASE;
 }
 
-u32 Sample::getCost() const { return SAMPLE_PRICE * 0.75; }
-
-u32 Sample::value() const { return getCost() + getLevel() * SAMPLE_PRICE; }
+u32 Sample::getCost() const {
+  return SAMPLE_PRICE * 0.75 + (getLevel() - 1) * SAMPLE_PRICE;
+}
 
 ThreeColumn::ThreeColumn(u32 l)
     : PlayerAbstract(
@@ -65,7 +66,7 @@ std::string ThreeColumn::toString() const {
 
 DamageWave *ThreeColumn::attack() const {
   return new DamageWave(THREE_COLUMN_POWER +
-                        getLevel() * THREE_COLUMN_POWER_INCREASE);
+                        (getLevel() - 1) * THREE_COLUMN_POWER_INCREASE);
 }
 
 void ThreeColumn::levelUp() {
@@ -73,10 +74,8 @@ void ThreeColumn::levelUp() {
   getHealth() += THREE_COLUMN_HEALTH_INCREASE;
 }
 
-u32 ThreeColumn::getCost() const { return THREE_COLUMN_PRICE * 0.75; }
-
-u32 ThreeColumn::value() const {
-  return getCost() + getLevel() * THREE_COLUMN_PRICE;
+u32 ThreeColumn::getCost() const {
+  return THREE_COLUMN_PRICE * 0.75 + (getLevel() - 1) * THREE_COLUMN_PRICE;
 }
 
 DoubleLife::DoubleLife(u32 l, bool dl)
@@ -102,7 +101,7 @@ std::string DoubleLife::toString() const {
 
 DamageBullet *DoubleLife::attack() const {
   return new DamageBullet(DOUBLE_LIFE_POWER +
-                          getLevel() * DOUBLE_LIFE_POWER_INCREASE);
+                          (getLevel() - 1) * DOUBLE_LIFE_POWER_INCREASE);
 }
 
 bool DoubleLife::sufferDamage(DamageAbstract *damage) {
@@ -123,10 +122,8 @@ void DoubleLife::levelUp() {
   getHealth() += DOUBLE_LIFE_HEALTH_INCREASE;
 }
 
-u32 DoubleLife::getCost() const { return DOUBLE_LIFE_PRICE * 0.75; }
-
-u32 DoubleLife::value() const {
-  return getCost() + getLevel() * DOUBLE_LIFE_PRICE;
+u32 DoubleLife::getCost() const {
+  return DOUBLE_LIFE_PRICE * 0.75 + (getLevel() - 1) * DOUBLE_LIFE_PRICE;
 }
 
 ThreeRow::ThreeRow(u32 l)
@@ -148,7 +145,7 @@ std::string ThreeRow::toString() const {
 
 DamageBullet *ThreeRow::attack() const {
   return new DamageBullet(THREE_ROW_POWER +
-                          getLevel() * THREE_ROW_POWER_INCREASE);
+                          (getLevel() - 1) * THREE_ROW_POWER_INCREASE);
 }
 
 void ThreeRow::levelUp() {
@@ -156,13 +153,13 @@ void ThreeRow::levelUp() {
   getHealth() += THREE_ROW_HEALTH_INCREASE;
 }
 
-u32 ThreeRow::getCost() const { return THREE_ROW_PRICE * 0.75; }
-
-u32 ThreeRow::value() const { return getCost() + getLevel() * THREE_ROW_PRICE; }
+u32 ThreeRow::getCost() const {
+  return THREE_ROW_PRICE * 0.75 + (getLevel() - 1) * THREE_ROW_PRICE;
+}
 
 SlowDown::SlowDown(u32 l)
-    : PlayerAbstract(SLOW_DOWN_HEALTH + SLOW_DOWN_POWER_INCREASE * (l - 1), l) {
-}
+    : PlayerAbstract(SLOW_DOWN_HEALTH + SLOW_DOWN_HEALTH_INCREASE * (l - 1),
+                     l) {}
 
 void SlowDown::accept(VisitorGUI *visitor) const { visitor->visitSlowDown(); }
 
@@ -178,7 +175,8 @@ std::string SlowDown::toString() const {
 }
 
 DamageSlow *SlowDown::attack() const {
-  return new DamageSlow(SLOW_DOWN_POWER + getLevel() * SLOW_DOWN_POWER_INCREASE,
+  return new DamageSlow(SLOW_DOWN_POWER +
+                            (getLevel() - 1) * SLOW_DOWN_POWER_INCREASE,
                         1 + getLevel() / 2);
 }
 
@@ -187,6 +185,6 @@ void SlowDown::levelUp() {
   getHealth() += SLOW_DOWN_HEALTH_INCREASE;
 }
 
-u32 SlowDown::getCost() const { return SLOW_DOWN_PRICE * 0.75; }
-
-u32 SlowDown::value() const { return getCost() + getLevel() * SLOW_DOWN_PRICE; }
+u32 SlowDown::getCost() const {
+  return SLOW_DOWN_PRICE * 0.75 + (getLevel() - 1) * SLOW_DOWN_PRICE;
+}

@@ -11,7 +11,7 @@ private:
   T *p;
 
 public:
-  ptr(Cloneable *const = nullptr);
+  ptr(T *const = nullptr);
   ptr(const ptr &);
   ptr &operator=(const ptr &);
   ~ptr();
@@ -21,7 +21,7 @@ public:
   operator bool() const;
 };
 
-template <typename T> ptr<T>::ptr(Cloneable *const p) : p(p) {}
+template <typename T> ptr<T>::ptr(T *const p) : p(p->clone()) {}
 
 template <typename T>
 ptr<T>::ptr(const ptr &o) : p(o ? o.p->clone() : nullptr) {}

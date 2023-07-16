@@ -2,213 +2,240 @@
 #include <cassert>
 
 bool Test_Sample_toString() {
-  Sample sample(5);
-  std::string expected = "{\n\"class\": \"Sample\",\n\"health\": " +
-                         std::to_string(SAMPLE_HEALTH) + ",\n\"level\": 5}";
+  u32 l = randomInt(100, 50);
+  u32 h = SAMPLE_HEALTH + SAMPLE_HEALTH_INCREASE * (l - 1);
+
+  std::string expected = "{\n\"class\": \"Sample\",\n\"health\": ";
+  expected += std::to_string(h);
+  expected += ",\n\"level\": " + std::to_string(l) + "\n}";
+
+  Sample sample(l);
   return sample.toString() == expected;
 }
 
 bool Test_Sample_attack() {
-  Sample sample(5);
+  u32 l = randomInt(100, 50);
+  Sample sample(l);
   DamageBullet *damage = sample.attack();
   bool testPassed =
       (damage != nullptr) &&
-      (damage->getDamage() ==
-       (SAMPLE_POWER + sample.getLevel() * SAMPLE_POWER_INCREASE));
+      (damage->getDamage() == (SAMPLE_POWER + (l - 1) * SAMPLE_POWER_INCREASE));
   delete damage;
   return testPassed;
 }
 
 bool Test_Sample_levelUp() {
-  Sample sample(5);
+  u32 l = randomInt(100, 50);
+  u32 h = SAMPLE_HEALTH + l * SAMPLE_HEALTH_INCREASE;
+
+  Sample sample(l++);
   sample.levelUp();
-  bool testPassed =
-      (sample.getLevel() == 6 &&
-       sample.getHealth() == SAMPLE_HEALTH + SAMPLE_HEALTH_INCREASE);
+
+  bool testPassed = (sample.getLevel() == l && sample.getHealth() == h);
+
   return testPassed;
 }
 
 bool Test_Sample_getCost() {
-  Sample sample(5);
-  return sample.getCost() == (SAMPLE_PRICE * 0.75);
-}
-
-bool Test_Sample_value() {
-  Sample sample(5);
-  return sample.value() ==
-         (sample.getCost() + sample.getLevel() * SAMPLE_PRICE);
+  u32 l = randomInt(100, 50);
+  Sample sample(l);
+  return sample.getCost() ==
+         (u32)(SAMPLE_PRICE * 0.75) + (l - 1) * SAMPLE_PRICE;
 }
 
 bool Test_ThreeColumn_toString() {
-  ThreeColumn threeColumn(7);
-  std::string expected = "{\n\"class\": \"ThreeColumn\",\n\"health\": " +
-                         std::to_string(THREE_COLUMN_HEALTH) +
-                         ",\n\"level\": 7}";
+  u32 l = randomInt(100, 50);
+  u32 h = THREE_COLUMN_HEALTH + THREE_COLUMN_HEALTH_INCREASE * (l - 1);
+
+  std::string expected = "{\n\"class\": \"ThreeColumn\",\n\"health\": ";
+  expected += std::to_string(h);
+  expected += ",\n\"level\": " + std::to_string(l) + "\n}";
+
+  ThreeColumn threeColumn(l);
   return threeColumn.toString() == expected;
 }
 
 bool Test_ThreeColumn_attack() {
-  ThreeColumn threeColumn(7);
+  u32 l = randomInt(100, 50);
+  u32 a = THREE_COLUMN_POWER + (l - 1) * THREE_COLUMN_POWER_INCREASE;
+
+  ThreeColumn threeColumn(l);
   DamageWave *damage = threeColumn.attack();
-  bool testPassed = (damage != nullptr) &&
-                    (damage->getDamage() ==
-                     (THREE_COLUMN_POWER +
-                      threeColumn.getLevel() * THREE_COLUMN_POWER_INCREASE));
+
+  bool testPassed = (damage != nullptr) && (damage->getDamage() == a);
   delete damage;
+
   return testPassed;
 }
 
 bool Test_ThreeColumn_levelUp() {
-  ThreeColumn threeColumn(7);
+  u32 l = randomInt(100, 50);
+  u32 h = THREE_COLUMN_HEALTH + l * THREE_COLUMN_HEALTH_INCREASE;
+
+  ThreeColumn threeColumn(l++);
   threeColumn.levelUp();
-  bool testPassed = (threeColumn.getLevel() == 8 &&
-                     threeColumn.getHealth() ==
-                         THREE_COLUMN_HEALTH + THREE_COLUMN_HEALTH_INCREASE);
+
+  bool testPassed =
+      (threeColumn.getLevel() == l && threeColumn.getHealth() == h);
+
   return testPassed;
 }
 
 bool Test_ThreeColumn_getCost() {
-  ThreeColumn threeColumn(7);
-  return threeColumn.getCost() == (THREE_COLUMN_PRICE * 0.75);
-}
-
-bool Test_ThreeColumn_value() {
-  ThreeColumn threeColumn(7);
-  return threeColumn.value() ==
-         (threeColumn.getCost() + threeColumn.getLevel() * THREE_COLUMN_PRICE);
+  u32 l = randomInt(100, 50);
+  ThreeColumn threeColumn(l);
+  return threeColumn.getCost() ==
+         (u32)(THREE_COLUMN_PRICE * 0.75) + (l - 1) * THREE_COLUMN_PRICE;
 }
 
 bool Test_DoubleLife_toString() {
-  DoubleLife doubleLife(9, true);
-  std::string expected = "{\n\"class\": \"DoubleLife\",\n\"health\": " +
-                         std::to_string(DOUBLE_LIFE_HEALTH) +
-                         ",\n\"level\": 9,\n\"secondLife\": 1}";
+  u32 l = randomInt(100, 50);
+  u32 h = DOUBLE_LIFE_HEALTH + (l - 1) * DOUBLE_LIFE_HEALTH_INCREASE;
+
+  std::string expected = "{\n\"class\": \"DoubleLife\",\n\"health\": ";
+  expected += std::to_string(h);
+  expected += ",\n\"level\": " + std::to_string(l) + ",";
+  expected += "\n\"secondLife\": " + std::to_string(true) + "\n}";
+
+  DoubleLife doubleLife(l);
   return doubleLife.toString() == expected;
 }
 
 bool Test_DoubleLife_attack() {
-  DoubleLife doubleLife(9, true);
+  u32 l = randomInt(100, 50);
+  u32 a = DOUBLE_LIFE_POWER + (l - 1) * DOUBLE_LIFE_POWER_INCREASE;
+
+  DoubleLife doubleLife(l);
   DamageBullet *damage = doubleLife.attack();
-  bool testPassed = (damage != nullptr) &&
-                    (damage->getDamage() ==
-                     (DOUBLE_LIFE_POWER +
-                      doubleLife.getLevel() * DOUBLE_LIFE_POWER_INCREASE));
+
+  bool testPassed = (damage != nullptr) && (damage->getDamage() == a);
   delete damage;
+
   return testPassed;
 }
 
 bool Test_DoubleLife_sufferDamage() {
-  DoubleLife doubleLife(9, true);
-  DamageAbstract *damage = new DamageBullet(150);
+  u32 l = randomInt(100, 50);
+
+  DoubleLife doubleLife(l);
+  u32 h = doubleLife.getHealth();
+  DamageAbstract *damage = new DamageEnemy(h / 2);
   bool isBroken = doubleLife.sufferDamage(damage);
-  bool testPassed = (!isBroken && doubleLife.getHealth() == 50 &&
-                     doubleLife.getLevel() == 9 &&
-                     doubleLife.getHealth() ==
-                         DOUBLE_LIFE_HEALTH + doubleLife.getLevel() *
-                                                  DOUBLE_LIFE_HEALTH_INCREASE);
+  bool testPassed = (!isBroken && doubleLife.getHealth() == h - h / 2);
   delete damage;
 
-  damage = new DamageBullet(60);
+  damage = new DamageEnemy(h);
   isBroken = doubleLife.sufferDamage(damage);
-  testPassed &= (isBroken && doubleLife.getHealth() == 0 &&
-                 doubleLife.getLevel() == 9 && doubleLife.getHealth() == 0);
+  testPassed &= (!isBroken && doubleLife.getHealth() == h);
   delete damage;
+
+  damage = new DamageEnemy(h);
+  isBroken = doubleLife.sufferDamage(damage);
+  testPassed &= (isBroken && doubleLife.getHealth() == 0);
 
   return testPassed;
 }
 
 bool Test_DoubleLife_levelUp() {
-  DoubleLife doubleLife(9, true);
+  u32 l = randomInt(100, 50);
+  u32 h = DOUBLE_LIFE_HEALTH + l * DOUBLE_LIFE_HEALTH_INCREASE;
+
+  DoubleLife doubleLife(l++);
   doubleLife.levelUp();
-  bool testPassed = (doubleLife.getLevel() == 10 &&
-                     doubleLife.getHealth() ==
-                         DOUBLE_LIFE_HEALTH + DOUBLE_LIFE_HEALTH_INCREASE);
+
+  bool testPassed = doubleLife.getLevel() == l && doubleLife.getHealth() == h;
   return testPassed;
 }
 
 bool Test_DoubleLife_getCost() {
-  DoubleLife doubleLife(9, true);
-  return doubleLife.getCost() == (DOUBLE_LIFE_PRICE * 0.75);
-}
+  u32 l = randomInt(100, 50);
 
-bool Test_DoubleLife_value() {
-  DoubleLife doubleLife(9, true);
-  return doubleLife.value() ==
-         (doubleLife.getCost() + doubleLife.getLevel() * DOUBLE_LIFE_PRICE);
+  DoubleLife doubleLife(l);
+  return doubleLife.getCost() ==
+         (u32)(DOUBLE_LIFE_PRICE * 0.75) + (l - 1) * DOUBLE_LIFE_PRICE;
 }
 
 bool Test_ThreeRow_toString() {
-  ThreeRow threeRow(6);
-  std::string expected = "{\n\"class\": \"ThreeRow\",\n\"health\": " +
-                         std::to_string(THREE_ROW_HEALTH) + ",\n\"level\": 6}";
+  u32 l = randomInt(100, 50);
+  u32 h = THREE_ROW_HEALTH + (l - 1) * THREE_ROW_HEALTH_INCREASE;
+
+  std::string expected = "{\n\"class\": \"ThreeRow\",\n\"health\": ";
+  expected += std::to_string(h);
+  expected += ",\n\"level\": " + std::to_string(l) + "\n}";
+
+  ThreeRow threeRow(l);
   return threeRow.toString() == expected;
 }
 
 bool Test_ThreeRow_attack() {
-  ThreeRow threeRow(6);
+  u32 l = randomInt(100, 50);
+  u32 a = THREE_ROW_POWER + (l - 1) * THREE_ROW_POWER_INCREASE;
+
+  ThreeRow threeRow(l);
   DamageBullet *damage = threeRow.attack();
-  bool testPassed =
-      (damage != nullptr) &&
-      (damage->getDamage() ==
-       (THREE_ROW_POWER + threeRow.getLevel() * THREE_ROW_POWER_INCREASE));
+
+  bool testPassed = (damage != nullptr) && (damage->getDamage() == a);
   delete damage;
+
   return testPassed;
 }
 
 bool Test_ThreeRow_levelUp() {
-  ThreeRow threeRow(6);
+  u32 l = randomInt(100, 50);
+  u32 h = THREE_ROW_HEALTH + l * THREE_ROW_HEALTH_INCREASE;
+
+  ThreeRow threeRow(l++);
   threeRow.levelUp();
-  bool testPassed =
-      (threeRow.getLevel() == 7 &&
-       threeRow.getHealth() == THREE_ROW_HEALTH + THREE_ROW_HEALTH_INCREASE);
+  bool testPassed = (threeRow.getLevel() == l && threeRow.getHealth() == h);
+
   return testPassed;
 }
 
 bool Test_ThreeRow_getCost() {
-  ThreeRow threeRow(6);
-  return threeRow.getCost() == (THREE_ROW_PRICE * 0.75);
-}
+  u32 l = randomInt(100, 50);
 
-bool Test_ThreeRow_value() {
-  ThreeRow threeRow(6);
-  return threeRow.value() ==
-         (threeRow.getCost() + threeRow.getLevel() * THREE_ROW_PRICE);
+  ThreeRow threeRow(l);
+  return threeRow.getCost() ==
+         (u32)(THREE_ROW_PRICE * 0.75) + (l - 1) * THREE_ROW_PRICE;
 }
 
 bool Test_SlowDown_toString() {
-  SlowDown slowDown(8);
-  std::string expected = "{\n\"class\": \"SlowDown\",\n\"health\": " +
-                         std::to_string(SLOW_DOWN_HEALTH) + ",\n\"level\": 8}";
+  u32 l = randomInt(100, 50);
+  u32 h = SLOW_DOWN_HEALTH + (l - 1) * SLOW_DOWN_HEALTH_INCREASE;
+
+  std::string expected = "{\n\"class\": \"SlowDown\",\n\"health\": ";
+  expected += std::to_string(h);
+  expected += ",\n\"level\": " + std::to_string(l) + "\n}";
+
+  SlowDown slowDown(l);
   return slowDown.toString() == expected;
 }
 
 bool Test_SlowDown_attack() {
-  SlowDown slowDown(8);
+  u32 l = randomInt(100, 50);
+  u32 a = (SLOW_DOWN_POWER + (l - 1) * SLOW_DOWN_POWER_INCREASE);
+
+  SlowDown slowDown(l);
   DamageSlow *damage = slowDown.attack();
-  bool testPassed =
-      (damage != nullptr) &&
-      (damage->getDamage() ==
-       (SLOW_DOWN_POWER + slowDown.getLevel() * SLOW_DOWN_POWER_INCREASE));
+  bool testPassed = (damage != nullptr) && (damage->getDamage() == a);
   delete damage;
+
   return testPassed;
 }
 
 bool Test_SlowDown_levelUp() {
-  SlowDown slowDown(8);
+  u32 l = randomInt(100, 50);
+  u32 h = SLOW_DOWN_HEALTH + l * SLOW_DOWN_HEALTH_INCREASE;
+
+  SlowDown slowDown(l++);
   slowDown.levelUp();
-  bool testPassed =
-      (slowDown.getLevel() == 9 &&
-       slowDown.getHealth() == SLOW_DOWN_HEALTH + SLOW_DOWN_HEALTH_INCREASE);
+  bool testPassed = (slowDown.getLevel() == l && slowDown.getHealth() == h);
   return testPassed;
 }
 
 bool Test_SlowDown_getCost() {
-  SlowDown slowDown(8);
-  return slowDown.getCost() == (SLOW_DOWN_PRICE * 0.75);
-}
-
-bool Test_SlowDown_value() {
-  SlowDown slowDown(8);
-  return slowDown.value() ==
-         (slowDown.getCost() + slowDown.getLevel() * SLOW_DOWN_PRICE);
+  u32 l = randomInt(100, 50);
+  SlowDown slowDown(l);
+  return slowDown.getCost() ==
+         (SLOW_DOWN_PRICE * 0.75) + (l - 1) * SLOW_DOWN_PRICE;
 }

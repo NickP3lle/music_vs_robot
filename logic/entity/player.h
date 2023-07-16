@@ -12,7 +12,6 @@ public:
   u32 getLevel() const;
   virtual void levelUp();
   virtual u32 getCost() const = 0;
-  virtual u32 value() const = 0;
 
   std::string toString() const override;
 };
@@ -29,7 +28,6 @@ public:
 
   void levelUp() override;
   u32 getCost() const override;
-  u32 value() const override;
 };
 
 class ThreeColumn : public PlayerAbstract {
@@ -44,7 +42,6 @@ public:
 
   void levelUp() override;
   u32 getCost() const override;
-  u32 value() const override;
 };
 
 class DoubleLife : public PlayerAbstract {
@@ -63,7 +60,6 @@ public:
   bool sufferDamage(DamageAbstract *damage) override;
   void levelUp() override;
   u32 getCost() const override;
-  u32 value() const override;
 };
 
 class ThreeRow : public PlayerAbstract {
@@ -78,7 +74,6 @@ public:
 
   void levelUp() override;
   u32 getCost() const override;
-  u32 value() const override;
 };
 
 class SlowDown : public PlayerAbstract {
@@ -93,5 +88,4 @@ public:
 
   void levelUp() override;
   u32 getCost() const override;
-  u32 value() const override;
 };
