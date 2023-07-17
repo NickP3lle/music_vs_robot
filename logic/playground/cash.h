@@ -15,4 +15,5 @@ class Cash : public DataManagerInterface, public Observable {
     static void cleanUp();
 
     std::string toString() const override;
+    Cash *fromString(std::string) override;
 };

@@ -12,8 +12,7 @@ class DataManagerInterface {
 
     // private:
     virtual std::string toString() const = 0;
-
-    // virtual DataManager *loadData(std::string) = 0;
+    virtual DataManagerInterface *fromString(std::string){};
 };
 
 #endif

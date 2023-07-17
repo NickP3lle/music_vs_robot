@@ -1,8 +1,8 @@
 #include "data_manager_interface.h"
 
-// #include "../game/cash.h"
+#include "../playground/cash.h"
 // #include "../game/playground.h"
-// #include "../game/timer.h"
+#include "../playground/timer.h"
 
 void DataManagerInterface::saveAll() {
     std::ofstream outputFile("data.json");
