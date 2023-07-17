@@ -1,6 +1,5 @@
 #pragma once
 #include "damage.h"
-#include "include.h"
 
 class Tool : public Cloneable, public AcceptGUI {
 private:
@@ -10,7 +9,7 @@ public:
   Tool(int = 0);
   bool isBroken() const;
   virtual u32 attack();
-  virtual bool sufferDamage(Damage *);
+  virtual bool sufferDamage(DamageAbstract *);
   virtual u32 move();
   virtual u32 value() const;
 
@@ -25,7 +24,7 @@ private:
 public:
   ToolWeapon(u32, u32 = 0);
   u32 attack() override;
-  bool sufferDamage(Damage *) override;
+  bool sufferDamage(DamageAbstract *) override;
   ToolWeapon *clone() const override;
   void accept(VisitorGUI *) const override;
 };
@@ -33,7 +32,7 @@ public:
 class ToolArmor : public Tool {
 public:
   ToolArmor(u32);
-  bool sufferDamage(Damage *) override;
+  bool sufferDamage(DamageAbstract *) override;
   ToolArmor *clone() const override;
   void accept(VisitorGUI *) const override;
 };
@@ -43,8 +42,8 @@ private:
   u32 s;
 
 public:
-  ToolBoots(u32, u32);
-  bool sufferDamage(Damage *) override;
+  ToolBoots(u32);
+  bool sufferDamage(DamageAbstract *) override;
   u32 move() override;
   ToolBoots *clone() const override;
   void accept(VisitorGUI *) const override;
@@ -55,7 +54,7 @@ private:
   u32 v;
 
 public:
-  ToolRing(u32, u32);
+  ToolRing(u32);
   u32 value() const override;
   ToolRing *clone() const override;
   void accept(VisitorGUI *) const override;

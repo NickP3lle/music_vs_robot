@@ -64,7 +64,7 @@ void Playground::enemyAttack(u32 col) {
     u32 danni = 0;
     col = col * FRAME_COLUMNS + 1;
     for (; col < col + FRAME_COLUMNS; col++)
-      enemy[row][col].iter([&danni](auto &e) { danni += e.attack(); });
+      enemy[row][col].iter([&danni](RobotWTool &e) { danni += e.attack(); });
 
     if (player[row][col]->takeDamage(danni)) {
       player[row][col] = nullptr;

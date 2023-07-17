@@ -15,3 +15,49 @@ if (DamagePosition == 4)
 getRobots().iter([ds = this->damages](Robot *r) {
 	ds->sufferDamage(r);
 });
+
+---
+
+Playground:
+Insert:
+	Enemy: u32 row, difficulty
+	Player: u32 row, col, Player * p
+	Damage: u32 row, col, Damage * d
+
+Remove:
+	Enemy: u32 row, u32 col, Enemy * e
+	Player: u32 row, u32 col
+	Damage: u32 row, u32 col
+
+isEmpty:
+	the same for all
+	u32 row, col
+
+cleanUp:
+	the same for all
+
+levelUp:
+	only for Player
+
+move:
+	only for Enemy and Damage
+
+get:
+	the same for all
+	u32 row, col
+	-> deque<enemy>, damage, player
+
+attack:
+	all three: Playground:
+		Enemy.attack(PlaygroundPlayer)
+		Player.attack(PlaygroundDamage) // generate the damages
+		Damage.attack(PlaygroundEnemy)	// propagate the damages
+
+std::deque<...> obs:
+	all three
+
+notify:
+	all three
+	u32 row, col
+
+

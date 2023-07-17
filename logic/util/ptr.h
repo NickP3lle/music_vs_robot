@@ -1,9 +1,11 @@
 #pragma once
 
-#include <iostream>
+#include "cloneable.h"
 #include <type_traits>
 
 template <typename T> class ptr {
+  static_assert(std::is_base_of<Cloneable, T>::value,
+                "T must inherit from Cloneable.");
 
 private:
   T *p;
@@ -19,7 +21,7 @@ public:
   operator bool() const;
 };
 
-template <typename T> ptr<T>::ptr(T *const p) : p(p) {}
+template <typename T> ptr<T>::ptr(T *const p) : p(p->clone()) {}
 
 template <typename T>
 ptr<T>::ptr(const ptr &o) : p(o ? o.p->clone() : nullptr) {}
@@ -35,16 +37,9 @@ template <typename T> ptr<T> &ptr<T>::operator=(const ptr &o) {
 template <typename T> ptr<T>::~ptr() {
   if (p != nullptr)
     delete p;
-  p = nullptr;
 }
 
-template <typename T> T *ptr<T>::operator->() const {
-  if (!p)
-    std::cout << "Error on ->" << std::endl;
-  else
-    std::cout << "All right on ->" << std::endl;
-  return p;
-}
+template <typename T> T *ptr<T>::operator->() const { return p; }
 
 template <typename T> T &ptr<T>::operator*() const { return *p; }
 

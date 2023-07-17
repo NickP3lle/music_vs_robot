@@ -1,14 +1,14 @@
 #pragma once
-#include "include.h"
+#include "../include.h"
 
-class Cash : public DataManagerInterface, public Observable {
+class Timer : public DataManagerInterface, public Observable {
   private:
-    static Cash *instance;
-    u32 cash;
-    Cash();
+    static Timer *instance;
+    u32 t;
+    Timer();
 
   public:
-    static Cash *getInstance();
+    static Timer *getInstance();
     static void add(u32);
     static bool sub(u32);
     static u32 get();

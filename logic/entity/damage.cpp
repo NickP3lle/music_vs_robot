@@ -1,12 +1,12 @@
 #include "damage.h"
 
 /// Damage
-Damage::Damage(u32 damage) : d(damage) {}
+DamageAbstract::DamageAbstract(u32 damage) : d(damage) {}
 
-u32 &Damage::getDamage() { return d; }
+u32 &DamageAbstract::getDamage() { return d; }
 
 /// BulletDamage
-DamageBullet::DamageBullet(u32 damage) : Damage(damage) {}
+DamageBullet::DamageBullet(u32 damage) : DamageAbstract(damage) {}
 
 void DamageBullet::accept(VisitorGUI *visitor) const {
   visitor->visitDamageBullet();
@@ -15,7 +15,8 @@ void DamageBullet::accept(VisitorGUI *visitor) const {
 DamageBullet *DamageBullet::clone() const { return new DamageBullet(*this); }
 
 /// SlowDamage
-DamageSlow::DamageSlow(u32 damage, u32 slow) : Damage(damage), slow(slow) {}
+DamageSlow::DamageSlow(u32 damage, u32 slow)
+    : DamageAbstract(damage), slow(slow) {}
 
 bool DamageSlow::getSlow() { return slow-- > 0; }
 
@@ -26,7 +27,7 @@ void DamageSlow::accept(VisitorGUI *visitor) const {
 DamageSlow *DamageSlow::clone() const { return new DamageSlow(*this); }
 
 /// WaveDamage
-DamageWave::DamageWave(u32 wave) : Damage(wave), persistance(4) {}
+DamageWave::DamageWave(u32 wave) : DamageAbstract(wave), persistance(4) {}
 
 bool DamageWave::oneWave() { return persistance-- > 0; }
 
@@ -37,10 +38,10 @@ void DamageWave::accept(VisitorGUI *visitor) const {
 DamageWave *DamageWave::clone() const { return new DamageWave(*this); }
 
 /// RobotDamage
-DamageRobot::DamageRobot(u32 damage) : Damage(damage) {}
+DamageEnemy::DamageEnemy(u32 damage) : DamageAbstract(damage) {}
 
-void DamageRobot::accept(VisitorGUI *visitor) const {
-  visitor->visitDamageRobot();
+void DamageEnemy::accept(VisitorGUI *visitor) const {
+  visitor->visitDamageEnemy();
 }
 
-DamageRobot *DamageRobot::clone() const { return new DamageRobot(*this); }
+DamageEnemy *DamageEnemy::clone() const { return new DamageEnemy(*this); }
