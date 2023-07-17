@@ -15,8 +15,9 @@ private:
   static Tool *getTool(u32 min, u32 max);
 
 public:
-  EnemyWTool(Enemy *, Tool *);
+  EnemyWTool(Enemy * = nullptr, Tool * = nullptr);
   EnemyWTool(u32 min, u32 max);
+  bool isAlive() const;
 
   void accept(VisitorGUI *) const override;
   EnemyWTool *clone() const override;

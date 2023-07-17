@@ -45,6 +45,7 @@ move:
 get:
 	the same for all
 	u32 row, col
+	-> deque<enemy>, damage, player
 
 attack:
 	all three: Playground:

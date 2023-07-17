@@ -8,6 +8,7 @@
 #include "util/independentfn.h"
 #include "util/observable.h"
 #include "util/observer.h"
+#include "util/observer_playground.h"
 #include "util/ptr.h"
 #include "util/visitor.h"
 #include <memory>

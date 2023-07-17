@@ -1,6 +1,8 @@
 #include "enemywtool.h"
 
-EnemyWTool::EnemyWTool(Enemy *e, Tool *t) : e(e), t(t) {}
+EnemyWTool::EnemyWTool(Enemy *en, Tool *to) : e(en), t(to) {}
+
+bool EnemyWTool::isAlive() const { return e; }
 
 // this make EnemyWTool a factory
 EnemyWTool::EnemyWTool(u32 min, u32 max)

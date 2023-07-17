@@ -30,3 +30,7 @@
 
 #define ROBOT_MAX_SPEED 10
 #define ROBOT_MIN_SPEED 5
+
+#define ROWS 5
+#define COLS 10
+#define FRAMES 6

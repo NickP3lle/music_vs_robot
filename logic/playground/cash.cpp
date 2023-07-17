@@ -5,9 +5,8 @@ Cash *Cash::instance = nullptr;
 Cash::Cash() : cash(0) {}
 
 Cash *Cash::getInstance() {
-  if (instance == nullptr) {
+  if (instance == nullptr)
     instance = new Cash();
-  }
   return instance;
 }
 
