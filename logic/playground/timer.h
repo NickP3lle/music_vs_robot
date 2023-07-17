@@ -15,4 +15,5 @@ class Timer : public DataManagerInterface, public Observable {
     static void cleanUp();
 
     std::string toString() const override;
+    Timer *fromString(std::string) override;
 };

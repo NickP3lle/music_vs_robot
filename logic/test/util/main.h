@@ -9,3 +9,6 @@ bool Test_deque_access_operator();
 bool Test_deque_size();
 bool Test_deque_iter();
 bool Test_deque_filter();
+
+bool Test_data_manager_cash();
+bool Test_data_manager_timer();
