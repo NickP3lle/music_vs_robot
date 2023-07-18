@@ -10,6 +10,24 @@ PlaygroundEnemy *PlaygroundEnemy::getInstance() {
   return instance;
 }
 
+void PlaygroundEnemy::insert(u32 r, u32 c, EnemyWTool &e) {
+  getInstance()->enemy[r][c].push_back(e);
+  instance->obs.iter([&](auto o) { o->update(r, c, &e); });
+}
+
+u32 PlaygroundEnemy::nearestPlayer(u32 r, u32 c) {
+  c--;
+
+  if (PlaygroundPlayer::getInstance()->get(r, c / FRAMES))
+    return 0;
+
+  for (u32 i = 0; i <= c / FRAMES; ++i)
+    if (!PlaygroundPlayer::getInstance()->isEmpty(r, c / FRAMES - i))
+      return (i - 1) * FRAMES + c % FRAMES + 1;
+
+  return c + 1;
+}
+
 void PlaygroundEnemy::insert() {
   u32 r = randomInt(0, 1000) % ROWS;
   u32 d = Timer::getInstance()->get();
@@ -68,4 +86,36 @@ void PlaygroundEnemy::attack(PlaygroundPlayer *p) const {
       }
     }
   }
+}
+
+bool PlaygroundEnemy::move() {
+  for (u32 r = 0; r < ROWS; ++r) {
+    for (u32 c = 1; c < COLS * FRAMES; ++c) {
+
+      // check if there is an enemy in the current cell
+      if (!PlaygroundPlayer::getInstance()->isEmpty(r, c / FRAMES)) {
+        c += FRAMES;
+        continue;
+      }
+
+      while (enemy[r][c].size() > 0) {
+        EnemyWTool e = enemy[r][c].pop_front();
+        u32 mv = e.move() / isSlow(r, c);
+        mv = c - std::min(mv, nearestPlayer(r, c));
+
+        if (mv == 0) {
+          obs.iter([](auto o) { o->notifyEndGame(); });
+          return true;
+        }
+        insert(r, mv, e);
+      }
+    }
+  }
+  return false;
+}
+
+void PlaygroundEnemy::notifyObservers(u32 r, u32 c) const {
+  obs.iter([&](auto o) { o->update(r, c, nullptr); });
+  get(r, c).iter(
+      [&](auto e) { obs.iter([&](auto o) { o->update(r, c, &e); }); });
 }

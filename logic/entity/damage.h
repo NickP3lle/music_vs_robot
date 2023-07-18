@@ -7,6 +7,7 @@ class DamageAbstract : public AcceptGUI, public Cloneable {
 public:
   DamageAbstract(u32 damage);
   virtual u32 &getDamage();
+  virtual bool getSlow();
 };
 
 class DamageBullet : public DamageAbstract {
@@ -23,7 +24,7 @@ private:
 
 public:
   DamageSlow(u32 damage, u32 slow);
-  bool getSlow();
+  bool getSlow() override;
   void accept(VisitorGUI *visitor) const override;
   DamageSlow *clone() const override;
 };

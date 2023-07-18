@@ -5,6 +5,8 @@ DamageAbstract::DamageAbstract(u32 damage) : d(damage) {}
 
 u32 &DamageAbstract::getDamage() { return d; }
 
+bool DamageAbstract::getSlow() { return false; }
+
 /// BulletDamage
 DamageBullet::DamageBullet(u32 damage) : DamageAbstract(damage) {}
 
@@ -18,7 +20,12 @@ DamageBullet *DamageBullet::clone() const { return new DamageBullet(*this); }
 DamageSlow::DamageSlow(u32 damage, u32 slow)
     : DamageAbstract(damage), slow(slow) {}
 
-bool DamageSlow::getSlow() { return slow-- > 0; }
+bool DamageSlow::getSlow() {
+  if (slow > 0)
+    return false;
+  slow--;
+  return true;
+}
 
 void DamageSlow::accept(VisitorGUI *visitor) const {
   visitor->visitDamageSlow();

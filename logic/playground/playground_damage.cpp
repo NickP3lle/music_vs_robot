@@ -52,8 +52,8 @@ void PlaygroundDamage::attack(PlaygroundEnemy *pe) {
             pe->remove(r, c, e);
           });
         } else {
-          if (pe->get(r, c)[0].sufferDamage(get(r, c)))
-            pe->remove(r, c, pe->get(r, c)[0]);
+          if (pe->get(r, c)[0]->sufferDamage(get(r, c)))
+            pe->remove(r, c, *pe->get(r, c)[0]);
           damage[r][c] = nullptr;
           notifyObservers(r, c);
         }
@@ -75,6 +75,8 @@ void PlaygroundDamage::move() {
     }
   }
 }
+
+bool PlaygroundDamage::isSlow(u32 r, u32 c) { return get(r, c)->getSlow(); }
 
 void PlaygroundDamage::notifyObservers(u32 r, u32 c) const {
   obs.iter([&](auto o) { o->update(r, c, this->get(r, c)); });
