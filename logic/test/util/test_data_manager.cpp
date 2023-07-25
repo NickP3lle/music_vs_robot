@@ -13,7 +13,7 @@ bool Test_data_manager_timer() {
         Timer::add(1000);
 
         std::string jsonString = "{\n";
-        jsonString += Timer::getInstance()->toString() + ",\n";
+        jsonString += Timer::getInstance()->toString();
         jsonString += "\n}";
         outputFile << jsonString;
         outputFile.close();
@@ -32,7 +32,7 @@ bool Test_data_manager_cash() {
         Cash::add(1000);
 
         std::string jsonString = "{\n";
-        jsonString += Cash::getInstance()->toString() + ",\n";
+        jsonString += Cash::getInstance()->toString();
         jsonString += "\n}";
         outputFile << jsonString;
         outputFile.close();
