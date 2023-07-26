@@ -67,6 +67,12 @@ void PlaygroundDamage::move() {
     damage[r][COLS - 1] = nullptr;
     for (u32 c = COLS - 2; c >= 0; c--) {
       if (!isEmpty(r, c)) {
+        DamageWave *dw = dynamic_cast<DamageWave *>(get(r, c));
+        if (dw && dw->oneWave()) {
+          damage[r][c] = nullptr;
+          notifyObservers(r, c);
+          continue;
+        }
         damage[r][c + 1] = damage[r][c];
         damage[r][c] = nullptr;
         notifyObservers(r, c);

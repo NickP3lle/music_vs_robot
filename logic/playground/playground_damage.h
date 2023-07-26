@@ -19,6 +19,7 @@ public:
   const DamageAbstract *get(u32 row, u32 col) const;
   void attack(PlaygroundEnemy *);
   void move();
+  bool isSlow(u32 row, u32 col);
 
   void notifyObservers(u32 row, u32 col) const override;
 };
