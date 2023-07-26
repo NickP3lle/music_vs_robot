@@ -2,12 +2,12 @@
 #include "deque.h"
 #include "observer.h"
 
-class Observable {
+class ObservableInterface {
 private:
-  deque<Observer *> observers; // we can use deque as well
+  deque<ObserverInterface *> observers; // we can use deque as well
 
 public:
   void notify() const;
-  void addObserver(Observer *o);
-  void removeObserver(Observer *o);
+  void addObserver(ObserverInterface *o);
+  void removeObserver(ObserverInterface *o);
 };

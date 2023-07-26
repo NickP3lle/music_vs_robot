@@ -20,7 +20,7 @@ u32 Tool::value() const { return 0; }
 
 Tool *Tool::clone() const { return new Tool(*this); }
 
-void Tool::accept(VisitorGUI *v) const {}
+void Tool::accept(VisitorInterface *v) const {}
 
 ToolWeapon::ToolWeapon(u32 min, u32 max) : Tool(max), a(randomInt(max, min)) {}
 
@@ -35,7 +35,7 @@ bool ToolWeapon::sufferDamage(DamageAbstract *d) { return false; }
 
 ToolWeapon *ToolWeapon::clone() const { return new ToolWeapon(*this); }
 
-void ToolWeapon::accept(VisitorGUI *v) const { v->visitToolWeapon(); }
+void ToolWeapon::accept(VisitorInterface *v) const { v->visitToolWeapon(); }
 
 ToolArmor::ToolArmor(u32 max) : Tool(max) {}
 
@@ -48,7 +48,7 @@ bool ToolArmor::sufferDamage(DamageAbstract *d) {
 
 ToolArmor *ToolArmor::clone() const { return new ToolArmor(*this); }
 
-void ToolArmor::accept(VisitorGUI *v) const { v->visitToolArmor(); }
+void ToolArmor::accept(VisitorInterface *v) const { v->visitToolArmor(); }
 
 ToolBoots::ToolBoots(u32 max)
     : Tool(max % 10), s(randomInt(ROBOT_MAX_SPEED, ROBOT_MIN_SPEED) / 2) {}
@@ -64,7 +64,7 @@ u32 ToolBoots::move() {
 
 ToolBoots *ToolBoots::clone() const { return new ToolBoots(*this); }
 
-void ToolBoots::accept(VisitorGUI *v) const { v->visitToolBoots(); }
+void ToolBoots::accept(VisitorInterface *v) const { v->visitToolBoots(); }
 
 ToolRing::ToolRing(u32 min) : Tool(0), v(randomInt(min / 2) + min / 2) {}
 
@@ -72,4 +72,4 @@ u32 ToolRing::value() const { return v; }
 
 ToolRing *ToolRing::clone() const { return new ToolRing(*this); }
 
-void ToolRing::accept(VisitorGUI *v) const { v->visitToolRing(); }
+void ToolRing::accept(VisitorInterface *v) const { v->visitToolRing(); }

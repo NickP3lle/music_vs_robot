@@ -1,9 +1,13 @@
 #include "observable.h"
 
-void Observable::notify() const {
-    observers.iter([](Observer *o) { o->update(); });
+void ObservableInterface::notify() const {
+  observers.iter([](ObserverInterface *o) { o->update(); });
 }
 
-void Observable::addObserver(Observer *o) { observers.push_back(o); }
+void ObservableInterface::addObserver(ObserverInterface *o) {
+  observers.push_back(o);
+}
 
-void Observable::removeObserver(Observer *o) { observers.remove(o); }
+void ObservableInterface::removeObserver(ObserverInterface *o) {
+  observers.remove(o);
+}

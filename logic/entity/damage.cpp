@@ -10,7 +10,7 @@ bool DamageAbstract::getSlow() { return false; }
 /// BulletDamage
 DamageBullet::DamageBullet(u32 damage) : DamageAbstract(damage) {}
 
-void DamageBullet::accept(VisitorGUI *visitor) const {
+void DamageBullet::accept(VisitorInterface *visitor) const {
   visitor->visitDamageBullet();
 }
 
@@ -27,7 +27,7 @@ bool DamageSlow::getSlow() {
   return true;
 }
 
-void DamageSlow::accept(VisitorGUI *visitor) const {
+void DamageSlow::accept(VisitorInterface *visitor) const {
   visitor->visitDamageSlow();
 }
 
@@ -38,7 +38,7 @@ DamageWave::DamageWave(u32 wave) : DamageAbstract(wave), persistance(4) {}
 
 bool DamageWave::oneWave() { return persistance-- > 0; }
 
-void DamageWave::accept(VisitorGUI *visitor) const {
+void DamageWave::accept(VisitorInterface *visitor) const {
   visitor->visitDamageWave();
 }
 
@@ -47,7 +47,7 @@ DamageWave *DamageWave::clone() const { return new DamageWave(*this); }
 /// RobotDamage
 DamageEnemy::DamageEnemy(u32 damage) : DamageAbstract(damage) {}
 
-void DamageEnemy::accept(VisitorGUI *visitor) const {
+void DamageEnemy::accept(VisitorInterface *visitor) const {
   visitor->visitDamageEnemy();
 }
 

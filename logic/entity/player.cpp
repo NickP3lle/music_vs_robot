@@ -18,7 +18,7 @@ std::string PlayerAbstract::toString() const {
 Sample::Sample(u32 l)
     : PlayerAbstract(SAMPLE_HEALTH + SAMPLE_HEALTH_INCREASE * (l - 1), l) {}
 
-void Sample::accept(VisitorGUI *visitor) const { visitor->visitSample(); }
+void Sample::accept(VisitorInterface *visitor) const { visitor->visitSample(); }
 
 Sample *Sample::clone() const { return new Sample(*this); }
 
@@ -49,7 +49,7 @@ ThreeColumn::ThreeColumn(u32 l)
     : PlayerAbstract(
           THREE_COLUMN_HEALTH + THREE_COLUMN_HEALTH_INCREASE * (l - 1), l) {}
 
-void ThreeColumn::accept(VisitorGUI *visitor) const {
+void ThreeColumn::accept(VisitorInterface *visitor) const {
   visitor->visitThreeColumn();
 }
 
@@ -83,7 +83,7 @@ DoubleLife::DoubleLife(u32 l, bool dl)
                      l),
       secondLife(dl) {}
 
-void DoubleLife::accept(VisitorGUI *visitor) const {
+void DoubleLife::accept(VisitorInterface *visitor) const {
   visitor->visitDoubleLife();
 }
 
@@ -130,7 +130,9 @@ ThreeRow::ThreeRow(u32 l)
     : PlayerAbstract(THREE_ROW_HEALTH + THREE_ROW_POWER_INCREASE * (l - 1), l) {
 }
 
-void ThreeRow::accept(VisitorGUI *visitor) const { visitor->visitThreeRow(); }
+void ThreeRow::accept(VisitorInterface *visitor) const {
+  visitor->visitThreeRow();
+}
 
 ThreeRow *ThreeRow::clone() const { return new ThreeRow(*this); }
 
@@ -161,7 +163,9 @@ SlowDown::SlowDown(u32 l)
     : PlayerAbstract(SLOW_DOWN_HEALTH + SLOW_DOWN_HEALTH_INCREASE * (l - 1),
                      l) {}
 
-void SlowDown::accept(VisitorGUI *visitor) const { visitor->visitSlowDown(); }
+void SlowDown::accept(VisitorInterface *visitor) const {
+  visitor->visitSlowDown();
+}
 
 SlowDown *SlowDown::clone() const { return new SlowDown(*this); }
 

@@ -11,7 +11,7 @@ DamageEnemy *Enemy::attack() const { return new DamageEnemy(a); }
 
 u32 Enemy::move() const { return s; }
 
-void Enemy::accept(VisitorGUI *v) const { v->visitEnemy(); }
+void Enemy::accept(VisitorInterface *v) const { v->visitEnemy(); }
 
 Enemy *Enemy::clone() const { return new Enemy(*this); }
 
@@ -28,7 +28,7 @@ bool EnemyDefense::sufferDamage(DamageAbstract *d) {
   }
 }
 
-void EnemyDefense::accept(VisitorGUI *v) const { v->visitEnemyDefense(); }
+void EnemyDefense::accept(VisitorInterface *v) const { v->visitEnemyDefense(); }
 
 EnemyDefense *EnemyDefense::clone() const { return new EnemyDefense(*this); }
 
@@ -36,6 +36,6 @@ EnemyBig::EnemyBig(u32 min, u32 max) : Enemy(min * 2, max * 2, false, true) {}
 
 u32 EnemyBig::move() const { return Enemy::move() / 2; }
 
-void EnemyBig::accept(VisitorGUI *v) const { v->visitEnemyBig(); }
+void EnemyBig::accept(VisitorInterface *v) const { v->visitEnemyBig(); }
 
 EnemyBig *EnemyBig::clone() const { return new EnemyBig(*this); }

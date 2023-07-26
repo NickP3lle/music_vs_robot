@@ -1,19 +1,19 @@
 #pragma once
 #include "../include.h"
 
-class Cash : public DataManagerInterface, public Observable {
-  private:
-    static Cash *instance;
-    u32 cash;
-    Cash();
+class Cash : public DataManagerInterface, public ObservableInterface {
+private:
+  static Cash *instance;
+  u32 cash;
+  Cash();
 
-  public:
-    static Cash *getInstance();
-    static void add(u32);
-    static bool sub(u32);
-    static u32 get();
-    static void cleanUp();
+public:
+  static Cash *getInstance();
+  static void add(u32);
+  static bool sub(u32);
+  static u32 get();
+  static void cleanUp();
 
-    std::string toString() const override;
-    Cash *fromString(std::string) override;
+  std::string toString() const override;
+  Cash *fromString(std::string) override;
 };

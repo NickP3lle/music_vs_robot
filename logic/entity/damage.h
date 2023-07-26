@@ -1,7 +1,7 @@
 #pragma once
 #include "../include.h"
 
-class DamageAbstract : public AcceptGUI, public Cloneable {
+class DamageAbstract : public VisitableInterface, public CloneableInterface {
   u32 d;
 
 public:
@@ -14,7 +14,7 @@ class DamageBullet : public DamageAbstract {
 private:
 public:
   DamageBullet(u32 damage);
-  void accept(VisitorGUI *visitor) const override;
+  void accept(VisitorInterface *visitor) const override;
   DamageBullet *clone() const override;
 };
 
@@ -25,7 +25,7 @@ private:
 public:
   DamageSlow(u32 damage, u32 slow);
   bool getSlow() override;
-  void accept(VisitorGUI *visitor) const override;
+  void accept(VisitorInterface *visitor) const override;
   DamageSlow *clone() const override;
 };
 
@@ -36,7 +36,7 @@ private:
 public:
   DamageWave(u32 wave);
   bool oneWave();
-  void accept(VisitorGUI *visitor) const override;
+  void accept(VisitorInterface *visitor) const override;
   DamageWave *clone() const override;
 };
 
@@ -44,6 +44,6 @@ class DamageEnemy : public DamageAbstract {
 private:
 public:
   DamageEnemy(u32 damage);
-  void accept(VisitorGUI *visitor) const override;
+  void accept(VisitorInterface *visitor) const override;
   DamageEnemy *clone() const override;
 };

@@ -3,7 +3,7 @@
 #include "../include.h"
 #include "playground_enemy.h"
 
-class PlaygroundDamage : public ObservablePlayground<DamageAbstract> {
+class PlaygroundDamage : public PlaygroundObservableInterface<DamageAbstract> {
 private:
   ptr<DamageAbstract> damage[ROWS][COLS];
   static PlaygroundDamage *instance;

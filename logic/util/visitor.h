@@ -1,6 +1,6 @@
 #pragma once
 
-class VisitorGUI {
+class VisitorInterface {
 public:
   /// Damage
   virtual void visitDamageBullet() const = 0;
@@ -26,12 +26,12 @@ public:
   virtual void visitToolBoots() const = 0;
   virtual void visitToolRing() const = 0;
 
-  virtual ~VisitorGUI() = default;
+  virtual ~VisitorInterface() = default;
 };
 
-class AcceptGUI {
+class VisitableInterface {
 public:
-  virtual void accept(VisitorGUI *visitor) const = 0;
+  virtual void accept(VisitorInterface *visitor) const = 0;
 
-  virtual ~AcceptGUI() = default;
+  virtual ~VisitableInterface() = default;
 };

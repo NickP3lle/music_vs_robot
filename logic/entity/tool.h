@@ -1,7 +1,7 @@
 #pragma once
 #include "damage.h"
 
-class Tool : public Cloneable, public AcceptGUI {
+class Tool : public CloneableInterface, public VisitableInterface {
 private:
   short int durability;
 
@@ -14,7 +14,7 @@ public:
   virtual u32 value() const;
 
   Tool *clone() const override;
-  void accept(VisitorGUI *) const override;
+  void accept(VisitorInterface *) const override;
 };
 
 class ToolWeapon : public Tool {
@@ -26,7 +26,7 @@ public:
   u32 attack() override;
   bool sufferDamage(DamageAbstract *) override;
   ToolWeapon *clone() const override;
-  void accept(VisitorGUI *) const override;
+  void accept(VisitorInterface *) const override;
 };
 
 class ToolArmor : public Tool {
@@ -34,7 +34,7 @@ public:
   ToolArmor(u32);
   bool sufferDamage(DamageAbstract *) override;
   ToolArmor *clone() const override;
-  void accept(VisitorGUI *) const override;
+  void accept(VisitorInterface *) const override;
 };
 
 class ToolBoots : public Tool {
@@ -46,7 +46,7 @@ public:
   bool sufferDamage(DamageAbstract *) override;
   u32 move() override;
   ToolBoots *clone() const override;
-  void accept(VisitorGUI *) const override;
+  void accept(VisitorInterface *) const override;
 };
 
 class ToolRing : public Tool {
@@ -57,5 +57,5 @@ public:
   ToolRing(u32);
   u32 value() const override;
   ToolRing *clone() const override;
-  void accept(VisitorGUI *) const override;
+  void accept(VisitorInterface *) const override;
 };

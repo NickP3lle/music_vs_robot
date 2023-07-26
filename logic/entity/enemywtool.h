@@ -19,7 +19,7 @@ public:
   EnemyWTool(u32 min, u32 max);
   bool isAlive() const;
 
-  void accept(VisitorGUI *) const override;
+  void accept(VisitorInterface *) const override;
   EnemyWTool *clone() const override;
 
   bool sufferDamage(DamageAbstract *) override;

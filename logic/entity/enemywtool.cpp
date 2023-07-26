@@ -8,7 +8,7 @@ bool EnemyWTool::isAlive() const { return e; }
 EnemyWTool::EnemyWTool(u32 min, u32 max)
     : EnemyWTool(getEnemy(min, max), getTool(min, max)) {}
 
-void EnemyWTool::accept(VisitorGUI *visitor) const {
+void EnemyWTool::accept(VisitorInterface *visitor) const {
   e->accept(visitor);
   t->accept(visitor);
 }
