@@ -2,7 +2,7 @@
 #include "../include.h"
 #include "damage.h"
 
-class EntityAbstract : public DataManagerInterface,
+class EntityAbstract : // public DataManagerInterface,
                        public VisitableInterface,
                        public CloneableInterface {
 public:

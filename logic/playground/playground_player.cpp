@@ -1,14 +1,5 @@
 #include "playground_player.h"
 
-PlaygroundPlayer *PlaygroundPlayer::instance = nullptr;
-
-PlaygroundPlayer *PlaygroundPlayer::getInstance() {
-  if (instance == nullptr) {
-    instance = new PlaygroundPlayer();
-  }
-  return instance;
-}
-
 bool PlaygroundPlayer::insert(u32 r, u32 c, PlayerAbstract *p) {
   if (this->player[r][c] || !Cash::getInstance()->sub(p->getCost())) {
     return false;
@@ -29,13 +20,6 @@ bool PlaygroundPlayer::remove(u32 r, u32 c) {
 
 bool PlaygroundPlayer::isEmpty(u32 r, u32 c) const {
   return !this->player[r][c];
-}
-
-void PlaygroundPlayer::cleanUp() {
-  if (instance) {
-    delete instance;
-    instance = nullptr;
-  }
 }
 
 bool PlaygroundPlayer::levelUp(u32 r, u32 c) const {

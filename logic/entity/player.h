@@ -1,7 +1,7 @@
 #include "../playground/cash.h"
 #include "entity.h"
 
-class PlayerAbstract : public EntityAbstract {
+class PlayerAbstract : public EntityAbstract, public DataManagerInterface {
 private:
   u32 h, l;
 

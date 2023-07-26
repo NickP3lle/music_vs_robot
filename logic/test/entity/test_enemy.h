@@ -1,6 +1,6 @@
 #include "../../entity/enemy.h"
 
-class MockVisitor : public VisitorGUI {
+class MockVisitor : public VisitorInterface {
   void visitDamageBullet() const override{};
   void visitDamageSlow() const override{};
   void visitDamageWave() const override{};

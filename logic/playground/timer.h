@@ -6,10 +6,11 @@ private:
   static Timer *instance;
   u32 t;
   Timer();
+  static void add(u32);
 
 public:
   static Timer *getInstance();
-  static void add(u32);
+  static void oneSecond();
   static bool sub(u32);
   static u32 get();
   static void cleanUp();

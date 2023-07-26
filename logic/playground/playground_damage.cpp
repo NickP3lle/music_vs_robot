@@ -1,14 +1,5 @@
 #include "playground_damage.h"
 
-PlaygroundDamage *PlaygroundDamage::instance = nullptr;
-
-PlaygroundDamage *PlaygroundDamage::getInstance() {
-  if (instance == nullptr) {
-    instance = new PlaygroundDamage();
-  }
-  return instance;
-}
-
 void PlaygroundDamage::insert(u32 r, u32 c, DamageAbstract *d) {
   this->damage[r][c] = d;
   notifyObservers(r, c);
@@ -25,13 +16,6 @@ bool PlaygroundDamage::remove(u32 r, u32 c) {
 
 bool PlaygroundDamage::isEmpty(u32 r, u32 c) const {
   return !this->damage[r][c];
-}
-
-void PlaygroundDamage::cleanUp() {
-  if (instance) {
-    delete instance;
-    instance = nullptr;
-  }
 }
 
 DamageAbstract *PlaygroundDamage::get(u32 r, u32 c) {
