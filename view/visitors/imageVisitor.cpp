@@ -1,24 +1,15 @@
-#include "imageVisitor.h"
+#include "ImageVisitor.h"
 
-#include "../../music/music_instrument.h"
-#include "../../robot/robot.h"
+void ImageVisitor::visitSlowDown() const { pixmap = new QPixmap(":/assets/violin.png"); }
 
-void imageVisitor::visitViolin() {
-  pixmap = new QPixmap(":/assets/violin.png");
-}
+void ImageVisitor::visitThreeRow() const { pixmap = new QPixmap(":/assets/trumpet.png"); }
 
-void imageVisitor::visitTrumpet() {
-  pixmap = new QPixmap(":/assets/trumpet.png");
-}
+void ImageVisitor::visitThreeColumn() const { pixmap = new QPixmap(":/assets/drum.png"); }
 
-void imageVisitor::visitDrum() { pixmap = new QPixmap(":/assets/drum.png"); }
+void ImageVisitor::visitSample() const { pixmap = new QPixmap(":/assets/flute.png"); }
 
-void imageVisitor::visitFlute() { pixmap = new QPixmap(":/assets/flute.png"); }
+void ImageVisitor::visitDoubleLife() const { pixmap = new QPixmap(":/assets/saxophone.png"); }
 
-void imageVisitor::visitSaxophone() {
-  pixmap = new QPixmap(":/assets/saxophone.png");
-}
+void ImageVisitor::visitEnemy() const { pixmap = new QPixmap(":/assets/robot.png"); }
 
-void imageVisitor::visitRobot() { pixmap = new QPixmap(":/assets/robot.png"); }
-
-QPixmap *imageVisitor::getPixmap() const { return pixmap; }
+QPixmap *ImageVisitor::getPixmap() const { return pixmap; }
