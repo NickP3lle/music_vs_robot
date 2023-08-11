@@ -9,6 +9,7 @@
 #include "util/observable.h"
 #include "util/observer.h"
 #include "util/observer_playground.h"
+#include "util/observervable_playground.h"
 #include "util/ptr.h"
 #include "util/visitor.h"
 #include <memory>

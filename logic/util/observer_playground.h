@@ -1,14 +1,7 @@
 #pragma once
-#include "deque.h"
-#include "playground_observer.h"
+#define u32 unsigned int
 
-template <typename T> class PlaygroundObservableInterface {
-protected:
-  deque<PlaygroundObserverInterface<T> *> obs;
-
+template <typename T> class PlaygroundObserverInterface {
 public:
-  void addObserver(PlaygroundObserverInterface<T> *observer);
-  void removeObserver(PlaygroundObserverInterface<T> *observer);
-  virtual void notifyObservers(u32 row, u32 col) const = 0;
-  virtual ~PlaygroundObservableInterface() = default;
+  virtual void update(u32 row, u32 col, T *e) = 0;
 };

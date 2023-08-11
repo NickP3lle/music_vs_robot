@@ -33,6 +33,15 @@ void DamageSlow::accept(VisitorInterface *visitor) const {
 
 DamageSlow *DamageSlow::clone() const { return new DamageSlow(*this); }
 
+/*
+ *  DamageAbstract *DamageSlow::clone() const {
+ *    u32 d = const_cast<DamageSlow *>(this)->getDamage();
+ *    if (slow > 0)
+ *      return new DamageSlow(d, slow);
+ *     return new DamageBullet(d);
+ *  }
+ */
+
 /// WaveDamage
 DamageWave::DamageWave(u32 wave) : DamageAbstract(wave), persistance(4) {}
 

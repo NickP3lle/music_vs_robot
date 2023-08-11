@@ -6,7 +6,7 @@ class DamageAbstract : public VisitableInterface, public CloneableInterface {
 
 public:
   DamageAbstract(u32 damage);
-  virtual u32 &getDamage();
+  u32 &getDamage();
   virtual bool getSlow();
 };
 
