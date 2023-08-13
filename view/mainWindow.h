@@ -12,9 +12,7 @@ class MainWindow : public QMainWindow {
   Q_OBJECT
 
 private:
-  QStackedWidget *stackedWidget;
-  StartWidget *startWidget;
-  PlaygroundWidget *playgroundWidget;
+  QStackedWidget *sw;
   QTimer timer;
 
   void startGame();
