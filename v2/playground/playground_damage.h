@@ -5,14 +5,14 @@
 
 class PlaygroundDamage : public PlaygroundObservableInterface<DamageAbstract> {
 private:
-  ptr<DamageAbstract> damage[ROWS][COLS];
+  ptr<DamagePlayer> damage[ROWS][COLS];
 
 public:
-  void insert(u32 row, u32 col, DamageAbstract *d);
+  void insert(u32 row, u32 col, DamagePlayer *d);
   bool remove(u32 row, u32 col);
   bool isEmpty(u32 row, u32 col) const;
-  DamageAbstract *get(u32 row, u32 col);
-  const DamageAbstract *get(u32 row, u32 col) const;
+  DamagePlayer *get(u32 row, u32 col);
+  const DamagePlayer *get(u32 row, u32 col) const;
   void attack(PlaygroundEnemy *);
   void move();
   bool isSlow(u32 row, u32 col);

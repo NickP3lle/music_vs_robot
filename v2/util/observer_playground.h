@@ -3,5 +3,5 @@
 
 template <typename T> class PlaygroundObserverInterface {
 public:
-  virtual void update(u32 row, u32 col, T *e) = 0;
+  virtual void update(u32 row, u32 col, const T *e) = 0;
 };

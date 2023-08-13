@@ -14,6 +14,9 @@ public:
   static bool sub(u32);
   static u32 get();
   static void cleanUp();
+  static void start();
+  static u32 minutes();
+  static u32 seconds();
 
   std::string toString() const override;
   Timer *fromString(std::string) override;

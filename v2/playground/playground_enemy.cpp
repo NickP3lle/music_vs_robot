@@ -61,12 +61,14 @@ void PlaygroundEnemy::attack(PlaygroundPlayer *p) const {
   for (u32 r = 0; r < ROWS; ++r) {
     for (u32 c = 0; c < COLS; ++c) {
       if (!p->isEmpty(r, c)) {
-        get(r, c)
-            .iter([](EnemyWTool *e) { return e->attack(); })
-            .iter([p, r, c](DamageEnemy &d) {
-              if (p->get(r, c)->sufferDamage(&d))
-                p->remove(r, c);
-            });
+        DamageEnemy d = DamageEnemy(0);
+        get(r, c).iter([&](const EnemyWTool *e) {
+          DamageEnemy *tmp = e->attack();
+          d = d + *tmp;
+          delete tmp;
+        });
+        if (p->get(r, c)->sufferDamage(&d))
+          p->remove(r, c);
       }
     }
   }
@@ -88,7 +90,6 @@ bool PlaygroundEnemy::move(PlaygroundPlayer *pp) {
         mv = c - std::min(mv, nearestPlayer(r, c, pp));
 
         if (mv == 0) {
-          obs.iter([](auto o) { o->notifyEndGame(); });
           return true;
         }
         insert(r, mv, e);
@@ -101,5 +102,5 @@ bool PlaygroundEnemy::move(PlaygroundPlayer *pp) {
 void PlaygroundEnemy::notifyObservers(u32 r, u32 c) const {
   obs.iter([&](auto o) { o->update(r, c, nullptr); });
   get(r, c).iter(
-      [&](auto e) { obs.iter([&](auto o) { o->update(r, c, &e); }); });
+      [&](auto e) { obs.iter([&](auto o) { o->update(r, c, e); }); });
 }

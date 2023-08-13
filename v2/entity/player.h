@@ -1,3 +1,4 @@
+#pragma once
 #include "../playground/cash.h"
 #include "entity.h"
 
@@ -12,6 +13,7 @@ public:
   u32 getLevel() const;
   virtual void levelUp();
   virtual u32 getCost() const = 0;
+  virtual DamagePlayer *attack() const override = 0;
 
   std::string toString() const override;
 };

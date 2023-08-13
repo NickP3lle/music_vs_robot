@@ -25,15 +25,6 @@ void DamageSlow::accept(VisitorInterface *visitor) const {
   visitor->visitDamageSlow();
 }
 
-/*
- *  DamageAbstract *DamageSlow::clone() const {
- *    u32 d = const_cast<DamageSlow *>(this)->getDamage();
- *    if (slow > 0)
- *      return new DamageSlow(d, slow);
- *     return new DamageBullet(d);
- *  }
- */
-
 /// DamageWave
 DamageWave::DamageWave(u32 wave) : d(wave), p(4) {}
 
@@ -75,9 +66,13 @@ u32 DamagePlayer::damage() {
 }
 
 void DamagePlayer::accept(VisitorInterface *visitor) const {
-  DamageBullet::accept(visitor);
-  DamageSlow::accept(visitor);
-  DamageWave::accept(visitor);
+  DamagePlayer *t = const_cast<DamagePlayer *>(this);
+  if (t->DamageBullet::damage() > 0)
+    DamageBullet::accept(visitor);
+  if (t->DamageSlow::getSlow() > 0)
+    DamageSlow::accept(visitor);
+  if (t->DamageWave::damage() > 0)
+    DamageWave::accept(visitor);
 }
 
 DamagePlayer *DamagePlayer::clone() const { return new DamagePlayer(*this); }

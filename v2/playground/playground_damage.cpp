@@ -1,6 +1,6 @@
 #include "playground_damage.h"
 
-void PlaygroundDamage::insert(u32 r, u32 c, DamageAbstract *d) {
+void PlaygroundDamage::insert(u32 r, u32 c, DamagePlayer *d) {
   this->damage[r][c] = d;
   notifyObservers(r, c);
 }
@@ -18,11 +18,11 @@ bool PlaygroundDamage::isEmpty(u32 r, u32 c) const {
   return !this->damage[r][c];
 }
 
-DamageAbstract *PlaygroundDamage::get(u32 r, u32 c) {
+DamagePlayer *PlaygroundDamage::get(u32 r, u32 c) {
   return &*this->damage[r][c];
 }
 
-const DamageAbstract *PlaygroundDamage::get(u32 r, u32 c) const {
+const DamagePlayer *PlaygroundDamage::get(u32 r, u32 c) const {
   return &*this->damage[r][c];
 }
 
@@ -31,9 +31,9 @@ void PlaygroundDamage::attack(PlaygroundEnemy *pe) {
     for (u32 c = 0; c < COLS - 1; c++) {
       if (!isEmpty(r, c) && !pe->isEmpty(r, c)) {
         if (dynamic_cast<DamageWave *>(get(r, c))) {
-          pe->get(r, c).iter([&](EnemyWTool e) {
-            e.sufferDamage(get(r, c));
-            pe->remove(r, c, e);
+          pe->get(r, c).iter([&](EnemyWTool *e) {
+            e->sufferDamage(get(r, c));
+            pe->remove(r, c, *e);
           });
         } else {
           if (pe->get(r, c)[0]->sufferDamage(get(r, c)))

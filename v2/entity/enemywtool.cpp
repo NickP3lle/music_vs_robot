@@ -30,6 +30,10 @@ DamageEnemy *EnemyWTool::attack() const {
   return d;
 }
 
+bool EnemyWTool::operator==(const EnemyWTool &other) const {
+  return *this == other;
+}
+
 u32 EnemyWTool::move() const { return e->move() + t->move(); }
 
 Enemy *EnemyWTool::getEnemy(u32 min, u32 max) {

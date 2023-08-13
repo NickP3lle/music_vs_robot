@@ -49,24 +49,25 @@ void PlaygroundPlayer::attack(PlaygroundDamage *pd) const {
       }
 
       // ThreeRow attack the row above and below
-      u32 u = 0;
       if (r > 0 && this->player[r - 1][c] &&
           dynamic_cast<const ThreeRow *>(&*this->player[r - 1][c])) {
-        DamageAbstract *d = this->player[r - 1][c]->attack();
-        u += d->getDamage();
-        delete d;
+        DamagePlayer *d = this->player[r - 1][c]->attack();
+        if (pd->isEmpty(r, c)) {
+          pd->insert(r, c, d);
+        } else {
+          *pd->get(r, c) = *pd->get(r, c) + *d;
+          delete d;
+        }
       }
       if (r < ROWS - 1 && this->player[r + 1][c] &&
           dynamic_cast<const ThreeRow *>(&*this->player[r + 1][c])) {
-        DamageAbstract *d = this->player[r + 1][c]->attack();
-        u += d->getDamage();
-        delete d;
-      }
-
-      if (!pd->isEmpty(r, c)) {
-        pd->get(r, c)->getDamage() += u;
-      } else if (u > 0) {
-        pd->insert(r, c, new DamageBullet(u));
+        DamagePlayer *d = this->player[r + 1][c]->attack();
+        if (pd->isEmpty(r, c)) {
+          pd->insert(r, c, d);
+        } else {
+          *pd->get(r, c) = *pd->get(r, c) + *d;
+          delete d;
+        }
       }
     }
   }

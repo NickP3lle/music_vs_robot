@@ -24,6 +24,7 @@ public:
 
   bool sufferDamage(DamageAbstract *) override;
   DamageEnemy *attack() const override;
+  bool operator==(const EnemyWTool &) const;
 
   u32 move() const;
 };

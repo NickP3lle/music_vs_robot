@@ -24,7 +24,6 @@ public:
   u32 size() const;
   template <typename S> const deque &iter(S lambda) const;
   template <typename S> deque<T *> filter(S lambda) const;
-  template <typename S, typename U> deque<U> iter(S lambda) const;
 };
 
 /// controlla che la size sia uguale alla capacità
@@ -152,13 +151,5 @@ deque<T *> deque<T>::filter(S lambda) const {
     if (lambda(e))
       d.push_back(&e);
   });
-  return d;
-}
-
-template <typename T>
-template <typename S, typename U>
-deque<U> deque<T>::iter(S lambda) const {
-  deque<U> d;
-  iter([&d, lambda](T &e) mutable { d.push_back(lambda(e)); });
   return d;
 }

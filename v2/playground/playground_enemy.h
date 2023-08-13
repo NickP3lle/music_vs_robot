@@ -5,7 +5,7 @@
 
 class PlaygroundPlayer;
 
-class PlaygroundEnemy : public PlaygroundObservableInterface<Enemy> {
+class PlaygroundEnemy : public PlaygroundObservableInterface<EnemyWTool> {
 private:
   deque<EnemyWTool> enemy[ROWS][COLS * FRAMES];
 

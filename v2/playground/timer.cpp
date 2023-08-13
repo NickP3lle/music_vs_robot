@@ -34,6 +34,12 @@ void Timer::cleanUp() {
   instance = nullptr;
 }
 
+void Timer::start() {}
+
+u32 Timer::minutes() { return getInstance()->t / 60; }
+
+u32 Timer::seconds() { return getInstance()->t % 60; }
+
 std::string Timer::toString() const {
   std::string s;
   s += "\"Timer\": " + std::to_string(t);
