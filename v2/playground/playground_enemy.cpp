@@ -74,7 +74,7 @@ void PlaygroundEnemy::attack(PlaygroundPlayer *p) const {
   }
 }
 
-bool PlaygroundEnemy::move(PlaygroundPlayer *pp) {
+bool PlaygroundEnemy::move(PlaygroundPlayer *pp, PlaygroundDamage *pd) {
   for (u32 r = 0; r < ROWS; ++r) {
     for (u32 c = 1; c < COLS * FRAMES; ++c) {
 
@@ -86,7 +86,7 @@ bool PlaygroundEnemy::move(PlaygroundPlayer *pp) {
 
       while (enemy[r][c].size() > 0) {
         EnemyWTool e = enemy[r][c].pop_front();
-        u32 mv = e.move() / isSlow(r, c);
+        u32 mv = e.move() / pd->isSlow(r, c);
         mv = c - std::min(mv, nearestPlayer(r, c, pp));
 
         if (mv == 0) {

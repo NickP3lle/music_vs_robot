@@ -3,7 +3,7 @@
 Playground *Playground::instance = nullptr;
 
 Playground *Playground::getInstance() {
-  if (!instance) {
+  if (instance == nullptr) {
     instance = new Playground();
   }
   return instance;
@@ -42,7 +42,7 @@ bool Playground::battle() {
   }
 
   PlaygroundEnemy::attack(this);
-  if (PlaygroundEnemy::move(this)) {
+  if (PlaygroundEnemy::move(this, this)) {
     return true;
   }
   PlaygroundEnemy::insert();

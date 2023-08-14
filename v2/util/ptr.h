@@ -21,11 +21,12 @@ public:
   operator bool() const;
 };
 
+#include <iostream>
 template <typename T>
-ptr<T>::ptr(T *const ptr) : p(static_cast<T *>(ptr->clone())) {}
+ptr<T>::ptr(T *const ptr) : p(ptr ? static_cast<T *>(ptr->clone()) : nullptr) {}
 
 template <typename T>
-ptr<T>::ptr(const ptr &o) : p(o ? o.p->clone() : nullptr) {}
+ptr<T>::ptr(const ptr &o) : p(o ? static_cast<T *>(o.p->clone()) : nullptr) {}
 
 template <typename T> ptr<T> &ptr<T>::operator=(const ptr &o) {
   if (this != &o) {

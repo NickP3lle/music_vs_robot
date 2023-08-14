@@ -4,6 +4,7 @@
 #include "timer.h"
 
 class PlaygroundPlayer;
+class PlaygroundDamage;
 
 class PlaygroundEnemy : public PlaygroundObservableInterface<EnemyWTool> {
 private:
@@ -11,7 +12,6 @@ private:
 
   void insert(u32 r, u32 c, EnemyWTool &e);
   u32 nearestPlayer(u32 r, u32 c, PlaygroundPlayer *pp);
-  bool isSlow(u32 r, u32 c);
 
 public:
   void insert();
@@ -21,7 +21,7 @@ public:
   deque<EnemyWTool *> get(u32 row, u32 col);
   deque<const EnemyWTool *> get(u32 row, u32 col) const;
   void attack(PlaygroundPlayer *) const;
-  bool move(PlaygroundPlayer *pp);
+  bool move(PlaygroundPlayer *pp, PlaygroundDamage *pd);
 
   void notifyObservers(u32 row, u32 col) const override;
 };

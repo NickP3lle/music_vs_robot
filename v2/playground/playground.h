@@ -9,7 +9,6 @@ class Playground : public PlaygroundDamage,
                    public PlaygroundPlayer {
 private:
   static Playground *instance;
-  Playground() = default;
 
 public:
   static Playground *getInstance();
