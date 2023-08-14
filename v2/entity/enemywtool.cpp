@@ -19,7 +19,7 @@ EnemyWTool *EnemyWTool::clone() const {
 
 u32 &EnemyWTool::getHealth() { return e->getHealth(); }
 
-bool EnemyWTool::sufferDamage(DamageAbstract *damage) {
+bool EnemyWTool::sufferDamage(DamageAbstract &damage) {
   t->sufferDamage(damage);
   return e->sufferDamage(damage);
 }

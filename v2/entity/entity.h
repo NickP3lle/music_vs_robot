@@ -7,7 +7,7 @@ class EntityAbstract : // public DataManagerInterface,
                        public ClonableInterface {
 public:
   virtual u32 &getHealth() = 0;
-  virtual bool sufferDamage(DamageAbstract *damage);
+  virtual bool sufferDamage(DamageAbstract &damage);
   // this might be a nullptr: DoubleLife
   virtual DamageAbstract *attack() const = 0;
 };

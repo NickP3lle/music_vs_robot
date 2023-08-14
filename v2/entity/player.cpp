@@ -105,7 +105,7 @@ DamagePlayer *DoubleLife::attack() const {
       0, 0, DOUBLE_LIFE_POWER + (getLevel() - 1) * DOUBLE_LIFE_POWER_INCREASE);
 }
 
-bool DoubleLife::sufferDamage(DamageAbstract *damage) {
+bool DoubleLife::sufferDamage(DamageAbstract &damage) {
   if (!EntityAbstract::sufferDamage(damage)) {
     return false;
   } else if (secondLife) {

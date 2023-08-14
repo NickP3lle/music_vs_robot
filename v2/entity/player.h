@@ -59,7 +59,7 @@ public:
 
   virtual DamagePlayer *attack() const override;
 
-  bool sufferDamage(DamageAbstract *damage) override;
+  bool sufferDamage(DamageAbstract &damage) override;
   void levelUp() override;
   u32 getCost() const override;
 };

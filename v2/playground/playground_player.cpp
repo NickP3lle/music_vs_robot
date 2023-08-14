@@ -33,15 +33,16 @@ bool PlaygroundPlayer::levelUp(u32 r, u32 c) const {
   return true;
 }
 
-PlayerAbstract *PlaygroundPlayer::get(u32 r, u32 c) {
-  return &*this->player[r][c];
+PlayerAbstract &PlaygroundPlayer::get(u32 r, u32 c) {
+  return *this->player[r][c];
 }
 
-const PlayerAbstract *PlaygroundPlayer::get(u32 r, u32 c) const {
-  return &*this->player[r][c];
+const PlayerAbstract &PlaygroundPlayer::get(u32 r, u32 c) const {
+  return *this->player[r][c];
 }
 
 void PlaygroundPlayer::attack(PlaygroundDamage *pd) const {
+  pd->clear();
   for (u32 r = 0; r < ROWS; r++) {
     for (u32 c = 0; c < COLS - 1; c++) {
       if (this->player[r][c]) {
@@ -55,7 +56,7 @@ void PlaygroundPlayer::attack(PlaygroundDamage *pd) const {
         if (pd->isEmpty(r, c)) {
           pd->insert(r, c, d);
         } else {
-          *pd->get(r, c) = *pd->get(r, c) + *d;
+          pd->get(r, c) = pd->get(r, c) + *d;
           delete d;
         }
       }
@@ -65,7 +66,7 @@ void PlaygroundPlayer::attack(PlaygroundDamage *pd) const {
         if (pd->isEmpty(r, c)) {
           pd->insert(r, c, d);
         } else {
-          *pd->get(r, c) = *pd->get(r, c) + *d;
+          pd->get(r, c) = pd->get(r, c) + *d;
           delete d;
         }
       }
@@ -74,5 +75,5 @@ void PlaygroundPlayer::attack(PlaygroundDamage *pd) const {
 }
 
 void PlaygroundPlayer::notifyObservers(u32 r, u32 c) const {
-  obs.iter([&](auto o) { o->update(r, c, this->get(r, c)); });
+  obs.iter([&](auto o) { o->update(r, c, &this->get(r, c)); });
 }

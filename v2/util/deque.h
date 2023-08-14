@@ -23,6 +23,7 @@ public:
   T &operator[](u32) const;
   u32 size() const;
   template <typename S> const deque &iter(S lambda) const;
+  template <typename S, typename U> deque<U> iter(S lambda) const;
   template <typename S> deque<T *> filter(S lambda) const;
 };
 
@@ -138,6 +139,15 @@ template <typename S>
 const deque<T> &deque<T>::iter(S lambda) const {
   for (u32 i = 0; i < s; i++)
     lambda((*this)[i]);
+  return *this;
+}
+
+template <typename T>
+template <typename S, typename U>
+deque<U> deque<T>::iter(S lambda) const {
+  deque<U> d;
+  for (u32 i = 0; i < s; i++)
+    d.pushback(lambda((*this)[i]));
   return *this;
 }
 

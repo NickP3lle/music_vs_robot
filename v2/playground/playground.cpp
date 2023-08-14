@@ -36,15 +36,23 @@ bool Playground::battle() {
   PlaygroundPlayer::attack(this);
 
   for (u32 i = 0; i < COLS; ++i) {
-    PlaygroundDamage::move();
+    std::cout << "damage move " << i << std::endl;
+    PlaygroundDamage::move(this);
+    std::cout << "damage attack " << i << std::endl;
     PlaygroundDamage::attack(this);
     // there should be a timer of some kind here
   }
 
+  std::cout << "enemy attack" << std::endl;
+
   PlaygroundEnemy::attack(this);
+
+  std::cout << "enemy move" << std::endl;
   if (PlaygroundEnemy::move(this, this)) {
     return true;
   }
+
+  std::cout << "enemy insert" << std::endl;
   PlaygroundEnemy::insert();
   Timer::oneSecond();
   return false;

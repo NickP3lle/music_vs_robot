@@ -15,6 +15,7 @@ DamageSlow::DamageSlow(u32 slow) : s(slow) {}
 u32 DamageSlow::getSlow() { return s; }
 
 bool DamageSlow::slow() {
+  std::cout << "slow: " << s << std::endl;
   if (s == 0)
     return false;
   s--;
@@ -28,7 +29,10 @@ void DamageSlow::accept(VisitorInterface *visitor) const {
 /// DamageWave
 DamageWave::DamageWave(u32 wave) : d(wave), p(4) {}
 
-bool DamageWave::oneWave() { return p-- > 0; }
+void DamageWave::oneWave() {
+  if (--p < 1)
+    d = 0;
+}
 
 u32 &DamageWave::damage() { return d; }
 

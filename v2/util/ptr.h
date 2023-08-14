@@ -11,7 +11,7 @@ private:
   T *p;
 
 public:
-  ptr(T *const = nullptr);
+  ptr(const T *const = nullptr);
   ptr(const ptr &);
   ptr &operator=(const ptr &);
   ~ptr();
@@ -23,7 +23,8 @@ public:
 
 #include <iostream>
 template <typename T>
-ptr<T>::ptr(T *const ptr) : p(ptr ? static_cast<T *>(ptr->clone()) : nullptr) {}
+ptr<T>::ptr(const T *const ptr)
+    : p(ptr ? static_cast<T *>(ptr->clone()) : nullptr) {}
 
 template <typename T>
 ptr<T>::ptr(const ptr &o) : p(o ? static_cast<T *>(o.p->clone()) : nullptr) {}

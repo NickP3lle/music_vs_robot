@@ -35,7 +35,7 @@ private:
 
 public:
   DamageWave(u32 damage);
-  bool oneWave();
+  void oneWave();
   u32 &damage();
   void accept(VisitorInterface *visitor) const override;
 };

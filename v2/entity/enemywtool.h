@@ -22,7 +22,7 @@ public:
   void accept(VisitorInterface *) const override;
   EnemyWTool *clone() const override;
 
-  bool sufferDamage(DamageAbstract *) override;
+  bool sufferDamage(DamageAbstract &) override;
   DamageEnemy *attack() const override;
   bool operator==(const EnemyWTool &) const;
 

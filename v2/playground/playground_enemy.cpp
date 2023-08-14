@@ -9,7 +9,7 @@ void PlaygroundEnemy::insert(u32 r, u32 c, EnemyWTool &e) {
 u32 PlaygroundEnemy::nearestPlayer(u32 r, u32 c, PlaygroundPlayer *pp) {
   c--;
 
-  if (pp->get(r, c / FRAMES))
+  if (pp->isEmpty(r, c / FRAMES))
     return 0;
 
   for (u32 i = 0; i <= c / FRAMES; ++i)
@@ -26,11 +26,11 @@ void PlaygroundEnemy::insert() {
   notifyObservers(r, COLS - 1);
 }
 
-bool PlaygroundEnemy::remove(u32 r, u32 c, EnemyWTool &e) {
+bool PlaygroundEnemy::remove(u32 r, u32 c, EnemyWTool *e) {
   bool f = false;
   c *= FRAMES;
   for (u32 i = c; i < c + FRAMES; ++i) {
-    bool f = enemy[r][i].remove(e);
+    bool f = enemy[r][i].remove(*e);
   }
   if (f)
     notifyObservers(r, c);
@@ -38,7 +38,7 @@ bool PlaygroundEnemy::remove(u32 r, u32 c, EnemyWTool &e) {
 }
 
 bool PlaygroundEnemy::isEmpty(u32 r, u32 c) const {
-  return get(r, c).size() > 0;
+  return get(r, c).size() == 0;
 }
 
 deque<EnemyWTool *> PlaygroundEnemy::get(u32 r, u32 c) {
@@ -50,7 +50,11 @@ deque<EnemyWTool *> PlaygroundEnemy::get(u32 r, u32 c) {
 }
 
 deque<const EnemyWTool *> PlaygroundEnemy::get(u32 r, u32 c) const {
-  deque<const EnemyWTool *> d;
+  u32 size = 0;
+  for (u32 i = c * FRAMES; i < (c + 1) * FRAMES; ++i)
+    size += enemy[r][i].size();
+
+  deque<const EnemyWTool *> d(size);
   for (u32 i = c * FRAMES; i < (c + 1) * FRAMES; ++i) {
     enemy[r][i].iter([&d](EnemyWTool &e) { d.push_back(&e); });
   }
@@ -67,7 +71,7 @@ void PlaygroundEnemy::attack(PlaygroundPlayer *p) const {
           d = d + *tmp;
           delete tmp;
         });
-        if (p->get(r, c)->sufferDamage(&d))
+        if (p->get(r, c).sufferDamage(d))
           p->remove(r, c);
       }
     }
@@ -77,6 +81,7 @@ void PlaygroundEnemy::attack(PlaygroundPlayer *p) const {
 bool PlaygroundEnemy::move(PlaygroundPlayer *pp, PlaygroundDamage *pd) {
   for (u32 r = 0; r < ROWS; ++r) {
     for (u32 c = 1; c < COLS * FRAMES; ++c) {
+      std::cout << "move 1 r: " << r << " c: " << c << std::endl;
 
       // check if there is an enemy in the current cell
       if (!pp->isEmpty(r, c / FRAMES)) {
@@ -84,16 +89,35 @@ bool PlaygroundEnemy::move(PlaygroundPlayer *pp, PlaygroundDamage *pd) {
         continue;
       }
 
-      while (enemy[r][c].size() > 0) {
-        EnemyWTool e = enemy[r][c].pop_front();
-        u32 mv = e.move() / pd->isSlow(r, c);
-        mv = c - std::min(mv, nearestPlayer(r, c, pp));
+      u32 np = nearestPlayer(r, c, pp);
+      // std::cout << "move 2 np: " << np << std::endl;
 
-        if (mv == 0) {
+      while (enemy[r][c].size() > 0) {
+        // std::cout << "move 3" << std::endl;
+        EnemyWTool e = enemy[r][c].pop_front();
+        if (e.move() == 0) {
           return true;
         }
-        insert(r, mv, e);
+        // std::cout << "move 4" << std::endl;
+
+        u32 mv = e.move() / (pd->isSlow(r, c) + 1);
+        mv = c - std::min(mv, np);
+
+        // std::cout << "move 5 mv: " << mv << std::endl;
+
+        if (mv == 0) {
+          enemy[r][0].push_back(e);
+          notifyObservers(r, 0);
+          return true;
+        }
+
+        std::cout << "move 6 from: " << c << std::endl;
+
+        enemy[r][mv].push_back(e);
       }
+    }
+    for (u32 c = 0; c < COLS; ++c) {
+      notifyObservers(r, c);
     }
   }
   return false;

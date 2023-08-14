@@ -2,7 +2,7 @@
 
 Enemy::Enemy(u32 min, u32 max, bool isFast, bool isRich)
     : h(randomInt(max, min)), a(randomInt(max, min)),
-      s(randomInt(max, min) * (1 + isFast)),
+      s(randomInt(ROBOT_MAX_SPEED, ROBOT_MIN_SPEED) * (1 + isFast)),
       v(randomInt(max, min) * (1 + isRich)) {}
 
 u32 &Enemy::getHealth() { return h; }
@@ -17,9 +17,9 @@ Enemy *Enemy::clone() const { return new Enemy(*this); }
 
 EnemyDefense::EnemyDefense(u32 min, u32 max) : Enemy(min, max) {}
 
-bool EnemyDefense::sufferDamage(DamageAbstract *d) {
-  *d / 2; // doesn't look good, though DamageAbstract is abstract
-  u32 damage = d->damage();
+bool EnemyDefense::sufferDamage(DamageAbstract &d) {
+  d / 2; // doesn't look good, though DamageAbstract is abstract
+  u32 damage = d.damage();
   if (damage > getHealth()) {
     getHealth() = 0;
     return true;

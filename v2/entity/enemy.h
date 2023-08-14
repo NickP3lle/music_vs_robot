@@ -19,7 +19,7 @@ public:
 class EnemyDefense : public Enemy {
 public:
   EnemyDefense(u32, u32);
-  bool sufferDamage(DamageAbstract *) override;
+  bool sufferDamage(DamageAbstract &) override;
   void accept(VisitorInterface *) const override;
   EnemyDefense *clone() const override;
 };
