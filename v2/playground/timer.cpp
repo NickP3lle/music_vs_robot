@@ -15,18 +15,12 @@ void Timer::add(u32 amount) {
   instance->notify();
 }
 
-bool Timer::sub(u32 amount) {
-  if (amount > getInstance()->t)
-    return false;
-  instance->t -= amount;
-  instance->notify();
-  return true;
-}
-
 void Timer::oneSecond() { Timer::add(1); }
 
 u32 Timer::get() { return getInstance()->t; }
 
+// tutti i campi dati di Timer sono cancellati, quindi anche gli osservatori
+// sono cancellati
 void Timer::cleanUp() {
   if (instance == nullptr)
     return;
@@ -34,7 +28,7 @@ void Timer::cleanUp() {
   instance = nullptr;
 }
 
-void Timer::start() {}
+void Timer::start() { getInstance()->t = 0; }
 
 u32 Timer::minutes() { return getInstance()->t / 60; }
 

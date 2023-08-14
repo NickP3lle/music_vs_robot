@@ -1,7 +1,7 @@
 #pragma once
 #include "../include.h"
 
-class Cash : public DataManagerInterface, public ObservableInterface {
+class Cash : public DataManagerInterface, public ObservableInterface<Cash> {
 private:
   static Cash *instance;
   u32 cash;

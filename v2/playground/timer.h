@@ -1,17 +1,16 @@
 #pragma once
 #include "../include.h"
 
-class Timer : public DataManagerInterface, public ObservableInterface {
+class Timer : public DataManagerInterface, public ObservableInterface<Timer> {
 private:
   static Timer *instance;
   u32 t;
   Timer();
-  static void add(u32);
 
 public:
   static Timer *getInstance();
+  static void add(u32);
   static void oneSecond();
-  static bool sub(u32);
   static u32 get();
   static void cleanUp();
   static void start();
