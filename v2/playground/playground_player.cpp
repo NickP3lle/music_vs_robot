@@ -52,7 +52,6 @@ void PlaygroundPlayer::attack(PlaygroundDamage &pd) const {
     for (u32 c = 0; c < COLS - 1; c++) {
       DamagePlayer *d;
       if (!isEmpty(r, c)) {
-
         d = get(r, c).attack();
         pd.insert(r, c, *d);
         delete d;
@@ -65,7 +64,7 @@ void PlaygroundPlayer::attack(PlaygroundDamage &pd) const {
         pd.insert(r, c, *d);
         delete d;
       }
-      if (r > 0 && !isEmpty(r + 1, c) &&
+      if (r < ROWS - 1 && !isEmpty(r + 1, c) &&
           dynamic_cast<const ThreeRow *>(&get(r + 1, c))) {
         d = get(r + 1, c).attack();
         pd.insert(r, c, *d);

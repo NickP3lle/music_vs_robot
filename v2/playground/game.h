@@ -4,15 +4,16 @@
 #include "playground_player.h"
 #include "timer.h"
 
-class Playground : public PlaygroundDamage,
-                   public PlaygroundEnemy,
-                   public PlaygroundPlayer {
+class Game : public PlaygroundDamage,
+             public PlaygroundEnemy,
+             public PlaygroundPlayer,
+             public ObservableGameInterface {
 private:
-  static Playground *instance;
+  static Game *instance;
 
 public:
-  static Playground *getInstance();
-  ~Playground();
+  static Game *getInstance();
+  ~Game();
   void cleanUp();
   bool insert(u32 r, u32 c, const PlayerAbstract &p);
   bool remove(u32 r, u32 c);
@@ -20,5 +21,5 @@ public:
   // and it's not ambiguos
   bool isEmpty(u32 r, u32 c) const;
   PlayerAbstract &get(u32 r, u32 c);
-  bool battle();
+  void battle();
 };

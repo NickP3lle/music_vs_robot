@@ -1,38 +1,39 @@
-#include "playground.h"
+#include "game.h"
 
-Playground *Playground::instance = nullptr;
+Game *Game::instance = nullptr;
 
-Playground *Playground::getInstance() {
+Game *Game::getInstance() {
   if (instance == nullptr) {
-    instance = new Playground();
+    instance = new Game();
   }
   return instance;
 }
 
-Playground::~Playground() {
+Game::~Game() {
   if (instance) {
     delete instance;
     instance = nullptr;
   }
 }
 
-void Playground::cleanUp() { this->~Playground(); }
+void Game::cleanUp() {
+  this->~Game();
+  notifyClearGame();
+}
 
-bool Playground::insert(u32 r, u32 c, const PlayerAbstract &p) {
+bool Game::insert(u32 r, u32 c, const PlayerAbstract &p) {
   return PlaygroundPlayer::insert(r, c, p);
 }
 
-bool Playground::remove(u32 r, u32 c) { return PlaygroundPlayer::remove(r, c); }
+bool Game::remove(u32 r, u32 c) { return PlaygroundPlayer::remove(r, c); }
 
-bool Playground::isEmpty(u32 r, u32 c) const {
+bool Game::isEmpty(u32 r, u32 c) const {
   return PlaygroundPlayer::isEmpty(r, c);
 }
 
-PlayerAbstract &Playground::get(u32 r, u32 c) {
-  return PlaygroundPlayer::get(r, c);
-}
+PlayerAbstract &Game::get(u32 r, u32 c) { return PlaygroundPlayer::get(r, c); }
 
-bool Playground::battle() {
+void Game::battle() {
   PlaygroundPlayer::attack(*this);
 
   for (u32 i = 0; i < COLS; ++i) {
@@ -41,16 +42,14 @@ bool Playground::battle() {
     // there should be a timer of some kind here
   }
 
-  std::cout << "enemy attack" << std::endl;
-
   std::cout << "enemy move" << std::endl;
   if (PlaygroundEnemy::move(*this, *this)) {
-    return true;
+    return notifyGameOver();
   }
 
+  std::cout << "enemy attack" << std::endl;
   PlaygroundEnemy::attack(*this);
   std::cout << "enemy insert" << std::endl;
   PlaygroundEnemy::insert();
   Timer::oneSecond();
-  return false;
 }

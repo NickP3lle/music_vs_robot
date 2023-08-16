@@ -2,25 +2,25 @@
 #include "deque.h"
 #include "observer_playground.h"
 
-template <typename T> class PlaygroundObservableInterface {
+template <typename T> class ObservablePlaygroundInterface {
 protected:
-  deque<PlaygroundObserverInterface<T> *> obs;
+  deque<ObserverPlaygroundInterface<T> *> obs;
 
 public:
-  void addObserver(PlaygroundObserverInterface<T> *observer);
-  void removeObserver(PlaygroundObserverInterface<T> *observer);
+  void addObserver(ObserverPlaygroundInterface<T> *observer);
+  void removeObserver(ObservablePlaygroundInterface<T> *observer);
   virtual void notifyObservers(u32 row, u32 col) const = 0;
-  virtual ~PlaygroundObservableInterface() = default;
+  virtual ~ObservablePlaygroundInterface() = default;
 };
 
 template <typename T>
-void PlaygroundObservableInterface<T>::addObserver(
-    PlaygroundObserverInterface<T> *observer) {
+void ObservablePlaygroundInterface<T>::addObserver(
+    ObserverPlaygroundInterface<T> *observer) {
   obs.push_back(observer);
 }
 
 template <typename T>
-void PlaygroundObservableInterface<T>::removeObserver(
-    PlaygroundObserverInterface<T> *observer) {
+void ObservablePlaygroundInterface<T>::removeObserver(
+    ObservablePlaygroundInterface<T> *observer) {
   obs.remove(observer);
 }

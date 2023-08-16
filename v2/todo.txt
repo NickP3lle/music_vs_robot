@@ -1,63 +1,29 @@
+ - Enemy:
+	when the enemy dies cash is added
 
-taking off the DamageDrum should work like this:
+ - EnemyWTool:
+	when the enemywtool dies the tool's cash is also added
+	inverted min with max (I f****d up, previously)
 
-// DamagePropagate should iterate over all the cells and should move the damages
-as well. This way every function take place once per turn (second).
-if (DamagePosition == 4)
-	damages.filter([](Damage &d) {
-		if (dynamic_cast<DamageWave*>(&d)) {
-			return true;
-			}).iter([ds = this->damages](DamageWave *dw) {
-				ds->remove(dw);
-			});
+ - Playground:
+	references prefered over pointers
+	switched move and attack (now move first, then attack)
 
-// and then you consider the damages:
-getRobots().iter([ds = this->damages](Robot *r) {
-	ds->sufferDamage(r);
-});
+ - PlaygroundDamage:
+	refereces prefered over pointers
+	get() and remove() prefered over operator[]
+	general cleanup, the code is more readable now
 
----
+ - PlaygroundEnemy:
+	refereces prefered over pointers
+	nearestPlayer() bug fixed
+	attack() bug fixed
+	move() bug fixed
+	get() and remove(e) prefered over operator[]
+	general cleanup, the code is more readable now
 
-Playground:
-Insert:
-	Enemy: u32 row, difficulty
-	Player: u32 row, col, Player * p
-	Damage: u32 row, col, Damage * d
-
-Remove:
-	Enemy: u32 row, u32 col, Enemy * e
-	Player: u32 row, u32 col
-	Damage: u32 row, u32 col
-
-isEmpty:
-	the same for all
-	u32 row, col
-
-cleanUp:
-	the same for all
-
-levelUp:
-	only for Player
-
-move:
-	only for Enemy and Damage
-
-get:
-	the same for all
-	u32 row, col
-	-> deque<enemy>, damage, player
-
-attack:
-	all three: Playground:
-		Enemy.attack(PlaygroundPlayer)
-		Player.attack(PlaygroundDamage) // generate the damages
-		Damage.attack(PlaygroundEnemy)	// propagate the damages
-
-std::deque<...> obs:
-	all three
-
-notify:
-	all three
-	u32 row, col
-
-
+ - PlaygroundPlayer:
+	refereces prefered over pointers
+	get() and remove() prefered over operator[]
+	general cleanup, the code is more readable now
+	

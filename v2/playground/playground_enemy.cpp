@@ -85,7 +85,7 @@ deque<const EnemyWTool *> PlaygroundEnemy::getAttack(u32 r, u32 c) const {
 
 void PlaygroundEnemy::attack(PlaygroundPlayer &p) const {
   for (u32 r = 0; r < ROWS; ++r) {
-    for (u32 c = 0; c < COLS; ++c) {
+    for (u32 c = 0; c < COLS - 1; ++c) {
       if (!p.isEmpty(r, c)) {
         DamageEnemy d = DamageEnemy(0);
         getAttack(r, c).iter([&](const EnemyWTool *e) {
