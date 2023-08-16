@@ -18,7 +18,7 @@ Playground::~Playground() {
 
 void Playground::cleanUp() { this->~Playground(); }
 
-bool Playground::insert(u32 r, u32 c, PlayerAbstract *p) {
+bool Playground::insert(u32 r, u32 c, const PlayerAbstract &p) {
   return PlaygroundPlayer::insert(r, c, p);
 }
 
@@ -28,30 +28,27 @@ bool Playground::isEmpty(u32 r, u32 c) const {
   return PlaygroundPlayer::isEmpty(r, c);
 }
 
-PlayerAbstract *Playground::get(u32 r, u32 c) {
+PlayerAbstract &Playground::get(u32 r, u32 c) {
   return PlaygroundPlayer::get(r, c);
 }
 
 bool Playground::battle() {
-  PlaygroundPlayer::attack(this);
+  PlaygroundPlayer::attack(*this);
 
   for (u32 i = 0; i < COLS; ++i) {
-    std::cout << "damage move " << i << std::endl;
-    PlaygroundDamage::move(this);
-    std::cout << "damage attack " << i << std::endl;
-    PlaygroundDamage::attack(this);
+    PlaygroundDamage::move(*this);
+    PlaygroundDamage::attack(*this);
     // there should be a timer of some kind here
   }
 
   std::cout << "enemy attack" << std::endl;
 
-  PlaygroundEnemy::attack(this);
-
   std::cout << "enemy move" << std::endl;
-  if (PlaygroundEnemy::move(this, this)) {
+  if (PlaygroundEnemy::move(*this, *this)) {
     return true;
   }
 
+  PlaygroundEnemy::attack(*this);
   std::cout << "enemy insert" << std::endl;
   PlaygroundEnemy::insert();
   Timer::oneSecond();

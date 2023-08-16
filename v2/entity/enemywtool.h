@@ -1,4 +1,5 @@
 #pragma once
+#include "../playground/cash.h"
 #include "enemy.h"
 #include "entity.h"
 #include "tool.h"

@@ -9,6 +9,14 @@ u32 &Enemy::getHealth() { return h; }
 
 DamageEnemy *Enemy::attack() const { return new DamageEnemy(a); }
 
+bool Enemy::sufferDamage(DamageAbstract &d) {
+  if (EntityAbstract::sufferDamage(d)) {
+    Cash::add(v);
+    return true;
+  }
+  return false;
+}
+
 u32 Enemy::move() const { return s; }
 
 void Enemy::accept(VisitorInterface *v) const { v->visitEnemy(); }
@@ -19,14 +27,7 @@ EnemyDefense::EnemyDefense(u32 min, u32 max) : Enemy(min, max) {}
 
 bool EnemyDefense::sufferDamage(DamageAbstract &d) {
   d / 2; // doesn't look good, though DamageAbstract is abstract
-  u32 damage = d.damage();
-  if (damage > getHealth()) {
-    getHealth() = 0;
-    return true;
-  } else {
-    getHealth() -= damage;
-    return false;
-  }
+  return Enemy::sufferDamage(d);
 }
 
 void EnemyDefense::accept(VisitorInterface *v) const { v->visitEnemyDefense(); }

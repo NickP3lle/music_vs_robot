@@ -21,6 +21,10 @@ u32 &EnemyWTool::getHealth() { return e->getHealth(); }
 
 bool EnemyWTool::sufferDamage(DamageAbstract &damage) {
   t->sufferDamage(damage);
+  if (e->sufferDamage(damage)) {
+    Cash::add(t->value());
+    return true;
+  }
   return e->sufferDamage(damage);
 }
 
@@ -39,17 +43,17 @@ u32 EnemyWTool::move() const { return e->move() + t->move(); }
 Enemy *EnemyWTool::getEnemy(u32 min, u32 max) {
   u32 n = randomInt(1100);
   if (n < 330)
-    return new Enemy(max, min);
+    return new Enemy(min, max);
   if (n < 500)
-    return new Enemy(max, min, true);
+    return new Enemy(min, max, true);
   if (n < 700)
-    return new Enemy(max, min, false, true);
+    return new Enemy(min, max, false, true);
   if (n < 900)
-    return new Enemy(max, min, true, true);
+    return new Enemy(min, max, true, true);
   if (n < 1000)
-    return new EnemyDefense(max, min);
+    return new EnemyDefense(min, max);
   else
-    return new EnemyBig(max, min);
+    return new EnemyBig(min, max);
 }
 
 Tool *EnemyWTool::getTool(u32 min, u32 max) {

@@ -10,18 +10,19 @@ class PlaygroundEnemy : public PlaygroundObservableInterface<EnemyWTool> {
 private:
   deque<EnemyWTool> enemy[ROWS][COLS * FRAMES];
 
-  void insert(u32 r, u32 c, EnemyWTool &e);
-  u32 nearestPlayer(u32 r, u32 c, PlaygroundPlayer *pp);
+  void insert(u32 r, u32 c, const EnemyWTool &e);
+  u32 nearestPlayer(u32 r, u32 c, const PlaygroundPlayer &pp);
+  deque<const EnemyWTool *> getAttack(u32 row, u32 col) const;
 
 public:
   void insert();
-  bool remove(u32 row, u32 col, EnemyWTool *e);
+  bool remove(u32 row, u32 col, const EnemyWTool &e);
   bool isEmpty(u32 row, u32 col) const;
   void cleanUp();
   deque<EnemyWTool *> get(u32 row, u32 col);
   deque<const EnemyWTool *> get(u32 row, u32 col) const;
-  void attack(PlaygroundPlayer *) const;
-  bool move(PlaygroundPlayer *pp, PlaygroundDamage *pd);
+  void attack(PlaygroundPlayer &) const;
+  bool move(const PlaygroundPlayer &pp, PlaygroundDamage &pd);
 
   void notifyObservers(u32 row, u32 col) const override;
 };

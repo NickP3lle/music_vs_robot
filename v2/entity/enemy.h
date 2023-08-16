@@ -1,4 +1,5 @@
 #pragma once
+#include "../playground/cash.h"
 #include "entity.h"
 
 class Enemy : public EntityAbstract {
@@ -10,6 +11,7 @@ public:
 
   u32 &getHealth() override final;
   DamageEnemy *attack() const override final;
+  bool sufferDamage(DamageAbstract &) override;
   virtual u32 move() const;
 
   void accept(VisitorInterface *) const override;

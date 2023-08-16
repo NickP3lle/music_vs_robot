@@ -15,7 +15,6 @@ DamageSlow::DamageSlow(u32 slow) : s(slow) {}
 u32 DamageSlow::getSlow() { return s; }
 
 bool DamageSlow::slow() {
-  std::cout << "slow: " << s << std::endl;
   if (s == 0)
     return false;
   s--;
