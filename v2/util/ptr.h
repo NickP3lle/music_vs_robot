@@ -4,7 +4,7 @@
 #include <type_traits>
 
 template <typename T> class ptr {
-  static_assert(std::is_base_of<ClonableInterface, T>::value,
+  static_assert(std::is_base_of<CloneableInterface, T>::value,
                 "T must inherit from ClonableInterface.");
 
 private:

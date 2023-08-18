@@ -1,8 +1,8 @@
 #pragma once
 
-class ClonableInterface {
+class CloneableInterface {
 public:
-  virtual ClonableInterface *clone() const = 0;
+  virtual CloneableInterface *clone() const = 0;
 
-  virtual ~ClonableInterface() = default;
+  virtual ~CloneableInterface() = default;
 };

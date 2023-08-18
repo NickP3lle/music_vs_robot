@@ -6,7 +6,6 @@ public:
   virtual void visitDamageBullet() const = 0;
   virtual void visitDamageSlow() const = 0;
   virtual void visitDamageWave() const = 0;
-  virtual void visitDamageEnemy() const = 0;
 
   /// Player
   virtual void visitSample() const = 0;

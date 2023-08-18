@@ -1,7 +1,7 @@
 #pragma once
 #include "../include.h"
 
-class DamageAbstract : public VisitableInterface, public ClonableInterface {
+class DamageAbstract : public CloneableInterface {
 public:
   virtual u32 damage() = 0;
   virtual void operator/(const u32 &d) = 0;
@@ -64,6 +64,5 @@ public:
   DamageEnemy operator+(const u32 &d) const;
   void operator/(const u32 &d) override;
   u32 damage() override;
-  void accept(VisitorInterface *visitor) const override;
   DamageEnemy *clone() const override;
 };

@@ -4,7 +4,7 @@
 
 class EntityAbstract : // public DataManagerInterface,
                        public VisitableInterface,
-                       public ClonableInterface {
+                       public CloneableInterface {
 public:
   virtual u32 &getHealth() = 0;
   virtual bool sufferDamage(DamageAbstract &damage);

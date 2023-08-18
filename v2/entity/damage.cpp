@@ -95,8 +95,4 @@ void DamageEnemy::operator/(const u32 &u) { d /= u; }
 
 u32 DamageEnemy::damage() { return d; }
 
-void DamageEnemy::accept(VisitorInterface *visitor) const {
-  visitor->visitDamageEnemy();
-}
-
 DamageEnemy *DamageEnemy::clone() const { return new DamageEnemy(*this); }

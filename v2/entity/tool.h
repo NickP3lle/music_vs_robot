@@ -1,7 +1,7 @@
 #pragma once
 #include "damage.h"
 
-class Tool : public ClonableInterface, public VisitableInterface {
+class Tool : public CloneableInterface, public VisitableInterface {
 private:
   short int durability;
 
