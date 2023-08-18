@@ -1,8 +1,9 @@
 #include "mainWindow.h"
 
-#include "../game/playground.h"
-#include "../game/timer.h"
-#include "../util/dataManager.h"
+#include "../logic/playground/cash.h"
+#include "../logic/playground/playground.h"
+#include "../logic/playground/timer.h"
+#include "../logic/util/data_manager.h"
 
 #include <QLabel>
 #include <QMessageBox>
@@ -27,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::startGame() {
     stackedWidget->setCurrentWidget(playgroundWidget);
-    Playground::cleanUp();
+    Playground::getInstance()->cleanUp();
     Timer::cleanUp();
     timer.start();
 }

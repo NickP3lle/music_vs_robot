@@ -1,11 +1,9 @@
 #include "observer_playground.h"
 
-template <typename T>
-void ObservablePlayground<T>::addObserver(ObserverPlayground<T> *observer) {
-  obs.push_back(observer);
+template <typename T> void PlaygroundObservableInterface<T>::addObserver(PlaygroundObserverInterface<T> *observer) {
+    obs.push_back(observer);
 }
 
-template <typename T>
-void ObservablePlayground<T>::removeObserver(ObserverPlayground<T> *observer) {
-  obs.remove(observer);
+template <typename T> void PlaygroundObservableInterface<T>::removeObserver(PlaygroundObserverInterface<T> *observer) {
+    obs.remove(observer);
 }
