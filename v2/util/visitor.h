@@ -1,5 +1,12 @@
 #pragma once
 
+// class Violin;
+// class Trumpet;
+// class Drum;
+// class Flute;
+// class Saxophone;
+// class Robot;
+
 class VisitorInterface {
 public:
   /// Damage

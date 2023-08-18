@@ -1,7 +1,6 @@
 #ifndef MAIN_WINDOW_H
 #define MAIN_WINDOW_H
 
-#include "../util/dataManager.h"
 #include "playgroundWidget.h"
 #include "startWidget.h"
 #include <QMainWindow>
