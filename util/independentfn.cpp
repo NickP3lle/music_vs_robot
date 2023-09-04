@@ -5,7 +5,7 @@ u32 randomInt(u32 maxValue, u32 minValue) {
   std::random_device rd;
   std::mt19937 generator(rd());
 
-  std::uniform_int_distribution<> distribution(minValue, maxValue);
+  std::uniform_int_distribution distribution(minValue, maxValue);
   return distribution(generator);
 }
 

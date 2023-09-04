@@ -1,135 +1,165 @@
-#ifndef DEQUE_H
-#define DEQUE_H
+#pragma once
 #define u32 unsigned int
 #include <iostream>
 
-template <class T> class deque {
+template <typename T> class deque {
 private:
-  T *first;
-  u32 capacity, size, actual;
-  void resize();
+  T *f;
+  u32 c, s, a;
   bool isFull() const;
+  void resize();
   static T *copy(const deque &);
 
 public:
-  deque(u32 = 2);
+  deque(u32 capacity = 2);
   deque(const deque &);
   deque &operator=(const deque &);
   ~deque();
 
-  deque &push_back(const T &);
+  void push_back(const T &);
   T pop_front();
-  T remove(u32 pos);
-  u32 len() const;
+  bool remove(const T &);
+  T remove(u32);
   T &operator[](u32) const;
-  template <typename S> const deque &iter(S lambda, u32 begin = 0) const;
-  template <typename S> const deque &iter(S lambda, u32 begin, u32 end) const;
+  u32 size() const;
+  template <typename S> const deque &iter(S lambda) const;
+  template <typename S, typename U> deque<U> iter(S lambda) const;
+  template <typename S> deque<T *> filter(S lambda) const;
 };
 
-template <class T> T *deque<T>::copy(const deque &d) {
-  T *n_first = new T[d.capacity];
-  d.iter([first = n_first](T &x) mutable { *first++ = x; });
-  return n_first;
-}
+/// controlla che la size sia uguale alla capacità
+template <typename T> bool deque<T>::isFull() const { return s == c; }
 
-template <class T>
-deque<T>::deque(u32 cap)
-    : first(cap == 0 ? nullptr : new T[cap]), capacity(cap), size(0),
-      actual(0) {}
-
-template <class T> void deque<T>::resize() {
-  if (first == nullptr) {
-    first = new T[2];
-    capacity = 2;
+/// la capacità è raddoppiata
+/// il puntatore al primo elemento è cambiato
+/// l'indice di attualità è 0
+/// la size rimane invariata
+template <typename T> void deque<T>::resize() {
+  if (c == 0) {
+    c = 2;
+    f = new T[c];
     return;
   }
-
-  T *n_first = new T[capacity * 2];
-  iter([first = n_first](T &x) mutable { *first++ = x; });
-  delete[] first;
-  first = n_first;
-  capacity *= 2;
-  actual = 0;
+  T *new_f = new T[c * 2];
+  iter([f = new_f](T &e) mutable { *(f++) = e; });
+  c *= 2, a = 0;
+  delete[] f;
+  f = new_f;
 }
 
-template <class T>
-deque<T>::deque(const deque &d)
-    : first(copy(d)), capacity(d.capacity), size(d.size), actual(d.actual) {}
+/// ritorna un puntatore al primo elemento
+template <typename T> T *deque<T>::copy(const deque &d) {
+  if (d.s == 0)
+    return nullptr;
+  T *f = new T[d.c];
+  d.iter([f](const T &e) mutable { *(f++) = e; });
+  return f;
+}
 
-template <class T> deque<T> &deque<T>::operator=(const deque &d) {
+/// costruttore di default
+template <typename T>
+deque<T>::deque(u32 capacity)
+    : f(capacity == 0 ? nullptr : new T[capacity]), c(capacity), s(0), a(0) {}
+
+/// costruttore di copia
+template <typename T>
+deque<T>::deque(const deque &d) : f(copy(d)), c(d.c), s(d.s), a(0) {}
+
+/// operatore di assegnamento
+template <typename T> deque<T> &deque<T>::operator=(const deque &d) {
   if (this != &d) {
-    if (first != nullptr)
-      delete[] first;
-    first = copy(d);
-    actual = 0;
-    capacity = d.capacity;
-    size = d.size;
+    ~deque();
+    f = copy(d);
+    c = d.c;
+    s = d.s;
+    a = 0;
   }
   return *this;
 }
 
-template <class T> deque<T>::~deque() {
-  if (first != nullptr)
-    delete[] first;
+/// distruttore
+template <typename T> deque<T>::~deque() {
+  if (f)
+    delete[] f;
 }
 
-template <class T> deque<T> &deque<T>::push_back(const T &t) {
-  if (size == capacity) {
+/// aggiunge un elemento in coda
+/// se la size è uguale alla capacità, la capacità viene raddoppiata
+template <typename T> void deque<T>::push_back(const T &e) {
+  if (isFull())
     resize();
-  }
-  (*this)[size++] = t;
+  (*this)[s++] = e;
+}
+
+/// rimuove il primo elemento
+template <typename T> T deque<T>::pop_front() {
+  if (s == 0)
+    throw "deque is empty";
+  s--;
+  a = (a + 1) % c;
+  return f[a > 0 ? a - 1 : c - 1];
+}
+
+/// rimuove l'elemento passato come parametro,
+/// è necessaria l'uguaglianza tra elementi
+/// l'ordine degli elementi non è preservato
+template <typename T> bool deque<T>::remove(const T &e) {
+  for (u32 i = 0; i < s; i++)
+    if ((*this)[i] == e) {
+      (*this)[i] = (*this)[0];
+      pop_front();
+      return true;
+    }
+  return false;
+}
+
+/// rimuove l'elemento all'indice passato come parametro
+/// l'ordine degli elementi non è preservato
+template <typename T> T deque<T>::remove(u32 i) {
+  if (i >= s)
+    throw "index out of range";
+  T e = (*this)[i];
+  (*this)[i] = (*this)[0];
+  pop_front();
+  return e;
+}
+
+/// ritorna un riferimento all'elemento all'indice passato come parametro
+template <typename T> T &deque<T>::operator[](u32 i) const {
+  if (i >= s)
+    throw "index out of range";
+  return f[(a + i) % c];
+}
+
+/// ritorna la size
+template <typename T> u32 deque<T>::size() const { return s; }
+
+template <typename T>
+template <typename S>
+const deque<T> &deque<T>::iter(S lambda) const {
+  for (u32 i = 0; i < s; i++)
+    lambda((*this)[i]);
   return *this;
 }
 
-template <class T> T deque<T>::pop_front() {
-  if (size == 0)
-    throw "Deque is empty";
-  actual = (actual + 1) % capacity;
-  size--;
-  return first[actual == 0 ? capacity - 1 : actual - 1];
-}
-
-// per l'uso che faccio di deque, in realtà l'ordine non ha molta importanza
-// per cui remove cambia l'ordine degli elementi: porta l'elemento in posizione
-// 0 nel posto dell'elemento in posizione pos, poi fa un pop_front
-template <class T> T deque<T>::remove(u32 pos) {
-  if (size == 0)
-    // throw "Deque is empty";
-    std::cerr << "Deque is empty" << std::endl;
-  else if (pos >= size)
-    // throw "Index out of range";
-    std::cerr << "Index out of range" << std::endl;
-  T tmp = (*this)[pos];
-  (*this)[pos] = (*this)[0];
-  (*this)[0] = tmp;
-  return pop_front();
-}
-
-template <class T> u32 deque<T>::len() const { return size; }
-
-template <class T> T &deque<T>::operator[](u32 index) const {
-  return first[(actual + index) % capacity];
-}
-
-// ciclo for sulla deque
-template <class T>
-template <typename S>
-const deque<T> &deque<T>::iter(S lambda, u32 begin) const {
-  return iter(lambda, begin, size);
-}
-
-// ciclo for sulla deque
-template <class T>
-template <typename S>
-const deque<T> &deque<T>::iter(S lambda, u32 begin, u32 end) const {
-  for (; begin < end; begin++)
-    lambda((*this)[begin]);
+template <typename T>
+template <typename S, typename U>
+deque<U> deque<T>::iter(S lambda) const {
+  deque<U> d;
+  for (u32 i = 0; i < s; i++)
+    d.pushback(lambda((*this)[i]));
   return *this;
 }
 
-template <class T>
-std::ostream &operator<<(std::ostream &os, const deque<T> &d) {
-  d.iter([&os](const T &t) { os << t << " "; });
-  return os;
+/// ritorna una deque contenente gli elementi per cui lambda ritorna true
+/// per cui la firma di lambda deve essere fn(T &) -> bool
+template <typename T>
+template <typename S>
+deque<T *> deque<T>::filter(S lambda) const {
+  deque<T *> d;
+  iter([&d, lambda](T &e) mutable {
+    if (lambda(e))
+      d.push_back(&e);
+  });
+  return d;
 }
-#endif

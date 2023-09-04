@@ -1,20 +1,16 @@
 #include "main.h"
 
-using namespace std;
-
 int main() {
-    // Test("RandomInt", TestRandomInt);
+    Test("Deque push back: ", Test_deque_push_back);
+    Test("Deque pop front: ", Test_deque_pop_front);
+    Test("Deque remove: ", Test_deque_remove);
+    Test("Deque remove index: ", Test_deque_remove_index);
+    Test("Deque access operator: ", Test_deque_access_operator);
+    Test("Deque size: ", Test_deque_size);
+    Test("Deque iter: ", Test_deque_iter);
+    Test("Deque filter: ", Test_deque_filter);
 
-    // Test("DequePushPop", TestDequePushPop);
-    // Test("DequeRemove", TestDequeRemove);
-    // Test("DequeCopy", TestDequeCopy);
-    // Test("DequeIndex", TestDequeIndex);
-    // Test("DequeIter", TestDequeIter);
-
-    Test("DataManager", TestDataManageSaveData);
-    Test("DataManager", TestDataManagerLoadData);
+    Test("Data manager timer: ", Test_data_manager_timer);
+    Test("Data manager cash: ", Test_data_manager_cash);
     return 0;
 }
-
-// error on iterator filter: solved [&, new_ptr]
-// error on deque collect: solved (anyhow)

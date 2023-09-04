@@ -15,22 +15,20 @@ QT += widgets
 #DEFINES += QT_DISABLE_DEPRECATED_UP_TO=0x060000 # disables all APIs deprecated in Qt 6.0.0 and earlier
 
 # Input
-HEADERS += game/cash.h \
-           game/define.h \
-           game/entity.h \
-           game/include.h \
-           game/playground.h \
-           game/timer.h \
-           music/music_instrument.h \
-           robot/robot.h \
-           robot/robotwtool.h \
-           robot/tool.h \
-           util/dataManager.h \
-           util/deque.h \
-           util/independentfn.h \
-           util/iterator.h \
-           util/ptr.h \
-           util/util.h \
+HEADERS += playground/cash.h \ 
+		   playground/playground.h \
+		   playground/playground_damage.h \
+		   playground/playground_enemy.h \
+		   playground/playground_player.h \
+		   playground/timer.h \
+           define.h \
+           include.h \
+		   entity/entity.h \
+		   entity/damage.h \
+		   entity/enemy.h \
+		   entity/enemywtool.h \
+		   entity/player.h \
+		   entity/tool.h \
            view/mainWindow.h \
            view/playgroundWidget.h \
            view/startWidget.h \

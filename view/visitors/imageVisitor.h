@@ -1,24 +1,36 @@
-#ifndef IMAGE_VISITOR_H
-#define IMAGE_VISITOR_H
+#pragma once
 
-#include "entityVisitorInterface.h"
+#include "../../v2/util/visitor.h"
 
 #include <QPixmap>
 
-class imageVisitor : public EntityVisitorInterface {
-  private:
-    QPixmap *pixmap;
+class ImageVisitor : public VisitorInterface {
+private:
+  QPixmap *pixmap;
 
-  public:
-    void visitViolin() override;
-    void visitTrumpet() override;
-    void visitDrum() override;
-    void visitFlute() override;
-    void visitSaxophone() override;
+public:
+  /// Damage
+  void visitDamageBullet() const override;
+  void visitDamageSlow() const override;
+  void visitDamageWave() const override;
 
-    void visitRobot() override;
+  /// Player
+  void visitSample() const override;
+  void visitThreeColumn() const override;
+  void visitDoubleLife() const override;
+  void visitThreeRow() const override;
+  void visitSlowDown() const override;
 
-    QPixmap *getPixmap() const;
+  /// Robot
+  void visitEnemy() const override;
+  void visitEnemyDefense() const override;
+  void visitEnemyBig() const override;
+
+  /// Tool
+  void visitToolWeapon() const override;
+  void visitToolArmor() const override;
+  void visitToolBoots() const override;
+  void visitToolRing() const override;
+
+  QPixmap *getPixmap() const;
 };
-
-#endif
