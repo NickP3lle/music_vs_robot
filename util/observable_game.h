@@ -3,12 +3,12 @@
 #include "observer_game.h"
 
 class ObservableGameInterface {
-private:
-  deque<ObserverGameInterface *> obs;
+  private:
+    static deque<ObserverGameInterface *> obs;
 
-public:
-  void addObserver(ObserverGameInterface *observer);
-  void removeObserver(ObserverGameInterface *observer);
-  void notifyClearGame() const;
-  void notifyGameOver() const;
+  public:
+    void addObserver(ObserverGameInterface *observer);
+    void removeObserver(ObserverGameInterface *observer);
+    void notifyClearGame() const;
+    void notifyGameOver() const;
 };

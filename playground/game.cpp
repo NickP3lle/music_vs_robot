@@ -10,7 +10,6 @@ Game *Game::getInstance() {
 }
 
 void Game::cleanUp() {
-    std::cout << "Game::cleanUp()" << std::endl;
     if (instance) {
         // TODO FIXUP: when notify is after delete, it crashes
         notifyClearGame();

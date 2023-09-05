@@ -157,6 +157,20 @@ void PlaygroundWidget::insertEntity() {
 //     }
 // }
 
+void PlaygroundWidget::update(u32 r, u32 c, const PlayerAbstract *p) {
+    std::cout << "PlaygroundWidget::update(PlayerAbstract)" << std::endl;
+    if (p) {
+        /// Vistor sets the image of the cell
+        ImageVisitor iv;
+        p->accept(&iv);
+        cells[r][c]->setImage(iv.getPixmap());
+        cells[r][c]->setLevel(p->getLevel());
+    } else {
+        cells[r][c]->setImage(new QPixmap());
+        cells[r][c]->hideLevel();
+    }
+}
+
 // void PlaygroundWidget::updatePlaygroundRobot(u32 row, u32 col, const Robot *r) {
 //     if (row == COLS)
 //         return;
@@ -170,6 +184,20 @@ void PlaygroundWidget::insertEntity() {
 //         cells[row][col]->setImage(new QPixmap());
 //     }
 // }
+
+void PlaygroundWidget::update(u32 r, u32 c, const EnemyWTool *e) {
+    if (r == COLS)
+        return;
+    // qDebug() << "updatePlaygroundRobot";
+    if (e) {
+        /// Vistor sets the image of the cell
+        ImageVisitor iv;
+        e->accept(&iv);
+        cells[r][c]->setImage(iv.getPixmap());
+    } else {
+        cells[r][c]->setImage(new QPixmap());
+    }
+}
 
 // void PlaygroundWidget::updateDamagePosition(u32 col) {
 //     for (u32 row = 0; row < ROWS; row++) {

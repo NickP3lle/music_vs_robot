@@ -9,6 +9,7 @@
 #include "playgroundComponents/instrumentButton.h"
 #include "playgroundComponents/playgroundCellWidget.h"
 #include "playgroundComponents/timerWidget.h"
+#include "visitors/imageVisitor.h"
 
 #include <QHBoxLayout>
 #include <QLabel>
@@ -64,15 +65,8 @@ class PlaygroundWidget : public QWidget,
     // void updateDamagePosition(u32 col) override;
     // void notifyEndGame() override;
 
-    void update(u32 r, u32 c, const PlayerAbstract *p) override {
-        std::cout << "Player: " << r << " " << c << " " << (p ? p->toString() : "emptied") << std::endl;
-    }
-
-    void update(u32 r, u32 c, const EnemyWTool *e) override {
-        if (e) {
-        }
-        std::cout << "Enemy: " << r << " " << c << " robot" << std::endl;
-    }
+    void update(u32 r, u32 c, const PlayerAbstract *p) override;
+    void update(u32 r, u32 c, const EnemyWTool *e) override;
 
     void update(u32 r, u32 c, const DamageAbstract *d) override {
         ptr<DamagePlayer> dmg = static_cast<const DamagePlayer *>(d);
