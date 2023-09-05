@@ -1,12 +1,10 @@
 #ifndef PLAYGROUND_WIDGET_H
 #define PLAYGROUND_WIDGET_H
 
-#include "../logic/entity/player.h"
-#include "../logic/include.h"
-#include "../logic/playground/playground.h"
-#include "../logic/playground/timer.h"
-
-#include "observers/playgroundObserverInterface.h"
+#include "../entity/player.h"
+#include "../include.h"
+#include "../playground/game.h"
+#include "../playground/timer.h"
 #include "playgroundComponents/cashWidget.h"
 #include "playgroundComponents/instrumentButton.h"
 #include "playgroundComponents/playgroundCellWidget.h"
@@ -22,7 +20,11 @@ struct gridPosition {
     int col;
 };
 
-class PlaygroundWidget : public QWidget, public PlaygroundObserverInterface {
+class PlaygroundWidget : public QWidget,
+                         public ObserverPlaygroundInterface<PlayerAbstract>,
+                         public ObserverPlaygroundInterface<EnemyWTool>,
+                         public ObserverPlaygroundInterface<DamageAbstract>,
+                         public ObserverGameInterface {
     Q_OBJECT
 
   private:
@@ -38,14 +40,13 @@ class PlaygroundWidget : public QWidget, public PlaygroundObserverInterface {
     QPushButton *levelUpButton;
     QPushButton *removeButton;
 
-    PlaygroundCellWidget *cells[ROWS][COLUMNS];
+    PlaygroundCellWidget *cells[ROWS][COLS];
 
     gridPosition hasFocus;
 
     void showUpdatePrice();
 
   private slots:
-    /// Insert an entity in the playground
     void insertEntity();
     void levelUpEntity();
     void removeEntity();
@@ -57,11 +58,35 @@ class PlaygroundWidget : public QWidget, public PlaygroundObserverInterface {
     void removeFocus();
     bool getFocus() const;
 
-    void clearPlayground() override;
-    void updatePlaygroundMusic(u32 row, u32 col, const MusicInstruments *mi = nullptr) override;
-    void updatePlaygroundRobot(u32 row, u32 col, const Robot *r = nullptr) override;
-    void updateDamagePosition(u32 col) override;
-    void notifyEndGame() override;
+    // void clearPlayground() override;
+    // void updatePlaygroundMusic(u32 row, u32 col, const MusicInstruments *mi = nullptr) override;
+    // void updatePlaygroundRobot(u32 row, u32 col, const Robot *r = nullptr) override;
+    // void updateDamagePosition(u32 col) override;
+    // void notifyEndGame() override;
+
+    void update(u32 r, u32 c, const PlayerAbstract *p) override {
+        std::cout << "Player: " << r << " " << c << " " << (p ? p->toString() : "emptied") << std::endl;
+    }
+
+    void update(u32 r, u32 c, const EnemyWTool *e) override {
+        if (e) {
+        }
+        std::cout << "Enemy: " << r << " " << c << " robot" << std::endl;
+    }
+
+    void update(u32 r, u32 c, const DamageAbstract *d) override {
+        ptr<DamagePlayer> dmg = static_cast<const DamagePlayer *>(d);
+        if (d) {
+            std::cout << "Damage: " << r << " " << c << " " << dmg->getSlow() << " " << dmg->damage() << std::endl;
+        }
+    }
+
+    void clearGame() override { std::cout << "Prova: clearGame" << std::endl; }
+
+    void gameOver() override {
+        std::cout << "Prova: loseGame" << std::endl;
+        // l = true;
+    }
 
   signals:
     void callEndGame();
