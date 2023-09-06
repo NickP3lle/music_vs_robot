@@ -135,55 +135,22 @@ void PlaygroundWidget::insertEntity() {
     InstrumentButton::removeSelectedInstrument();
 }
 
-// void PlaygroundWidget::clearPlayground() {
-//     for (u32 row = 0; row < ROWS; row++) {
-//         for (u32 col = 0; col < COLUMNS; col++) {
-//             updatePlaygroundMusic(row, col);
-//             updatePlaygroundRobot(row, col);
-//         }
-//     }
-// }
-
-// void PlaygroundWidget::updatePlaygroundMusic(u32 row, u32 col, const MusicInstruments *mi) {
-//     if (mi) {
-//         /// Vistor sets the image of the cell
-//         imageVisitor iv;
-//         mi->accept(iv);
-//         cells[row][col]->setImage(iv.getPixmap());
-//         cells[row][col]->setLevel(mi->getLevel());
-//     } else {
-//         cells[row][col]->setImage(new QPixmap());
-//         cells[row][col]->hideLevel();
-//     }
-// }
-
 void PlaygroundWidget::update(u32 r, u32 c, const PlayerAbstract *p) {
-    std::cout << "PlaygroundWidget::update(PlayerAbstract)" << std::endl;
+    // std::cout << "PlaygroundWidget::update(PlayerAbstract)" << std::endl;
     if (p) {
         /// Vistor sets the image of the cell
         ImageVisitor iv;
+        std::cout << "Before accept" << std::endl;
         p->accept(&iv);
+        std::cout << "After accept" << std::endl;
         cells[r][c]->setImage(iv.getPixmap());
         cells[r][c]->setLevel(p->getLevel());
     } else {
+        std::cout << "PlaygroundWidget::update(PlayerAbstract) else" << std::endl;
         cells[r][c]->setImage(new QPixmap());
         cells[r][c]->hideLevel();
     }
 }
-
-// void PlaygroundWidget::updatePlaygroundRobot(u32 row, u32 col, const Robot *r) {
-//     if (row == COLS)
-//         return;
-//     // qDebug() << "updatePlaygroundRobot";
-//     if (r) {
-//         /// Vistor sets the image of the cell
-//         imageVisitor iv;
-//         r->accept(iv);
-//         cells[row][col]->setImage(iv.getPixmap());
-//     } else {
-//         cells[row][col]->setImage(new QPixmap());
-//     }
-// }
 
 void PlaygroundWidget::update(u32 r, u32 c, const EnemyWTool *e) {
     if (r == COLS)
@@ -209,16 +176,34 @@ void PlaygroundWidget::update(u32 r, u32 c, const EnemyWTool *e) {
 //     }
 // }
 
-// void PlaygroundWidget::notifyEndGame() {
-//     QMessageBox msgBox;
-//     msgBox.setText("Game over!");
-//     int buttonClicked = msgBox.exec();
-
-//     if (buttonClicked == QMessageBox::Ok) {
-//         emit callEndGame();
-//         std::cout << "Game over!" << std::endl;
+// void PlaygroundWidget::clearPlayground() {
+//     for (u32 row = 0; row < ROWS; row++) {
+//         for (u32 col = 0; col < COLUMNS; col++) {
+//             updatePlaygroundMusic(row, col);
+//             updatePlaygroundRobot(row, col);
+//         }
 //     }
 // }
+
+void PlaygroundWidget::clearGame() {
+    for (u32 row = 0; row < ROWS; row++) {
+        for (u32 col = 0; col < COLS; col++) {
+            cells[row][col]->setImage(new QPixmap());
+            cells[row][col]->hideLevel();
+        }
+    }
+}
+
+void PlaygroundWidget::gameOver() {
+    QMessageBox msgBox;
+    msgBox.setText("Game over!");
+    int buttonClicked = msgBox.exec();
+
+    if (buttonClicked == QMessageBox::Ok) {
+        emit callEndGame();
+        std::cout << "Game over!" << std::endl;
+    }
+}
 
 void PlaygroundWidget::levelUpEntity() {
     Game *ptr = Game::getInstance();

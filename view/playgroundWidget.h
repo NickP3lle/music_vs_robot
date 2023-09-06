@@ -59,11 +59,7 @@ class PlaygroundWidget : public QWidget,
     void removeFocus();
     bool getFocus() const;
 
-    // void clearPlayground() override;
-    // void updatePlaygroundMusic(u32 row, u32 col, const MusicInstruments *mi = nullptr) override;
-    // void updatePlaygroundRobot(u32 row, u32 col, const Robot *r = nullptr) override;
     // void updateDamagePosition(u32 col) override;
-    // void notifyEndGame() override;
 
     void update(u32 r, u32 c, const PlayerAbstract *p) override;
     void update(u32 r, u32 c, const EnemyWTool *e) override;
@@ -75,12 +71,8 @@ class PlaygroundWidget : public QWidget,
         }
     }
 
-    void clearGame() override { std::cout << "Prova: clearGame" << std::endl; }
-
-    void gameOver() override {
-        std::cout << "Prova: loseGame" << std::endl;
-        // l = true;
-    }
+    void clearGame() override;
+    void gameOver() override;
 
   signals:
     void callEndGame();

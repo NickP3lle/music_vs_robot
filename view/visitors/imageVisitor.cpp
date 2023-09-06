@@ -1,4 +1,4 @@
-#include "ImageVisitor.h"
+#include "imageVisitor.h"
 
 void ImageVisitor::visitDamageBullet() { pixmap = new QPixmap(":/assets/DamageBullet.png"); }
 
