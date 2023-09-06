@@ -1,11 +1,20 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
 <qresource>
-    <file>assets/flute.png</file>
-    <file>assets/drum.png</file>
-    <file>assets/saxophone.png</file>
-    <file>assets/trumpet.png</file>
-    <file>assets/violin.png</file>
-    <file>assets/robot.png</file>
+    <file>assets/Flute.png</file>
+    <file>assets/Drum.png</file>
+    <file>assets/Saxophone.png</file>
+    <file>assets/Trumpet.png</file>
+    <file>assets/Violin.png</file>
+    <file>assets/Robot.png</file>
+    <file>assets/RobotBig.png</file>
+    <file>assets/RobotDefense.png</file>
+    <file>assets/ToolArmor.png</file>
+    <file>assets/ToolBoots.png</file>
+    <file>assets/ToolRing.png</file>
+    <file>assets/ToolWeapon.png</file>
+    <file>assets/DamageBullet.png</file>
+	<file>assets/DamageSlow.png</file>
+    <file>assets/DamageWave.png</file>
 </qresource>
 </RCC>

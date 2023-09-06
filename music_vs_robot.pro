@@ -17,7 +17,6 @@ QT += widgets
 # Input
 HEADERS += define.h \
            include.h \
-           ptr.h \
            entity/damage.h \
            entity/enemy.h \
            entity/enemywtool.h \

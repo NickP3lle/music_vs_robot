@@ -63,14 +63,7 @@ class PlaygroundWidget : public QWidget,
 
     void update(u32 r, u32 c, const PlayerAbstract *p) override;
     void update(u32 r, u32 c, const EnemyWTool *e) override;
-
-    void update(u32 r, u32 c, const DamageAbstract *d) override {
-        ptr<DamagePlayer> dmg = static_cast<const DamagePlayer *>(d);
-        if (d) {
-            std::cout << "Damage: " << r << " " << c << " " << dmg->getSlow() << " " << dmg->damage() << std::endl;
-        }
-    }
-
+    void update(u32 r, u32 c, const DamageAbstract *d) override;
     void clearGame() override;
     void gameOver() override;
 

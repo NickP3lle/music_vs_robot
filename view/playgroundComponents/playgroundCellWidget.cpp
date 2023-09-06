@@ -25,7 +25,7 @@ PlaygroundCellWidget::PlaygroundCellWidget(QWidget *parent)
 }
 
 void PlaygroundCellWidget::setImage(QPixmap *pixmap) {
-    std::cout << "PlaygroundCellWidget::setImage" << std::endl;
+    // std::cout << "PlaygroundCellWidget::setImage" << std::endl;
     pixmapLabel->setPixmap(*pixmap);
 }
 

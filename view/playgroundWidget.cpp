@@ -140,9 +140,7 @@ void PlaygroundWidget::update(u32 r, u32 c, const PlayerAbstract *p) {
     if (p) {
         /// Vistor sets the image of the cell
         ImageVisitor iv;
-        std::cout << "Before accept" << std::endl;
         p->accept(&iv);
-        std::cout << "After accept" << std::endl;
         cells[r][c]->setImage(iv.getPixmap());
         cells[r][c]->setLevel(p->getLevel());
     } else {
@@ -166,24 +164,21 @@ void PlaygroundWidget::update(u32 r, u32 c, const EnemyWTool *e) {
     }
 }
 
-// void PlaygroundWidget::updateDamagePosition(u32 col) {
-//     for (u32 row = 0; row < ROWS; row++) {
-//         cells[row][col]->setStyleSheet("background-color: #ff0000; border: 1px solid black;");
-//         if (row > 0) {
-//             cells[row - 1][col]->setStyleSheet("background-color: #3d3d3d; border: 1px solid "
-//                                                "black;");
-//         }
-//     }
-// }
-
-// void PlaygroundWidget::clearPlayground() {
-//     for (u32 row = 0; row < ROWS; row++) {
-//         for (u32 col = 0; col < COLUMNS; col++) {
-//             updatePlaygroundMusic(row, col);
-//             updatePlaygroundRobot(row, col);
-//         }
-//     }
-// }
+void PlaygroundWidget::update(u32 r, u32 c, const DamageAbstract *d) {
+    // if (d) {
+    //     /// Vistor sets the image of the cell
+    //     ImageVisitor iv;
+    //     const DamagePlayer *dp = dynamic_cast<const DamagePlayer *>(d);
+    //     if (dp == nullptr) {
+    //         std::cout << "PlaygroundWidget::update(DamageAbstract) dp == nullptr" << std::endl;
+    //         return;
+    //     }
+    //     dp->accept(&iv);
+    //     cells[r][c]->setImage(iv.getPixmap());
+    // } else {
+    //     cells[r][c]->setImage(new QPixmap());
+    // }
+}
 
 void PlaygroundWidget::clearGame() {
     for (u32 row = 0; row < ROWS; row++) {

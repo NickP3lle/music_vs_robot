@@ -28,11 +28,11 @@
 #define SLOW_DOWN_HEALTH_INCREASE 25
 #define SLOW_DOWN_POWER_INCREASE 50
 
-#define ROBOT_MAX_SPEED 10
-#define ROBOT_MIN_SPEED 5
+#define ROBOT_MAX_SPEED 5
+#define ROBOT_MIN_SPEED 2
 
 #define ROWS 5
 #define COLS 10
-#define FRAMES 6
+#define FRAMES 20
 
 #define MAX_U32 4294967295
