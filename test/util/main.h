@@ -1,26 +1,14 @@
-#ifndef MAIN_H
-#define MAIN_H
+#include "../../util/deque.h"
+#include "../../util/independentfn.h"
 
-#include "../../util/util.h"
-// bool TestRandomInt();
+bool Test_deque_push_back();
+bool Test_deque_pop_front();
+bool Test_deque_remove();
+bool Test_deque_remove_index();
+bool Test_deque_access_operator();
+bool Test_deque_size();
+bool Test_deque_iter();
+bool Test_deque_filter();
 
-// bool TestDequePushPop();
-// bool TestDequeRemove();
-// bool TestDequeCopy();
-// bool TestDequeIndex();
-// bool TestDequeIter();
-// bool TestDequeIterMut();
-
-bool TestDataManageSaveData();
-bool TestDataManagerLoadData();
-
-/*
-bool TestIterator();
-bool TestIteratorCopy();
-bool TestIteratorAssign();
-bool TestIteratorMap();
-bool TestIteratorFilter();
-bool TestIteratorCollect();
-*/
-
-#endif
+bool Test_data_manager_cash();
+bool Test_data_manager_timer();

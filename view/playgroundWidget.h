@@ -1,16 +1,15 @@
 #ifndef PLAYGROUND_WIDGET_H
 #define PLAYGROUND_WIDGET_H
 
-#include "../logic/entity/player.h"
-#include "../logic/include.h"
-#include "../logic/playground/playground.h"
-#include "../logic/playground/timer.h"
-
-#include "observers/playgroundObserverInterface.h"
+#include "../entity/player.h"
+#include "../include.h"
+#include "../playground/game.h"
+#include "../playground/timer.h"
 #include "playgroundComponents/cashWidget.h"
 #include "playgroundComponents/instrumentButton.h"
 #include "playgroundComponents/playgroundCellWidget.h"
 #include "playgroundComponents/timerWidget.h"
+#include "visitors/imageVisitor.h"
 
 #include <QHBoxLayout>
 #include <QLabel>
@@ -22,7 +21,11 @@ struct gridPosition {
     int col;
 };
 
-class PlaygroundWidget : public QWidget, public PlaygroundObserverInterface {
+class PlaygroundWidget : public QWidget,
+                         public ObserverPlaygroundInterface<PlayerAbstract>,
+                         public ObserverPlaygroundInterface<EnemyWTool>,
+                         public ObserverPlaygroundInterface<DamageAbstract>,
+                         public ObserverGameInterface {
     Q_OBJECT
 
   private:
@@ -38,14 +41,14 @@ class PlaygroundWidget : public QWidget, public PlaygroundObserverInterface {
     QPushButton *levelUpButton;
     QPushButton *removeButton;
 
-    PlaygroundCellWidget *cells[ROWS][COLUMNS];
+    PlaygroundCellWidget *cells[ROWS][COLS];
 
     gridPosition hasFocus;
 
     void showUpdatePrice();
+    void updateCell(u32 row, u32 col);
 
   private slots:
-    /// Insert an entity in the playground
     void insertEntity();
     void levelUpEntity();
     void removeEntity();
@@ -57,11 +60,13 @@ class PlaygroundWidget : public QWidget, public PlaygroundObserverInterface {
     void removeFocus();
     bool getFocus() const;
 
-    void clearPlayground() override;
-    void updatePlaygroundMusic(u32 row, u32 col, const MusicInstruments *mi = nullptr) override;
-    void updatePlaygroundRobot(u32 row, u32 col, const Robot *r = nullptr) override;
-    void updateDamagePosition(u32 col) override;
-    void notifyEndGame() override;
+    // void updateDamagePosition(u32 col) override;
+
+    void update(u32 r, u32 c, const PlayerAbstract *p) override;
+    void update(u32 r, u32 c, const EnemyWTool *e) override;
+    void update(u32 r, u32 c, const DamageAbstract *d) override;
+    void clearGame() override;
+    void gameOver() override;
 
   signals:
     void callEndGame();

@@ -1,22 +1,21 @@
 #ifndef CASH_WIDGET_H
 #define CASH_WIDGET_H
 
-#include "../../game/cash.h"
-#include "../../game/include.h"
-#include "../observers/cashObserverInterface.h"
+#include "../../include.h"
+#include "../../playground/cash.h"
 #include <QLabel>
 // #include <QPixmap>
 #include <QWidget>
 
-class CashWidget : public QWidget, public CashObserverInterface {
-  Q_OBJECT
+class CashWidget : public QWidget, public ObserverInterface<Cash> {
+    Q_OBJECT
 
-private:
-  QLabel *label;
+  private:
+    QLabel *label;
 
-public:
-  CashWidget(QWidget *parent = 0);
-  void updateCash() override;
+  public:
+    CashWidget(QWidget *parent = 0);
+    void update(const Cash *c) override;
 };
 
 #endif

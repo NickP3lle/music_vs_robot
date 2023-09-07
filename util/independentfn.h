@@ -1,5 +1,4 @@
-#ifndef INDEPENDENTFN_H
-#define INDEPENDENTFN_H
+#pragma once
 #include <iomanip>
 #include <iostream>
 #include <random>
@@ -10,5 +9,3 @@
 u32 randomInt(u32 maxValue, u32 minValue = 0);
 
 void Test(std::string fn_name, bool (*fn)(void));
-
-#endif

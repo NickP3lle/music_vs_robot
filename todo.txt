@@ -1,24 +1,29 @@
-Per ora ho fatto playground in generale, ora voglio dividere l'implementazione
-dall'interfaccia, per cui abbiamo una classe playground che è 
-	- templetizzata sull'ereditarietà: class playground: protected ... {};
+ - Enemy:
+	when the enemy dies cash is added
+
+ - EnemyWTool:
+	when the enemywtool dies the tool's cash is also added
+	inverted min with max (I f****d up, previously)
+
+ - Playground:
+	references prefered over pointers
+	switched move and attack (now move first, then attack)
+
+ - PlaygroundDamage:
+	refereces prefered over pointers
+	get() and remove() prefered over operator[]
+	general cleanup, the code is more readable now
+
+ - PlaygroundEnemy:
+	refereces prefered over pointers
+	nearestPlayer() bug fixed
+	attack() bug fixed
+	move() bug fixed
+	get() and remove(e) prefered over operator[]
+	general cleanup, the code is more readable now
+
+ - PlaygroundPlayer:
+	refereces prefered over pointers
+	get() and remove() prefered over operator[]
+	general cleanup, the code is more readable now
 	
-	- una classe field che deve implementare delle funzioni di base in modo tale
-	  che playground posssa essere flessibili su diverse implementazioni di field
-	
-playground non ha nessun campo dati;
-field ha i campi dati che reputo opportuni, più le funzioni per accedervi
-tramite playground.
-
-si tratta solamente di un'idea, sarebbe carino implementare iterator come una
-vera e propria interfaccia, che ha bisogno solo di due funzioni: begin e end, e
-non ha campi dati. Una cosa del tipo 
-
-	1 - template <class T> class iterator: public T {};
-
-	oppure 
-
-	2 - template <class T, class R> class iterator: public T<R> {};
-
-cons: avrei bisogno di pensare all'implementazione di filter
-
-What if I create a main without any user interface, just to see what happens?

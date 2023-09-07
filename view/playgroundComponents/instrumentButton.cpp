@@ -1,9 +1,9 @@
 #include "instrumentButton.h"
 #include <QDebug>
 
-MusicInstruments *InstrumentButton::instrumentSelected = nullptr;
+PlayerAbstract *InstrumentButton::instrumentSelected = nullptr;
 
-InstrumentButton::InstrumentButton(MusicInstruments *i, QString title, QWidget *parent)
+InstrumentButton::InstrumentButton(PlayerAbstract *i, QString title, QWidget *parent)
     : QPushButton(title + QString::number(i->getCost()), parent), instrument(i) {
     setFocusPolicy(Qt::ClickFocus);
     setFixedSize(100, 50);
@@ -15,7 +15,7 @@ InstrumentButton::InstrumentButton(MusicInstruments *i, QString title, QWidget *
     });
 }
 
-MusicInstruments *InstrumentButton::getSelectedInstrument() { return instrumentSelected; }
+PlayerAbstract *InstrumentButton::getSelectedInstrument() { return instrumentSelected; }
 
 bool InstrumentButton::removeSelectedInstrument() {
     if (instrumentSelected) {

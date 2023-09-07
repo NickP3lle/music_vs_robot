@@ -3,6 +3,7 @@
 #include <QHBoxLayout>
 
 void PlaygroundCellWidget::mousePressEvent(QMouseEvent *event) {
+    std::cout << "PlaygroundCellWidget::mousePressEvent" << std::endl;
     QWidget::mousePressEvent(event);
     emit clicked();
 }

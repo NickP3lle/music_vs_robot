@@ -1,36 +1,41 @@
 #pragma once
 
-#include "../../v2/util/visitor.h"
+#include "../../util/visitor.h"
 
+#include <QPainter>
 #include <QPixmap>
 
 class ImageVisitor : public VisitorInterface {
-private:
-  QPixmap *pixmap;
+  private:
+    QPixmap *pixmap;
+    QPixmap *toolPixmap;
+    QPainter *painter;
 
-public:
-  /// Damage
-  void visitDamageBullet() const override;
-  void visitDamageSlow() const override;
-  void visitDamageWave() const override;
+  public:
+    ImageVisitor();
 
-  /// Player
-  void visitSample() const override;
-  void visitThreeColumn() const override;
-  void visitDoubleLife() const override;
-  void visitThreeRow() const override;
-  void visitSlowDown() const override;
+    /// Damage
+    void visitDamageBullet() override;
+    void visitDamageSlow() override;
+    void visitDamageWave() override;
 
-  /// Robot
-  void visitEnemy() const override;
-  void visitEnemyDefense() const override;
-  void visitEnemyBig() const override;
+    /// Player
+    void visitSample() override;
+    void visitThreeColumn() override;
+    void visitDoubleLife() override;
+    void visitThreeRow() override;
+    void visitSlowDown() override;
 
-  /// Tool
-  void visitToolWeapon() const override;
-  void visitToolArmor() const override;
-  void visitToolBoots() const override;
-  void visitToolRing() const override;
+    /// Robot
+    void visitEnemy() override;
+    void visitEnemyDefense() override;
+    void visitEnemyBig() override;
 
-  QPixmap *getPixmap() const;
+    /// Tool
+    void visitToolWeapon() override;
+    void visitToolArmor() override;
+    void visitToolBoots() override;
+    void visitToolRing() override;
+
+    QPixmap *getPixmap() const;
 };
