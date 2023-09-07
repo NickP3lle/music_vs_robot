@@ -133,61 +133,21 @@ void PlaygroundWidget::insertEntity() {
     InstrumentButton::removeSelectedInstrument();
 }
 
-void PlaygroundWidget::update(u32 r, u32 c, const PlayerAbstract *p) {
-    // if (p) {
-    //     /// Vistor sets the image of the cell
-    //     ImageVisitor iv;
-    //     p->accept(&iv);
-    //     cells[r][c]->setImage(iv.getPixmap());
-    //     cells[r][c]->setLevel(p->getLevel());
-    // } else {
-    //     std::cout << "PlaygroundWidget::update(PlayerAbstract) else" << std::endl;
-    //     cells[r][c]->setImage(new QPixmap());
-    //     cells[r][c]->hideLevel();
-    // }
-    updateCell(r, c);
-}
+void PlaygroundWidget::update(u32 r, u32 c, const PlayerAbstract *p) { updateCell(r, c); }
 
 void PlaygroundWidget::update(u32 r, u32 c, const EnemyWTool *e) {
     if (c == COLS)
         return;
-    // qDebug() << "updatePlaygroundRobot";
-    // if (e) {
-    //     /// Vistor sets the image of the cell
-    //     ImageVisitor iv;
-    //     e->accept(&iv);
-    //     cells[r][c]->setImage(iv.getPixmap());
-    // } else {
-    //     // std::cout << "r " << r << " c " << c << std::endl;
-    //     cells[r][c]->setImage(new QPixmap());
-    // }
     updateCell(r, c);
 }
 
-void PlaygroundWidget::update(u32 r, u32 c, const DamageAbstract *d) {
-    // if (d) {
-    //     /// Vistor sets the image of the cell
-    //     ImageVisitor iv;
-    //     const DamagePlayer *dp = dynamic_cast<const DamagePlayer *>(d);
-    //     if (dp == nullptr) {
-    //         std::cout << "PlaygroundWidget::update(DamageAbstract) dp == nullptr" << std::endl;
-    //         return;
-    //     }
-    //     dp->accept(&iv);
-    //     cells[r][c]->setImage(iv.getPixmap());
-    // } else {
-    //     cells[r][c]->setImage(new QPixmap());
-    // }
-    updateCell(r, c);
-}
+void PlaygroundWidget::update(u32 r, u32 c, const DamageAbstract *d) { updateCell(r, c); }
 
 void PlaygroundWidget::updateCell(u32 row, u32 col) {
     ImageVisitor iv;
 
     const PlayerAbstract *p = Game::getInstance()->get(row, col);
-    if (p) {
-        // std::cout << "Row: " << row << " Col: " << col << std::endl;
-        // std::cout << "Level: " << p->getLevel() << std::endl;
+    if (p && col != COLS - 1) {
         p->accept(&iv);
         cells[row][col]->setImage(iv.getPixmap());
         cells[row][col]->setLevel(p->getLevel());
@@ -274,6 +234,9 @@ void PlaygroundWidget::removeFocus() {
 bool PlaygroundWidget::getFocus() const { return hasFocus.row != -1 && hasFocus.col != -1; }
 
 void PlaygroundWidget::showUpdatePrice() {
+    if (hasFocus.col == COLS - 1) {
+        return;
+    }
     const PlayerAbstract *m = Game::getInstance()->get(hasFocus.row, hasFocus.col);
     if (m) {
         levelUpButton->setText("Level Up: " + QString::number(m->getCost()) + "$");

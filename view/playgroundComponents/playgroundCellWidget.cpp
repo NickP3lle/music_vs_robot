@@ -25,11 +25,7 @@ PlaygroundCellWidget::PlaygroundCellWidget(QWidget *parent)
     pixmapLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
 }
 
-void PlaygroundCellWidget::setImage(QPixmap *pixmap) {
-    std::cout << "6.1" << std::endl;
-    pixmapLabel->setPixmap(*pixmap);
-    std::cout << "6.2" << std::endl;
-}
+void PlaygroundCellWidget::setImage(QPixmap *pixmap) { pixmapLabel->setPixmap(*pixmap); }
 
 void PlaygroundCellWidget::setLevel(u32 level) {
     leveleLabel->setText(QString::number(level));
