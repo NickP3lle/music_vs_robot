@@ -160,6 +160,7 @@ void PlaygroundWidget::update(u32 r, u32 c, const EnemyWTool *e) {
         e->accept(&iv);
         cells[r][c]->setImage(iv.getPixmap());
     } else {
+        // std::cout << "r " << r << " c " << c << std::endl;
         cells[r][c]->setImage(new QPixmap());
     }
 }

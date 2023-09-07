@@ -46,6 +46,7 @@ class PlaygroundWidget : public QWidget,
     gridPosition hasFocus;
 
     void showUpdatePrice();
+    void updateCell(u32 row, u32 col);
 
   private slots:
     void insertEntity();

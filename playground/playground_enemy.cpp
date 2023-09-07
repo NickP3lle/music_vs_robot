@@ -30,7 +30,7 @@ bool PlaygroundEnemy::remove(u32 r, u32 c, const EnemyWTool &e) {
     bool f = false;
     c *= FRAMES;
     for (u32 i = c; i < c + FRAMES; ++i) {
-        bool f = enemy[r][i].remove(e);
+        f = enemy[r][i].remove(e);
     }
     if (f)
         notifyObservers(r, c);

@@ -22,12 +22,28 @@ void ImageVisitor::visitEnemyDefense() { pixmap = new QPixmap(":/assets/RobotDef
 
 void ImageVisitor::visitEnemyBig() { pixmap = new QPixmap(":/assets/RobotBig.png"); }
 
-void ImageVisitor::visitToolWeapon() { pixmap = new QPixmap(":/assets/ToolWeapon.png"); }
+void ImageVisitor::visitToolWeapon() {
+    toolPixmap = new QPixmap(":/assets/ToolWeapon.png");
+    painter = new QPainter(pixmap);
+    painter->drawPixmap(0, 0, *toolPixmap);
+}
 
-void ImageVisitor::visitToolArmor() { pixmap = new QPixmap(":/assets/ToolArmor.png"); }
+void ImageVisitor::visitToolArmor() {
+    toolPixmap = new QPixmap(":/assets/ToolArmor.png");
+    painter = new QPainter(pixmap);
+    painter->drawPixmap(0, 0, *toolPixmap);
+}
 
-void ImageVisitor::visitToolBoots() { pixmap = new QPixmap(":/assets/ToolBoots.png"); }
+void ImageVisitor::visitToolBoots() {
+    toolPixmap = new QPixmap(":/assets/ToolBoots.png");
+    painter = new QPainter(pixmap);
+    painter->drawPixmap(0, 0, *toolPixmap);
+}
 
-void ImageVisitor::visitToolRing() { pixmap = new QPixmap(":/assets/ToolRing.png"); }
+void ImageVisitor::visitToolRing() {
+    toolPixmap = new QPixmap(":/assets/ToolRing.png");
+    painter = new QPainter(pixmap);
+    painter->drawPixmap(0, 0, *toolPixmap);
+}
 
 QPixmap *ImageVisitor::getPixmap() const { return pixmap; }

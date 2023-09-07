@@ -2,11 +2,14 @@
 
 #include "../../util/visitor.h"
 
+#include <QPainter>
 #include <QPixmap>
 
 class ImageVisitor : public VisitorInterface {
   private:
     QPixmap *pixmap;
+    QPixmap *toolPixmap;
+    QPainter *painter;
 
   public:
     /// Damage
