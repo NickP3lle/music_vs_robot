@@ -33,6 +33,8 @@ void Game::battle() {
         PlaygroundDamage::move(*this);
         PlaygroundDamage::attack(*this);
         // there should be a timer of some kind here
+        std::this_thread::sleep_for(std::chrono::milliseconds(80));
+
     }
 
     std::cout << "enemy move" << std::endl;
