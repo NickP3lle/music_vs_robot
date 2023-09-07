@@ -13,6 +13,7 @@ class MainWindow : public QMainWindow {
 private:
   QStackedWidget *sw;
   QTimer timer;
+  u32 counter;
 
   void startGame();
 
