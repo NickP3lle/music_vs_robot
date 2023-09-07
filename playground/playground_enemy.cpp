@@ -130,10 +130,10 @@ bool PlaygroundEnemy::move(const PlaygroundPlayer &pp, PlaygroundDamage &pd) {
 }
 
 void PlaygroundEnemy::notifyObservers(u32 r, u32 c) const {
-    if (isEmpty(r, c)) {
-        obs.iter([&](auto o) { o->update(r, c, nullptr); });
-    } else {
-        get(r, c).iter([&](auto e) { obs.iter([&](auto o) { o->update(r, c, e); }); });
-    }
-    // o->update(r, c, nullptr);
+    // if (isEmpty(r, c)) {
+    //     obs.iter([&](auto o) { o->update(r, c, nullptr); });
+    // } else {
+    //     get(r, c).iter([&](auto e) { obs.iter([&](auto o) { o->update(r, c, e); }); });
+    // }
+    obs.iter([&](auto o) { o->update(r, c, nullptr); });
 }

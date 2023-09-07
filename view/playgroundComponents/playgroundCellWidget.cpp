@@ -3,6 +3,7 @@
 #include <QHBoxLayout>
 
 void PlaygroundCellWidget::mousePressEvent(QMouseEvent *event) {
+    std::cout << "PlaygroundCellWidget::mousePressEvent" << std::endl;
     QWidget::mousePressEvent(event);
     emit clicked();
 }
@@ -25,8 +26,9 @@ PlaygroundCellWidget::PlaygroundCellWidget(QWidget *parent)
 }
 
 void PlaygroundCellWidget::setImage(QPixmap *pixmap) {
-    // std::cout << "PlaygroundCellWidget::setImage" << std::endl;
+    std::cout << "6.1" << std::endl;
     pixmapLabel->setPixmap(*pixmap);
+    std::cout << "6.2" << std::endl;
 }
 
 void PlaygroundCellWidget::setLevel(u32 level) {

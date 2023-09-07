@@ -12,6 +12,8 @@ class ImageVisitor : public VisitorInterface {
     QPainter *painter;
 
   public:
+    ImageVisitor();
+
     /// Damage
     void visitDamageBullet() override;
     void visitDamageSlow() override;

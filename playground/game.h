@@ -16,6 +16,6 @@ class Game : public PlaygroundDamage, public PlaygroundEnemy, public PlaygroundP
     // bool levelUp(u32 r, u32 c); // don't need to overload, it's already defined
     // and it's not ambiguos
     bool isEmpty(u32 r, u32 c) const;
-    PlayerAbstract *get(u32 r, u32 c);
+    const PlayerAbstract *get(u32 r, u32 c) const;
     void battle();
 };

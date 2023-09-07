@@ -24,7 +24,7 @@ bool Game::remove(u32 r, u32 c) { return PlaygroundPlayer::remove(r, c); }
 
 bool Game::isEmpty(u32 r, u32 c) const { return PlaygroundPlayer::isEmpty(r, c); }
 
-PlayerAbstract *Game::get(u32 r, u32 c) { return &PlaygroundPlayer::get(r, c); }
+const PlayerAbstract *Game::get(u32 r, u32 c) const { return PlaygroundPlayer::getPtr(r, c); }
 
 void Game::battle() {
     PlaygroundPlayer::attack(*this);

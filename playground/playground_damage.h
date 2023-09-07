@@ -14,6 +14,7 @@ class PlaygroundDamage : public ObservablePlaygroundInterface<DamageAbstract> {
     bool isEmpty(u32 row, u32 col) const;
     DamagePlayer &get(u32 row, u32 col);
     const DamagePlayer &get(u32 row, u32 col) const;
+    const DamagePlayer *getPtr(u32 row, u32 col) const;
     void attack(PlaygroundEnemy &);
     void move(const PlaygroundEnemy &pe);
     bool isSlow(u32 row, u32 col);

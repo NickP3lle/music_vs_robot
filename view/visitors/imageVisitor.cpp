@@ -1,5 +1,7 @@
 #include "imageVisitor.h"
 
+ImageVisitor::ImageVisitor() : pixmap(new QPixmap), toolPixmap(nullptr), painter(nullptr) {}
+
 void ImageVisitor::visitDamageBullet() { pixmap = new QPixmap(":/assets/DamageBullet.png"); }
 
 void ImageVisitor::visitDamageSlow() { pixmap = new QPixmap(":/assets/DamageSlow.png"); }
