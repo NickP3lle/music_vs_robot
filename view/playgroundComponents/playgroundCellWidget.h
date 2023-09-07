@@ -1,8 +1,8 @@
 #ifndef PLAYGROUND_CELL_WIDGET_H
 #define PLAYGROUND_CELL_WIDGET_H
 
-#include "../../game/entity.h"
-#include "../../game/include.h"
+#include "../../entity/entity.h"
+#include "../../include.h"
 
 #include <QLabel>
 #include <QPainter>

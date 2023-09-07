@@ -1,20 +1,19 @@
 #ifndef TIMER_WIDGET_H
 #define TIMER_WIDGET_H
 
-#include "../../game/include.h"
-#include "../../game/timer.h"
-#include "../observers/timerObserverInterface.h"
+#include "../../include.h"
+#include "../../playground/timer.h"
 #include <QLabel>
 #include <QWidget>
 
-class TimerWidget : public QWidget, public TimerObserverInterface {
-  Q_OBJECT
+class TimerWidget : public QWidget, public ObserverInterface<Timer> {
+    Q_OBJECT
 
-private:
-  QLabel *label;
+  private:
+    QLabel *label;
 
-public:
-  TimerWidget(QWidget *parent = 0);
-  void updateTimer() override;
+  public:
+    TimerWidget(QWidget *parent = 0);
+    void update(const Timer *t) override;
 };
 #endif

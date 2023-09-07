@@ -1,7 +1,6 @@
 #ifndef MAIN_WINDOW_H
 #define MAIN_WINDOW_H
 
-#include "../util/dataManager.h"
 #include "playgroundWidget.h"
 #include "startWidget.h"
 #include <QMainWindow>
@@ -12,9 +11,7 @@ class MainWindow : public QMainWindow {
   Q_OBJECT
 
 private:
-  QStackedWidget *stackedWidget;
-  StartWidget *startWidget;
-  PlaygroundWidget *playgroundWidget;
+  QStackedWidget *sw;
   QTimer timer;
 
   void startGame();

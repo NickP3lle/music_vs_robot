@@ -1,8 +1,8 @@
 #ifndef INSTRUMENT_BUTTON_H
 #define INSTRUMENT_BUTTON_H
 
-#include "../../game/include.h"
-#include "../../music/music_instrument.h"
+#include "../../entity/player.h"
+#include "../../include.h"
 
 #include <QFocusEvent>
 #include <QPushButton>
@@ -12,8 +12,8 @@ class InstrumentButton : public QPushButton {
     Q_OBJECT
 
   private:
-    MusicInstruments *instrument;
-    static MusicInstruments *instrumentSelected;
+    PlayerAbstract *instrument;
+    static PlayerAbstract *instrumentSelected;
 
   protected:
     // // Update button appearance when it gains focus
@@ -56,8 +56,8 @@ class InstrumentButton : public QPushButton {
     // }
 
   public:
-    InstrumentButton(MusicInstruments *i, QString title, QWidget *parent = 0);
-    static MusicInstruments *getSelectedInstrument();
+    InstrumentButton(PlayerAbstract *i, QString title, QWidget *parent = 0);
+    static PlayerAbstract *getSelectedInstrument();
     static bool removeSelectedInstrument();
     static bool isInstrumentSelected();
 };

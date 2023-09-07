@@ -1,33 +1,33 @@
 #include "mainWindow.h"
 
-#include "../game/playground.h"
-#include "../game/timer.h"
-#include "../util/dataManager.h"
+#include "../playground/cash.h"
+#include "../playground/game.h"
+#include "../playground/timer.h"
+#include "../util/data_manager.h"
 
 #include <QLabel>
 #include <QMessageBox>
 #include <QVBoxLayout>
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), stackedWidget(new QStackedWidget(this)), startWidget(new StartWidget(this)),
-      playgroundWidget(new PlaygroundWidget(this)) {
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), sw(new QStackedWidget(this)) {
 
-    setCentralWidget(stackedWidget); // set stackedWidget as central widget
-    stackedWidget->addWidget(startWidget);
-    stackedWidget->addWidget(playgroundWidget);
-    stackedWidget->setCurrentWidget(startWidget);
+    setCentralWidget(sw); // set stackedWidget as central widget
+    sw->addWidget(new StartWidget(this));
+    sw->addWidget(new PlaygroundWidget(this));
+    sw->setCurrentIndex(0);
 
-    stackedWidget->resize(1280, 720);
+    sw->resize(1280, 720);
 
     setWindowTitle("Music vs Robots");
 
     timer.setInterval(1000);
-    connect(&timer, &QTimer::timeout, this, [] { Playground::getInstance()->battle(); });
+    connect(&timer, &QTimer::timeout, this, [] { Game::getInstance()->battle(); });
 }
 
 void MainWindow::startGame() {
-    stackedWidget->setCurrentWidget(playgroundWidget);
-    Playground::cleanUp();
+    sw->setCurrentIndex(1);
+    // Errore qui
+    Game::getInstance()->cleanUp();
     Timer::cleanUp();
     timer.start();
 }
@@ -81,7 +81,7 @@ void MainWindow::endGame() {
 
     DataManagerInterface::saveAll();
 
-    stackedWidget->setCurrentWidget(startWidget);
+    sw->setCurrentIndex(0);
 }
 
 MainWindow::~MainWindow() { DataManagerInterface::saveAll(); }
