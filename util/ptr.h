@@ -19,6 +19,7 @@ public:
   T *operator->() const;
   T &operator*() const;
   operator bool() const;
+  bool operator==(const ptr &o) const { return p == o.p; }
 };
 
 #include <iostream>

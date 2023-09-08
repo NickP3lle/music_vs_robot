@@ -19,7 +19,7 @@ public:
   // bool levelUp(u32 r, u32 c); // don't need to overload, it's already defined
   // and it's not ambiguos
   bool isEmpty(u32 r, u32 c) const;
-  const PlayerAbstract *get(u32 r, u32 c) const;
+  const PlayerAbstract &get(u32 r, u32 c) const;
   void damagePropagate();
   void battle();
 };

@@ -28,8 +28,8 @@ bool Game::isEmpty(u32 r, u32 c) const {
   return PlaygroundPlayer::isEmpty(r, c);
 }
 
-const PlayerAbstract *Game::get(u32 r, u32 c) const {
-  return PlaygroundPlayer::getPtr(r, c);
+const PlayerAbstract &Game::get(u32 r, u32 c) const {
+  return PlaygroundPlayer::get(r, c);
 }
 
 void Game::damagePropagate() {

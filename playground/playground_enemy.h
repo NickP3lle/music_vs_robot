@@ -16,7 +16,7 @@ private:
 
 public:
   void insert();
-  bool remove(u32 row, u32 col, const EnemyWTool &e);
+  bool remove(u32 row, u32 col, const EnemyWTool *e);
   bool isEmpty(u32 row, u32 col) const;
   void cleanUp();
   deque<EnemyWTool *> get(u32 row, u32 col);

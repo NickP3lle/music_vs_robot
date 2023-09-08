@@ -53,68 +53,78 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = main.cpp \
-		game/cash.cpp \
-		game/entity.cpp \
-		game/playground.cpp \
-		game/timer.cpp \
-		music/music_instrument.cpp \
-		robot/robot.cpp \
-		robot/robotwtool.cpp \
-		robot/tool.cpp \
+		entity/damage.cpp \
+		entity/enemy.cpp \
+		entity/enemywtool.cpp \
+		entity/entity.cpp \
+		entity/player.cpp \
+		entity/tool.cpp \
+		playground/cash.cpp \
+		playground/game.cpp \
+		playground/playground_damage.cpp \
+		playground/playground_enemy.cpp \
+		playground/playground_player.cpp \
+		playground/timer.cpp \
+		util/data_manager.cpp \
 		util/independentfn.cpp \
-		util/dataManager.cpp \
+		util/observable_game.cpp \
 		view/mainWindow.cpp \
 		view/playgroundWidget.cpp \
 		view/startWidget.cpp \
 		view/playgroundComponents/cashWidget.cpp \
-		view/playgroundComponents/timerWidget.cpp \
 		view/playgroundComponents/instrumentButton.cpp \
 		view/playgroundComponents/playgroundCellWidget.cpp \
+		view/playgroundComponents/timerWidget.cpp \
 		view/visitors/imageVisitor.cpp qrc_resources.cpp \
 		moc_mainWindow.cpp \
 		moc_playgroundWidget.cpp \
 		moc_startWidget.cpp \
 		moc_cashWidget.cpp \
-		moc_timerWidget.cpp \
 		moc_instrumentButton.cpp \
-		moc_playgroundCellWidget.cpp
+		moc_playgroundCellWidget.cpp \
+		moc_timerWidget.cpp
 OBJECTS       = main.o \
-		cash.o \
+		damage.o \
+		enemy.o \
+		enemywtool.o \
 		entity.o \
-		playground.o \
-		timer.o \
-		music_instrument.o \
-		robot.o \
-		robotwtool.o \
+		player.o \
 		tool.o \
+		cash.o \
+		game.o \
+		playground_damage.o \
+		playground_enemy.o \
+		playground_player.o \
+		timer.o \
+		data_manager.o \
 		independentfn.o \
-		dataManager.o \
+		observable_game.o \
 		mainWindow.o \
 		playgroundWidget.o \
 		startWidget.o \
 		cashWidget.o \
-		timerWidget.o \
 		instrumentButton.o \
 		playgroundCellWidget.o \
+		timerWidget.o \
 		imageVisitor.o \
 		qrc_resources.o \
 		moc_mainWindow.o \
 		moc_playgroundWidget.o \
 		moc_startWidget.o \
 		moc_cashWidget.o \
-		moc_timerWidget.o \
 		moc_instrumentButton.o \
-		moc_playgroundCellWidget.o
+		moc_playgroundCellWidget.o \
+		moc_timerWidget.o
 DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		/opt/homebrew/share/qt/mkspecs/features/device_config.prf \
-		/opt/homebrew/Cellar/qt/6.5.1_2/share/qt/mkspecs/common/unix.conf \
-		/opt/homebrew/Cellar/qt/6.5.1_2/share/qt/mkspecs/common/mac.conf \
-		/opt/homebrew/Cellar/qt/6.5.1_2/share/qt/mkspecs/common/macx.conf \
-		/opt/homebrew/Cellar/qt/6.5.1_2/share/qt/mkspecs/common/sanitize.conf \
-		/opt/homebrew/Cellar/qt/6.5.1_2/share/qt/mkspecs/common/gcc-base.conf \
-		/opt/homebrew/Cellar/qt/6.5.1_2/share/qt/mkspecs/common/gcc-base-mac.conf \
-		/opt/homebrew/Cellar/qt/6.5.1_2/share/qt/mkspecs/common/clang.conf \
-		/opt/homebrew/Cellar/qt/6.5.1_2/share/qt/mkspecs/common/clang-mac.conf \
+		/opt/homebrew/Cellar/qt/6.5.1_3/share/qt/mkspecs/common/unix.conf \
+		/opt/homebrew/Cellar/qt/6.5.1_3/share/qt/mkspecs/common/mac.conf \
+		/opt/homebrew/Cellar/qt/6.5.1_3/share/qt/mkspecs/common/macx.conf \
+		/opt/homebrew/Cellar/qt/6.5.1_3/share/qt/mkspecs/common/sanitize.conf \
+		/opt/homebrew/Cellar/qt/6.5.1_3/share/qt/mkspecs/common/gcc-base.conf \
+		/opt/homebrew/Cellar/qt/6.5.1_3/share/qt/mkspecs/common/gcc-base-mac.conf \
+		/opt/homebrew/Cellar/qt/6.5.1_3/share/qt/mkspecs/common/clang.conf \
+		/opt/homebrew/Cellar/qt/6.5.1_3/share/qt/mkspecs/common/clang-mac.conf \
 		/opt/homebrew/share/qt/mkspecs/qconfig.pri \
 		/opt/homebrew/share/qt/mkspecs/modules/qt_lib_3danimation.pri \
 		/opt/homebrew/share/qt/mkspecs/modules/qt_lib_3danimation_private.pri \
@@ -404,51 +414,62 @@ DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		/opt/homebrew/share/qt/mkspecs/features/exceptions.prf \
 		/opt/homebrew/share/qt/mkspecs/features/yacc.prf \
 		/opt/homebrew/share/qt/mkspecs/features/lex.prf \
-		music_vs_robot.pro game/cash.h \
-		game/define.h \
-		game/entity.h \
-		game/include.h \
-		game/playground.h \
-		game/timer.h \
-		music/music_instrument.h \
-		robot/robot.h \
-		robot/robotwtool.h \
-		robot/tool.h \
-		util/dataManager.h \
+		music_vs_robot.pro define.h \
+		include.h \
+		entity/damage.h \
+		entity/enemy.h \
+		entity/enemywtool.h \
+		entity/entity.h \
+		entity/player.h \
+		entity/tool.h \
+		playground/cash.h \
+		playground/game.h \
+		playground/playground_damage.h \
+		playground/playground_enemy.h \
+		playground/playground_player.h \
+		playground/timer.h \
+		util/cloneable.h \
+		util/data_manager.h \
 		util/deque.h \
 		util/independentfn.h \
-		util/iterator.h \
+		util/observable.h \
+		util/observable_game.h \
+		util/observable_playground.h \
+		util/observer.h \
+		util/observer_game.h \
+		util/observer_playground.h \
 		util/ptr.h \
-		util/util.h \
+		util/visitor.h \
 		view/mainWindow.h \
 		view/playgroundWidget.h \
 		view/startWidget.h \
-		view/observers/cashObserverInterface.h \
-		view/observers/timerObserverInterface.h \
-		view/observers/playgroundObserverInterface.h \
 		view/playgroundComponents/cashWidget.h \
-		view/playgroundComponents/timerWidget.h \
 		view/playgroundComponents/instrumentButton.h \
 		view/playgroundComponents/playgroundCellWidget.h \
-		view/visitors/entityVisitorInterface.h \
+		view/playgroundComponents/timerWidget.h \
 		view/visitors/imageVisitor.h main.cpp \
-		game/cash.cpp \
-		game/entity.cpp \
-		game/playground.cpp \
-		game/timer.cpp \
-		music/music_instrument.cpp \
-		robot/robot.cpp \
-		robot/robotwtool.cpp \
-		robot/tool.cpp \
+		entity/damage.cpp \
+		entity/enemy.cpp \
+		entity/enemywtool.cpp \
+		entity/entity.cpp \
+		entity/player.cpp \
+		entity/tool.cpp \
+		playground/cash.cpp \
+		playground/game.cpp \
+		playground/playground_damage.cpp \
+		playground/playground_enemy.cpp \
+		playground/playground_player.cpp \
+		playground/timer.cpp \
+		util/data_manager.cpp \
 		util/independentfn.cpp \
-		util/dataManager.cpp \
+		util/observable_game.cpp \
 		view/mainWindow.cpp \
 		view/playgroundWidget.cpp \
 		view/startWidget.cpp \
 		view/playgroundComponents/cashWidget.cpp \
-		view/playgroundComponents/timerWidget.cpp \
 		view/playgroundComponents/instrumentButton.cpp \
 		view/playgroundComponents/playgroundCellWidget.cpp \
+		view/playgroundComponents/timerWidget.cpp \
 		view/visitors/imageVisitor.cpp
 QMAKE_TARGET  = music_vs_robot
 DESTDIR       = 
@@ -466,7 +487,7 @@ EXPORT_ARCH_ARGS = $(foreach arch, $(if $(EXPORT_ARCHS), $(EXPORT_ARCHS), $(EXPO
 EXPORT__PRO_FILE_ = /Users/carlorosso/Documents/triennale_informatica/secondo_anno/music_vs_robot/music_vs_robot.pro
 
 
-include /opt/homebrew/Cellar/qt/6.5.1_2/share/qt/mkspecs/features/mac/sdk.mk
+include /opt/homebrew/Cellar/qt/6.5.1_3/share/qt/mkspecs/features/mac/sdk.mk
 first: all
 ####### Build rules
 
@@ -476,14 +497,14 @@ music_vs_robot.app/Contents/MacOS/music_vs_robot:  $(OBJECTS)
 
 Makefile: music_vs_robot.pro /opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		/opt/homebrew/share/qt/mkspecs/features/device_config.prf \
-		/opt/homebrew/Cellar/qt/6.5.1_2/share/qt/mkspecs/common/unix.conf \
-		/opt/homebrew/Cellar/qt/6.5.1_2/share/qt/mkspecs/common/mac.conf \
-		/opt/homebrew/Cellar/qt/6.5.1_2/share/qt/mkspecs/common/macx.conf \
-		/opt/homebrew/Cellar/qt/6.5.1_2/share/qt/mkspecs/common/sanitize.conf \
-		/opt/homebrew/Cellar/qt/6.5.1_2/share/qt/mkspecs/common/gcc-base.conf \
-		/opt/homebrew/Cellar/qt/6.5.1_2/share/qt/mkspecs/common/gcc-base-mac.conf \
-		/opt/homebrew/Cellar/qt/6.5.1_2/share/qt/mkspecs/common/clang.conf \
-		/opt/homebrew/Cellar/qt/6.5.1_2/share/qt/mkspecs/common/clang-mac.conf \
+		/opt/homebrew/Cellar/qt/6.5.1_3/share/qt/mkspecs/common/unix.conf \
+		/opt/homebrew/Cellar/qt/6.5.1_3/share/qt/mkspecs/common/mac.conf \
+		/opt/homebrew/Cellar/qt/6.5.1_3/share/qt/mkspecs/common/macx.conf \
+		/opt/homebrew/Cellar/qt/6.5.1_3/share/qt/mkspecs/common/sanitize.conf \
+		/opt/homebrew/Cellar/qt/6.5.1_3/share/qt/mkspecs/common/gcc-base.conf \
+		/opt/homebrew/Cellar/qt/6.5.1_3/share/qt/mkspecs/common/gcc-base-mac.conf \
+		/opt/homebrew/Cellar/qt/6.5.1_3/share/qt/mkspecs/common/clang.conf \
+		/opt/homebrew/Cellar/qt/6.5.1_3/share/qt/mkspecs/common/clang-mac.conf \
 		/opt/homebrew/share/qt/mkspecs/qconfig.pri \
 		/opt/homebrew/share/qt/mkspecs/modules/qt_lib_3danimation.pri \
 		/opt/homebrew/share/qt/mkspecs/modules/qt_lib_3danimation_private.pri \
@@ -781,14 +802,14 @@ Makefile: music_vs_robot.pro /opt/homebrew/share/qt/mkspecs/macx-clang/qmake.con
 	$(QMAKE) -o Makefile music_vs_robot.pro
 /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf:
 /opt/homebrew/share/qt/mkspecs/features/device_config.prf:
-/opt/homebrew/Cellar/qt/6.5.1_2/share/qt/mkspecs/common/unix.conf:
-/opt/homebrew/Cellar/qt/6.5.1_2/share/qt/mkspecs/common/mac.conf:
-/opt/homebrew/Cellar/qt/6.5.1_2/share/qt/mkspecs/common/macx.conf:
-/opt/homebrew/Cellar/qt/6.5.1_2/share/qt/mkspecs/common/sanitize.conf:
-/opt/homebrew/Cellar/qt/6.5.1_2/share/qt/mkspecs/common/gcc-base.conf:
-/opt/homebrew/Cellar/qt/6.5.1_2/share/qt/mkspecs/common/gcc-base-mac.conf:
-/opt/homebrew/Cellar/qt/6.5.1_2/share/qt/mkspecs/common/clang.conf:
-/opt/homebrew/Cellar/qt/6.5.1_2/share/qt/mkspecs/common/clang-mac.conf:
+/opt/homebrew/Cellar/qt/6.5.1_3/share/qt/mkspecs/common/unix.conf:
+/opt/homebrew/Cellar/qt/6.5.1_3/share/qt/mkspecs/common/mac.conf:
+/opt/homebrew/Cellar/qt/6.5.1_3/share/qt/mkspecs/common/macx.conf:
+/opt/homebrew/Cellar/qt/6.5.1_3/share/qt/mkspecs/common/sanitize.conf:
+/opt/homebrew/Cellar/qt/6.5.1_3/share/qt/mkspecs/common/gcc-base.conf:
+/opt/homebrew/Cellar/qt/6.5.1_3/share/qt/mkspecs/common/gcc-base-mac.conf:
+/opt/homebrew/Cellar/qt/6.5.1_3/share/qt/mkspecs/common/clang.conf:
+/opt/homebrew/Cellar/qt/6.5.1_3/share/qt/mkspecs/common/clang-mac.conf:
 /opt/homebrew/share/qt/mkspecs/qconfig.pri:
 /opt/homebrew/share/qt/mkspecs/modules/qt_lib_3danimation.pri:
 /opt/homebrew/share/qt/mkspecs/modules/qt_lib_3danimation_private.pri:
@@ -1095,16 +1116,11 @@ music_vs_robot.app/Contents/PkgInfo:
 music_vs_robot.app/Contents/Info.plist: 
 	@test -d music_vs_robot.app/Contents || mkdir -p music_vs_robot.app/Contents
 	@$(DEL_FILE) music_vs_robot.app/Contents/Info.plist
-	@plutil -convert xml1 -o - /opt/homebrew/share/qt/mkspecs/macx-clang/Info.plist.app | sed -e "s,@SHORT_VERSION@,1.0,g" -e "s,\$${QMAKE_SHORT_VERSION},1.0,g" -e "s,@FULL_VERSION@,1.0.0,g" -e "s,\$${QMAKE_FULL_VERSION},1.0.0,g" -e "s,@TYPEINFO@,????,g" -e "s,\$${QMAKE_PKGINFO_TYPEINFO},????,g" -e "s,@BUNDLEIDENTIFIER@,com.yourcompany.music-vs-robot,g" -e "s,\$${PRODUCT_BUNDLE_IDENTIFIER},com.yourcompany.music-vs-robot,g" -e "s,\$${MACOSX_DEPLOYMENT_TARGET},13.0,g" -e "s,\$${IPHONEOS_DEPLOYMENT_TARGET},,g" -e "s,\$${TVOS_DEPLOYMENT_TARGET},,g" -e "s,\$${WATCHOS_DEPLOYMENT_TARGET},,g" -e "s,\$${IOS_LAUNCH_SCREEN},LaunchScreen,g" -e "s,@ICON@,icon.icns,g" -e "s,\$${ASSETCATALOG_COMPILER_APPICON_NAME},icon.icns,g" -e "s,@EXECUTABLE@,music_vs_robot,g" -e "s,@LIBRARY@,music_vs_robot,g" -e "s,\$${EXECUTABLE_NAME},music_vs_robot,g" -e "s,@TYPEINFO@,????,g" -e "s,\$${QMAKE_PKGINFO_TYPEINFO},????,g" >music_vs_robot.app/Contents/Info.plist
-music_vs_robot.app/Contents/Resources/icon.icns: assets/icon.icns
-	@test -d music_vs_robot.app/Contents/Resources/ || mkdir -p music_vs_robot.app/Contents/Resources/
-	@$(DEL_FILE) music_vs_robot.app/Contents/Resources/icon.icns
-	@$(COPY_FILE) assets/icon.icns music_vs_robot.app/Contents/Resources/icon.icns
+	@plutil -convert xml1 -o - /opt/homebrew/share/qt/mkspecs/macx-clang/Info.plist.app | sed -e "s,@SHORT_VERSION@,1.0,g" -e "s,\$${QMAKE_SHORT_VERSION},1.0,g" -e "s,@FULL_VERSION@,1.0.0,g" -e "s,\$${QMAKE_FULL_VERSION},1.0.0,g" -e "s,@TYPEINFO@,????,g" -e "s,\$${QMAKE_PKGINFO_TYPEINFO},????,g" -e "s,@BUNDLEIDENTIFIER@,com.yourcompany.music-vs-robot,g" -e "s,\$${PRODUCT_BUNDLE_IDENTIFIER},com.yourcompany.music-vs-robot,g" -e "s,\$${MACOSX_DEPLOYMENT_TARGET},13.0,g" -e "s,\$${IPHONEOS_DEPLOYMENT_TARGET},,g" -e "s,\$${TVOS_DEPLOYMENT_TARGET},,g" -e "s,\$${WATCHOS_DEPLOYMENT_TARGET},,g" -e "s,\$${IOS_LAUNCH_SCREEN},LaunchScreen,g" -e "s,@ICON@,,g" -e "s,\$${ASSETCATALOG_COMPILER_APPICON_NAME},,g" -e "s,@EXECUTABLE@,music_vs_robot,g" -e "s,@LIBRARY@,music_vs_robot,g" -e "s,\$${EXECUTABLE_NAME},music_vs_robot,g" -e "s,@TYPEINFO@,????,g" -e "s,\$${QMAKE_PKGINFO_TYPEINFO},????,g" >music_vs_robot.app/Contents/Info.plist
 
 all: Makefile \
 		music_vs_robot.app/Contents/PkgInfo \
-		music_vs_robot.app/Contents/Info.plist \
-		music_vs_robot.app/Contents/Resources/icon.icns music_vs_robot.app/Contents/MacOS/music_vs_robot
+		music_vs_robot.app/Contents/Info.plist music_vs_robot.app/Contents/MacOS/music_vs_robot
 
 dist: distdir FORCE
 	(cd `dirname $(DISTDIR)` && $(TAR) $(DISTNAME).tar $(DISTNAME) && $(COMPRESS) $(DISTNAME).tar) && $(MOVE) `dirname $(DISTDIR)`/$(DISTNAME).tar.gz . && $(DEL_FILE) -r $(DISTDIR)
@@ -1114,8 +1130,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/homebrew/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents game/cash.h game/define.h game/entity.h game/include.h game/playground.h game/timer.h music/music_instrument.h robot/robot.h robot/robotwtool.h robot/tool.h util/dataManager.h util/deque.h util/independentfn.h util/iterator.h util/ptr.h util/util.h view/mainWindow.h view/playgroundWidget.h view/startWidget.h view/observers/cashObserverInterface.h view/observers/timerObserverInterface.h view/observers/playgroundObserverInterface.h view/playgroundComponents/cashWidget.h view/playgroundComponents/timerWidget.h view/playgroundComponents/instrumentButton.h view/playgroundComponents/playgroundCellWidget.h view/visitors/entityVisitorInterface.h view/visitors/imageVisitor.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp game/cash.cpp game/entity.cpp game/playground.cpp game/timer.cpp music/music_instrument.cpp robot/robot.cpp robot/robotwtool.cpp robot/tool.cpp util/independentfn.cpp util/dataManager.cpp view/mainWindow.cpp view/playgroundWidget.cpp view/startWidget.cpp view/playgroundComponents/cashWidget.cpp view/playgroundComponents/timerWidget.cpp view/playgroundComponents/instrumentButton.cpp view/playgroundComponents/playgroundCellWidget.cpp view/visitors/imageVisitor.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents define.h include.h entity/damage.h entity/enemy.h entity/enemywtool.h entity/entity.h entity/player.h entity/tool.h playground/cash.h playground/game.h playground/playground_damage.h playground/playground_enemy.h playground/playground_player.h playground/timer.h util/cloneable.h util/data_manager.h util/deque.h util/independentfn.h util/observable.h util/observable_game.h util/observable_playground.h util/observer.h util/observer_game.h util/observer_playground.h util/ptr.h util/visitor.h view/mainWindow.h view/playgroundWidget.h view/startWidget.h view/playgroundComponents/cashWidget.h view/playgroundComponents/instrumentButton.h view/playgroundComponents/playgroundCellWidget.h view/playgroundComponents/timerWidget.h view/visitors/imageVisitor.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp entity/damage.cpp entity/enemy.cpp entity/enemywtool.cpp entity/entity.cpp entity/player.cpp entity/tool.cpp playground/cash.cpp playground/game.cpp playground/playground_damage.cpp playground/playground_enemy.cpp playground/playground_player.cpp playground/timer.cpp util/data_manager.cpp util/independentfn.cpp util/observable_game.cpp view/mainWindow.cpp view/playgroundWidget.cpp view/startWidget.cpp view/playgroundComponents/cashWidget.cpp view/playgroundComponents/instrumentButton.cpp view/playgroundComponents/playgroundCellWidget.cpp view/playgroundComponents/timerWidget.cpp view/visitors/imageVisitor.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -1146,12 +1162,21 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_resources.cpp
 qrc_resources.cpp: resources.qrc \
 		/opt/homebrew/share/qt/libexec/rcc \
-		assets/saxophone.png \
-		assets/flute.png \
-		assets/drum.png \
-		assets/trumpet.png \
-		assets/violin.png \
-		assets/robot.png
+		assets/Drum.png \
+		assets/Robot.png \
+		assets/ToolBoots.png \
+		assets/RobotDefense.png \
+		assets/ToolArmor.png \
+		assets/DamageBullet.png \
+		assets/ToolWeapon.png \
+		assets/Saxophone.png \
+		assets/Violin.png \
+		assets/DamageWave.png \
+		assets/ToolRing.png \
+		assets/Trumpet.png \
+		assets/DamageSlow.png \
+		assets/Flute.png \
+		assets/RobotBig.png
 	/opt/homebrew/share/qt/libexec/rcc -name resources resources.qrc -o qrc_resources.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h
@@ -1160,29 +1185,37 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /opt/homebrew/share/qt/mkspecs/features/data/dummy.cpp
 	/Library/Developer/CommandLineTools/usr/bin/clang++ -pipe -stdlib=libc++ -O2 -std=gnu++1z $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=13.0 -Wall -Wextra -dM -E -o moc_predefs.h /opt/homebrew/share/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainWindow.cpp moc_playgroundWidget.cpp moc_startWidget.cpp moc_cashWidget.cpp moc_timerWidget.cpp moc_instrumentButton.cpp moc_playgroundCellWidget.cpp
+compiler_moc_header_make_all: moc_mainWindow.cpp moc_playgroundWidget.cpp moc_startWidget.cpp moc_cashWidget.cpp moc_instrumentButton.cpp moc_playgroundCellWidget.cpp moc_timerWidget.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainWindow.cpp moc_playgroundWidget.cpp moc_startWidget.cpp moc_cashWidget.cpp moc_timerWidget.cpp moc_instrumentButton.cpp moc_playgroundCellWidget.cpp
+	-$(DEL_FILE) moc_mainWindow.cpp moc_playgroundWidget.cpp moc_startWidget.cpp moc_cashWidget.cpp moc_instrumentButton.cpp moc_playgroundCellWidget.cpp moc_timerWidget.cpp
 moc_mainWindow.cpp: view/mainWindow.h \
 		view/playgroundWidget.h \
-		game/include.h \
-		music/music_instrument.h \
-		game/define.h \
-		game/entity.h \
-		util/dataManager.h \
-		view/visitors/entityVisitorInterface.h \
-		game/cash.h \
-		view/observers/cashObserverInterface.h \
-		robot/robotwtool.h \
-		robot/robot.h \
-		util/util.h \
+		entity/player.h \
+		playground/cash.h \
+		include.h \
+		define.h \
+		util/cloneable.h \
+		util/data_manager.h \
 		util/deque.h \
 		util/independentfn.h \
-		robot/tool.h \
-		game/playground.h \
-		view/observers/playgroundObserverInterface.h \
-		game/timer.h \
-		view/observers/timerObserverInterface.h \
+		util/observable.h \
+		util/observer.h \
+		util/observable_game.h \
+		util/observer_game.h \
+		util/observable_playground.h \
+		util/observer_playground.h \
+		util/ptr.h \
+		util/visitor.h \
+		entity/entity.h \
+		entity/damage.h \
+		playground/game.h \
+		playground/playground_damage.h \
+		playground/playground_enemy.h \
+		entity/enemywtool.h \
+		entity/enemy.h \
+		entity/tool.h \
+		playground/timer.h \
+		playground/playground_player.h \
 		view/playgroundComponents/cashWidget.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
@@ -1203,6 +1236,7 @@ moc_mainWindow.cpp: view/mainWindow.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QStyleOption \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qstyleoption.h \
 		view/playgroundComponents/timerWidget.h \
+		view/visitors/imageVisitor.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QHBoxLayout \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
 		view/startWidget.h \
@@ -1217,24 +1251,32 @@ moc_mainWindow.cpp: view/mainWindow.h \
 	/opt/homebrew/share/qt/libexec/moc $(DEFINES) --include /Users/carlorosso/Documents/triennale_informatica/secondo_anno/music_vs_robot/moc_predefs.h -I/opt/homebrew/share/qt/mkspecs/macx-clang -I/Users/carlorosso/Documents/triennale_informatica/secondo_anno/music_vs_robot -I/Users/carlorosso/Documents/triennale_informatica/secondo_anno/music_vs_robot -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/opt/homebrew/lib view/mainWindow.h -o moc_mainWindow.cpp
 
 moc_playgroundWidget.cpp: view/playgroundWidget.h \
-		game/include.h \
-		music/music_instrument.h \
-		game/define.h \
-		game/entity.h \
-		util/dataManager.h \
-		view/visitors/entityVisitorInterface.h \
-		game/cash.h \
-		view/observers/cashObserverInterface.h \
-		robot/robotwtool.h \
-		robot/robot.h \
-		util/util.h \
+		entity/player.h \
+		playground/cash.h \
+		include.h \
+		define.h \
+		util/cloneable.h \
+		util/data_manager.h \
 		util/deque.h \
 		util/independentfn.h \
-		robot/tool.h \
-		game/playground.h \
-		view/observers/playgroundObserverInterface.h \
-		game/timer.h \
-		view/observers/timerObserverInterface.h \
+		util/observable.h \
+		util/observer.h \
+		util/observable_game.h \
+		util/observer_game.h \
+		util/observable_playground.h \
+		util/observer_playground.h \
+		util/ptr.h \
+		util/visitor.h \
+		entity/entity.h \
+		entity/damage.h \
+		playground/game.h \
+		playground/playground_damage.h \
+		playground/playground_enemy.h \
+		entity/enemywtool.h \
+		entity/enemy.h \
+		entity/tool.h \
+		playground/timer.h \
+		playground/playground_player.h \
 		view/playgroundComponents/cashWidget.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
@@ -1255,6 +1297,7 @@ moc_playgroundWidget.cpp: view/playgroundWidget.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QStyleOption \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qstyleoption.h \
 		view/playgroundComponents/timerWidget.h \
+		view/visitors/imageVisitor.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QHBoxLayout \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
 		moc_predefs.h \
@@ -1273,20 +1316,21 @@ moc_startWidget.cpp: view/startWidget.h \
 	/opt/homebrew/share/qt/libexec/moc $(DEFINES) --include /Users/carlorosso/Documents/triennale_informatica/secondo_anno/music_vs_robot/moc_predefs.h -I/opt/homebrew/share/qt/mkspecs/macx-clang -I/Users/carlorosso/Documents/triennale_informatica/secondo_anno/music_vs_robot -I/Users/carlorosso/Documents/triennale_informatica/secondo_anno/music_vs_robot -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/opt/homebrew/lib view/startWidget.h -o moc_startWidget.cpp
 
 moc_cashWidget.cpp: view/playgroundComponents/cashWidget.h \
-		game/cash.h \
-		util/dataManager.h \
-		view/observers/cashObserverInterface.h \
-		game/include.h \
-		music/music_instrument.h \
-		game/define.h \
-		game/entity.h \
-		view/visitors/entityVisitorInterface.h \
-		robot/robotwtool.h \
-		robot/robot.h \
-		util/util.h \
+		include.h \
+		define.h \
+		util/cloneable.h \
+		util/data_manager.h \
 		util/deque.h \
 		util/independentfn.h \
-		robot/tool.h \
+		util/observable.h \
+		util/observer.h \
+		util/observable_game.h \
+		util/observer_game.h \
+		util/observable_playground.h \
+		util/observer_playground.h \
+		util/ptr.h \
+		util/visitor.h \
+		playground/cash.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
@@ -1295,46 +1339,25 @@ moc_cashWidget.cpp: view/playgroundComponents/cashWidget.h \
 		/opt/homebrew/share/qt/libexec/moc
 	/opt/homebrew/share/qt/libexec/moc $(DEFINES) --include /Users/carlorosso/Documents/triennale_informatica/secondo_anno/music_vs_robot/moc_predefs.h -I/opt/homebrew/share/qt/mkspecs/macx-clang -I/Users/carlorosso/Documents/triennale_informatica/secondo_anno/music_vs_robot -I/Users/carlorosso/Documents/triennale_informatica/secondo_anno/music_vs_robot -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/opt/homebrew/lib view/playgroundComponents/cashWidget.h -o moc_cashWidget.cpp
 
-moc_timerWidget.cpp: view/playgroundComponents/timerWidget.h \
-		game/include.h \
-		music/music_instrument.h \
-		game/define.h \
-		game/entity.h \
-		util/dataManager.h \
-		view/visitors/entityVisitorInterface.h \
-		game/cash.h \
-		view/observers/cashObserverInterface.h \
-		robot/robotwtool.h \
-		robot/robot.h \
-		util/util.h \
-		util/deque.h \
-		util/independentfn.h \
-		robot/tool.h \
-		game/timer.h \
-		view/observers/timerObserverInterface.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
-		moc_predefs.h \
-		/opt/homebrew/share/qt/libexec/moc
-	/opt/homebrew/share/qt/libexec/moc $(DEFINES) --include /Users/carlorosso/Documents/triennale_informatica/secondo_anno/music_vs_robot/moc_predefs.h -I/opt/homebrew/share/qt/mkspecs/macx-clang -I/Users/carlorosso/Documents/triennale_informatica/secondo_anno/music_vs_robot -I/Users/carlorosso/Documents/triennale_informatica/secondo_anno/music_vs_robot -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/opt/homebrew/lib view/playgroundComponents/timerWidget.h -o moc_timerWidget.cpp
-
 moc_instrumentButton.cpp: view/playgroundComponents/instrumentButton.h \
-		game/include.h \
-		music/music_instrument.h \
-		game/define.h \
-		game/entity.h \
-		util/dataManager.h \
-		view/visitors/entityVisitorInterface.h \
-		game/cash.h \
-		view/observers/cashObserverInterface.h \
-		robot/robotwtool.h \
-		robot/robot.h \
-		util/util.h \
+		entity/player.h \
+		playground/cash.h \
+		include.h \
+		define.h \
+		util/cloneable.h \
+		util/data_manager.h \
 		util/deque.h \
 		util/independentfn.h \
-		robot/tool.h \
+		util/observable.h \
+		util/observer.h \
+		util/observable_game.h \
+		util/observer_game.h \
+		util/observable_playground.h \
+		util/observer_playground.h \
+		util/ptr.h \
+		util/visitor.h \
+		entity/entity.h \
+		entity/damage.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/QFocusEvent \
 		/opt/homebrew/lib/QtGui.framework/Headers/qevent.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QPushButton \
@@ -1346,20 +1369,22 @@ moc_instrumentButton.cpp: view/playgroundComponents/instrumentButton.h \
 	/opt/homebrew/share/qt/libexec/moc $(DEFINES) --include /Users/carlorosso/Documents/triennale_informatica/secondo_anno/music_vs_robot/moc_predefs.h -I/opt/homebrew/share/qt/mkspecs/macx-clang -I/Users/carlorosso/Documents/triennale_informatica/secondo_anno/music_vs_robot -I/Users/carlorosso/Documents/triennale_informatica/secondo_anno/music_vs_robot -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/opt/homebrew/lib view/playgroundComponents/instrumentButton.h -o moc_instrumentButton.cpp
 
 moc_playgroundCellWidget.cpp: view/playgroundComponents/playgroundCellWidget.h \
-		game/entity.h \
-		util/dataManager.h \
-		view/visitors/entityVisitorInterface.h \
-		game/cash.h \
-		view/observers/cashObserverInterface.h \
-		game/include.h \
-		music/music_instrument.h \
-		game/define.h \
-		robot/robotwtool.h \
-		robot/robot.h \
-		util/util.h \
+		entity/entity.h \
+		include.h \
+		define.h \
+		util/cloneable.h \
+		util/data_manager.h \
 		util/deque.h \
 		util/independentfn.h \
-		robot/tool.h \
+		util/observable.h \
+		util/observer.h \
+		util/observable_game.h \
+		util/observer_game.h \
+		util/observable_playground.h \
+		util/observer_playground.h \
+		util/ptr.h \
+		util/visitor.h \
+		entity/damage.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/QPainter \
@@ -1373,6 +1398,30 @@ moc_playgroundCellWidget.cpp: view/playgroundComponents/playgroundCellWidget.h \
 		moc_predefs.h \
 		/opt/homebrew/share/qt/libexec/moc
 	/opt/homebrew/share/qt/libexec/moc $(DEFINES) --include /Users/carlorosso/Documents/triennale_informatica/secondo_anno/music_vs_robot/moc_predefs.h -I/opt/homebrew/share/qt/mkspecs/macx-clang -I/Users/carlorosso/Documents/triennale_informatica/secondo_anno/music_vs_robot -I/Users/carlorosso/Documents/triennale_informatica/secondo_anno/music_vs_robot -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/opt/homebrew/lib view/playgroundComponents/playgroundCellWidget.h -o moc_playgroundCellWidget.cpp
+
+moc_timerWidget.cpp: view/playgroundComponents/timerWidget.h \
+		include.h \
+		define.h \
+		util/cloneable.h \
+		util/data_manager.h \
+		util/deque.h \
+		util/independentfn.h \
+		util/observable.h \
+		util/observer.h \
+		util/observable_game.h \
+		util/observer_game.h \
+		util/observable_playground.h \
+		util/observer_playground.h \
+		util/ptr.h \
+		util/visitor.h \
+		playground/timer.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		moc_predefs.h \
+		/opt/homebrew/share/qt/libexec/moc
+	/opt/homebrew/share/qt/libexec/moc $(DEFINES) --include /Users/carlorosso/Documents/triennale_informatica/secondo_anno/music_vs_robot/moc_predefs.h -I/opt/homebrew/share/qt/mkspecs/macx-clang -I/Users/carlorosso/Documents/triennale_informatica/secondo_anno/music_vs_robot -I/Users/carlorosso/Documents/triennale_informatica/secondo_anno/music_vs_robot -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/opt/homebrew/lib view/playgroundComponents/timerWidget.h -o moc_timerWidget.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1394,24 +1443,32 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 
 main.o: main.cpp view/mainWindow.h \
 		view/playgroundWidget.h \
-		game/include.h \
-		music/music_instrument.h \
-		game/define.h \
-		game/entity.h \
-		util/dataManager.h \
-		view/visitors/entityVisitorInterface.h \
-		game/cash.h \
-		view/observers/cashObserverInterface.h \
-		robot/robotwtool.h \
-		robot/robot.h \
-		util/util.h \
+		entity/player.h \
+		playground/cash.h \
+		include.h \
+		define.h \
+		util/cloneable.h \
+		util/data_manager.h \
 		util/deque.h \
 		util/independentfn.h \
-		robot/tool.h \
-		game/playground.h \
-		view/observers/playgroundObserverInterface.h \
-		game/timer.h \
-		view/observers/timerObserverInterface.h \
+		util/observable.h \
+		util/observer.h \
+		util/observable_game.h \
+		util/observer_game.h \
+		util/observable_playground.h \
+		util/observer_playground.h \
+		util/ptr.h \
+		util/visitor.h \
+		entity/entity.h \
+		entity/damage.h \
+		playground/game.h \
+		playground/playground_damage.h \
+		playground/playground_enemy.h \
+		entity/enemywtool.h \
+		entity/enemy.h \
+		entity/tool.h \
+		playground/timer.h \
+		playground/playground_player.h \
 		view/playgroundComponents/cashWidget.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
@@ -1432,6 +1489,7 @@ main.o: main.cpp view/mainWindow.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QStyleOption \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qstyleoption.h \
 		view/playgroundComponents/timerWidget.h \
+		view/visitors/imageVisitor.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QHBoxLayout \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
 		view/startWidget.h \
@@ -1445,128 +1503,316 @@ main.o: main.cpp view/mainWindow.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
-cash.o: game/cash.cpp game/cash.h \
-		util/dataManager.h \
-		view/observers/cashObserverInterface.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o cash.o game/cash.cpp
-
-entity.o: game/entity.cpp game/entity.h \
-		util/dataManager.h \
-		view/visitors/entityVisitorInterface.h \
-		game/cash.h \
-		view/observers/cashObserverInterface.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o entity.o game/entity.cpp
-
-playground.o: game/playground.cpp game/playground.h \
-		view/observers/playgroundObserverInterface.h \
-		game/include.h \
-		music/music_instrument.h \
-		game/define.h \
-		game/entity.h \
-		util/dataManager.h \
-		view/visitors/entityVisitorInterface.h \
-		game/cash.h \
-		view/observers/cashObserverInterface.h \
-		robot/robotwtool.h \
-		robot/robot.h \
-		util/util.h \
+damage.o: entity/damage.cpp entity/damage.h \
+		include.h \
+		define.h \
+		util/cloneable.h \
+		util/data_manager.h \
 		util/deque.h \
 		util/independentfn.h \
-		robot/tool.h \
-		game/timer.h \
-		view/observers/timerObserverInterface.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o playground.o game/playground.cpp
+		util/observable.h \
+		util/observer.h \
+		util/observable_game.h \
+		util/observer_game.h \
+		util/observable_playground.h \
+		util/observer_playground.h \
+		util/ptr.h \
+		util/visitor.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o damage.o entity/damage.cpp
 
-timer.o: game/timer.cpp game/timer.h \
-		util/dataManager.h \
-		view/observers/timerObserverInterface.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o timer.o game/timer.cpp
-
-music_instrument.o: music/music_instrument.cpp music/music_instrument.h \
-		game/define.h \
-		game/entity.h \
-		util/dataManager.h \
-		view/visitors/entityVisitorInterface.h \
-		game/cash.h \
-		view/observers/cashObserverInterface.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o music_instrument.o music/music_instrument.cpp
-
-robot.o: robot/robot.cpp robot/robot.h \
-		game/define.h \
-		game/entity.h \
-		util/dataManager.h \
-		view/visitors/entityVisitorInterface.h \
-		game/cash.h \
-		view/observers/cashObserverInterface.h \
-		util/util.h \
-		util/deque.h \
-		util/independentfn.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o robot.o robot/robot.cpp
-
-robotwtool.o: robot/robotwtool.cpp robot/robotwtool.h \
-		robot/robot.h \
-		game/define.h \
-		game/entity.h \
-		util/dataManager.h \
-		view/visitors/entityVisitorInterface.h \
-		game/cash.h \
-		view/observers/cashObserverInterface.h \
-		util/util.h \
+enemy.o: entity/enemy.cpp entity/enemy.h \
+		playground/cash.h \
+		include.h \
+		define.h \
+		util/cloneable.h \
+		util/data_manager.h \
 		util/deque.h \
 		util/independentfn.h \
-		robot/tool.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o robotwtool.o robot/robotwtool.cpp
+		util/observable.h \
+		util/observer.h \
+		util/observable_game.h \
+		util/observer_game.h \
+		util/observable_playground.h \
+		util/observer_playground.h \
+		util/ptr.h \
+		util/visitor.h \
+		entity/entity.h \
+		entity/damage.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o enemy.o entity/enemy.cpp
 
-tool.o: robot/tool.cpp robot/tool.h \
-		util/util.h \
-		util/dataManager.h \
+enemywtool.o: entity/enemywtool.cpp entity/enemywtool.h \
+		playground/cash.h \
+		include.h \
+		define.h \
+		util/cloneable.h \
+		util/data_manager.h \
 		util/deque.h \
-		util/independentfn.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tool.o robot/tool.cpp
+		util/independentfn.h \
+		util/observable.h \
+		util/observer.h \
+		util/observable_game.h \
+		util/observer_game.h \
+		util/observable_playground.h \
+		util/observer_playground.h \
+		util/ptr.h \
+		util/visitor.h \
+		entity/enemy.h \
+		entity/entity.h \
+		entity/damage.h \
+		entity/tool.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o enemywtool.o entity/enemywtool.cpp
+
+entity.o: entity/entity.cpp entity/entity.h \
+		include.h \
+		define.h \
+		util/cloneable.h \
+		util/data_manager.h \
+		util/deque.h \
+		util/independentfn.h \
+		util/observable.h \
+		util/observer.h \
+		util/observable_game.h \
+		util/observer_game.h \
+		util/observable_playground.h \
+		util/observer_playground.h \
+		util/ptr.h \
+		util/visitor.h \
+		entity/damage.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o entity.o entity/entity.cpp
+
+player.o: entity/player.cpp entity/player.h \
+		playground/cash.h \
+		include.h \
+		define.h \
+		util/cloneable.h \
+		util/data_manager.h \
+		util/deque.h \
+		util/independentfn.h \
+		util/observable.h \
+		util/observer.h \
+		util/observable_game.h \
+		util/observer_game.h \
+		util/observable_playground.h \
+		util/observer_playground.h \
+		util/ptr.h \
+		util/visitor.h \
+		entity/entity.h \
+		entity/damage.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o player.o entity/player.cpp
+
+tool.o: entity/tool.cpp entity/tool.h \
+		entity/damage.h \
+		include.h \
+		define.h \
+		util/cloneable.h \
+		util/data_manager.h \
+		util/deque.h \
+		util/independentfn.h \
+		util/observable.h \
+		util/observer.h \
+		util/observable_game.h \
+		util/observer_game.h \
+		util/observable_playground.h \
+		util/observer_playground.h \
+		util/ptr.h \
+		util/visitor.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tool.o entity/tool.cpp
+
+cash.o: playground/cash.cpp playground/cash.h \
+		include.h \
+		define.h \
+		util/cloneable.h \
+		util/data_manager.h \
+		util/deque.h \
+		util/independentfn.h \
+		util/observable.h \
+		util/observer.h \
+		util/observable_game.h \
+		util/observer_game.h \
+		util/observable_playground.h \
+		util/observer_playground.h \
+		util/ptr.h \
+		util/visitor.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o cash.o playground/cash.cpp
+
+game.o: playground/game.cpp playground/game.h \
+		playground/playground_damage.h \
+		entity/damage.h \
+		include.h \
+		define.h \
+		util/cloneable.h \
+		util/data_manager.h \
+		util/deque.h \
+		util/independentfn.h \
+		util/observable.h \
+		util/observer.h \
+		util/observable_game.h \
+		util/observer_game.h \
+		util/observable_playground.h \
+		util/observer_playground.h \
+		util/ptr.h \
+		util/visitor.h \
+		playground/playground_enemy.h \
+		entity/enemywtool.h \
+		playground/cash.h \
+		entity/enemy.h \
+		entity/entity.h \
+		entity/tool.h \
+		playground/timer.h \
+		playground/playground_player.h \
+		entity/player.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o game.o playground/game.cpp
+
+playground_damage.o: playground/playground_damage.cpp playground/playground_damage.h \
+		entity/damage.h \
+		include.h \
+		define.h \
+		util/cloneable.h \
+		util/data_manager.h \
+		util/deque.h \
+		util/independentfn.h \
+		util/observable.h \
+		util/observer.h \
+		util/observable_game.h \
+		util/observer_game.h \
+		util/observable_playground.h \
+		util/observer_playground.h \
+		util/ptr.h \
+		util/visitor.h \
+		playground/playground_enemy.h \
+		entity/enemywtool.h \
+		playground/cash.h \
+		entity/enemy.h \
+		entity/entity.h \
+		entity/tool.h \
+		playground/timer.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o playground_damage.o playground/playground_damage.cpp
+
+playground_enemy.o: playground/playground_enemy.cpp playground/playground_enemy.h \
+		entity/enemywtool.h \
+		playground/cash.h \
+		include.h \
+		define.h \
+		util/cloneable.h \
+		util/data_manager.h \
+		util/deque.h \
+		util/independentfn.h \
+		util/observable.h \
+		util/observer.h \
+		util/observable_game.h \
+		util/observer_game.h \
+		util/observable_playground.h \
+		util/observer_playground.h \
+		util/ptr.h \
+		util/visitor.h \
+		entity/enemy.h \
+		entity/entity.h \
+		entity/damage.h \
+		entity/tool.h \
+		playground/timer.h \
+		playground/playground_player.h \
+		entity/player.h \
+		playground/playground_damage.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o playground_enemy.o playground/playground_enemy.cpp
+
+playground_player.o: playground/playground_player.cpp playground/playground_player.h \
+		entity/player.h \
+		playground/cash.h \
+		include.h \
+		define.h \
+		util/cloneable.h \
+		util/data_manager.h \
+		util/deque.h \
+		util/independentfn.h \
+		util/observable.h \
+		util/observer.h \
+		util/observable_game.h \
+		util/observer_game.h \
+		util/observable_playground.h \
+		util/observer_playground.h \
+		util/ptr.h \
+		util/visitor.h \
+		entity/entity.h \
+		entity/damage.h \
+		playground/playground_damage.h \
+		playground/playground_enemy.h \
+		entity/enemywtool.h \
+		entity/enemy.h \
+		entity/tool.h \
+		playground/timer.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o playground_player.o playground/playground_player.cpp
+
+timer.o: playground/timer.cpp playground/timer.h \
+		include.h \
+		define.h \
+		util/cloneable.h \
+		util/data_manager.h \
+		util/deque.h \
+		util/independentfn.h \
+		util/observable.h \
+		util/observer.h \
+		util/observable_game.h \
+		util/observer_game.h \
+		util/observable_playground.h \
+		util/observer_playground.h \
+		util/ptr.h \
+		util/visitor.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o timer.o playground/timer.cpp
+
+data_manager.o: util/data_manager.cpp util/data_manager.h \
+		playground/cash.h \
+		include.h \
+		define.h \
+		util/cloneable.h \
+		util/deque.h \
+		util/independentfn.h \
+		util/observable.h \
+		util/observer.h \
+		util/observable_game.h \
+		util/observer_game.h \
+		util/observable_playground.h \
+		util/observer_playground.h \
+		util/ptr.h \
+		util/visitor.h \
+		playground/timer.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o data_manager.o util/data_manager.cpp
 
 independentfn.o: util/independentfn.cpp util/independentfn.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o independentfn.o util/independentfn.cpp
 
-dataManager.o: util/dataManager.cpp util/dataManager.h \
-		game/cash.h \
-		view/observers/cashObserverInterface.h \
-		game/playground.h \
-		view/observers/playgroundObserverInterface.h \
-		game/include.h \
-		music/music_instrument.h \
-		game/define.h \
-		game/entity.h \
-		view/visitors/entityVisitorInterface.h \
-		robot/robotwtool.h \
-		robot/robot.h \
-		util/util.h \
+observable_game.o: util/observable_game.cpp util/observable_game.h \
 		util/deque.h \
-		util/independentfn.h \
-		robot/tool.h \
-		game/timer.h \
-		view/observers/timerObserverInterface.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dataManager.o util/dataManager.cpp
+		util/observer_game.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o observable_game.o util/observable_game.cpp
 
 mainWindow.o: view/mainWindow.cpp view/mainWindow.h \
 		view/playgroundWidget.h \
-		game/include.h \
-		music/music_instrument.h \
-		game/define.h \
-		game/entity.h \
-		util/dataManager.h \
-		view/visitors/entityVisitorInterface.h \
-		game/cash.h \
-		view/observers/cashObserverInterface.h \
-		robot/robotwtool.h \
-		robot/robot.h \
-		util/util.h \
+		entity/player.h \
+		playground/cash.h \
+		include.h \
+		define.h \
+		util/cloneable.h \
+		util/data_manager.h \
 		util/deque.h \
 		util/independentfn.h \
-		robot/tool.h \
-		game/playground.h \
-		view/observers/playgroundObserverInterface.h \
-		game/timer.h \
-		view/observers/timerObserverInterface.h \
+		util/observable.h \
+		util/observer.h \
+		util/observable_game.h \
+		util/observer_game.h \
+		util/observable_playground.h \
+		util/observer_playground.h \
+		util/ptr.h \
+		util/visitor.h \
+		entity/entity.h \
+		entity/damage.h \
+		playground/game.h \
+		playground/playground_damage.h \
+		playground/playground_enemy.h \
+		entity/enemywtool.h \
+		entity/enemy.h \
+		entity/tool.h \
+		playground/timer.h \
+		playground/playground_player.h \
 		view/playgroundComponents/cashWidget.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
@@ -1587,6 +1833,7 @@ mainWindow.o: view/mainWindow.cpp view/mainWindow.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QStyleOption \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qstyleoption.h \
 		view/playgroundComponents/timerWidget.h \
+		view/visitors/imageVisitor.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QHBoxLayout \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
 		view/startWidget.h \
@@ -1602,24 +1849,32 @@ mainWindow.o: view/mainWindow.cpp view/mainWindow.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainWindow.o view/mainWindow.cpp
 
 playgroundWidget.o: view/playgroundWidget.cpp view/playgroundWidget.h \
-		game/include.h \
-		music/music_instrument.h \
-		game/define.h \
-		game/entity.h \
-		util/dataManager.h \
-		view/visitors/entityVisitorInterface.h \
-		game/cash.h \
-		view/observers/cashObserverInterface.h \
-		robot/robotwtool.h \
-		robot/robot.h \
-		util/util.h \
+		entity/player.h \
+		playground/cash.h \
+		include.h \
+		define.h \
+		util/cloneable.h \
+		util/data_manager.h \
 		util/deque.h \
 		util/independentfn.h \
-		robot/tool.h \
-		game/playground.h \
-		view/observers/playgroundObserverInterface.h \
-		game/timer.h \
-		view/observers/timerObserverInterface.h \
+		util/observable.h \
+		util/observer.h \
+		util/observable_game.h \
+		util/observer_game.h \
+		util/observable_playground.h \
+		util/observer_playground.h \
+		util/ptr.h \
+		util/visitor.h \
+		entity/entity.h \
+		entity/damage.h \
+		playground/game.h \
+		playground/playground_damage.h \
+		playground/playground_enemy.h \
+		entity/enemywtool.h \
+		entity/enemy.h \
+		entity/tool.h \
+		playground/timer.h \
+		playground/playground_player.h \
 		view/playgroundComponents/cashWidget.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
@@ -1640,9 +1895,9 @@ playgroundWidget.o: view/playgroundWidget.cpp view/playgroundWidget.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QStyleOption \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qstyleoption.h \
 		view/playgroundComponents/timerWidget.h \
+		view/visitors/imageVisitor.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QHBoxLayout \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
-		view/visitors/imageVisitor.h \
 		/opt/homebrew/lib/QtCore.framework/Headers/QDebug \
 		/opt/homebrew/lib/QtCore.framework/Headers/qdebug.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QGridLayout \
@@ -1661,24 +1916,32 @@ startWidget.o: view/startWidget.cpp view/startWidget.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
 		view/mainWindow.h \
 		view/playgroundWidget.h \
-		game/include.h \
-		music/music_instrument.h \
-		game/define.h \
-		game/entity.h \
-		util/dataManager.h \
-		view/visitors/entityVisitorInterface.h \
-		game/cash.h \
-		view/observers/cashObserverInterface.h \
-		robot/robotwtool.h \
-		robot/robot.h \
-		util/util.h \
+		entity/player.h \
+		playground/cash.h \
+		include.h \
+		define.h \
+		util/cloneable.h \
+		util/data_manager.h \
 		util/deque.h \
 		util/independentfn.h \
-		robot/tool.h \
-		game/playground.h \
-		view/observers/playgroundObserverInterface.h \
-		game/timer.h \
-		view/observers/timerObserverInterface.h \
+		util/observable.h \
+		util/observer.h \
+		util/observable_game.h \
+		util/observer_game.h \
+		util/observable_playground.h \
+		util/observer_playground.h \
+		util/ptr.h \
+		util/visitor.h \
+		entity/entity.h \
+		entity/damage.h \
+		playground/game.h \
+		playground/playground_damage.h \
+		playground/playground_enemy.h \
+		entity/enemywtool.h \
+		entity/enemy.h \
+		entity/tool.h \
+		playground/timer.h \
+		playground/playground_player.h \
 		view/playgroundComponents/cashWidget.h \
 		view/playgroundComponents/instrumentButton.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/QFocusEvent \
@@ -1693,6 +1956,7 @@ startWidget.o: view/startWidget.cpp view/startWidget.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QStyleOption \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qstyleoption.h \
 		view/playgroundComponents/timerWidget.h \
+		view/visitors/imageVisitor.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QHBoxLayout \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QMainWindow \
@@ -1709,64 +1973,46 @@ startWidget.o: view/startWidget.cpp view/startWidget.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o startWidget.o view/startWidget.cpp
 
 cashWidget.o: view/playgroundComponents/cashWidget.cpp view/playgroundComponents/cashWidget.h \
-		game/cash.h \
-		util/dataManager.h \
-		view/observers/cashObserverInterface.h \
-		game/include.h \
-		music/music_instrument.h \
-		game/define.h \
-		game/entity.h \
-		view/visitors/entityVisitorInterface.h \
-		robot/robotwtool.h \
-		robot/robot.h \
-		util/util.h \
+		include.h \
+		define.h \
+		util/cloneable.h \
+		util/data_manager.h \
 		util/deque.h \
 		util/independentfn.h \
-		robot/tool.h \
+		util/observable.h \
+		util/observer.h \
+		util/observable_game.h \
+		util/observer_game.h \
+		util/observable_playground.h \
+		util/observer_playground.h \
+		util/ptr.h \
+		util/visitor.h \
+		playground/cash.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o cashWidget.o view/playgroundComponents/cashWidget.cpp
 
-timerWidget.o: view/playgroundComponents/timerWidget.cpp view/playgroundComponents/timerWidget.h \
-		game/include.h \
-		music/music_instrument.h \
-		game/define.h \
-		game/entity.h \
-		util/dataManager.h \
-		view/visitors/entityVisitorInterface.h \
-		game/cash.h \
-		view/observers/cashObserverInterface.h \
-		robot/robotwtool.h \
-		robot/robot.h \
-		util/util.h \
-		util/deque.h \
-		util/independentfn.h \
-		robot/tool.h \
-		game/timer.h \
-		view/observers/timerObserverInterface.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o timerWidget.o view/playgroundComponents/timerWidget.cpp
-
 instrumentButton.o: view/playgroundComponents/instrumentButton.cpp view/playgroundComponents/instrumentButton.h \
-		game/include.h \
-		music/music_instrument.h \
-		game/define.h \
-		game/entity.h \
-		util/dataManager.h \
-		view/visitors/entityVisitorInterface.h \
-		game/cash.h \
-		view/observers/cashObserverInterface.h \
-		robot/robotwtool.h \
-		robot/robot.h \
-		util/util.h \
+		entity/player.h \
+		playground/cash.h \
+		include.h \
+		define.h \
+		util/cloneable.h \
+		util/data_manager.h \
 		util/deque.h \
 		util/independentfn.h \
-		robot/tool.h \
+		util/observable.h \
+		util/observer.h \
+		util/observable_game.h \
+		util/observer_game.h \
+		util/observable_playground.h \
+		util/observer_playground.h \
+		util/ptr.h \
+		util/visitor.h \
+		entity/entity.h \
+		entity/damage.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/QFocusEvent \
 		/opt/homebrew/lib/QtGui.framework/Headers/qevent.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QPushButton \
@@ -1778,20 +2024,22 @@ instrumentButton.o: view/playgroundComponents/instrumentButton.cpp view/playgrou
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o instrumentButton.o view/playgroundComponents/instrumentButton.cpp
 
 playgroundCellWidget.o: view/playgroundComponents/playgroundCellWidget.cpp view/playgroundComponents/playgroundCellWidget.h \
-		game/entity.h \
-		util/dataManager.h \
-		view/visitors/entityVisitorInterface.h \
-		game/cash.h \
-		view/observers/cashObserverInterface.h \
-		game/include.h \
-		music/music_instrument.h \
-		game/define.h \
-		robot/robotwtool.h \
-		robot/robot.h \
-		util/util.h \
+		entity/entity.h \
+		include.h \
+		define.h \
+		util/cloneable.h \
+		util/data_manager.h \
 		util/deque.h \
 		util/independentfn.h \
-		robot/tool.h \
+		util/observable.h \
+		util/observer.h \
+		util/observable_game.h \
+		util/observer_game.h \
+		util/observable_playground.h \
+		util/observer_playground.h \
+		util/ptr.h \
+		util/visitor.h \
+		entity/damage.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/QPainter \
@@ -1806,20 +2054,34 @@ playgroundCellWidget.o: view/playgroundComponents/playgroundCellWidget.cpp view/
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o playgroundCellWidget.o view/playgroundComponents/playgroundCellWidget.cpp
 
-imageVisitor.o: view/visitors/imageVisitor.cpp view/visitors/imageVisitor.h \
-		view/visitors/entityVisitorInterface.h \
-		/opt/homebrew/lib/QtGui.framework/Headers/QPixmap \
-		/opt/homebrew/lib/QtGui.framework/Headers/qpixmap.h \
-		music/music_instrument.h \
-		game/define.h \
-		game/entity.h \
-		util/dataManager.h \
-		game/cash.h \
-		view/observers/cashObserverInterface.h \
-		robot/robot.h \
-		util/util.h \
+timerWidget.o: view/playgroundComponents/timerWidget.cpp view/playgroundComponents/timerWidget.h \
+		include.h \
+		define.h \
+		util/cloneable.h \
+		util/data_manager.h \
 		util/deque.h \
-		util/independentfn.h
+		util/independentfn.h \
+		util/observable.h \
+		util/observer.h \
+		util/observable_game.h \
+		util/observer_game.h \
+		util/observable_playground.h \
+		util/observer_playground.h \
+		util/ptr.h \
+		util/visitor.h \
+		playground/timer.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o timerWidget.o view/playgroundComponents/timerWidget.cpp
+
+imageVisitor.o: view/visitors/imageVisitor.cpp view/visitors/imageVisitor.h \
+		util/visitor.h \
+		/opt/homebrew/lib/QtGui.framework/Headers/QPainter \
+		/opt/homebrew/lib/QtGui.framework/Headers/qpainter.h \
+		/opt/homebrew/lib/QtGui.framework/Headers/QPixmap \
+		/opt/homebrew/lib/QtGui.framework/Headers/qpixmap.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o imageVisitor.o view/visitors/imageVisitor.cpp
 
 qrc_resources.o: qrc_resources.cpp 
@@ -1837,14 +2099,14 @@ moc_startWidget.o: moc_startWidget.cpp
 moc_cashWidget.o: moc_cashWidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_cashWidget.o moc_cashWidget.cpp
 
-moc_timerWidget.o: moc_timerWidget.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_timerWidget.o moc_timerWidget.cpp
-
 moc_instrumentButton.o: moc_instrumentButton.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_instrumentButton.o moc_instrumentButton.cpp
 
 moc_playgroundCellWidget.o: moc_playgroundCellWidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_playgroundCellWidget.o moc_playgroundCellWidget.cpp
+
+moc_timerWidget.o: moc_timerWidget.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_timerWidget.o moc_timerWidget.cpp
 
 ####### Install
 
