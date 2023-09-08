@@ -2,6 +2,8 @@
 
 EnemyWTool::EnemyWTool(Enemy *en, Tool *to) : e(en), t(to) {}
 
+bool EnemyWTool::isAlive() const { return e->getHealth() > 0; }
+
 // this make EnemyWTool a factory
 EnemyWTool::EnemyWTool(u32 min, u32 max)
     : EnemyWTool(getEnemy(min, max), getTool(min, max)) {}
@@ -33,14 +35,7 @@ DamageEnemy *EnemyWTool::attack() const {
 }
 
 bool EnemyWTool::operator==(const EnemyWTool &other) const {
-  std::cout << "EnemyWTool::operator==\n";
-  std::cout << "e: " << e << "\n";
-  std::cout << "other.e: " << other.e << "\n";
-  bool flag = e == other.e;
-  std::cout << "e and other.e ok\n";
-  flag = flag && t == other.t;
-  std::cout << "t and other.t ok\n";
-  return flag;
+  return this->e == other.e && this->t == other.t;
 }
 
 u32 EnemyWTool::move() const { return e->move() + t->move(); }

@@ -155,7 +155,6 @@ void PlaygroundWidget::update(u32 r, u32 c, const DamageAbstract *d) {
 void PlaygroundWidget::updateCell(u32 row, u32 col) {
   ImageVisitor iv;
   Game *g = Game::getInstance();
-
   if (col != COLS - 1 && !g->isEmpty(row, col)) {
     g->get(row, col).accept(&iv);
     cells[row][col]->setImage(iv.getPixmap());

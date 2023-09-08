@@ -45,8 +45,10 @@ void PlaygroundDamage::attack(PlaygroundEnemy &pe) {
   for (u32 r = 0; r < ROWS; r++) {
     for (u32 c = 0; c < COLS - 1; c++) {
       if (!isEmpty(r, c) && !pe.isEmpty(r, c)) {
-        auto f = pe.get(r, c).filter(
-            [&](EnemyWTool *e) { return e->sufferDamage(get(r, c)); });
+        pe.get(r, c)
+            .filter([&](EnemyWTool *e) { return e->sufferDamage(get(r, c)); })
+            .iter([&](EnemyWTool **e) { pe.remove(r, c, **e); });
+
         //  f.iter([&](EnemyWTool **e) {
         //    std::cout << (*e)->move() << std::endl;
         //    pe.remove(r, c, **e);

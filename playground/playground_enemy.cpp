@@ -26,14 +26,14 @@ void PlaygroundEnemy::insert() {
   insert(r, COLS * FRAMES - 1, EnemyWTool(d * 3 / 4, d));
 }
 
-bool PlaygroundEnemy::remove(u32 r, u32 c, const EnemyWTool *e) {
+bool PlaygroundEnemy::remove(u32 r, u32 c, const EnemyWTool &e) {
   bool f = false;
   c *= FRAMES;
   for (u32 i = c; i < c + FRAMES; ++i) {
     f = enemy[r][i].remove(e);
   }
   if (f) {
-    notifyObservers(r, c);
+    notifyObservers(r, c / FRAMES);
   }
   return f;
 }

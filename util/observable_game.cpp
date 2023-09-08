@@ -8,7 +8,7 @@ void ObservableGameInterface::addObserver(ObserverGameInterface *observer) {
 }
 
 void ObservableGameInterface::removeObserver(ObserverGameInterface *observer) {
-  obs.remove(&observer);
+  obs.remove(observer);
 }
 
 void ObservableGameInterface::notifyClearGame() const {

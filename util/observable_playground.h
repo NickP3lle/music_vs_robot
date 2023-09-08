@@ -26,5 +26,5 @@ void ObservablePlaygroundInterface<T>::addObserver(
 template <typename T>
 bool ObservablePlaygroundInterface<T>::removeObserver(
     ObservablePlaygroundInterface<T> *observer) {
-  return obs.remove(&observer);
+  return obs.remove(observer);
 }

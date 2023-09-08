@@ -28,5 +28,5 @@ void ObservableInterface<T>::addObserver(ObserverInterface<T> *o) {
 
 template <typename T>
 bool ObservableInterface<T>::removeObserver(ObserverInterface<T> *o) {
-  return observers.remove(&o);
+  return observers.remove(o);
 }

@@ -18,6 +18,7 @@ private:
 public:
   EnemyWTool(Enemy * = nullptr, Tool * = nullptr);
   EnemyWTool(u32 min, u32 max);
+  bool isAlive() const;
 
   void accept(VisitorInterface *) const override;
   EnemyWTool *clone() const override;

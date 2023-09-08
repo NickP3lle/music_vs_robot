@@ -42,9 +42,7 @@ void Game::battle() {
     return notifyGameOver();
   }
 
-  std::cout << "enemy attack" << std::endl;
   PlaygroundEnemy::attack(*this);
-  std::cout << "enemy insert" << std::endl;
   PlaygroundEnemy::insert();
   Timer::oneSecond();
   PlaygroundPlayer::attack(*this);

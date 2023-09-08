@@ -22,8 +22,9 @@ bool Test_deque_remove() {
   d.push_back(1);
   d.push_back(2);
   d.push_back(3);
-  bool removed = d.remove(2);
-  return removed && d.size() == 2 && d[0] == 1 && d[1] == 3;
+  d.push_back(4);
+  bool removed = d.remove(3);
+  return removed && d.size() == 3 && d[0] == 2 && d[1] == 1 && d[2] == 4;
 }
 
 bool Test_deque_remove_index() {

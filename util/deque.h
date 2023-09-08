@@ -18,7 +18,7 @@ public:
 
   void push_back(const T &);
   T pop_front();
-  bool remove(const T *);
+  bool remove(const T &);
   T remove(u32);
   T &operator[](u32) const;
   u32 size() const;
@@ -103,9 +103,9 @@ template <typename T> T deque<T>::pop_front() {
 /// rimuove l'elemento passato come parametro,
 /// è necessaria l'uguaglianza tra elementi
 /// l'ordine degli elementi non è preservato
-template <typename T> bool deque<T>::remove(const T *e) {
+template <typename T> bool deque<T>::remove(const T &e) {
   for (u32 i = 0; i < s; i++)
-    if (&(*this)[i] == e) {
+    if ((*this)[i] == e) {
       (*this)[i] = (*this)[0];
       pop_front();
       return true;
