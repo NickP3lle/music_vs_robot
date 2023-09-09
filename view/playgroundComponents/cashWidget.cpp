@@ -9,4 +9,4 @@ CashWidget::CashWidget(QWidget *parent) : QWidget(parent), label(new QLabel(this
     update(Cash::getInstance());
 }
 
-void CashWidget::update(const Cash *c) { label->setText(QString::number(Cash::get())); }
+void CashWidget::update(const Cash *c) { label->setText(QString::number(c->Cash::get())); }

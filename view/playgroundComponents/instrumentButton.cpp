@@ -11,7 +11,7 @@ InstrumentButton::InstrumentButton(PlayerAbstract *i, QString title, QWidget *pa
     // installEventFilter(this);
     connect(this, &QPushButton::clicked, this, [this] {
         instrumentSelected = instrument;
-        qDebug() << "InstrumentButton::clicked";
+        // qDebug() << "InstrumentButton::clicked";
     });
 }
 
