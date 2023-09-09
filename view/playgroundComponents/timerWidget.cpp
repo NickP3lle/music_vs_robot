@@ -10,6 +10,6 @@ TimerWidget::TimerWidget(QWidget *parent) : QWidget(parent), label(new QLabel(th
 
 void TimerWidget::update(const Timer *t) {
     QString elapsedTimeString =
-        QString("%1:%2").arg(Timer::minutes(), 2, 10, QChar('0')).arg(Timer::seconds(), 2, 10, QChar('0'));
+        QString("%1:%2").arg(t->Timer::minutes(), 2, 10, QChar('0')).arg(t->Timer::seconds(), 2, 10, QChar('0'));
     label->setText(elapsedTimeString);
 }
