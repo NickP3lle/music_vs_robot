@@ -1,7 +1,7 @@
 #include "enemy.h"
 
 Enemy::Enemy(u32 min, u32 max, bool isFast, bool isRich)
-    : h(randomInt(max, min)), a(randomInt(max, min)),
+    : h(randomInt(max, min) * 10), a(randomInt(max, min)),
       s(randomInt(ROBOT_MAX_SPEED, ROBOT_MIN_SPEED) * (1 + isFast)),
       v(randomInt(max, min) * (1 + isRich)) {}
 
