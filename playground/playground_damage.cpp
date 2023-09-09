@@ -43,7 +43,7 @@ const DamagePlayer &PlaygroundDamage::get(u32 r, u32 c) const {
 
 void PlaygroundDamage::attack(PlaygroundEnemy &pe) {
   for (u32 r = 0; r < ROWS; r++) {
-    for (u32 c = 0; c < COLS - 1; c++) {
+    for (u32 c = 0; c < COLS; c++) {
       if (!isEmpty(r, c) && !pe.isEmpty(r, c)) {
         pe.get(r, c)
             .filter([&](EnemyWTool *e) { return e->sufferDamage(get(r, c)); })
