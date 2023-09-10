@@ -5,7 +5,7 @@
 #include "../playground/timer.h"
 
 void DataManagerInterface::saveAll() {
-    std::ofstream outputFile("data.json");
+    std::ofstream outputFile("./data.json");
     if (outputFile.is_open()) {
         std::string jsonString = "{\n";
         jsonString += Cash::getInstance()->toString() + ",\n";
@@ -20,7 +20,7 @@ void DataManagerInterface::saveAll() {
 }
 
 bool DataManagerInterface::loadAll() {
-    std::ifstream inputFile("data.json");
+    std::ifstream inputFile("./data.json");
     if (inputFile.is_open()) {
         std::string tmp;
         std::string line;
