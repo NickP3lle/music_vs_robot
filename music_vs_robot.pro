@@ -74,3 +74,4 @@ SOURCES += main.cpp \
            view/playgroundComponents/timerWidget.cpp \
            view/visitors/imageVisitor.cpp
 RESOURCES += resources.qrc
+ICON = assets/icon.icns
