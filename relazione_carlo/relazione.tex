@@ -1,12 +1,31 @@
 \documentclass[11pt]{article}
  \renewcommand{\familydefault}{\sfdefault}
 
+ \usepackage{xcolor}
+ % Define custom colors for code highlighting
+\definecolor{cppkeyword}{RGB}{0,0,255} % Blue
+\definecolor{cppcomment}{RGB}{0,128,0} % Green
+\definecolor{cppstring}{RGB}{255,0,0} % Red
+
 \usepackage{listings}
-\usepackage{xcolor}
 \lstset { %
     language=C++,
-    backgroundcolor=\color{black!5}, % set backgroundcolor
-    basicstyle=\footnotesize,% basic font setting
+    %backgroundcolor=\color{blue}, % set backgroundcolor
+	basicstyle=\ttfamily\color{black}, % Regular font style
+    commentstyle=\color{cppcomment}, % Set the color for comments
+    keywordstyle=\color{cppkeyword}, % Set the color for keywords
+    stringstyle=\color{cppstring}, % Set the color for strings
+    numbers=left, % Display line numbers
+    numberstyle=\tiny\color{gray}, % Line number font style
+    stepnumber=1, % Line numbers increment by 1
+    tabsize=4, % Tab size
+    showstringspaces=false, % Don't show spaces in strings
+    breaklines=true, % Automatic line breaking
+    breakatwhitespace=true, % Break lines at whitespace
+    frame=single, % Add a frame around the code
+    backgroundcolor=\color{white}, % Background color
+    captionpos=b, % Caption position (bottom)
+    rulecolor=\color{black}, % Frame color}
 }
 
 \title{Relazione progetto di Programmazione ad Oggetti}
@@ -93,7 +112,7 @@ La gerarchia comincia con tre classi astratte:
 
 	\item CloneableInterface: interfaccia che permette di clonare un oggetto
 		mediante il pattern Prototype, attraverso il metodo clone. Per esempio,
-		abbiamo definito una classe ptr$<$T$>$, si tratta di uno smart pointer
+		abbiamo definito una classe \lstinline|ptr<T>|, si tratta di uno smart pointer
 		classico, con l'aggiunta che la classe T deve implementare
 		CloneableInterface;
 
@@ -101,9 +120,9 @@ La gerarchia comincia con tre classi astratte:
 		interfaccia possono essere salvati e caricati da un file;
 \end{itemize}
 
-Le prime due classi sono ereditate da EntityAbstract, un'altra classe astratta 
-che gestisce le interzioni tra le entità possono effettuare due azioni 
-principali: possono attaccare e ricevere danno. \\
+Le prime due classi sono ereditate da EntityAbstract, una classe astratta 
+che gestisce le interzioni tra le entità. Le entità possono effettuare due 
+azioni principali: possono attaccare e ricevere danno. \\
 Le classi che ereditano da EntityAbstract sono:
 \begin{itemize}
 	\item PlayerAbstract: è una classe astratta perché non implementa alcuni
@@ -117,9 +136,9 @@ Le classi che ereditano da EntityAbstract sono:
 		derivano le classi EnemyDefense e EnemyBig che rappresentano dei robot
 		con caratteristiche diverse;
 
-	\item EnemyWTool: la classe EnemyWTool utilizza la relazione "has-a" e
-		rappresenta un robot con un Tool. I Tool migiorano qualche proprietà del 
-		robot. Enemy e Tool sono generati casualmente utilizzando il pattern
+	\item EnemyWTool: utilizza la relazione "has-a" e
+		rappresenta un robot con un Tool. I tool migiorano qualche proprietà del 
+		robot. Enemy e tool sono generati casualmente utilizzando il pattern
 		Factory;
 \end{itemize}
 
@@ -153,16 +172,19 @@ ObservablePlaygroundInterface è l'interfaccia utilizzata per comunicare alla
 grafica le modifiche che avvengono nel gioco. \\
 Ci sono tre classi da cui eredita Game oltre a ObservableGame:
 \begin{itemize}
-	\item PlaygroundPlayer: è composta da una griglia di PlayerAbstract. Questa
-		classe gestisce gli strumenti musicali che attaccano i robot;
+	\item PlaygroundPlayer: è composta da una griglia di 
+		\lstinline|ptr<PlayerAbstract>|. Questa classe gestisce gli strumenti 
+		musicali che attaccano i robot;
 		 
-	\item PlaygroundEnemy: è composta da una griglia di deque$<$EnemyWTool$>$,
-		perchè ci possono essere più robot sulla stessa cella. 
+	\item PlaygroundEnemy: è composta da una griglia di 
+		\lstinline|deque<EnemyWTool>|, perchè ci possono essere più robot sulla 
+		stessa cella. 
 		Questa classe gestisce i robot che attaccano gli strumenti musicali;
 
-	\item PlaygroundDamage: è composta da una griglia di DamagePlayer. Questa
-		classe gestisce i danni che sono generati dagli strumenti musicali e
-		sono inflitti ai robot;
+	\item PlaygroundDamage: è composta da una griglia di 
+		\lstinline|ptr<DamagePlayer>|. 
+		Questa classe gestisce i danni che sono generati dagli strumenti 
+		musicali e sono inflitti ai robot;
 \end{itemize}
 La classe Game gestisce le interazioni tra le tre classi Playground e sfrutta il
 pattern Singleton per mantenere un'unica istanza del gioco accessibile da
@@ -178,35 +200,35 @@ la classe Game gestisce le interazioni tra le entità utilizzando i metodi
 virtuali puri definiti in EntityAbstact e in PlayerAbstract. 
 Le principali funzioni virtuali della gerarchia sono:
 \begin{itemize}
-	\item bool sufferDamage(DamageAbstract \&damage): questa funzione viene
-		chiamata quando un'entità subisce un danno. Ritorna true se l'entità
-		è stata distrutta, false altrimenti;
+	\item \lstinline|bool sufferDamage(DamageAbstract &damage)|: questa funzione 
+		viene chiamata quando un'entità subisce un danno. Ritorna true se 
+		l'entità è stata distrutta, false altrimenti;
 
-	\item DamageAbstract *attack() const: questa funzione viene chiamata quando
+	\item \lstinline|DamageAbstract *attack() const|: questa funzione viene chiamata quando
 		un'entità attacca. Ritorna un puntatore al danno che viene generato
 		dall'entità;
 
-	\item CloneableInterface *clone() const;
+	\item \lstinline|CloneableInterface *clone() const|;
 
-	\item void accept(VisitorInterface \&visitor) const;
+	\item \lstinline|void accept(VisitorInterface &visitor) const|;
 
 
-	\item void levelUp(): viene utilizzata per aumentare il livello di uno
-		struemnto musicale;
+	\item \lstinline|void levelUp()|: viene utilizzata per aumentare il livello 
+		di uno struemnto musicale;
 
-	\item u32 getCost(): ritorna il costo per posizionare uno strumento musicale
+	\item \lstinline|u32 getCost()|: ritorna il costo per posizionare uno strumento musicale
 		sulla griglia, oppure il costo per effettuare l'upgrade di uno
 		strumento musicale già presente sulla griglia;
 
-	\item u32 move(): ritorna il numero di celle che uno strumento musicale
+	\item \lstinline|u32 move()|: ritorna il numero di celle che uno strumento musicale
 		può percorrere in un turno;
 
-	\item u32 damage(): ritorna il danno che un oggetto DamageAbstract infligge;
+	\item \lstinline|u32 damage()|: ritorna il danno che un oggetto DamageAbstract infligge;
 
-	\item bool slow(): ritorna true se un oggetto DamagePlayer rallenta gli
+	\item \lstinline|bool slow()|: ritorna true se un oggetto DamagePlayer rallenta gli
 		EnemyWTool, false altrimenti;
 
-	\item void oneWave(): indica all'oggetto DamagePlayer che ha percorso una
+	\item \lstinline|void oneWave()|: indica all'oggetto DamagePlayer che ha percorso una
 		cella.
 \end{itemize}
 
@@ -220,19 +242,21 @@ ereditano da essa; ovvero: PlayerAbstract, PlaygroundPlayer, Cash e Timer.
 Le classi che ereditano da DataManagerInterface devono implementare i seguenti
 metodi:
 \begin{itemize}
-	\item std::string toString() const: viene utilizzata per convertire
-		la classe in una stringa, in modo da poterla salvare su file;
+	\item \lstinline|std::string toString() const|: viene utilizzata per 
+		convertire la classe in una stringa, in modo da poterla salvare su file;
 
-	\item DataManagerInterface *fromString(std::string): viene utilizzata per
-		convertire una stringa in una classe, in modo da poterla caricare da
-		file;
+	\item \lstinline|DataManagerInterface *fromString(std::string)|: viene 
+		utilizzata per convertire una stringa in una classe, in modo da poterla 
+		caricare da file;
 \end{itemize}
 
-Il metodo statico "void saveAll()" viene invocato alla chiusura del programma o
-al ritorno alla schermata principale e invoca il metodo "toString" su tutti
-gli oggetti che sono da salvare. Il metodo statico "loadAll" viene
-invocato per caricare l'ultima partita salvata, sfruttando i metodi 
-"fromString()". Il file example.json contiene un esempio di salvataggio.
+Il metodo \lstinline|static void saveAll()| viene invocato alla chiusura del 
+programma o al ritorno alla schermata principale e invoca il metodo
+\lstinline|std::string toString() const| su tutti
+gli oggetti che sono da salvare. Il metodo \lstinline|static bool loadAll()| 
+viene invocato per caricare l'ultima partita salvata, sfruttando i metodi 
+\lstinline|DataManagerInterface *fromString(std::string)|. Il file example.json 
+contiene un esempio di salvataggio.
 
 \subsection{Funzionalità implementate}
 
