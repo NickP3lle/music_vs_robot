@@ -13,18 +13,12 @@
     %backgroundcolor=\color{blue}, % set backgroundcolor
 	basicstyle=\ttfamily\color{black}, % Regular font style
     commentstyle=\color{cppcomment}, % Set the color for comments
-    keywordstyle=\color{cppkeyword}, % Set the color for keywords
+    keywordstyle=\bfseries\color{cppkeyword}, % Set the color for keywords
     stringstyle=\color{cppstring}, % Set the color for strings
     numbers=left, % Display line numbers
     numberstyle=\tiny\color{gray}, % Line number font style
     stepnumber=1, % Line numbers increment by 1
-    tabsize=4, % Tab size
-    showstringspaces=false, % Don't show spaces in strings
-    breaklines=true, % Automatic line breaking
-    breakatwhitespace=true, % Break lines at whitespace
-    frame=single, % Add a frame around the code
-    backgroundcolor=\color{white}, % Background color
-    captionpos=b, % Caption position (bottom)
+    tabsize=2, % Tab size
     rulecolor=\color{black}, % Frame color}
 }
 
@@ -210,7 +204,10 @@ Le principali funzioni virtuali della gerarchia sono:
 
 	\item \lstinline|CloneableInterface *clone() const|;
 
-	\item \lstinline|void accept(VisitorInterface &visitor) const|;
+	\item \lstinline|void accept(VisitorInterface &visitor) const|: il metodo è
+		utilizzato per accedere ad un istanza di VisitableInterface. È chiamato
+		da VisitorInterface, in particolare da imageVisitor, per accedere
+		all'immagine dell'entità;
 
 
 	\item \lstinline|void levelUp()|: viene utilizzata per aumentare il livello 
@@ -220,10 +217,11 @@ Le principali funzioni virtuali della gerarchia sono:
 		sulla griglia, oppure il costo per effettuare l'upgrade di uno
 		strumento musicale già presente sulla griglia;
 
-	\item \lstinline|u32 move()|: ritorna il numero di celle che uno strumento musicale
-		può percorrere in un turno;
+	\item \lstinline|u32 move()|: ritorna il numero di celle che uno robot può 
+		percorrere in un turno;
 
-	\item \lstinline|u32 damage()|: ritorna il danno che un oggetto DamageAbstract infligge;
+	\item \lstinline|u32 damage()|: ritorna il danno che un oggetto 
+		DamageAbstract infligge;
 
 	\item \lstinline|bool slow()|: ritorna true se un oggetto DamagePlayer rallenta gli
 		EnemyWTool, false altrimenti;
@@ -243,15 +241,16 @@ Le classi che ereditano da DataManagerInterface devono implementare i seguenti
 metodi:
 \begin{itemize}
 	\item \lstinline|std::string toString() const|: viene utilizzata per 
-		convertire la classe in una stringa, in modo da poterla salvare su file;
+		convertire la classe in una stringa, in modo da poterla salvare su un 
+		file;
 
 	\item \lstinline|DataManagerInterface *fromString(std::string)|: viene 
 		utilizzata per convertire una stringa in una classe, in modo da poterla 
-		caricare da file;
+		caricare da un file;
 \end{itemize}
 
 Il metodo \lstinline|static void saveAll()| viene invocato alla chiusura del 
-programma o al ritorno alla schermata principale e invoca il metodo
+programma o al ritorno alla schermata principale e chiama il metodo
 \lstinline|std::string toString() const| su tutti
 gli oggetti che sono da salvare. Il metodo \lstinline|static bool loadAll()| 
 viene invocato per caricare l'ultima partita salvata, sfruttando i metodi 
@@ -270,7 +269,7 @@ contiene un esempio di salvataggio.
 	\item Visualizzazione del livello degli strumenti musicali;
 
 	\item Inserimento di un robot sulla griglia ad ogni clock. Con relativo
-		aumento dell'attacco e della vita dei robot in funzione del tempo;
+		aumento dell'attacco e della vita in funzione del tempo;
 
 	\item Salvataggio automatico delle partite e caricamento dell'ultima
 		partita salvata;
@@ -282,8 +281,9 @@ contiene un esempio di salvataggio.
 
 	\item Movimento dei robot verso gli strumenti musicali;
 
-	\item Inserimento dei danni generati dagli strumenti musicali e inflitti ai
-		robot e movimento dei danni;
+	\item Inserimento dei danni generati dagli strumenti musicali; 
+	
+	\item Movimento dei danni;
 
 	\item Utilizzo di immagini per visualizzare gli strumenti musicali, i robot
 		e i danni;
@@ -291,7 +291,7 @@ contiene un esempio di salvataggio.
 
 \subsection{Rendicontazione delle ore di lavoro}
 
-\begin{table}[ht]
+\begin{table}[H]
 	\centering
 	\begin{tabular}{|l|l|l|}
 		\hline
@@ -327,7 +327,7 @@ l'implementazione dei danni è potuta partire dal basso.
 
 \subsection{Suddivisione delle attività}
 
-\begin{table}[ht]
+\begin{table}[H]
 	\centering
 	\begin{tabular}{|l|l|}
 		\hline
@@ -351,17 +351,21 @@ l'implementazione dei danni è potuta partire dal basso.
 
 Abbiamo scelto un progetto che ci permettesse di sperimentare quanto più
 possibile ciò che abbiamo imparato in questi anni di università. Ci siamo 
-cimentati in un progetto più ampio di quanto effetivamente
-richiesto perché siamo appassionati alla programmazione, in primo luogo; inoltre
-è nostro interesse avere un progetto da poter mostrare in futuro, per
+cimentati in un'applicazione più ampia di quanto effetivamente
+richiesto, perché siamo appassionati alla programmazione, in primo luogo; 
+inoltre
+è nostro interesse arricchire il nostro portfolio per
 dimostrare le nostre capacità, alcune cose che abbiamo imparato e la nostra
 passione per la programmazione. \\
 Il progetto è stato molto impegnativo, ma ho quasi voglia di continuare a
 lavorarci: ho diverse idee che potrebbero essere sviluppate e approfondite.\\
 Mi è piaciuto molto lavorare con una persona che ha un approccio diverso ai
-problema, ma allo stesso tempo è appassionata quanto me al progetto; questo
-mi ha dato modo di imparare a collaborare con qualcuno che conoscevo anche
-prima di questo progetto, ma con cui non avevo mai lavorato. \\
-In conclusione, sono molto soddisfatto del lavoro svolto.
+problema, ma allo stesso tempo è appassionata quanto me; questo
+mi ha dato modo di imparare a collaborare con qualcuno che già conoscevo, ma con 
+cui non avevo mai lavorato. \\
+In conclusione, sono molto soddisfatto del lavoro svolto.\\
+Tra l'altro mi sono trattenuto dal descrivere in dettaglio il polimormismo, 
+perché è stato ampiamente adottato e la sua trattazione credo che sarebbe stata
+piuttosto tediosa.
 
 \end{document}
