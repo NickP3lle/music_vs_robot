@@ -26,7 +26,7 @@ void DamageSlow::accept(VisitorInterface *visitor) const {
 }
 
 /// DamageWave
-DamageWave::DamageWave(u32 wave, int period) : d(wave), p(period) {}
+DamageWave::DamageWave(u32 wave, int period) : d(wave), p(4) {}
 
 void DamageWave::oneWave() {
   if (--p < 1)
@@ -64,7 +64,7 @@ void DamagePlayer::operator/(const u32 &d) {
 
 u32 DamagePlayer::damage() {
   u32 d = DamageBullet::damage() + DamageWave::damage();
-  *this = DamagePlayer(0, getSlow(), DamageWave::damage());
+  DamageBullet::damage() = 0;
   return d;
 }
 
