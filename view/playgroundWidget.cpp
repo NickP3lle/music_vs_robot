@@ -12,11 +12,11 @@ PlaygroundWidget::PlaygroundWidget(QWidget *parent)
       violinButton(new InstrumentButton(new SlowDown(), "Violin ", this)),
       trumpetButton(new InstrumentButton(new ThreeRow(), "Trumpet ", this)),
       drumButton(new InstrumentButton(new ThreeColumn(), "Drum ", this)),
-      saxophoneButton(new InstrumentButton(new DoubleLife(), "Saxophone ", this)),
+      saxophoneButton(new InstrumentButton(new DoubleLife(), "Sax ", this)),
       fluteButton(new InstrumentButton(new Sample(), "Flute ", this)), levelUpButton(new QPushButton("Level Up", this)),
       removeButton(new QPushButton("Remove", this)), hasFocus({-1, -1}) {
 
-    /// Observer
+    /// Observers
     Game::getInstance()->PlaygroundPlayer::addObserver(this);
     Game::getInstance()->PlaygroundEnemy::addObserver(this);
     Game::getInstance()->PlaygroundDamage::addObserver(this);
@@ -133,15 +133,25 @@ void PlaygroundWidget::insertEntity() {
     InstrumentButton::removeSelectedInstrument();
 }
 
-void PlaygroundWidget::update(u32 r, u32 c, const PlayerAbstract *p) { updateCell(r, c); }
+void PlaygroundWidget::update(u32 r, u32 c, const PlayerAbstract *p) {
+    updateCell(r, c);
+    if (p) {
+    }
+}
 
 void PlaygroundWidget::update(u32 r, u32 c, const EnemyWTool *e) {
     if (c == COLS)
         return;
     updateCell(r, c);
+    if (e) {
+    }
 }
 
-void PlaygroundWidget::update(u32 r, u32 c, const DamageAbstract *d) { updateCell(r, c); }
+void PlaygroundWidget::update(u32 r, u32 c, const DamageAbstract *d) {
+    updateCell(r, c);
+    if (d) {
+    }
+}
 
 void PlaygroundWidget::updateCell(u32 row, u32 col) {
     ImageVisitor iv;

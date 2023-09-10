@@ -12,17 +12,17 @@ StartWidget::StartWidget(QWidget *parent)
     QSpacerItem *topSpacer = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding);
     QSpacerItem *bottomSpacer = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    title->setFixedSize(600, 150);
+    title->setFixedSize(800, 170);
     startButton->setFixedSize(220, 50);
     loadButton->setFixedSize(220, 50);
     quitButton->setFixedSize(220, 50);
 
-    title->setStyleSheet("color: white; font-size: 70px; font-weight: "
+    title->setStyleSheet("color: green; font-size: 100px; font-weight: "
                          "bold; text-align: center;");
     title->setAlignment(Qt::AlignCenter);
-    startButton->setStyleSheet("padding: 10px; color: white; font-size: 30px;");
-    loadButton->setStyleSheet("padding: 10px; color: white; font-size: 30px;");
-    quitButton->setStyleSheet("padding: 10px; color: white; font-size: 30px;");
+    startButton->setStyleSheet("padding: 10px; color: black; font-size: 30px; background-color: #AAAAAA");
+    loadButton->setStyleSheet("padding: 10px; color: black; font-size: 30px; background-color: #AAAAAA");
+    quitButton->setStyleSheet("padding: 10px; color: red; font-size: 30px; background-color: #AAAAAA");
 
     /// Connect the buttons to the slots
     connect(startButton, SIGNAL(clicked()), parent, SLOT(newGame()));

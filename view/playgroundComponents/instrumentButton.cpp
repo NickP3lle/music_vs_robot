@@ -4,7 +4,7 @@
 PlayerAbstract *InstrumentButton::instrumentSelected = nullptr;
 
 InstrumentButton::InstrumentButton(PlayerAbstract *i, QString title, QWidget *parent)
-    : QPushButton(title + QString::number(i->getCost()), parent), instrument(i) {
+    : QPushButton(title + QString::number(i->getCost()) + "$", parent), instrument(i) {
     setFocusPolicy(Qt::ClickFocus);
     setFixedSize(100, 50);
     // setStyleSheet("QPushButton:focus { outline: none; border: 2px solid red; }");

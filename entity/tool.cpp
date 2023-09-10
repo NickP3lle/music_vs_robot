@@ -20,7 +20,10 @@ u32 Tool::value() const { return 0; }
 
 Tool *Tool::clone() const { return new Tool(*this); }
 
-void Tool::accept(VisitorInterface *v) const {}
+void Tool::accept(VisitorInterface *v) const {
+    if (v) {
+    }
+}
 
 ToolWeapon::ToolWeapon(u32 min, u32 max) : Tool(max), a(randomInt(max, min)) {}
 
