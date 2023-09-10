@@ -6,8 +6,12 @@
 #include <QVBoxLayout>
 
 StartWidget::StartWidget(QWidget *parent)
-    : QWidget(parent), title(new QLabel("Music vs Robots", this)), startButton(new QPushButton("New Game", this)),
-      loadButton(new QPushButton("Load Game", this)), quitButton(new QPushButton("Quit", this)) {
+    : QWidget(parent), title(new QLabel("<font color='blue'>Music</font> "
+                                        "<font color='green'>vs</font> "
+                                        "<font color='red'>Robots</font>",
+                                        this)),
+      startButton(new QPushButton("New Game", this)), loadButton(new QPushButton("Load Game", this)),
+      quitButton(new QPushButton("Quit", this)) {
 
     QSpacerItem *topSpacer = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding);
     QSpacerItem *bottomSpacer = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -17,7 +21,7 @@ StartWidget::StartWidget(QWidget *parent)
     loadButton->setFixedSize(220, 50);
     quitButton->setFixedSize(220, 50);
 
-    title->setStyleSheet("color: green; font-size: 100px; font-weight: "
+    title->setStyleSheet("font-size: 100px; font-weight: "
                          "bold; text-align: center;");
     title->setAlignment(Qt::AlignCenter);
     startButton->setStyleSheet("padding: 10px; color: black; font-size: 30px; background-color: #AAAAAA");
