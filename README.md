@@ -35,7 +35,7 @@ To build the project you need to:
 ## Testing
 
 To test the project you need to:
- - enter the folder [test](./test) within the terminal;
+ - enter the [test](./test) folder within the terminal;
  - use the command line: `make all`
 
 ## Documentation
