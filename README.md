@@ -2,7 +2,7 @@
 
 ## The copycat of Plants vs Zombie
 
-!(logo)[assets/icon2.png]
+![logo](assets/icon2.png)
 
 ## Why and what is it?
 
