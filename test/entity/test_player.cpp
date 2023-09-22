@@ -119,17 +119,15 @@ bool Test_DoubleLife_sufferDamage() {
 
   DoubleLife doubleLife(l);
   u32 h = doubleLife.getHealth();
-  DamageAbstract *damage = new DamageEnemy(h / 2);
+  DamageEnemy damage(h / 2);
   bool isBroken = doubleLife.sufferDamage(damage);
   bool testPassed = (!isBroken && doubleLife.getHealth() == h - h / 2);
-  delete damage;
 
-  damage = new DamageEnemy(h);
+  damage = DamageEnemy(h);
   isBroken = doubleLife.sufferDamage(damage);
   testPassed &= (!isBroken && doubleLife.getHealth() == h);
-  delete damage;
 
-  damage = new DamageEnemy(h);
+  damage = DamageEnemy(h);
   isBroken = doubleLife.sufferDamage(damage);
   testPassed &= (isBroken && doubleLife.getHealth() == 0);
 
@@ -190,6 +188,18 @@ bool Test_ThreeRow_levelUp() {
 
   return testPassed;
 }
+
+/*
+bool Test_SlowDown_levelUp() {
+  u32 l = randomInt(100, 50);
+  u32 h = SLOW_DOWN_HEALTH + l * SLOW_DOWN_HEALTH_INCREASE;
+
+  SlowDown slowDown(l++);
+  slowDown.levelUp();
+  bool testPassed = (slowDown.getLevel() == l && slowDown.getHealth() == h);
+  return testPassed;
+}
+*/
 
 bool Test_ThreeRow_getCost() {
   u32 l = randomInt(100, 50);

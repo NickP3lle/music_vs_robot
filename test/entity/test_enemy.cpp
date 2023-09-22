@@ -48,11 +48,10 @@ bool Test_Enemy_accept() {
 
 bool Test_EnemyDefense_sufferDamage() {
   EnemyDefense enemyDefense(90, 100);
-  DamageAbstract *damage = new DamagePlayer(5, 0, 0);
+  DamagePlayer damage(50, 0, 0);
 
   bool isBroken = enemyDefense.sufferDamage(damage);
-  bool testPassed = (!isBroken && damage->damage() == 0);
-  delete damage;
+  bool testPassed = (!isBroken && damage.damage() == 0);
 
   return testPassed;
 }

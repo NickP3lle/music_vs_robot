@@ -1,30 +1,29 @@
 #include "../../entity/enemy.h"
 
 class MockVisitor : public VisitorInterface {
-  void visitDamageBullet() const override{};
-  void visitDamageSlow() const override{};
-  void visitDamageWave() const override{};
-  void visitDamageEnemy() const override{};
+  void visitDamageBullet() override{};
+  void visitDamageSlow() override{};
+  void visitDamageWave() override{};
 
-  void visitSample() const override{};
-  void visitThreeColumn() const override{};
-  void visitDoubleLife() const override{};
-  void visitThreeRow() const override{};
-  void visitSlowDown() const override{};
+  void visitSample() override{};
+  void visitThreeColumn() override{};
+  void visitDoubleLife() override{};
+  void visitThreeRow() override{};
+  void visitSlowDown() override{};
 
-  void visitToolWeapon() const override{};
-  void visitToolArmor() const override{};
-  void visitToolBoots() const override{};
-  void visitToolRing() const override{};
+  void visitToolWeapon() override{};
+  void visitToolArmor() override{};
+  void visitToolBoots() override{};
+  void visitToolRing() override{};
 
 public:
   static bool visitedEnemy;
   static bool visitedEnemyDefense;
   static bool visitedEnemyBig;
 
-  void visitEnemy() const override { visitedEnemy = true; }
-  void visitEnemyDefense() const override { visitedEnemyDefense = true; }
-  void visitEnemyBig() const override { visitedEnemyBig = true; }
+  void visitEnemy() override { visitedEnemy = true; }
+  void visitEnemyDefense() override { visitedEnemyDefense = true; }
+  void visitEnemyBig() override { visitedEnemyBig = true; }
 };
 
 bool Test_Enemy_attack();

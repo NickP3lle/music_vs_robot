@@ -47,7 +47,8 @@ bool Test_ToolWeapon_attack() {
 
 bool Test_ToolWeapon_sufferDamage() {
   ToolWeapon tool(2, 5);
-  if (tool.sufferDamage(nullptr)) {
+  DamagePlayer damage(0, 0, 0);
+  if (tool.sufferDamage(damage)) {
     return false;
   }
 
@@ -57,7 +58,7 @@ bool Test_ToolWeapon_sufferDamage() {
 bool Test_ToolArmor_sufferDamage() {
   ToolArmor tool(5);
   DamagePlayer damage(5, 0, 0);
-  tool.sufferDamage(&damage);
+  tool.sufferDamage(damage);
   if (damage.damage() != 0)
     return false;
 
@@ -66,7 +67,8 @@ bool Test_ToolArmor_sufferDamage() {
 
 bool Test_ToolBoots_sufferDamage() {
   ToolBoots tool(10);
-  if (tool.sufferDamage(nullptr)) {
+  DamagePlayer damage(0, 0, 0);
+  if (tool.sufferDamage(damage)) {
     return false;
   }
 
