@@ -56,7 +56,7 @@ Object orientation:
 + Encapsulation
 + Modularity (logical model and GUI are separated)
 + Extensibility and scalability, polymorphism
-+ Efficency and robustness
++ Efficiency and robustness
 
 Functionality:
 + Engaging gameplay dynamics
