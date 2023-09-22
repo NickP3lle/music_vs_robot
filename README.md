@@ -30,7 +30,7 @@ To build the project you need to:
  - Use the following command: `make`;
  - Now that your executable is compiled, use `./music_vs_robot` to execute it
    (in MacOS you will need to use
-   `./music_vs_robot.app/Contents/MacOS/music_vs_robot`
+   `./music_vs_robot.app/Contents/MacOS/music_vs_robot`);
 
 ## Testing
 
