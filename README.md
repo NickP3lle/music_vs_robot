@@ -42,7 +42,7 @@ To test the project you need to:
 There is one technical sheet about the project (written in italian), in the
 [relazione](./relazione) folder, there is a pdf, that is.
 
-## Evaluazion
+## Evaluation
 ```
 Evaluation: 3/3 with honors
 Mandatory constraints:
