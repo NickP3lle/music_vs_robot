@@ -17,27 +17,27 @@ robots' progression.
 
 To compile _Music vs Zombie_ you need:
 
-- A version of c++14 or higher;
-- QMake (3.1 or higher) or CMake (3.22 or higher) (depending on the OS);
+- A version of c++14 or higher
+- QMake (3.1 or higher) or CMake (3.22 or higher) (depending on the OS)
 - The Qt framework, version 6.2.4 or higher.
 
 ## Build
 
 To build the project you need to:
 
-- Enter the current folder;
-- Use the following command: `qmake`;
-- Use the following command: `make`;
+- Enter the current folder
+- Use the following command: `qmake`
+- Use the following command: `make`
 - Now that your executable is compiled, use `./music_vs_robot` to execute it
   (in MacOS you will need to use
-  `./music_vs_robot.app/Contents/MacOS/music_vs_robot`);
+  `./music_vs_robot.app/Contents/MacOS/music_vs_robot`).
 
 ## Testing
 
 To test the project you need to:
 
-- Enter the [test](./test) folder within the terminal;
-- Use the command line: `make all`
+- Enter the [test](./test) folder within the terminal
+- Use the command line: `make all`.
 
 ## Documentation
 
