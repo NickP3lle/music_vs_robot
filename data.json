@@ -1,8 +1,60 @@
 {
-"Cash": 2000,
-"Timer": 9,
+"Cash": 1304,
+"Timer": 50,
 "Game": {
 "Playground": [
+{
+"class": "ThreeRow",
+"health": 10,
+"level": 1
+},
+{
+"class": "SlowDown",
+"health": 50,
+"level": 1
+},
+{
+"class": "DoubleLife",
+"health": 100,
+"level": 1,
+"secondLife": 1
+},
+null,
+null,
+null,
+null,
+null,
+null,
+{
+"class": "SlowDown",
+"health": 50,
+"level": 1
+},
+{
+"class": "ThreeRow",
+"health": 10,
+"level": 1
+},
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+{
+"class": "ThreeColumn",
+"health": 200,
+"level": 1
+},
+null,
+{
+"class": "DoubleLife",
+"health": 100,
+"level": 1,
+"secondLife": 1
+},
 null,
 null,
 null,
@@ -18,29 +70,11 @@ null,
 null,
 null,
 null,
-null,
-null,
-null,
-null,
-null,
-null,
-null,
-null,
-null,
-null,
-null,
-null,
-null,
-null,
-null,
-null,
-null,
-null,
-null,
-null,
-null,
-null,
-null,
+{
+"class": "Sample",
+"health": 100,
+"level": 1
+},
 null,
 null,
 null,
