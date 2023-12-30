@@ -6,7 +6,7 @@
 
 ## Why and what is it?
 
-_Music vs Zombie_ is the project that Carlo Rosso and Nicolò Pellegrinelli decided to make as the
+_Music vs Robot_ is the project that Carlo Rosso and Nicolò Pellegrinelli decided to make as the
 course project for the Oject Oriented Programming course for the year 2022/2023
 at the University of Padua. Drawing inspiration from the beloved mobile game
 Plants vs. Zombies, robots make their entrance from the right and march
@@ -15,7 +15,7 @@ robots' progression.
 
 ## Requirements
 
-To compile _Music vs Zombie_ you need:
+To compile _Music vs Robot_ you need:
 
 - A version of c++14 or higher
 - QMake (3.1 or higher) or CMake (3.22 or higher) (depending on the OS)
