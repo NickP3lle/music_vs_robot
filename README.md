@@ -6,7 +6,7 @@
 
 ## Why and what is it?
 
-_Music vs Zombie_ is the project that Carlo Rosso and Nicolò Pellegrinelli decided to make as the
+_Music vs Robot_ is the project that Carlo Rosso and Nicolò Pellegrinelli decided to make as the
 course project for the Oject Oriented Programming course for the year 2022/2023
 at the University of Padua. Drawing inspiration from the beloved mobile game
 Plants vs. Zombies, robots make their entrance from the right and march
