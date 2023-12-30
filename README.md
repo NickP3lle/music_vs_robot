@@ -1,6 +1,6 @@
 # Music vs Robot
 
-## The copycat of Plants vs Robot
+## The copycat of Plants vs Zombie
 
 ![logo](assets/icon1.png)
 
