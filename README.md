@@ -15,7 +15,7 @@ robots' progression.
 
 ## Requirements
 
-To compile _Music vs Zombie_ you need:
+To compile _Music vs Robot_ you need:
 
 - A version of c++14 or higher
 - QMake (3.1 or higher) or CMake (3.22 or higher) (depending on the OS)
