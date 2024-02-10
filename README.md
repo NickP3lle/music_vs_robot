@@ -6,9 +6,11 @@
 
 ## Why and what is it?
 
-_Music vs Robot_ is the project that Carlo Rosso and Nicolò Pellegrinelli decided to make as the
-course project for the Oject Oriented Programming course for the year 2022/2023
-at the University of Padua. Drawing inspiration from the beloved mobile game
+_Music vs Robot_ is the project that Carlo Rosso and Nicolò Pellegrinelli decided 
+to make for the Object Oriented Programming class during the 2022/2023 academic year
+at the University of Padua.
+
+Drawing inspiration from the beloved mobile game
 Plants vs. Zombies, robots make their entrance from the right and march
 leftward while players can strategically place musical instruments to halt the
 robots' progression.
@@ -41,7 +43,7 @@ To test the project you need to:
 
 ## Documentation
 
-There is one technical sheet about the project (written in italian), you can find it in the
+There is a technical sheet about the project (written in italian), you can find it in the
 [relazione](./relazione) folder.
 
 ## Evaluation
